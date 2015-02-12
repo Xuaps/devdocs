@@ -29,11 +29,22 @@ module Docs
         end
       end
 
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parents_chain
+        parents_chain = css('nav')
+        puts '#' + parents_chain.to_s + '#'
+        parents_chain
+      end
+
       def get_type
         if slug.start_with? 'Statements'
           'Statements'
         elsif slug.start_with? 'Operators'
-          'Operators'
+          'Expression'
         elsif slug.start_with?('Functions_and_function_scope') || slug.start_with?('Functions') || slug.include?('GeneratorFunction')
           'Function'
         elsif slug.start_with? 'Global_Objects'

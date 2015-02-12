@@ -29,6 +29,16 @@ module Docs
       @name = root_page? ? nil : get_name
     end
 
+   def docset
+      return @docset if defined? @docset
+      @docset = root_page? ? nil : get_docset
+    end
+
+    def parents_chain
+      return @parents_chain if defined? @parents_chain
+      @parents_chain = root_page? ? nil : get_parents_chain
+    end
+
     def get_name
       slug.to_s.gsub('_', ' ').gsub('/', '.').squish!
     end
@@ -52,9 +62,11 @@ module Docs
       end
     end
 
-    def build_entry(name, frag = nil, type = nil)
+    def build_entry(name, frag = nil, type = nil, parents_chain = nil, docset = nil)
       type ||= self.type
-      Entry.new name, frag ? "#{path}##{frag}" : path, type
+      docset ||= self.docset
+      parents_chain = self.parents_chain
+      Entry.new name, frag ? "#{path}##{frag}" : path, type, parents_chain, docset
     end
   end
 end

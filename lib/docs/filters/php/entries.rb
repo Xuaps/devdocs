@@ -89,6 +89,17 @@ module Docs
         name
       end
 
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parents_chain
+        parents_chain = css('nav')
+        puts '#' + parents_chain.to_s + '#'
+        parents_chain
+      end
+
       def get_type
         type = at_css('.up').content.strip
         type = 'SPL/Iterators' if type.end_with? 'Iterator'

@@ -5,7 +5,7 @@ module Docs
 
     html_filters.push 'javascript/clean_html', 'javascript/entries', 'title'
 
-    options[:root_title] = 'JavaScript'
+    options[:root_title] = 'JavaScript' 
 
     # Don't want
     options[:skip] = %w(
