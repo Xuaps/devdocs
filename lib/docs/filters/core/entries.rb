@@ -34,9 +34,9 @@ module Docs
       @docset = root_page? ? nil : get_docset
     end
 
-    def parents_chain
-      return @parents_chain if defined? @parents_chain
-      @parents_chain = root_page? ? nil : get_parents_chain
+    def parsed_uri
+      return @parsed_uri if defined? @parsed_uri
+      @parsed_uri = root_page? ? nil : get_parsed_uri
     end
 
     def get_name
@@ -62,11 +62,11 @@ module Docs
       end
     end
 
-    def build_entry(name, frag = nil, type = nil, parents_chain = nil, docset = nil)
+    def build_entry(name, frag = nil, type = nil, parsed_uri = nil, docset = nil)
       type ||= self.type
       docset ||= self.docset
-      parents_chain = self.parents_chain
-      Entry.new name, frag ? "#{path}##{frag}" : path, type, parents_chain, docset
+      parsed_uri = self.parsed_uri
+      Entry.new name, frag ? "#{path}##{frag}" : path, type, parsed_uri, docset
     end
   end
 end

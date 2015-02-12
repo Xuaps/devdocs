@@ -81,6 +81,7 @@ module Docs
         'XML'                   => ['libxml', 'SimpleXML', 'XML Parser', 'XML-RPC', 'XMLReader', 'XMLWriter', 'XSLT'] }
 
       def get_name
+        
         return 'IntlException' if slug == 'class.intlexception'
         name = css('> .sect1 > .title', 'h1', 'h2').first.content
         name.remove! 'The '
@@ -94,10 +95,9 @@ module Docs
         docset
       end
 
-      def get_parents_chain
-        parents_chain = css('nav')
-        puts '#' + parents_chain.to_s + '#'
-        parents_chain
+      def get_parsed_uri
+        parsed_uri = css('nav')
+        parsed_uri
       end
 
       def get_type

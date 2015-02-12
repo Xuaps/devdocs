@@ -7,6 +7,7 @@ module Docs
       INTL_OBJECTS = %w(Collator DateTimeFormat NumberFormat)
 
       def get_name
+        puts 'slug: ' + slug
         if slug.start_with? 'Global_Objects/'
           name, method = *slug.sub('Global_Objects/', '').split('/')
           name.prepend 'Intl.' if INTL_OBJECTS.include?(name)
@@ -34,10 +35,9 @@ module Docs
         docset
       end
 
-      def get_parents_chain
-        parents_chain = css('nav')
-        puts '#' + parents_chain.to_s + '#'
-        parents_chain
+      def get_parsed_uri
+        parsed_uri = css('nav')
+        parsed_uri
       end
 
       def get_type

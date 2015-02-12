@@ -1,12 +1,12 @@
 module Docs
   class Entry
-    attr_accessor :name, :type, :path, :parents_chain, :docset
+    attr_accessor :name, :type, :path, :parsed_uri, :docset
 
-    def initialize(name = nil, path = nil, type = nil, parents_chain = nil, docset = nil)
+    def initialize(name = nil, path = nil, type = nil, parsed_uri = nil, docset = nil)
       self.name = name
       self.path = path
       self.type = type
-      self.parents_chain = parents_chain
+      self.parsed_uri = parsed_uri
       self.docset = docset
     end
 
@@ -22,8 +22,8 @@ module Docs
       @docset = value.try :strip
     end
 
-    def parents_chain=(value)
-      @parents_chain = value.try :strip
+    def parsed_uri=(value)
+      @parsed_uri = value.try :strip
     end
 
     def name=(value)
@@ -39,7 +39,7 @@ module Docs
     end
 
     def as_json
-      { name: name, path: path, type: type, parents_chain: parents_chain, docset: docset }
+      { name: name, path: path, type: type, parsed_uri: parsed_uri, docset: docset }
     end
   end
 end
