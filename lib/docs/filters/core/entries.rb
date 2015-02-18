@@ -39,6 +39,11 @@ module Docs
       @parsed_uri = root_page? ? nil : get_parsed_uri
     end
 
+    def parent_uri
+      return @parent_uri if defined? @parent_uri
+      @parent_uri = root_page? ? nil : get_parent_uri
+    end
+
     def get_name
       slug.to_s.gsub('_', ' ').gsub('/', '.').squish!
     end
@@ -62,11 +67,12 @@ module Docs
       end
     end
 
-    def build_entry(name, frag = nil, type = nil, parsed_uri = nil, docset = nil)
+    def build_entry(name, frag = nil, type = nil, parsed_uri = nil, parent_uri = nil, docset = nil)
       type ||= self.type
       docset ||= self.docset
-      parsed_uri = self.parsed_uri
-      Entry.new name, frag ? "#{path}##{frag}" : path, type, parsed_uri, docset
+      parsed_uri ||= self.parsed_uri
+      parent_uri ||= self.parent_uri
+      Entry.new name, frag ? "#{path}##{frag}" : path, type, parsed_uri, parent_uri, docset
     end
   end
 end

@@ -26,7 +26,6 @@ module Docs
       instrument 'response.request', url: base_url do |payload|
         response = super
         payload[:response] = response
-
         response
       end
     end

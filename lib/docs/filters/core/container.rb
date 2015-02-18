@@ -1,7 +1,6 @@
 module Docs
   class ContainerFilter < Filter
     class ContainerNotFound < StandardError; end
-
     def call
       container = context[:container]
       container = container.call self if container.is_a? Proc

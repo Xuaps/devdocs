@@ -28,6 +28,10 @@ module Docs
       context[:root_url]
     end
 
+    def docset_uri
+      context[:docset_uri]
+    end
+
     def root_path
       context[:root_path]
     end
