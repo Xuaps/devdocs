@@ -6,12 +6,19 @@ module Docs
         WeakSet)
       INTL_OBJECTS = %w(Collator DateTimeFormat NumberFormat)
 
-      def get_name
-        puts 'slug: ' + slug
-        if slug.start_with? 'Global_Objects/'
-          name, method = *slug.sub('Global_Objects/', '').split('/')
-          name.prepend 'Intl.' if INTL_OBJECTS.include?(name)
 
+      def get_name
+        puts slug
+        if slug.start_with? 'Global_Objects/'
+          subnames = *slug.sub('Global_Objects/', '').split('/')
+          if subnames.size>2
+            name = subnames[1]
+            method = subnames[2]
+          else
+            name = subnames[0]
+            method = subnames[1]
+          end
+          name.prepend 'Intl.' if INTL_OBJECTS.include?(name)
           if method
             unless method == method.upcase || method == 'NaN'
               method = method[0].downcase + method[1..-1] # e.g. Trim => trim
@@ -36,30 +43,37 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = css('nav')
+            parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
       end
 
-      def get_type
-        if slug.start_with? 'Statements'
-          'Statements'
-        elsif slug.start_with? 'Operators'
-          'Expression'
-        elsif slug.start_with?('Functions_and_function_scope') || slug.start_with?('Functions') || slug.include?('GeneratorFunction')
-          'Function'
-        elsif slug.start_with? 'Global_Objects'
-          object, method = *slug.remove('Global_Objects/').split('/')
-          if object.end_with? 'Error'
-            'Errors'
-          elsif INTL_OBJECTS.include?(object)
-            'Intl'
-          elsif method || TYPES.include?(object)
-            object
-          else
-            'Global Objects'
-          end
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
         else
-          'Miscellaneous'
+            parent_uri = 'null'
+        end
+      end
+
+      def get_type
+        node = css('#Syntax')
+        if node.inner_text == 'Constructor'
+            'class'
+        elsif node.inner_text == 'Syntax'
+            'method'
+        else
+            if slug.start_with? 'Statements'
+                'statements'
+            elsif slug.start_with? 'Operators'
+                'expression'
+            elsif slug.start_with?('Functions_and_function_scope') || slug.start_with?('Functions') || slug.include?('GeneratorFunction')
+                'function'
+            elsif slug.start_with? 'Global_Objects' 
+                'class'
+            else
+                'others'
+            end
         end
       end
 
