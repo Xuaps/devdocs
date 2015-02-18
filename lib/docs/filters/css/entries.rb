@@ -66,6 +66,16 @@ module Docs
         end
       end
 
+      def get_parsed_uri
+        parsed_uri = css('nav')
+        parsed_uri
+      end
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
       def get_type
         if slug.end_with? 'selectors'
           'Selectors'
