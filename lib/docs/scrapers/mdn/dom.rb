@@ -6,6 +6,9 @@ module Docs
     html_filters.push 'dom/clean_html', 'dom/entries', 'title'
 
     options[:root_title] = 'DOM'
+    options[:docset_uri] = '/dom'
+    initial_paths.push '/CSS_Object_Model'
+    initial_paths.push '/web_crypto_api'
 
     # Don't want
     options[:skip] = %w(
