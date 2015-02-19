@@ -6,7 +6,7 @@ module Docs
     html_filters.push 'svg/clean_html', 'svg/entries', 'title'
 
     options[:root_title] = 'SVG'
-
+    options[:docset_uri] = '/svg'
     options[:title] = ->(filter) do
       if filter.slug.starts_with?('Element/')
         "<#{filter.default_title}>"
