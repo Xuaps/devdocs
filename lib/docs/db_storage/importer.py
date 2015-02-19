@@ -39,6 +39,9 @@ class DocImporter():
         previous_uri = ''
         for entry in json_data:
             _name = entry['name']
+            if entry['path'].find('#')!= -1:
+                 entry['path'] = entry['path'].split('#')[0]
+                 entry['parsed_uri'] += '.' + _name
             _content = self.getContent(self.content_path + self.docset + '/' + entry['path'] + '.html')
             if entry['parent_uri'] == 'null':
                 _parent_uri = None
