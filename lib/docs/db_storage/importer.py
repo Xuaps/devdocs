@@ -111,12 +111,12 @@ class DocImporter():
     def updateDocsets(self, conn, docset, default_uri):
         sqldocsetselect = "SELECT docset FROM docsets WHERE docset = %s;"
         sqldocsetinsert = "INSERT INTO docsets (docset, default_uri, pub_date, update_date, active) VALUES (%s,%s,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,%s);"
-        sqldocsetupdate = "UPDATE docsets SET update_date = CURRENT_TIMESTAMP WHERE docset = %s"
+        sqldocsetupdate = "UPDATE docsets SET default_uri = %s, update_date = CURRENT_TIMESTAMP WHERE docset = %s"
         pgcursor = conn.cursor()
         pgcursor.execute(sqldocsetselect, [docset])
         docsetsrow = pgcursor.fetchone()
         if docsetsrow:
-            pgcursor.execute(sqldocsetupdate, [docset])
+            pgcursor.execute(sqldocsetupdate, [default_uri, docset])
         else:
             pgcursor.execute(sqldocsetinsert,[docset, default_uri, True])
 
