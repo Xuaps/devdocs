@@ -7,6 +7,7 @@ module Docs
     html_filters.push 'css/clean_html', 'css/entries'
 
     options[:root_title] = 'CSS'
+    options[:docset_uri] = '/css'
 
     options[:skip] = %w(
       /Syntax
@@ -28,7 +29,6 @@ module Docs
       /Shorthand_properties
       /margin_collapsing
       /CSS3
-      /Pseudo-classes
       /CSS_values_syntax
       /Media/Visual
       /block_formatting_context
