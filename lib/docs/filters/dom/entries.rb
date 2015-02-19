@@ -20,7 +20,7 @@ module Docs
         name
       end
 
-       def get_docset
+      def get_docset
         docset = context[:root_title]
         docset
       end
