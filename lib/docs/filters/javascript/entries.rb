@@ -8,7 +8,6 @@ module Docs
 
 
       def get_name
-        puts slug
         if slug.start_with? 'Global_Objects/'
           subnames = *slug.sub('Global_Objects/', '').split('/')
           if subnames.size>2
