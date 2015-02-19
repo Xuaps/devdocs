@@ -39,7 +39,7 @@ class DocImporter():
         previous_uri = ''
         for entry in json_data:
             _name = entry['name']
-            _content = self.getContent(self.docset, entry['path'])
+            _content = self.getContent(self.content_path + self.docset + '/' + entry['path'] + '.html')
             if entry['parent_uri'] == 'null':
                 _parent_uri = None
             else:
@@ -57,11 +57,11 @@ class DocImporter():
         self.Finish(conn)
 
 
-    def getContent(self, docset, path):
+    def getContent(self, path):
         if self.debugMode:
-            print self.content_path + docset + '/' + path+ '.html'
+            print path
 
-        with open(self.content_path+ '/' + docset + '/' + path+ '.html', 'r') as content_file:
+        with open(path, 'r') as content_file:
             content = content_file.read()
         return content
 
