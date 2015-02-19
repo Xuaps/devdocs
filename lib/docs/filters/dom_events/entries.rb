@@ -12,12 +12,12 @@ module Docs
         'IndexedDB'        => 'IndexedDB',
         'Keyboard'         => 'Keyboard',
         'edia'             => 'Media',
-        'Mouse'            => 'Mouse',
+        'Mouse'            => 'Mouse Event',
         'Offline'          => 'Offline',
         'Orientation'      => 'Device',
         'Sensor'           => 'Device',
         'Page Visibility'  => 'Page Visibility',
-        'Pointer'          => 'Mouse',
+        'Pointer'          => 'Mouse Event',
         'PopState'         => 'History',
         'Progress'         => 'Progress',
         'Proximity'        => 'Device',
@@ -46,19 +46,41 @@ module Docs
         name
       end
 
-      def get_type
-        if FORM_SLUGS.include?(slug)
-          'Form'
-        elsif LOAD_SLUGS.include?(slug)
-          'Load'
-        else
-          if info = at_css('.eventinfo').try(:content)
-            TYPE_BY_INFO.each_pair do |key, value|
-              return value if info.include?(key)
-            end
-          end
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
 
-          'Miscellaneous'
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
+      end
+
+      def get_type
+        node = css('p')
+        if node[0]
+            if node[0].inner_text.downcase.include? ' event '
+                'event'
+            elsif node[0].inner_text.downcase.include? ' handler '
+                return 'handler'
+            elsif node[2].inner_text.downcase.include? ' event '
+                'event'
+           elsif node[2].inner_text.downcase.include? ' handler '
+                return 'handler'
+           else
+               'others'
+            end
+        else
+            'others'
         end
       end
     end
