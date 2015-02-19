@@ -1,6 +1,7 @@
 module Docs
   class Xpath
     class EntriesFilter < Docs::EntriesFilter
+      
       def get_name
         name = super
         name.remove!('Axes.')
@@ -8,13 +9,40 @@ module Docs
         name
       end
 
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
+      end
+
       def get_type
         if slug.start_with?('Axes')
           'Axes'
         elsif slug.start_with?('Functions')
-          'Functions'
+          'function'
         else
-          'Miscellaneous'
+          'others'
+        end
+      end
+
+      def additional_entries
+        if root_page?
+            [['index', nil, 'others']]
+        else
+            []
         end
       end
     end
