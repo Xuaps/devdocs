@@ -3,11 +3,12 @@ module Docs
     self.name = 'HTML'
     self.base_url = 'https://developer.mozilla.org/en-US/docs/Web/HTML'
     self.root_path = '/Element'
-    self.initial_paths = %w(/Attributes /Link_types)
+    self.initial_paths = %w(/Attributes /Link_types /element)
 
     html_filters.push 'html/clean_html', 'html/entries', 'title'
 
     options[:root_title] = 'HTML'
+    options[:docset_uri] = '/html'
 
     options[:title] = ->(filter) do
       if filter.slug == 'Element/Heading_Elements'
@@ -22,7 +23,6 @@ module Docs
     end
 
     options[:skip] = ['/Element/shadow']
-    options[:only_patterns] = [/\A\/Element/]
 
     options[:replace_paths] = {
       '/Element/h1' => '/Element/Heading_Elements',
