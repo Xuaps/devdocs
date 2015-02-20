@@ -9,6 +9,8 @@ module Docs
     html_filters.push 'react/entries', 'react/clean_html'
 
     options[:container] = '.documentationContent'
+    options[:root_title] = 'React'
+    options[:docset_uri] = '/react'
 
     options[:skip] = %w(
       videos.html
