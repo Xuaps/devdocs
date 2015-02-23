@@ -9,6 +9,9 @@ module Docs
     html_filters.push 'underscore/clean_html', 'underscore/entries', 'title'
 
     options[:title] = 'Underscore.js'
+    options[:root_title] = 'Underscore.js'
+    options[:docset_uri] = '/underscore'
+
     options[:container] = '#documentation'
     options[:skip_links] = true
 
