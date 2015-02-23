@@ -6,7 +6,8 @@ module Docs
     self.initial_paths = %w(/git.html)
 
     html_filters.push 'git/clean_html', 'git/entries'
-
+    options[:root_title] = 'Git'
+    options[:docset_uri] = '/git'
     options[:container] = ->(filter) { filter.root_page? ? '#main' : '.man-page, #main' }
     options[:follow_links] = ->(filter) { filter.root_page? }
     options[:only_patterns] = [/\A\/git\-/]
