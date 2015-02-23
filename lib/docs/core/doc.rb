@@ -4,10 +4,13 @@ module Docs
     DB_FILENAME = 'db.json'
 
     class << self
-      attr_accessor :name, :slug, :type, :version, :abstract
+      attr_accessor :name, :slug, :type, :parsed_uri, :parent_uri, :docset, :version, :abstract
 
       def inherited(subclass)
         subclass.type = type
+        subclass.parsed_uri = parsed_uri
+        subclass.parent_uri = parent_uri
+        subclass.docset = docset
       end
 
       def name
@@ -34,6 +37,9 @@ module Docs
         { name: name,
           slug: slug,
           type: type,
+          parsed_uri: parsed_uri,
+          parent_uri: parent_uri,
+          docset: docset,
           version: version,
           index_path: index_path,
           db_path: db_path }
