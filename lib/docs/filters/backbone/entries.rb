@@ -1,6 +1,26 @@
 module Docs
   class Backbone
     class EntriesFilter < Docs::EntriesFilter
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
+      end
+
       def additional_entries
         entries = []
         type = nil
@@ -10,7 +30,7 @@ module Docs
           if node.name == 'h2'
             type = node.content.remove 'Backbone.'
             if type.capitalize! # sync, history
-              entries << [node.content, node['id'], type]
+              entries << [node.content, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
             end
             next
           end
@@ -21,7 +41,7 @@ module Docs
               name = "#{li.at_css('b').content.delete('"').strip} event"
               id = name.parameterize
               li['id'] = id
-              entries << [name, id, type] unless name == entries.last[0]
+              entries << [name, id, type, get_parsed_uri, get_parent_uri, get_docset] unless name == entries.last[0]
             end
             next
           end
@@ -35,7 +55,7 @@ module Docs
               name = [type.downcase, li.at_css('a').content.split.first].join('.')
               id = name.parameterize
               li['id'] = id
-              entries << [name, id, type]
+              entries << [name, id, type, get_parsed_uri, get_parent_uri, get_docset]
             end
             next
           end
@@ -52,7 +72,7 @@ module Docs
             name.prepend "#{type.downcase}."
           end
 
-          entries << [name, node['id'], type]
+          entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries

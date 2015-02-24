@@ -9,6 +9,8 @@ module Docs
     html_filters.push 'backbone/clean_html', 'backbone/entries', 'title'
 
     options[:title] = 'Backbone.js'
+    options[:root_title] = 'Backbone.js'
+    options[:docset_uri] = '/backbone'
     options[:container] = '.container'
     options[:skip_links] = true
 
