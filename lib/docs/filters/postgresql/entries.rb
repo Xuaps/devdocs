@@ -29,6 +29,7 @@ module Docs
         @base_name ||= clean_heading_name(at_css('h1').content)
       end
 
+
       def get_name
         if %w(Overview Introduction).include?(base_name)
           result[:pg_chapter_name]
@@ -36,6 +37,25 @@ module Docs
           "#{type}: #{base_name}"
         else
           REPLACE_NAMES[base_name] || base_name
+        end
+      end
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
         end
       end
 
@@ -81,7 +101,7 @@ module Docs
         else
           if type && type.start_with?('Functions')
             entries.concat get_custom_entries('> .TABLE td:first-child > code:first-child')
-            entries.concat %w(IS NULL BETWEEN DISTINCT\ FROM).map { |name| ["#{self.name}: #{name}"] } if slug == 'functions-comparison'
+            entries.concat %w(IS NULL BETWEEN DISTINCT\ FROM).map { |name| ["#{self.name}: #{name}",nil, type, parsed_uri + get_custom_parsed_uri(name), parent_uri, docset] } if slug == 'functions-comparison'
           end
         end
 
@@ -143,8 +163,48 @@ module Docs
         css(selector).each_with_object([]) do |node, entries|
           name = node.content
           clean_heading_name(name)
-          entries << ["#{additional_entry_prefix}: #{name}", node['id']] unless skip_heading?(name)
+          sufix = get_custom_parsed_uri(name)
+          custom_parsed_uri = parsed_uri + sufix
+          entries << ["#{additional_entry_prefix}: #{name}", node['id'], type, custom_parsed_uri, parent_uri, docset] unless skip_heading?(name)
         end
+      end
+
+      def get_custom_parsed_uri(name)
+          if name.include? '<>' or name.include? '!='
+              sufix = '.notequal'
+          elsif name.include? '<='
+              sufix = '.lessequal'
+          elsif name.include? '<'
+              sufix = '.less'
+          elsif name.include? '>='
+              sufix = '.greaterequal'
+          elsif name.include? '>'
+              sufix = '.greater'
+          elsif name.include? '='
+              sufix = '.equal'
+          elsif name.include? 'BETWEEN'
+              sufix = '.between'
+          elsif name.include? 'DISTINCT'
+              sufix = '.distinct'
+          elsif name.include? 'IS'
+              sufix = '.is'
+          elsif name.include? 'NOT IN'
+              sufix = '.notin'
+          elsif name.include? 'EXISTS'
+              sufix = '.exists'
+          elsif name.include? 'ALL'
+              sufix = '.all'
+          elsif name.include? 'ANY/SOME'
+              sufix = '.any-some'
+          elsif name.include? 'IN'
+              sufix = '.in'
+          elsif name.include? 'NULL'
+              sufix = '.in'
+
+          else
+              sufix = ''
+          end
+          return sufix
       end
 
       def get_custom_entries(selector)
@@ -158,10 +218,11 @@ module Docs
           id = name.gsub(/[^a-z0-9\-_]/) { |char| char.ord }
           id = id.parameterize
           name.prepend "#{additional_entry_prefix}: "
-
+          sufix = get_custom_parsed_uri(name)
+          custom_parsed_uri = parsed_uri + sufix
           unless entries.any? { |entry| entry[0] == name }
             node['id'] = id
-            entries << [name, id]
+            entries << [name, id, type, custom_parsed_uri, parent_uri, docset]
           end
         end
       end

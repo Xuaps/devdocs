@@ -12,6 +12,7 @@ module Docs
 
     options[:title] = false
     options[:root_title] = 'PostgreSQL'
+    options[:docset_uri] = '/postgresql'
     options[:follow_links] = ->(filter) { filter.initial_page? }
 
     options[:only] = %w(
