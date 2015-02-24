@@ -11,6 +11,7 @@ module Docs
     options[:container] = ->(filter) { filter.root_page? ? '#home' : '#content' }
     options[:title] = false
     options[:root_title] = 'Apache Cordova'
+    options[:docset_uri] = '/apache-cordova'
     options[:skip] = %w(_index.html guide_support_index.md.html)
 
     options[:attribution] = <<-HTML
