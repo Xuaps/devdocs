@@ -8,6 +8,8 @@ module Docs
 
     html_filters.push 'bower/clean_html', 'bower/entries'
 
+    options[:root_title] = 'Bower'
+    options[:docset_uri] = '/bower'
     options[:trailing_slash] = false
     options[:skip] = %w(tools about)
 
