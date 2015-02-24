@@ -12,6 +12,29 @@ module Docs
         name == 'Handlebars.helpers' ? 'Handlebars Helpers' : name
       end
 
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+            #TODO
+            if parent_uri == '/ember/classes'
+                parent_uri = 'null'
+            end
+        else
+            parent_uri = 'null'
+        end
+      end
+
       def get_type
         if at_css('.api-header').content.include?('Module')
           'Modules'
@@ -49,7 +72,7 @@ module Docs
           name << '()'     if node['class'].include? 'method'
           name << ' event' if node['class'].include? 'event'
 
-          [name, heading['id'], type]
+          [name.tr('#','.'), heading['id'], type, get_parsed_uri.tr('#','.'), get_parent_uri, get_docset]
         end
       end
     end

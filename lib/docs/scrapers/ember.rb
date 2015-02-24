@@ -10,6 +10,7 @@ module Docs
 
     options[:title] = false
     options[:root_title] = 'Ember.js'
+    options[:docset_uri] = '/ember'
 
     options[:container] = ->(filter) do
       filter.root_page? ? '#toc-list' : '#content'
