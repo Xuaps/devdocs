@@ -10,6 +10,8 @@ module Docs
     html_filters.push 'd3/clean_html', 'd3/entries'
 
     options[:container] = '#wiki-wrapper'
+    options[:root_title] = 'D3'
+    options[:docset_uri] = '/d3'
 
     options[:only] = %w(
       Selections
