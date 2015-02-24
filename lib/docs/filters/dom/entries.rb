@@ -10,6 +10,7 @@ module Docs
         XMLHttpRequest.)
 
       def get_name
+        puts path
         name = super
         CLEANUP_NAMES.each { |str| name.remove!(str) }
         name.sub! 'Input.', 'HTMLInputElement.'
@@ -34,6 +35,10 @@ module Docs
         subpath = *path.split('/')
         if subpath.length > 1
             parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+            #TODO
+            if parent_uri == '/dom/identitymanager'
+                parent_uri = 'null'
+            end
         else
             parent_uri = 'null'
         end
@@ -63,6 +68,8 @@ module Docs
         type == 'Console' ||
         (node.content.exclude?('not on a standards track') && node.content.exclude?('removed from the Web'))
       end
+
+
     end
   end
 end
