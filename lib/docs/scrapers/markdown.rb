@@ -8,6 +8,8 @@ module Docs
 
     options[:container] = '.article'
     options[:skip_links] = true
+    options[:root_title] = 'MarkDown'
+    options[:docset_uri] = '/markdown'
 
     options[:attribution] = <<-HTML
       &copy; 2004 John Gruber<br>
