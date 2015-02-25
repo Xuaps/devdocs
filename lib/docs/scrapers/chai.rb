@@ -14,7 +14,7 @@ module Docs
     options[:root_title] = 'Chai'
     options[:docset_uri] = '/chai'
 
-    options[:only_patterns] = [/\A\/guide/, /\A\/api*/]
+    options[:only_patterns] = [/\A\/guide/, /\A\/api/]
     options[:skip] = %w(/api/test/ /guide/ /guide/resources/)
 
     options[:attribution] = <<-HTML
