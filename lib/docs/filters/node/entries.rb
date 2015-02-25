@@ -25,6 +25,25 @@ module Docs
         REPLACE_NAMES[slug] || slug
       end
 
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
+      end
+
       def get_type
         type = at_css('h1').content.strip
         REPLACE_TYPES[type] || "#{type.first.upcase}#{type[1..-1]}"
@@ -49,7 +68,7 @@ module Docs
 
           # Ignore most global objects (found elsewhere)
           if type == 'Global Objects'
-            entries << [name, node['id']] if name.start_with?('_') || name == 'global'
+            entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset] if name.start_with?('_') || name == 'global'
             next
           end
 
@@ -57,14 +76,14 @@ module Docs
           if name.gsub! 'Class: ', ''
             name.remove! 'events.' # EventEmitter
             klass = name
-            entries << [name, node['id']]
+            entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
             next
           end
 
           # Events
           if name.sub! %r{\AEvent: '(.+)'\z}, '\1'
             name << " event (#{klass || type})"
-            entries << [name, node['id']]
+            entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
             next
           end
 
@@ -92,7 +111,7 @@ module Docs
 
           # Skip duplicates (listen, connect, etc.)
           unless name == entries[-1].try(:first) || name == entries[-2].try(:first)
-            entries << [name, node['id']]
+            entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
           end
         end
 
