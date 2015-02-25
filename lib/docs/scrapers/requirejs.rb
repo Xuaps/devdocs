@@ -18,6 +18,8 @@ module Docs
     html_filters.push 'requirejs/clean_html', 'requirejs/entries'
 
     options[:container] = '#content'
+    options[:root_title] = 'RequireJS'
+    options[:docset_uri] = '/requirejs'
     options[:follow_links] = false
     options[:only] = self.initial_paths
 
