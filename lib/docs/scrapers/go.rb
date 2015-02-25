@@ -7,6 +7,8 @@ module Docs
     html_filters.push 'go/clean_html', 'go/entries'
 
     options[:container] = '#page .container'
+    options[:root_title] = 'GO'
+    options[:docset_uri] = '/go'
 
     options[:attribution] = <<-HTML
       &copy; Google, Inc.<br>
