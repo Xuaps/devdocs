@@ -33,10 +33,10 @@ module Docs
       end
 
       def get_type
-        if name.starts_with?('ngx_')
-          name
-        elsif slug == 'ngx_core_module'
+        if slug.include? 'core'
           'Core'
+        elsif slug.include? 'module'
+          'Module'
         else
           'Guides'
         end
