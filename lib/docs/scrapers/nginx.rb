@@ -8,7 +8,8 @@ module Docs
     html_filters.push 'nginx/clean_html', 'nginx/entries'
 
     options[:container] = '#content'
-
+    options[:root_title] = 'Nginx'
+    options[:docset_uri] = '/nginx'
     options[:skip] = %w(
       contributing_changes.html
       dirindex.html
