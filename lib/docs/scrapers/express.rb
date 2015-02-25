@@ -8,6 +8,8 @@ module Docs
     html_filters.push 'express/clean_html', 'express/entries', 'title'
 
     options[:title] = 'Express'
+    options[:root_title] = 'Express'
+    options[:docset_uri] = '/express'
     options[:container] = '#api-doc'
     options[:skip_links] = true
 
