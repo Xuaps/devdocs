@@ -23,7 +23,6 @@ module Docs
         if subpath.length > 1
             parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
             #TODO
-            puts 'path: ' + subpath[subpath.size-1]
             if NULL_PARENT_URIs.include? subpath[subpath.size-1]
                parent_uri = 'null'
             end
