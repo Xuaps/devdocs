@@ -16,7 +16,8 @@ module Docs
       using-the-cli
     )
     options[:only_patterns] = [/\Aapi\//]
-
+    options[:root_title] = 'Grunt'
+    options[:docset_uri] = '/grunt'
     options[:container] = '.container > .row-fluid'
 
     options[:attribution] = <<-HTML
