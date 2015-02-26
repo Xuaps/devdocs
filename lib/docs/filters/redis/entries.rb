@@ -4,6 +4,24 @@ module Docs
       def get_name
         slug.gsub('-', ' ')
       end
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
+      end
 
       def get_type
         case at_css('aside > ul:last-child a').content.strip
@@ -19,7 +37,7 @@ module Docs
         when 'AUTH'         then 'Connection'
         when 'BGREWRITEAOF' then 'Server'
         when 'PFADD'        then 'HyperLogLog'
-        else 'Miscellaneous'
+        else 'others'
         end
       end
     end
