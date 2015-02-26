@@ -3,13 +3,14 @@ module Docs
     self.name = 'Haskell'
     self.type = 'haskell'
     self.version = '7.8.2'
-    self.base_url = 'http://www.haskell.org/ghc/docs/7.8.2/html/libraries/'
+    self.base_url = 'https://downloads.haskell.org/~ghc/7.8.2/docs/html/libraries/'
     self.root_path = 'index.html'
 
     html_filters.push 'haskell/entries', 'haskell/clean_html'
 
     options[:container] = '#content'
-
+    options[:root_title] = 'Haskell'
+    options[:docset_uri] = '/haskell'
     options[:skip] = %w(
       hoopl-3.10.0.1/Compiler-Hoopl-Internals.html
       base-4.7.0.0/Control-Exception-Base.html

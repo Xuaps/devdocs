@@ -1,6 +1,7 @@
 module Docs
   class Haskell
     class EntriesFilter < Docs::EntriesFilter
+      NULL_PARENT_URIs = %w(haskell98-2.0.0.3)
       IGNORE_ENTRIES_PATHS = %w(
         bytestring-0.10.4.0/Data-ByteString-Lazy.html
         bytestring-0.10.4.0/Data-ByteString-Char8.html
@@ -18,6 +19,33 @@ module Docs
 
       def get_name
         at_css('#module-header .caption').content.strip
+      end
+
+      def filter_name(name,link)
+        subpath = *path.split('/')
+        subpath[subpath.size-1] + '.' + link.remove('#').remove('v:-33--33-').remove('t:') + ' ' + name
+      end
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path.sub('haskell98-2.0.0.3', '')
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+            if NULL_PARENT_URIs.include? subpath[subpath.size-1]
+               parent_uri = 'null'
+            end
+        else
+            parent_uri = 'null'
+        end
       end
 
       def get_type
@@ -43,7 +71,7 @@ module Docs
           name.sub! %r{\A\((.+?)\)}, '\1'
           name.sub!(/ (?:\:\: (\w+))?.+\z/) { |_| $1 ? " (#{$1})" : '' }
           next if name == self.name
-          entries << [name, link['href'].remove('#')]
+          entries << [filter_name(name, link['href']), link['href'].remove('#'),get_type, get_parsed_uri + '.' + link['href'].remove('#'), get_parent_uri, get_docset]
         end
       end
 
