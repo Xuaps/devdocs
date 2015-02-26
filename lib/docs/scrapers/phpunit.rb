@@ -9,6 +9,7 @@ module Docs
     html_filters.push 'phpunit/clean_html', 'phpunit/entries', 'title'
 
     options[:root_title] = 'PHPUnit'
+    options[:docset_uri] = '/phpunit'
     options[:title] = false
 
     options[:skip] = %w(
