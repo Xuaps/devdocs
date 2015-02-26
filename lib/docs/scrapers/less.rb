@@ -9,6 +9,8 @@ module Docs
     html_filters.push 'less/clean_html', 'less/entries', 'title'
 
     options[:title] = 'Less'
+    options[:root_title] = 'Less'
+    options[:docset_uri] = '/less'
     options[:container] = 'div[role=main]'
     options[:follow_links] = false
     options[:trailing_slash] = false
