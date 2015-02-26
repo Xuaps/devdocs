@@ -8,8 +8,9 @@ module Docs
     html_filters.push 'sass/clean_html', 'sass/entries', 'title'
 
     options[:only] = %w(Sass/Script/Functions.html)
-    options[:root_title] = false
+    options[:root_title] = 'Sass'
     options[:title] = 'Sass Functions'
+    options[:docset_uri] = '/sass'
 
     options[:container] = ->(filter) do
       filter.root_page? ? '#filecontents' : '#instance_method_details'

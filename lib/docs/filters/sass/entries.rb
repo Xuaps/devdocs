@@ -15,6 +15,21 @@ module Docs
         'The !optional Flag' => '!optional'
       }
 
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        subpath = *path.split('/')
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+          parent_uri = 'null'
+      end
+
       def include_default_entry?
         false
       end
@@ -32,7 +47,7 @@ module Docs
             type = node.content.strip
 
             if type == 'Function Directives'
-              entries << ['@function', node['id'], '@-Rules and Directives']
+              entries << ['@function', node['id'], '@-Rules and Directives', get_parsed_uri + '.' + node['id'], get_parent_uri, get_docset]
             end
 
             if type.include? 'Directives'
@@ -58,7 +73,7 @@ module Docs
             next unless name =~ /\A@[\w\-]+\z/ || name == '!optional'
           end
 
-          entries << [name, node['id'], type]
+          entries << [name, node['id'], type, get_parsed_uri + '.' + node['id'], get_parent_uri, get_docset]
         end
 
         entries
@@ -69,7 +84,7 @@ module Docs
           name = node.at_css('strong').content.strip
 
           unless name == entries.last.try(:first)
-            entries << [name, node['id'], 'Functions']
+            entries << [name, node['id'], 'Functions', get_parsed_uri + '.' + node['id'], get_parent_uri, get_docset]
           end
 
           entries
