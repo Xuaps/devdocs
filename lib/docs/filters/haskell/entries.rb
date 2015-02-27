@@ -71,7 +71,7 @@ module Docs
           name.sub! %r{\A\((.+?)\)}, '\1'
           name.sub!(/ (?:\:\: (\w+))?.+\z/) { |_| $1 ? " (#{$1})" : '' }
           next if name == self.name
-          entries << [filter_name(name, link['href']), link['href'].remove('#'),get_type, get_parsed_uri + '.' + link['href'].remove('#'), get_parent_uri, get_docset]
+          entries << [name, link['href'].remove('#'),get_type, get_parsed_uri, get_parent_uri, get_docset]
         end
       end
 
