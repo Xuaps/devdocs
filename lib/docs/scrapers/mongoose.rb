@@ -10,7 +10,8 @@ module Docs
     html_filters.push 'mongoose/clean_html', 'mongoose/entries'
 
     options[:container] = '#content'
-
+    options[:root_title] = 'Mongoosejs'
+    options[:docset_uri] = '/mongoose'
     options[:skip] = %w(
       faq.html
       prior.html
