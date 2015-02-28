@@ -21,10 +21,6 @@ module Docs
         at_css('#module-header .caption').content.strip
       end
 
-      def filter_name(name,link)
-        subpath = *path.split('/')
-        subpath[subpath.size-1] + '.' + link.remove('#').remove('v:-33--33-').remove('t:') + ' ' + name
-      end
 
       def get_docset
         docset = context[:root_title]
@@ -32,20 +28,20 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path.sub('haskell98-2.0.0.3', '')
+        subpath = *path.split('/')
+        parsed_uri = (context[:docset_uri] + '/' + subpath[1,subpath.size-1].join('/')).downcase
+        puts 'parsed: ' + parsed_uri
         parsed_uri
       end
 
       def get_parent_uri
         subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-            if NULL_PARENT_URIs.include? subpath[subpath.size-1]
-               parent_uri = 'null'
-            end
+        if subpath.size > 1 
+            parent_uri = (context[:docset_uri] + '/' + subpath[1,subpath.size-1].join('/')).downcase
         else
             parent_uri = 'null'
         end
+        puts 'parent: ' + parent_uri
       end
 
       def get_type
@@ -69,9 +65,9 @@ module Docs
           name = node.content.strip
           name.remove! %r{\A(?:module|data|newtype|class|type family m|type)\s+}
           name.sub! %r{\A\((.+?)\)}, '\1'
-          name.sub!(/ (?:\:\: (\w+))?.+\z/) { |_| $1 ? " (#{$1})" : '' }
+          #name.sub!(/ (?:\:\: (\w+))?.+\z/) { |_| $1 ? " (#{$1})" : '' }
           next if name == self.name
-          entries << [name, link['href'].remove('#'),get_type, get_parsed_uri, get_parent_uri, get_docset]
+          entries << [name, link['href'].remove('#'),get_type, get_parsed_uri + link['href'], get_parsed_uri, get_docset]
         end
       end
 
