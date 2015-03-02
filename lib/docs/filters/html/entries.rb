@@ -3,7 +3,6 @@ module Docs
     class EntriesFilter < Docs::EntriesFilter
       HTML5 = %w(content element video)
       OBSOLETE = %w(frame frameset hgroup noframes)
-      ADDITIONAL_ENTRIES = { 'Element/Heading_Elements' => (1..6).map { |n| ["h#{n}"] } }
 
       def get_name
         name = super
@@ -17,14 +16,18 @@ module Docs
       end
 
       def get_parsed_uri
+        path = self.path.remove('element/')
         parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
       end
 
       def get_parent_uri
+        path = self.path.remove('element/')
         subpath = *path.split('/')
         if subpath.length > 1
             parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        elsif %w(Attributes Link_types Element/Heading_Elements).include?(slug)
+            parent_uri = context[:docset_uri]+ '/' + path
         else
             parent_uri = 'null'
         end
@@ -46,25 +49,33 @@ module Docs
       end
 
       def include_default_entry?
-        !%w(Attributes Link_types Element/Heading_Elements).include?(slug)
+        %w(Attributes Link_types Element/Heading_Elements).include?(slug)
       end
 
       def additional_entries
-        return ADDITIONAL_ENTRIES[slug] if ADDITIONAL_ENTRIES.key?(slug)
 
         if slug == 'Attributes'
           css('.standard-table td:first-child').map do |node|
             name = node.content.strip
-            id = node.parent['id'] = name.parameterize
-            [name, id, 'Attributes']
+            id = node.parent['id'] = name.parameterize + 'tr'
+            custom_parsed_uri = get_parsed_uri + '#' + name
+            [name, id, 'Attributes', custom_parsed_uri, get_parent_uri, get_docset]
           end
         elsif slug == 'Link_types'
           css('.standard-table td:first-child > code').map do |node|
             name = node.content.strip
-            id = node.parent.parent['id'] = name.parameterize
+            id = node.parent.parent['id'] = name.parameterize + 'tr'
             name.prepend 'rel: '
-            [name, id, 'Attributes']
+            custom_parsed_uri = get_parsed_uri + '#' + id
+            [name, id, 'Attributes', custom_parsed_uri, get_parent_uri, get_docset]
           end
+        elsif slug == 'Element/Heading_Elements'
+            (1..6).map do |n|
+                name = 'h' + n.to_s
+                id = name
+                custom_parsed_uri = get_parsed_uri + '#' + name
+                [name, id, 'Standard', custom_parsed_uri, get_parent_uri, get_docset]
+            end
         else
           []
         end
