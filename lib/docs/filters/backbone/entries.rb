@@ -30,7 +30,8 @@ module Docs
           if node.name == 'h2'
             type = node.content.remove 'Backbone.'
             if type.capitalize! # sync, history
-              entries << [node.content, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
+              custom_parsed_uri = get_parsed_uri + '#' + node['id']
+              entries << [node.content, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
             end
             next
           end
@@ -41,7 +42,8 @@ module Docs
               name = "#{li.at_css('b').content.delete('"').strip} event"
               id = name.parameterize
               li['id'] = id
-              entries << [name, id, type, get_parsed_uri, get_parent_uri, get_docset] unless name == entries.last[0]
+              custom_parsed_uri = get_parsed_uri + '#' + id
+              entries << [name, id, type, custom_parsed_uri, get_parent_uri, get_docset] unless name == entries.last[0]
             end
             next
           end
@@ -55,7 +57,8 @@ module Docs
               name = [type.downcase, li.at_css('a').content.split.first].join('.')
               id = name.parameterize
               li['id'] = id
-              entries << [name, id, type, get_parsed_uri, get_parent_uri, get_docset]
+              custom_parsed_uri = get_parsed_uri + '#' + id
+              entries << [name, id, type, custom_parsed_uri, get_parent_uri, get_docset]
             end
             next
           end
@@ -71,8 +74,8 @@ module Docs
           elsif type != 'Utility'
             name.prepend "#{type.downcase}."
           end
-
-          entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          entries << [name, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries

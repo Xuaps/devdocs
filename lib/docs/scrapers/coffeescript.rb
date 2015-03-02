@@ -9,6 +9,8 @@ module Docs
 
     options[:title] = 'CoffeeScript'
     options[:container] = '.container'
+    options[:root_title] = 'CoffeeScript'
+    options[:docset_uri] = '/coffeescript'
     options[:skip_links] = true
 
     options[:attribution] = <<-HTML

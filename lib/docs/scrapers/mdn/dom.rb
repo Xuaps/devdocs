@@ -7,6 +7,7 @@ module Docs
 
     options[:root_title] = 'DOM'
     options[:docset_uri] = '/dom'
+    initial_paths.push '/identitymanager'
     initial_paths.push '/CSS_Object_Model'
     initial_paths.push '/web_crypto_api'
 

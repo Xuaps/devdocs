@@ -11,6 +11,7 @@ module Docs
 
     options[:title] = false
     options[:root_title] = 'Angular.js'
+    options[:docset_uri] = '/angular'
 
     options[:fix_urls] = ->(url) do
       url.sub! '/partials/api/api/', '/partials/api/'

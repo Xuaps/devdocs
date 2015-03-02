@@ -3,7 +3,7 @@ import json
 import psycopg2
 import sys
 import ConfigParser
-
+import os.path
 
 class DocImporter():
     connection_string = ''
@@ -41,7 +41,7 @@ class DocImporter():
             _name = entry['name']
             if entry['path'].find('#')!= -1:
                  entry['path'] = entry['path'].split('#')[0]
-                 entry['parsed_uri'] += '.' + _name
+                 #entry['parsed_uri'] += '.' + _name
             _content = self.getContent(self.content_path + self.docset + '/' + entry['path'] + '.html')
             if entry['parent_uri'] == 'null':
                 _parent_uri = None
@@ -63,15 +63,17 @@ class DocImporter():
     def getContent(self, path):
         if self.debugMode:
             print path
-
+        # case for PHP in tidy.html.html
+        if path.find('.html.html')!=-1:
+            path = path.replace('.html.html', '.html')
         with open(path, 'r') as content_file:
             content = content_file.read()
         return content
 
 
 
-    def processJSON(self,file):
-        with open(file) as json_file:
+    def processJSON(self,file_path):
+        with open(file_path) as json_file:
             json_data = json.load(json_file)
         self.total_entries = len(json_data['entries'])
         return json_data['entries']

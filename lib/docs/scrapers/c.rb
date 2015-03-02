@@ -1,7 +1,7 @@
 module Docs
   class C < FileScraper
     self.type = 'c'
-    self.dir = '/Users/Thibaut/DevDocs/Docs/C/en/c'
+    self.dir = '/home/desarrollo/desarrollo/projects/devdocs/public/docs/c'
     self.base_url = 'http://en.cppreference.com/w/c/'
     self.root_path = 'header.html'
 
@@ -11,7 +11,8 @@ module Docs
 
     options[:container] = '#content'
     options[:title] = false
-    options[:root_title] = 'C Programming Language'
+    options[:root_title] = 'C'
+    options[:docset_uri] = '/c'
     options[:skip] = %w(language/history.html)
 
     options[:fix_urls] = ->(url) do

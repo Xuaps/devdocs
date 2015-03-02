@@ -45,7 +45,7 @@ module Docs
           name.remove! %r{\w+\:}
           id = node.at_css('.anchor')['name']
           type = slug.include?('component') ? 'Component' : 'React'
-          [name, id, type]
+          [name, id, type, get_parsed_uri + '#' + id, get_parent_uri, get_docset]
         end
       end
     end

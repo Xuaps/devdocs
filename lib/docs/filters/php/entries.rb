@@ -81,7 +81,7 @@ module Docs
         'XML'                   => ['libxml', 'SimpleXML', 'XML Parser', 'XML-RPC', 'XMLReader', 'XMLWriter', 'XSLT'] }
 
       def get_name
-        
+
         return 'IntlException' if slug == 'class.intlexception'
         name = css('> .sect1 > .title', 'h1', 'h2').first.content
         name.remove! 'The '
@@ -96,8 +96,17 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = css('nav')
+        parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
       end
 
       def get_type

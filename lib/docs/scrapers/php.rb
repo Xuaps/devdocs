@@ -15,13 +15,14 @@ module Docs
       reserved.variables.html)
 
     # Downloaded from php.net/download-docs.php
-    self.dir = '/Users/Thibaut/DevDocs/Docs/PHP'
+    self.dir = '/home/desarrollo/Descargas/docs/php'
 
     html_filters.push 'php/internal_urls', 'php/entries', 'php/clean_html', 'title'
     text_filters.push 'php/fix_urls'
 
     options[:title] = false
-    options[:root_title] = 'PHP: Hypertext Preprocessor'
+    options[:root_title] = 'PHP'
+    options[:docset_uri] = '/php'
     options[:skip_links] = ->(filter) { !filter.initial_page? }
 
     options[:only_patterns] = [

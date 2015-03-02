@@ -36,6 +36,26 @@ module Docs
         'Queue'  => 'Queue',
         'Socket' => 'Socket' }
 
+      def get_name
+        
+        return 'IntlException' if slug == 'class.intlexception'
+        name = css('> .sect1 > .title', 'h1', 'h2').first.content
+        name.remove! 'The '
+        name.sub! ' class', ' (class)'
+        name.sub! ' interface', ' (interface)'
+        name
+      end
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = css('nav')
+        parsed_uri
+      end
+
       def get_type
         return 'Language' if guide?
         return $1 if name =~ /\A(Net\:\:(?:FTP|HTTP|IMAP|SMTP))/

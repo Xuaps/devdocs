@@ -11,11 +11,12 @@ module Docs
     #   --op html .
 
     self.version = '2.2.0'
-    self.dir = '/Users/Thibaut/DevDocs/Docs/RDoc/Ruby'
+    self.dir = '/home/desarrollo/Descargas/docs/Ruby'
 
     html_filters.replace 'rdoc/entries', 'ruby/entries'
 
-    options[:root_title] = 'Ruby Programming Language'
+    options[:root_title] = 'Ruby'
+    options[:docset_uri] = '/ruby'
     options[:title] = ->(filter) { filter.slug == 'globals_rdoc' ? 'Globals' : false }
 
     options[:skip] += %w(

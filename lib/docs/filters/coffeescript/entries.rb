@@ -1,9 +1,9 @@
 module Docs
   class Coffeescript
     class EntriesFilter < Docs::EntriesFilter
-      ENTRIES = [
-        ['coffee command',              'usage',                    'Miscellaneous'],
-        ['Literate mode',               'literate',                 'Miscellaneous'],
+      CUSTOMENTRIES = [
+        ['coffee command',              'usage',                    'others'],
+        ['Literate mode',               'literate',                 'others'],
         ['Functions',                   'literals',                 'Language'],
         ['->',                          'literals',                 'Statements'],
         ['Objects and arrays',          'objects_and_arrays',       'Language'],
@@ -41,13 +41,35 @@ module Docs
         ['Block comments',              'strings',                  'Language'],
         ['###',                         'strings',                  'Language'],
         ['Block regexes',               'regexes',                  'Language'],
-        ['cake command',                'cake',                     'Miscellaneous'],
-        ['Cakefile',                    'cake',                     'Miscellaneous'],
-        ['Source maps',                 'source-maps',              'Miscellaneous']
+        ['cake command',                'cake',                     'others',],
+        ['Cakefile',                    'cake',                     'others',],
+        ['Source maps',                 'source-maps',              'others']
       ]
 
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
+      end
+
       def additional_entries
-        entries = ENTRIES.dup
+        CUSTOMENTRIES.each do |entry|
+            entries << [entry, get_parsed_uri, get_parent_uri, get_docset]
+        end
+        #entries = ENTRIES.dup
 
         # Operators
         css('.definitions td:first-child > code').each do |node|
@@ -56,7 +78,7 @@ module Docs
             name.sub! %r{\Aa (.+) b\z}, '\1'
             id = name_to_id(name)
             node['id'] = id
-            entries << [name, id, 'Operators']
+            entries << [name, id, 'Operators', get_parsed_uri + '.' + name , get_parent_uri, get_docset]
           end
         end
 

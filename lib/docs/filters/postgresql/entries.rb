@@ -164,8 +164,8 @@ module Docs
           name = node.content
           clean_heading_name(name)
           sufix = get_custom_parsed_uri(name)
-          custom_parsed_uri = parsed_uri + sufix
-          entries << ["#{additional_entry_prefix}: #{name}", node['id'], type, custom_parsed_uri, parent_uri, docset] unless skip_heading?(name)
+          custom_parsed_uri = parsed_uri + sufix + '#' + node['id']
+          entries << ["#{name}", node['id'], type, custom_parsed_uri, parent_uri, docset] unless skip_heading?(name)
         end
       end
 

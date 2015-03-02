@@ -9,6 +9,7 @@ module Docs
     html_filters.insert_before 'jquery/clean_html', 'jquery_ui/entries'
 
     options[:root_title] = 'jQuery UI'
+    options[:docset_uri] = '/jqueryui'
     options[:skip] = %w(/theming)
     options[:skip_patterns].concat [/\A\/1\./]
   end
