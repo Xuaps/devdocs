@@ -8,6 +8,8 @@ module Docs
     html_filters.push 'yii/clean_html', 'yii/entries'
 
     options[:container] = 'div[role=main]'
+    options[:root_title] = 'Yii'
+    options[:docset_uri] = '/yii'
     options[:skip_patterns] = [/\Ayii-apidoc/]
 
     options[:attribution] = <<-HTML
