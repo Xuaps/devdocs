@@ -5,6 +5,19 @@ module Docs
       TYPES = ['Ajax', 'Selectors', 'Callbacks Object', 'Deferred Object',
         'Data', 'Utilities', 'Events', 'Effects', 'Offset', 'Dimensions',
         'Traversing', 'Manipulation']
+      REPLACE_TYPES = {
+        'Traversing'        => 'function',
+        'Effects'           => 'function',
+        'Utilities'         => 'function',
+        'Ajax'              => 'data',
+        'Data'              => 'data',
+        'Events'            => 'event',
+        'Callbacks Object'  => 'object',
+        'Deferred Object'   => 'object',
+        'Selectors'         => 'selector',
+        'Manipulation'      => 'method',
+        'Offset'            => 'method',
+        'Dimensions'        => 'Property'}
 
       def get_name
         name = at_css('h1').content.strip
@@ -18,12 +31,12 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri = context[:docset_uri] + '/' + path.sub('/index', '')
         parsed_uri
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
+        subpath = *path.sub('/index', '').split('/')
         if subpath.length > 1
             parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
         else
@@ -32,13 +45,13 @@ module Docs
       end
 
       def get_type
-        return 'Ajax' if slug == 'Ajax_Events'
+        return 'data' if slug == 'Ajax_Events'
         categories = css 'span.category'
         types = categories.map { |node| node.at_css('a').content.strip }
         types.map! { |type| TYPES.index(type) }
         types.compact!
         types.sort!
-        types.empty? ? 'Others' : TYPES[types.first]
+        types.empty? ? 'others' : REPLACE_TYPES[TYPES[types.first]]
       end
     end
   end
