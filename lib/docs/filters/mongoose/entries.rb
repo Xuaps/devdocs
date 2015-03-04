@@ -34,6 +34,7 @@ module Docs
           'guide'
         end
       end
+
       def get_type_name(name)
         if name.include? 'Collection' or  name.include? 'Array'
           'collection'

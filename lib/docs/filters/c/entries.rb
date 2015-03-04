@@ -52,7 +52,7 @@ module Docs
       def additional_entries
         names = at_css('#firstHeading').content.split(',')[1..-1]
         names.concat ADDITIONAL_NAMES[name] || []
-        names.map { |name| [name] }
+        names.map { |name| [name, nil, get_type, get_parsed_uri, get_parent_uri, get_docset] }
       end
 
       def include_default_entry?
