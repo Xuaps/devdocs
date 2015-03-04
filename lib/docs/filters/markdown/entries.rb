@@ -22,19 +22,19 @@ module Docs
         end
       end
 
-      def additional_entries
-        type = nil
+      def get_type
+          'others'
+      end
 
+      def additional_entries
+        type = 'others'
         doc.children.each_with_object [] do |node, entries|
           if node.name == 'h2'
             type = node.content.strip
-            if type == 'Miscellaneous'
-                type = 'others'
-            end
           elsif node.name == 'h3'
-            next if type == 'Overview'
             name = node.content.strip
-            entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            entries << [name, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
       end

@@ -38,13 +38,15 @@ module Docs
           if node.name == 'h2'
             type = node.content
           elsif node.name == 'h3' || node.name == 'h4'
-            entries << [node.content, node['id'], type, get_parsed_uri.sub('index',node.content.downcase), get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            entries << [node.content, node['id'], type, custom_parsed_uri.sub('index',node.content.downcase.lstrip.tr(' ', '_')), get_parent_uri, get_docset]
           end
         end
 
         css('p[id^="config-"]').each do |node|
           next if node['id'].include?('note')
-          entries << [node.at_css('strong').content, node['id'], 'Configuration Options', get_parsed_uri.sub('index',node.at_css('strong').content.downcase), get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          entries << [node.at_css('strong').content, node['id'], 'Configuration Options', custom_parsed_uri.sub('index',node.at_css('strong').content.downcase.lstrip.tr(' ', '_')), get_parent_uri, get_docset]
         end
 
         entries

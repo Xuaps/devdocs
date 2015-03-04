@@ -30,6 +30,20 @@ module Docs
           parent_uri = 'null'
       end
 
+      def get_type(typename)
+          if typename == 'SassScript'
+              'language'
+          elsif typename == 'Functions'
+              'function'
+          elsif typename == '@-Rules and Directives'
+              'directives'
+          elsif typename == 'Output Styles' or typename == 'CSS Extensions'
+              'styles'
+          else
+             'others'
+          end
+      end
+
       def include_default_entry?
         false
       end
@@ -47,7 +61,8 @@ module Docs
             type = node.content.strip
 
             if type == 'Function Directives'
-              entries << ['@function', node['id'], '@-Rules and Directives', get_parsed_uri + '.' + node['id'], get_parent_uri, get_docset]
+              custom_parsed_uri = get_parsed_uri + '#' + node['id']
+              entries << ['@function', node['id'], get_type('@-Rules and Directives'), custom_parsed_uri, get_parent_uri, get_docset]
             end
 
             if type.include? 'Directives'
@@ -72,8 +87,8 @@ module Docs
           if type == '@-Rules and Directives'
             next unless name =~ /\A@[\w\-]+\z/ || name == '!optional'
           end
-
-          entries << [name, node['id'], type, get_parsed_uri + '.' + node['id'], get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          entries << [name, node['id'], get_type(type), custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries
@@ -84,7 +99,8 @@ module Docs
           name = node.at_css('strong').content.strip
 
           unless name == entries.last.try(:first)
-            entries << [name, node['id'], 'Functions', get_parsed_uri + '.' + node['id'], get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            entries << [name, node['id'], get_type('Functions'), custom_parsed_uri, get_parent_uri, get_docset]
           end
 
           entries

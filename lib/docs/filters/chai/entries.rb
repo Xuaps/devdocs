@@ -44,7 +44,8 @@ module Docs
         css('.antiscroll-inner a').each_with_object [] do |node, entries|
           id = node['href'].remove('#') + '-section'
           name = node.content.strip.split(' / ')[0]
-          entries << [name, id, type, get_parsed_uri, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parent_uri + '#' + id
+          entries << [name, id, type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

@@ -44,7 +44,7 @@ module Docs
         elsif slug == 'Content_type'
           'Content types'
         else
-          'Miscellaneous'
+          'others'
         end
       end
 
@@ -56,7 +56,8 @@ module Docs
           dl = node.next_element
           next unless dl.name == 'dl'
           name = dl.at_css('dt').content.remove(/[<>]/)
-          entries << [name, node['id']]
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries

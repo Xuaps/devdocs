@@ -30,11 +30,11 @@ module Docs
 
       def get_type
         if name.include? 'config'
-            'Configs'
+            'configuration'
         elsif name.include? 'event'
-            'Events'
+            'event'
         elsif name.include? 'fail'
-            'Fails'
+            'error'
         else
           'others'
         end
@@ -48,8 +48,8 @@ module Docs
           name.remove! %r{\s.+\z}
 
           next if name == self.name
-
-          entries << [name + '#' + node['id'], node['id'], get_type, get_parsed_uri + '#' + node['id'], get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
 

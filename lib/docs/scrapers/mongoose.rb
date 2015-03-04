@@ -1,6 +1,6 @@
 module Docs
   class Mongoose < UrlScraper
-    self.name = 'Mongoose'
+    self.name = 'MongooseJS'
     self.type = 'mongoose'
     self.version = '3.8.19'
     self.base_url = 'http://mongoosejs.com/docs/'
@@ -10,8 +10,8 @@ module Docs
     html_filters.push 'mongoose/clean_html', 'mongoose/entries'
 
     options[:container] = '#content'
-    options[:root_title] = 'Mongoosejs'
-    options[:docset_uri] = '/mongoose'
+    options[:root_title] = 'MongooseJS'
+    options[:docset_uri] = '/mongoosejs'
     options[:skip] = %w(
       faq.html
       prior.html

@@ -7,19 +7,35 @@ module Docs
         'modules'  => 'module' }
 
       REPLACE_TYPES = {
-        'Addons'                 => 'Miscellaneous',
-        'Debugger'               => 'Miscellaneous',
+        'Addons'                 => 'others',
+        'Util'                   => 'others',
+        'Debugger'               => 'others',
+        'Path'                   => 'OS',
+        'File System'            => 'OS',
         'os'                     => 'OS',
-        'StringDecoder'          => 'String Decoder',
-        'TLS (SSL)'              => 'TLS/SSL',
-        'UDP / Datagram Sockets' => 'UDP/Datagram',
-        'Executing JavaScript'   => 'VM' }
+        'Child Process'          => 'Process',
+        'HTTPS'                  => 'Net',
+        'HTTP'                   => 'Net',
+        'TLS (SSL)'              => 'Net',
+        'UDP / Datagram Sockets' => 'Net',
+        'URL'                    => 'Net',
+        'Net'                    => 'Net',
+        'Domain'                 => 'Net',
+        'DNS'                    => 'Net',
+        'TTY'                    => 'Console',
+        'Smalloc'                => 'Buffer',
+        'Zlib'                   => 'function',
+        'StringDecoder'          => 'function',
+        'Timer'                  => 'function',
+        'Crypto'                 => 'function',
+        'REPL'                   => 'function',
+        'Query String'           => 'function',
+        'Punycode'               => 'function',
+        'Executing JavaScript'   => 'function' }
 
       IGNORE_DEFAULT_ENTRY = %w(globals timers domain buffer)
 
-      def include_default_entry?
-        !IGNORE_DEFAULT_ENTRY.include?(slug)
-      end
+
 
       def get_name
         REPLACE_NAMES[slug] || slug
@@ -46,11 +62,11 @@ module Docs
 
       def get_type
         type = at_css('h1').content.strip
-        REPLACE_TYPES[type] || "#{type.first.upcase}#{type[1..-1]}"
+        REPLACE_TYPES[type] || "others"
       end
 
       def additional_entries
-        return [] if type == 'Miscellaneous'
+        return [] if type == 'others'
 
         klass = nil
         entries = []
@@ -68,7 +84,8 @@ module Docs
 
           # Ignore most global objects (found elsewhere)
           if type == 'Global Objects'
-            entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset] if name.start_with?('_') || name == 'global'
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset] if name.start_with?('_') || name == 'global'
             next
           end
 
@@ -76,14 +93,16 @@ module Docs
           if name.gsub! 'Class: ', ''
             name.remove! 'events.' # EventEmitter
             klass = name
-            entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
             next
           end
 
           # Events
           if name.sub! %r{\AEvent: '(.+)'\z}, '\1'
-            name << " event (#{klass || type})"
-            entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
+            name << " event (#{klass || get_type})"
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
             next
           end
 
@@ -111,7 +130,8 @@ module Docs
 
           # Skip duplicates (listen, connect, etc.)
           unless name == entries[-1].try(:first) || name == entries[-2].try(:first)
-            entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
 

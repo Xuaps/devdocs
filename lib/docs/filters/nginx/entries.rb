@@ -48,8 +48,8 @@ module Docs
 
           id = node['href'].remove('#')
           next if id.blank?
-
-          entries << [get_name + '.' + name, id, type, get_parsed_uri, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri + '#' + id
+          entries << [get_name + '.' + name, id, type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

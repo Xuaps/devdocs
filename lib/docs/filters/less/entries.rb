@@ -25,7 +25,13 @@ module Docs
       end
 
       def type
-        root_page? ? 'Language' : 'others'
+        if slug.include? 'functions'
+            'function'
+        elsif slug.include? 'features'
+            'language'
+        else
+            'others'
+        end
       end
 
       def additional_entries
@@ -38,27 +44,23 @@ module Docs
         css('h2').each do |node|
           name = node.content.strip
           name = 'Rulesets' if name == 'Passing Rulesets to Mixins'
-          entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset] unless name == 'Overview'
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset] unless name == 'Overview'
         end
 
         css('h3[id^="import-options-"]').each do |node|
-          entries << ["@import #{node.content}", node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          entries << ["@import #{node.content}", node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries.concat [
-          ['@var',              'variables-feature', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['@{} interpolation', 'variables-feature-variable-interpolation', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['url()',             'variables-feature-urls', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['@property',         'variables-feature-properties', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['@@var',             'variables-feature-variable-names', type, get_parsed_uri, get_parent_uri, get_docset],
-          [':extend()',         'extend-feature', type, get_parsed_uri, get_parent_uri, get_docset],
-          [':extend(all)',      'extend-feature-extend-all-', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['@arguments',        'mixins-parametric-feature-the-arguments-variable', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['@rest',             'mixins-parametric-feature-advanced-arguments-and-the-rest-variable', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['@import',           'import-directives-feature', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['when',              'mixin-guards-feature', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['.loop()',           'loops-feature', type, get_parsed_uri, get_parent_uri, get_docset],
-          ['+:',                'merge-feature', type, get_parsed_uri, get_parent_uri, get_docset] ]
+          ['@{} interpolation', 'variables-feature-variable-interpolation', get_type, get_parsed_uri + '#variables-feature-variable-interpolation', get_parent_uri, get_docset],
+          ['url()',             'variables-feature-urls', get_type, get_parsed_uri + '#variables-feature-urls', get_parent_uri, get_docset],
+          ['@property',         'variables-feature-properties', get_type, get_parsed_uri + '#variables-feature-properties', get_parent_uri, get_docset],
+          ['@@var',             'variables-feature-variable-names', get_type, get_parsed_uri + '#variables-feature-variable-names', get_parent_uri, get_docset],
+          [':extend(all)',      'extend-feature-extend-all-', get_type, get_parsed_uri + '#extend-feature-extend-all-', get_parent_uri, get_docset],
+          ['@arguments',        'mixins-parametric-feature-the-arguments-variable', get_type, get_parsed_uri + '#mixins-parametric-feature-the-arguments-variable', get_parent_uri, get_docset],
+          ['@rest',             'mixins-parametric-feature-advanced-arguments-and-the-rest-variable', get_type, get_parsed_uri + '#mixins-parametric-feature-advanced-arguments-and-the-rest-variable', get_parent_uri, get_docset]]
 
         entries
       end
@@ -72,7 +74,8 @@ module Docs
             type = node.content
             type.sub! %r{(.+) Functions}, 'Functions: \1'
           elsif node.name == 'h4'
-            entries << [node.content, node['id'], type]
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            entries << [node.content, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
 

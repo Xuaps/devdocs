@@ -8,7 +8,7 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/'
+        parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
       end
 
@@ -35,7 +35,8 @@ module Docs
           # Method
           node.css('.header', '.alias b').each do |header|
             header.content.split(',').each do |name|
-              entries << [name, node['id'], type, get_parsed_uri + name.downcase, get_parent_uri, get_docset]
+              custom_parsed_uri = get_parsed_uri.sub('index', name.downcase) + '#' + node['id']
+              entries << [name, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
             end
           end
         end

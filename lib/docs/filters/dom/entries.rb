@@ -35,7 +35,6 @@ module Docs
         subpath = *path.split('/')
         if subpath.length > 1
             parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-
         else
             parent_uri = 'null'
         end

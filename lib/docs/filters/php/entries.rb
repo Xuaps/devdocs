@@ -96,6 +96,7 @@ module Docs
       end
 
       def get_parsed_uri
+        chain = xpath()
         parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
       end

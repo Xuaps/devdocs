@@ -33,8 +33,8 @@ module Docs
       def get_name
         if %w(Overview Introduction).include?(base_name)
           result[:pg_chapter_name]
-        elsif PREPEND_TYPES.include?(type)
-          "#{type}: #{base_name}"
+        elsif PREPEND_TYPES.include?(get_filtering_type)
+          "#{get_filtering_type}: #{base_name}"
         else
           REPLACE_NAMES[base_name] || base_name
         end
@@ -59,7 +59,7 @@ module Docs
         end
       end
 
-      def get_type
+      def get_filtering_type
         return if initial_page?
 
         if result[:pg_up_path] == 'sql-commands.html'
@@ -76,10 +76,27 @@ module Docs
         end
       end
 
+      def get_type
+          _type = result[:pg_chapter_name].to_s
+          if _type.downcase.include? 'configuration' or _type.downcase.include? 'localization'
+            'configuration'
+          elsif _type.downcase.include? 'authentication' or _type.downcase.include? 'roles'
+            'security'
+          elsif _type.downcase.include? 'type'
+            'type'
+          elsif _type.downcase.include? 'function' or _type.downcase.include? 'fulltext'
+             'function'
+          elsif _type.downcase.include? 'backup' or _type.downcase.include? 'managing' or _type.downcase.include? 'maintenance'
+             'maintenance'
+          else
+             'others'
+          end
+      end
+
       def additional_entries
         return [] if skip_additional_entries?
-        return config_additional_entries if type && type.include?('Configuration')
-        return data_types_additional_entries if type == 'Data Types'
+        return config_additional_entries if get_filtering_type && get_filtering_type.include?('Configuration')
+        return data_types_additional_entries if get_filtering_type == 'Data Types'
         return get_heading_entries('h3[id]') if slug == 'functions-xml'
 
         entries = get_heading_entries('h2[id]')
@@ -99,9 +116,9 @@ module Docs
         when 'functions-string'
           entries.concat get_custom_entries('> div[id^="FUNC"] td:first-child > code')
         else
-          if type && type.start_with?('Functions')
+          if get_filtering_type && get_filtering_type.start_with?('Functions')
             entries.concat get_custom_entries('> .TABLE td:first-child > code:first-child')
-            entries.concat %w(IS NULL BETWEEN DISTINCT\ FROM).map { |name| ["#{self.name}: #{name}",nil, type, parsed_uri + get_custom_parsed_uri(name), parent_uri, docset] } if slug == 'functions-comparison'
+            entries.concat %w(IS NULL BETWEEN DISTINCT\ FROM).map { |name| ["#{self.name}: #{name}",nil, get_type, get_parsed_uri + '#' +name, get_parent_uri, get_docset] } if slug == 'functions-comparison'
           end
         end
 
@@ -111,7 +128,8 @@ module Docs
       def config_additional_entries
         css('.VARIABLELIST dt[id]').map do |node|
           name = node.at_css('.VARNAME').content
-          ["Config: #{name}", node['id']]
+          custom_parsed_uri = parsed_uri + '#' + node['id']
+          ["Config: #{name}", node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
 
@@ -148,7 +166,7 @@ module Docs
         'Monitoring' ]
 
       def skip_additional_entries?
-        SKIP_ENTRIES_SLUGS.include?(slug) || SKIP_ENTRIES_TYPES.include?(type)
+        SKIP_ENTRIES_SLUGS.include?(slug) || SKIP_ENTRIES_TYPES.include?(get_filtering_type)
       end
 
       def clean_heading_name(name)
@@ -163,49 +181,11 @@ module Docs
         css(selector).each_with_object([]) do |node, entries|
           name = node.content
           clean_heading_name(name)
-          sufix = get_custom_parsed_uri(name)
-          custom_parsed_uri = parsed_uri + sufix + '#' + node['id']
-          entries << ["#{name}", node['id'], type, custom_parsed_uri, parent_uri, docset] unless skip_heading?(name)
+          custom_parsed_uri = parsed_uri + '#' + node['id']
+          entries << ["#{name}", node['id'], get_type, custom_parsed_uri, parent_uri, docset] unless skip_heading?(name)
         end
       end
 
-      def get_custom_parsed_uri(name)
-          if name.include? '<>' or name.include? '!='
-              sufix = '.notequal'
-          elsif name.include? '<='
-              sufix = '.lessequal'
-          elsif name.include? '<'
-              sufix = '.less'
-          elsif name.include? '>='
-              sufix = '.greaterequal'
-          elsif name.include? '>'
-              sufix = '.greater'
-          elsif name.include? '='
-              sufix = '.equal'
-          elsif name.include? 'BETWEEN'
-              sufix = '.between'
-          elsif name.include? 'DISTINCT'
-              sufix = '.distinct'
-          elsif name.include? 'IS'
-              sufix = '.is'
-          elsif name.include? 'NOT IN'
-              sufix = '.notin'
-          elsif name.include? 'EXISTS'
-              sufix = '.exists'
-          elsif name.include? 'ALL'
-              sufix = '.all'
-          elsif name.include? 'ANY/SOME'
-              sufix = '.any-some'
-          elsif name.include? 'IN'
-              sufix = '.in'
-          elsif name.include? 'NULL'
-              sufix = '.in'
-
-          else
-              sufix = ''
-          end
-          return sufix
-      end
 
       def get_custom_entries(selector)
         css(selector).each_with_object([]) do |node, entries|
@@ -217,23 +197,17 @@ module Docs
           name = '||' if name.include? ' || '
           id = name.gsub(/[^a-z0-9\-_]/) { |char| char.ord }
           id = id.parameterize
-          name.prepend "#{additional_entry_prefix}: "
-          sufix = get_custom_parsed_uri(name)
-          custom_parsed_uri = parsed_uri + sufix
           unless entries.any? { |entry| entry[0] == name }
             node['id'] = id
-            entries << [name, id, type, custom_parsed_uri, parent_uri, docset]
+            custom_parsed_uri = get_parsed_uri + '#' + id
+            entries << [name, id, get_type, custom_parsed_uri, parent_uri, docset]
           end
         end
       end
 
-      def additional_entry_prefix
-        type.dup.gsub!('Functions: ', '') || self.name
-      end
-
       def skip_heading?(name)
         %w(Usage\ Patterns Portability Caveats Overview).include?(name) ||
-        (type.start_with?('Functions') && slug != 'functions-xml' && name.split.first.upcase!)
+        (get_filtering_type.start_with?('Functions') && slug != 'functions-xml' && name.split.first.upcase!)
       end
     end
   end

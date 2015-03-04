@@ -25,7 +25,31 @@ module Docs
       end
 
       def get_type
-        name
+          if slug.downcase.include? 'layout'
+              'Layout'
+          elsif slug.downcase.include? 'polygon'
+              'Polygon'
+          elsif slug.downcase.include? 'math'
+               'Math'
+          elsif slug.downcase.include? 'quadtree'
+               'Quadtree'
+          elsif slug.downcase.include? 'Geom'
+               'Geometry'
+          elsif slug.downcase.include? 'shapes'
+               'Shapes'
+          elsif slug.downcase.include? 'localization'
+               'Localization'
+          elsif slug.downcase.include? 'scale'
+               'Scale'
+          elsif slug.downcase.include? 'namespaces'
+               'Namespaces'
+          elsif slug.downcase.include? 'events'
+               'Events'
+          elsif slug.downcase.include? 'time'
+               'Time'
+          else
+              'Others'
+          end
       end
 
       def additional_entries
@@ -33,7 +57,8 @@ module Docs
           name = node.content.strip
           name.remove! %r{\(.*\z}
           name.sub! %r{\A(svg:\w+)\s+.+}, '\1'
-          entries << [name, node['id']] unless name == entries.last.try(:first)
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset] unless name == entries.last.try(:first)
           entries
         end
       end

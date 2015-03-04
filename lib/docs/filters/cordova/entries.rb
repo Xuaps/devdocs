@@ -36,7 +36,8 @@ module Docs
         return [] unless slug == 'cordova_events_events.md'
 
         css('h2').map do |node|
-          [node.content, node['id'], 'Events']
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          [node.content, node['id'], 'Events', custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

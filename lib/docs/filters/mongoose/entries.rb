@@ -27,12 +27,26 @@ module Docs
             parent_uri = 'null'
         end
       end
-
       def get_type
         if slug == 'api'
           'Mongoose'
         else
-          'Guides'
+          'guide'
+        end
+      end
+      def get_type_name(name)
+        if name.include? 'Collection' or  name.include? 'Array'
+          'collection'
+        elsif name.include? 'Schema'
+          'schema'
+        elsif name.include? 'Connection' or  name.include? 'Query'
+          'network'
+        elsif name.include? 'Mongoose' or name.include? 'VirtualType'
+          'Mongoose'
+        elsif name.include? 'Object' or name.include? 'Validation'
+          'object'
+        else
+          'others'
         end
       end
 
@@ -48,7 +62,8 @@ module Docs
           next if name.include?(' ')
 
           type = name.split(/[#\.\(]/).first
-          entries << [name, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries

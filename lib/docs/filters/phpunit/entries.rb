@@ -36,7 +36,8 @@ module Docs
         return [] if type == 'Guides'
 
         css('h2').map do |node|
-          [node.content, node['id'], type, get_parsed_uri, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri.sub('index', name.downcase) + '#' + node['id']
+          [node.content, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

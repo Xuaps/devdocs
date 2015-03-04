@@ -1,9 +1,7 @@
 module Docs
   class Ember
     class EntriesFilter < Docs::EntriesFilter
-      def include_default_entry?
-        name != 'Handlebars Helpers'
-      end
+
 
       def get_name
         name = at_css('.api-header').content.split.first
@@ -38,14 +36,30 @@ module Docs
       def get_type
         if at_css('.api-header').content.include?('Module')
           'Modules'
-        elsif name.start_with? 'DS'
+        elsif name.include? 'helper' or name.include? 'inject' or name.include? 'Libraries'
+          'Helpers'
+        elsif name.include? 'Data' or name.include? 'Promise' or name.include? 'DS' or name.include? 'Binding' or name.include? 'Deferred' or name.include? 'RSVP' or name.include? 'Adapter' or name.include? 'ProxyMixin'
           'Data'
-        elsif name.start_with? 'RSVP'
-          'RSVP'
-        elsif name.start_with? 'Test'
+        elsif name.include? 'Controller'
+          'Controller'
+        elsif name.include? 'Array' or name.include? 'Set' or name.include? 'Enumerable' or name.include? 'SortableMixin'
+          'Collection'
+        elsif name.include? 'Application' or name.include? 'Observable' or name.include? 'Router' or name.include? 'Logger' or name.include? 'Instrumentation'
+          'Application'
+        elsif name.include? 'Test'
           'Test'
+        elsif name.include? 'Handle' or name.include? 'Event' or name.include? 'TargetAction'
+          'Events'
+        elsif name.include? 'Location' or name.include? 'HTML' or name.include? 'Route'
+          'Network'
+        elsif name.include? 'Object' or  name.include? 'Comparable' or name.include? 'Copyable' or name.include? 'ComputedProperty' or name.include? 'Component' or name.include? 'String' or name.include? 'Freezable' or name.include? 'Error' or name.include? 'Date' or name.include? 'Namespace'
+          'Object'
+        elsif name.include? 'View' or name.include? 'TextArea' or name.include? 'TextField' or name.include? 'Checkbox' or name.include? 'Select' or name.include? 'InjectedProperty' or name.include? 'DefaultResolver'
+          'View'
+        elsif name.include? 'Ember'
+          'Core'
         else
-          name
+          'Others'
         end
       end
 
@@ -56,7 +70,8 @@ module Docs
 
           if self.name == 'Handlebars Helpers'
             name << ' (handlebars helper)'
-            next [name, heading['id']]
+            custom_parsed_uri = get_parsed_uri + '#' + heading['id']
+            next [name.tr('#', '.'), heading['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
           end
 
           # Give their own type to "Ember.platform", "Ember.run", etc.
@@ -71,8 +86,8 @@ module Docs
 
           name << '()'     if node['class'].include? 'method'
           name << ' event' if node['class'].include? 'event'
-
-          [name.tr('#','.'), heading['id'], type, get_parsed_uri.tr('#','.'), get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri + '#' + heading['id']
+          [name.tr('#', '.'), heading['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

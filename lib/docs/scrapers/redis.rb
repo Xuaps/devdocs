@@ -9,7 +9,7 @@ module Docs
     options[:container] = ->(filter) { filter.root_page? ? '#commands' : '.text' }
     options[:title] = false
     options[:root_title] = 'Redis'
-    options[:docset_uri] = '/redis/'
+    options[:docset_uri] = '/redis'
 
     options[:follow_links] = ->(filter) { filter.root_page? }
 

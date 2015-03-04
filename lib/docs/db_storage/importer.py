@@ -53,7 +53,7 @@ class DocImporter():
             if previous_uri != _uri:
                 self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri)
                 previous_uri = _uri
-        self.Commit(conn)
+        #self.Commit(conn)
         self.moveToData(conn)
         self.updateDocsets(conn,self.docset_name, self.default_uri)
         self.Commit(conn)
