@@ -9,6 +9,8 @@ module Docs
 
     options[:trailing_slash] = false
     options[:container] = '.container .section'
+    options[:root_title] = 'RethinkDB'
+    options[:docset_uri] = '/rethinkdb'
 
     options[:fix_urls] = ->(url) do
       url.sub! %r{rethinkdb.com/api/(?!javascript|ruby|python)}, 'rethinkdb.com/api/javascript/'
