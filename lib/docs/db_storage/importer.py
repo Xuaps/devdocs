@@ -17,19 +17,31 @@ class DocImporter():
 
     #load config file
     def __init__(self, docset):
-        self.docset = docset
         self.config = ConfigParser.ConfigParser()
         self.config.read('importer.cfg')
         User = self.config.get('Connection', 'User', 0)
         Password = self.config.get('Connection', 'Password', 0)
         Host = self.config.get('Connection', 'Host', 0)
         DBname = self.config.get('Connection', 'DBname', 0)
+        self.connection_string = "host='"+ Host + "' dbname='" + DBname + "' user='" + User + "' password='" + Password + "'"
         self.debugMode = bool(self.config.get('Config', 'debugMode', 0))
         self.content_path = self.config.get('Path', 'base_path', 0)
-        self.docset_name = self.config.get(self.docset, 'name', 0)
-        self.default_uri = self.config.get(self.docset, 'default_uri', 0)
-        self.index_path = self.content_path + self.docset +  '/index.json'
-        self.connection_string = "host='"+ Host + "' dbname='" + DBname + "' user='" + User + "' password='" + Password + "'"
+        if docset == 'all':
+            sections = self.config.sections()
+            for sect in sections:
+                if sect not in ['Connection', 'Config', 'Path']:
+                    self.docset = sect
+                    self.docset_name = self.config.get(sect, 'name', 0)
+                    self.default_uri = self.config.get(sect, 'default_uri', 0)
+                    self.index_path = self.content_path + sect +  '/index.json'
+                    print '######################' + sect + '######################'
+                    self.importToDB()
+        else:
+            self.docset = docset
+            self.docset_name = self.config.get(self.docset, 'name', 0)
+            self.default_uri = self.config.get(self.docset, 'default_uri', 0)
+            self.index_path = self.content_path + self.docset +  '/index.json'
+
 
     def importToDB(self):
         json_data = self.processJSON(self.index_path)
