@@ -9,6 +9,8 @@ module Docs
 
     options[:title] = 'Sinon.JS'
     options[:container] = '.docs'
+    options[:root_title] = 'SinonJS'
+    options[:docset_uri] = '/sinonjs'
     options[:skip_links] = true
 
     options[:attribution] = <<-HTML

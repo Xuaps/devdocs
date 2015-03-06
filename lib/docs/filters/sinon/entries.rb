@@ -1,6 +1,42 @@
 module Docs
   class Sinon
     class EntriesFilter < Docs::EntriesFilter
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
+      end
+
+      def get_type(typename)
+          if typename.include? 'Fake timers' or typename.include? 'Fake XMLHttpRequest' or typename.include? 'Sandboxes'
+              'function'
+          elsif typename.include? 'Assertions'
+              'assertion'
+          elsif typename.include? 'Utilities'
+              'utils'
+          elsif typename.include? 'Stubs'
+              'stubs'
+          elsif typename.include? 'Spies'
+              'spies'
+          else
+              'others'
+          end
+      end
+
       def additional_entries
         entries = []
         type = config = nil
@@ -15,8 +51,8 @@ module Docs
 
             id = type.parameterize
             node['id'] = id
-
-            entries << [type, id, 'Sections']
+            custom_parsed_uri = get_parsed_uri + '#' + id
+            entries << [type, id, 'others', custom_parsed_uri, get_parent_uri, get_docset]
           elsif node.name == 'h3' && node.content.include?('sinon.config')
             config = true
           elsif node.name == 'dl'
@@ -34,8 +70,8 @@ module Docs
 
               id = name.parameterize
               code.parent['id'] = id
-
-              entries << [name, id, type]
+              custom_parsed_uri = get_parsed_uri + '#' + id
+              entries << [name, id, get_type(type), custom_parsed_uri, get_parent_uri, get_docset]
             end
           end
         end
