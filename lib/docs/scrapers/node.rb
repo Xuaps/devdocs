@@ -9,7 +9,7 @@ module Docs
     html_filters.push 'node/clean_html', 'node/entries', 'title'
 
     options[:title] = false
-    options[:root_title] = 'Node.js'
+    options[:root_title] = 'NodeJS'
     options[:docset_uri] = '/nodejs'
     options[:container] = '#apicontent'
     options[:skip] = %w(index.html all.html documentation.html synopsis.html)

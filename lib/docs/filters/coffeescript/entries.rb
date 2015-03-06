@@ -47,29 +47,32 @@ module Docs
       ]
 
       def get_docset
-        docset = context[:root_title]
-        docset
+        context[:root_title]
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
-        parsed_uri
+        context[:docset_uri] + '/' + path
       end
 
       def get_parent_uri
         subpath = *path.split('/')
         if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+            (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
         else
-            parent_uri = 'null'
+            'null'
         end
       end
 
+      def get_type
+         'others'
+      end
       def additional_entries
         CUSTOMENTRIES.each do |entry|
-            entries << [entry, get_parsed_uri, get_parent_uri, get_docset]
+            id = entry[1]
+            custom_parsed_uri = get_parent_uri + '#' + id
+            entries << [entry, custom_parsed_uri, get_parent_uri, get_docset]
         end
-        #entries = ENTRIES.dup
+        entries = ENTRIES.dup
 
         # Operators
         css('.definitions td:first-child > code').each do |node|
@@ -78,7 +81,8 @@ module Docs
             name.sub! %r{\Aa (.+) b\z}, '\1'
             id = name_to_id(name)
             node['id'] = id
-            entries << [name, id, 'Operators', get_parsed_uri + '.' + name , get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri + '#' + id
+            entries << [name, id, 'operators', custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
 

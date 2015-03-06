@@ -11,7 +11,9 @@ module Docs
     #   --op html .
 
     self.version = '2.2.0'
-    self.dir = '/home/desarrollo/Descargas/docs/Ruby'
+    self.dir = '/home/desarrollo/Descargas/docs/ruby'
+    self.base_url = 'http://ruby-doc.org/core-2.2.0/'
+    self.root_path = 'index.html'
 
     html_filters.replace 'rdoc/entries', 'ruby/entries'
 

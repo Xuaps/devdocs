@@ -17,7 +17,7 @@ module Docs
         'Selectors'         => 'selector',
         'Manipulation'      => 'method',
         'Offset'            => 'method',
-        'Dimensions'        => 'Property'}
+        'Dimensions'        => 'property'}
 
       def get_name
         name = at_css('h1').content.strip

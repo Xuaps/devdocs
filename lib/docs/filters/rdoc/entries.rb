@@ -57,7 +57,8 @@ module Docs
 
           unless name.start_with? '_'
             name.prepend self.name + (node['id'] =~ /\A\w+-c-/ ? '::' : '#')
-            entries << [name, node['id']] unless entries.any? { |entry| entry[0] == name }
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset] unless entries.any? { |entry| entry[0] == name }
           end
 
           entries

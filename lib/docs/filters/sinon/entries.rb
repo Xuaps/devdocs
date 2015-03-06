@@ -22,7 +22,7 @@ module Docs
       end
 
       def get_type(typename)
-          if typename.include? 'Fake timers' or typename.include? 'Fake XMLHttpRequest' or typename.include? 'Sandboxes'
+          if typename.include? 'Fake timers' or typename.include? 'Fake XMLHttpRequest' or typename.include? 'Sandboxes' or typename.include? 'Spies'
               'function'
           elsif typename.include? 'Assertions'
               'assertion'
@@ -30,8 +30,6 @@ module Docs
               'utils'
           elsif typename.include? 'Stubs'
               'stubs'
-          elsif typename.include? 'Spies'
-              'spies'
           else
               'others'
           end

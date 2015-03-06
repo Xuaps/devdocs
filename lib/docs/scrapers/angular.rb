@@ -10,8 +10,8 @@ module Docs
     text_filters.push 'angular/clean_urls'
 
     options[:title] = false
-    options[:root_title] = 'Angular.js'
-    options[:docset_uri] = '/angular'
+    options[:root_title] = 'AngularJS'
+    options[:docset_uri] = '/angularjs'
 
     options[:fix_urls] = ->(url) do
       url.sub! '/partials/api/api/', '/partials/api/'

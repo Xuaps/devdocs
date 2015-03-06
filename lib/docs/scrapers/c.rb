@@ -1,7 +1,7 @@
 module Docs
   class C < FileScraper
     self.type = 'c'
-    self.dir = '/home/desarrollo/desarrollo/projects/devdocs/public/docs/c'
+    self.dir = '/home/desarrollo/Descargas/docs/c'
     self.base_url = 'http://en.cppreference.com/w/c/'
     self.root_path = 'header.html'
 
