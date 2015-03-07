@@ -37,13 +37,13 @@ module Docs
         slug = self.slug.remove('Element/')
 
         if at_css('.obsoleteHeader', '.deprecatedHeader', '.nonStandardHeader') || OBSOLETE.include?(slug)
-          'Obsolete'
+          'obsolete'
         else
           spec = css('.standard-table').last.try(:content)
           if (spec && html5_spec?(spec)) || HTML5.include?(slug)
-            'HTML5'
+            'type'
           else
-            'Standard'
+            'standard'
           end
         end
       end
@@ -59,7 +59,7 @@ module Docs
             name = node.content.strip
             id = node.parent['id'] = name.parameterize + 'tr'
             custom_parsed_uri = get_parsed_uri + '#' + name
-            [name, id, 'Attributes', custom_parsed_uri, get_parent_uri, get_docset]
+            [name, id, 'attribute', custom_parsed_uri, get_parent_uri, get_docset]
           end
         elsif slug == 'Link_types'
           css('.standard-table td:first-child > code').map do |node|
@@ -67,14 +67,14 @@ module Docs
             id = node.parent.parent['id'] = name.parameterize + 'tr'
             name.prepend 'rel: '
             custom_parsed_uri = get_parsed_uri + '#' + id
-            [name, id, 'Attributes', custom_parsed_uri, get_parent_uri, get_docset]
+            [name, id, 'attribute', custom_parsed_uri, get_parent_uri, get_docset]
           end
         elsif slug == 'Element/Heading_Elements'
             (1..6).map do |n|
                 name = 'h' + n.to_s
                 id = name
                 custom_parsed_uri = get_parsed_uri + '#' + name
-                [name, id, 'Standard', custom_parsed_uri, get_parent_uri, get_docset]
+                [name, id, 'element', custom_parsed_uri, get_parent_uri, get_docset]
             end
         else
           []

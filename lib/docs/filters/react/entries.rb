@@ -31,9 +31,20 @@ module Docs
       end
 
       def get_type
-        link = at_css('.nav-docs-section .active')
-        section = link.ancestors('.nav-docs-section').first
-        section.at_css('h3').content
+        if slug.downcase.include? 'component'
+            'component'
+        elsif slug.downcase.include? 'thinking' or slug.include? 'tutorial' or slug.include? 'dom' or slug.include? 'performance'
+            'guide'
+        elsif slug.downcase.include? 'event'
+            'event'
+        elsif slug.downcase.include? 'api'
+            'api'
+        elsif slug.downcase.include? 'jsx'
+            'element'
+        else
+            'others'
+        end
+
       end
 
       def additional_entries
@@ -44,8 +55,7 @@ module Docs
           name.remove! %r{[#\(\)]}
           name.remove! %r{\w+\:}
           id = node.at_css('.anchor')['name']
-          type = slug.include?('component') ? 'Component' : 'React'
-          [name, id, type, get_parsed_uri + '#' + id, get_parent_uri, get_docset]
+          [name, id, get_type, get_parsed_uri + '#' + id, get_parent_uri, get_docset]
         end
       end
     end

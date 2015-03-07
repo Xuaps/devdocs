@@ -21,6 +21,20 @@ module Docs
         end
       end
 
+      def get_type(typename)
+          if typename == 'events'
+              'event'
+          elsif typename == 'router' or  typename == 'utility' or  typename == 'sync' or  typename == 'model' or  typename == 'history'
+              'function'
+          elsif typename == 'collection'
+              'collection'
+          elsif typename == 'view'
+              'view'
+          else
+              'others'
+          end
+      end
+
       def additional_entries
         entries = []
         type = nil
@@ -31,7 +45,7 @@ module Docs
             type = node.content.remove 'Backbone.'
             if type.capitalize! # sync, history
               custom_parsed_uri = get_parsed_uri + '#' + node['id']
-              entries << [node.content, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
+              entries << [node.content, node['id'], get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset]
             end
             next
           end
@@ -43,7 +57,7 @@ module Docs
               id = name.parameterize
               li['id'] = id
               custom_parsed_uri = get_parsed_uri + '#' + id
-              entries << [name, id, type, custom_parsed_uri, get_parent_uri, get_docset] unless name == entries.last[0]
+              entries << [name, id, get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset] unless name == entries.last[0]
             end
             next
           end
@@ -58,7 +72,7 @@ module Docs
               id = name.parameterize
               li['id'] = id
               custom_parsed_uri = get_parsed_uri + '#' + id
-              entries << [name, id, type, custom_parsed_uri, get_parent_uri, get_docset]
+              entries << [name, id, get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset]
             end
             next
           end
@@ -75,7 +89,7 @@ module Docs
             name.prepend "#{type.downcase}."
           end
           custom_parsed_uri = get_parsed_uri + '#' + node['id']
-          entries << [name, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
+          entries << [name, node['id'], get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries

@@ -22,10 +22,20 @@ module Docs
         else
             parent_uri = 'null'
         end
-      end
+      end                                         
 
       def get_type
-        'Guides'
+          if slug.include? 'why' or  slug.include? 'optimization'
+              'guide'
+          elsif slug.include? 'api'
+              'api'
+          elsif slug.include? 'jquery' or slug.include? 'commonjs' or slug.include? 'node'
+              'guide'
+          elsif slug.include? 'plugins'
+              'module'
+          else
+              'others'
+          end
       end
 
       def additional_entries
@@ -39,14 +49,14 @@ module Docs
             type = node.content
           elsif node.name == 'h3' || node.name == 'h4'
             custom_parsed_uri = get_parsed_uri + '#' + node['id']
-            entries << [node.content, node['id'], type, custom_parsed_uri.sub('index',node.content.downcase.lstrip.tr(' ', '_')), get_parent_uri, get_docset]
+            entries << [node.content, node['id'], get_type, custom_parsed_uri.sub('index',node.content.downcase.lstrip.tr(' ', '_')), get_parent_uri, get_docset]
           end
         end
 
         css('p[id^="config-"]').each do |node|
           next if node['id'].include?('note')
           custom_parsed_uri = get_parsed_uri + '#' + node['id']
-          entries << [node.at_css('strong').content, node['id'], 'Configuration Options', custom_parsed_uri.sub('index',node.at_css('strong').content.downcase.lstrip.tr(' ', '_')), get_parent_uri, get_docset]
+          entries << [node.at_css('strong').content, node['id'], 'configuration', custom_parsed_uri.sub('index',node.at_css('strong').content.downcase.lstrip.tr(' ', '_')), get_parent_uri, get_docset]
         end
 
         entries

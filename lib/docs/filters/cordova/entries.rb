@@ -25,10 +25,12 @@ module Docs
       end
 
       def get_type
-        if subpath.start_with?('guide_platforms')
-          name[/Amazon\ Fire\ OS|Android|BlackBerry|Firefox OS|iOS|Windows/] || 'Platform Guides'
+        if slug.include? 'guide'
+          'guide'
+        elsif slug.include? 'event'
+          'event'
         else
-          'Guides'
+          'others'
         end
       end
 
@@ -37,7 +39,7 @@ module Docs
 
         css('h2').map do |node|
           custom_parsed_uri = get_parsed_uri + '#' + node['id']
-          [node.content, node['id'], 'Events', custom_parsed_uri, get_parent_uri, get_docset]
+          [node.content, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

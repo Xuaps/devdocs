@@ -25,18 +25,18 @@ module Docs
 
       def get_type
         case at_css('aside > ul:last-child a').content.strip
-        when 'DEL'          then 'Keys'
-        when 'APPEND'       then 'Strings'
-        when 'HDEL'         then 'Hashes'
-        when 'BLPOP'        then 'Lists'
-        when 'SADD'         then 'Sets'
-        when 'ZADD'         then 'Sorted Sets'
-        when 'PSUBSCRIBE'   then 'Pub/Sub'
-        when 'DISCARD'      then 'Transactions'
-        when 'EVAL'         then 'Scripting'
-        when 'AUTH'         then 'Connection'
-        when 'BGREWRITEAOF' then 'Server'
-        when 'PFADD'        then 'HyperLogLog'
+        when 'DEL'          then 'function'
+        when 'APPEND'       then 'function'
+        when 'HDEL'         then 'function'
+        when 'BLPOP'        then 'function'
+        when 'SADD'         then 'function'
+        when 'ZADD'         then 'function'
+        when 'PSUBSCRIBE'   then 'function'
+        when 'DISCARD'      then 'function'
+        when 'EVAL'         then 'function'
+        when 'AUTH'         then 'network'
+        when 'BGREWRITEAOF' then 'network'
+        when 'PFADD'        then 'others'
         else 'others'
         end
       end

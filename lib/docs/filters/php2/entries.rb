@@ -1,0 +1,100 @@
+module Docs
+  class Php2
+    class EntriesFilter < Docs::EntriesFilter
+      EXCLUDED_PATH = ['PHP Manual', 'Language Reference', 'Function Reference','Other Basic Extensions', 'Table of Contents']
+
+      def get_name
+
+        return 'IntlException' if slug == 'class.intlexception'
+        name = css('> .sect1 > .title', 'h1', 'h2').first.content
+        name.remove! 'The '
+        name.sub! ' class', ' (class)'
+        name.sub! ' interface', ' (interface)'
+        name
+      end
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        parsed_uri
+      end
+      # transform string into a valid uri
+      def urilized(str)
+         str.downcase.tr(' ','_')
+      end
+
+      def get_parent_uri
+        parent_uri = context[:docset_uri]
+        xpath('//*[@id="breadcrumbs-inner"]//li/a/text()').each do |node|
+           link = node.content.strip
+           if not EXCLUDED_PATH.include? link
+               parent_uri += '/' + self.urilized(link)
+           end
+        end
+        parent_uri
+      end
+
+      def get_type
+        if slug.include? 'types'
+            'type'
+        elsif slug.include? 'interface'
+            'interface'
+        elsif slug.include? 'variables'
+            'variable'
+        elsif slug.include? 'language.constants'
+            'constant'
+        elsif slug.include? 'appendices'
+            'interface'
+        elsif slug.include? 'migration'
+            'guide'
+        elsif slug.include? 'faq'
+            'guide'
+        elsif slug.include? ' install'
+            'guide'
+        elsif slug.include? 'basic'
+            'guide'
+        elsif slug.include? 'language.expressions.'
+            'guide'
+        elsif slug.include? 'language.operators.'
+            'guide'
+        elsif slug.include? 'control-structures.'
+            'function'
+        elsif slug.include? 'funcs.'
+            'function'
+        elsif slug.include? 'cairocontext.'
+            'function'
+        elsif slug.include? 'function.'
+            'function'
+        elsif slug.include? 'language.oop5'
+            'class'
+        elsif slug.include? 'class.'
+            'class'
+        elsif slug.include? 'language.namespaces.'
+            'namespace'
+        elsif slug.include? 'language.exceptions.'
+            'class'
+        elsif slug.include? 'language.references.'
+            'guide'
+        elsif slug.include? 'operators.'
+            'variable'
+        elsif slug.include? 'context.'
+            'guide'
+        elsif slug.include? '::.'
+            'method'
+        elsif slug.include? 'wrappers.'
+            'class'
+        else
+            'others'
+        end
+      end
+
+      def include_default_entry?
+        !initial_page? && doc.at_css('.reference', '.refentry', '.sect1')
+      end
+    end
+  end
+end

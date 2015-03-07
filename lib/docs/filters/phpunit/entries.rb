@@ -25,19 +25,21 @@ module Docs
       end
 
       def get_type
-        if name.in?(%w(Assertions Annotations))
-          name
+        if name.in?(%w(Assertions))
+          'function'
+        elsif name.in?(%w(Annotations))
+          'property'
         else
-          'Guides'
+          'guide'
         end
       end
 
       def additional_entries
-        return [] if type == 'Guides'
+        return [] if type == 'guide'
 
         css('h2').map do |node|
           custom_parsed_uri = get_parsed_uri.sub('index', name.downcase) + '#' + node['id']
-          [node.content, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
+          [node.content, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

@@ -22,8 +22,18 @@ module Docs
         end
       end
 
-      def get_type
-          'others'
+      def get_type(typename)
+          if typename == 'Overview'
+              'guide'
+          elsif typename == 'Miscellaneous'
+              'others'
+          elsif typename == 'Block Elements'
+              'element'
+          elsif typename == 'Span Elements'
+              'element'
+          else
+               'others'
+          end
       end
 
       def additional_entries
@@ -34,7 +44,7 @@ module Docs
           elsif node.name == 'h3'
             name = node.content.strip
             custom_parsed_uri = get_parsed_uri + '#' + node['id']
-            entries << [name, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
+            entries << [name, node['id'], get_type(type), custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
       end

@@ -31,11 +31,11 @@ module Docs
             elsif node[0].inner_text.downcase.include? ' list '
                 return 'lists'
             elsif node[0].inner_text.downcase.include? '  '
-                'functions'
+                'function'
             elsif node[2].inner_text.downcase.include? ' method '
-                return 'functions'
+                return 'method'
             else
-               'functions'
+               'function'
             end
         else
             'others'

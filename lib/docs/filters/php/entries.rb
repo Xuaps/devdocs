@@ -61,24 +61,6 @@ module Docs
         'Stream'            => 'Streams',
         'Yaml'              => 'YAML' }
 
-      TYPE_GROUPS = {
-        'Classes and Functions' => ['Classes/Object', 'Function handling', 'Predefined Interfaces and Classes', 'runkit'],
-        'Encoding'              => ['Gettext', 'iconv', 'Multibyte String'],
-        'Compression'           => ['Bzip2', 'Zip', 'Zlib'],
-        'Cryptography'          => ['Hash', 'Mcrypt', 'OpenSSL', 'Password Hashing'],
-        'Database'              => ['DBA', 'ODBC', 'PDO'],
-        'Date and Time'         => ['Calendar', 'Date/Time'],
-        'Errors'                => ['Error Handling', 'Predefined Exceptions'],
-        'File System'           => ['Directory', 'Fileinfo', 'Filesystem', 'Inotify'],
-        'HTML'                  => ['DOM', 'Tidy'],
-        'Language'              => ['Control Structures', 'Misc.', 'PHP Options/Info', 'Predefined Variables'],
-        'Mail'                  => ['Mail', 'Mailparse'],
-        'Mathematics'           => ['BC Math', 'Math', 'Statistic'],
-        'Networking'            => ['GeoIP', 'Network', 'Output Control', 'SSH2', 'Socket', 'URL'],
-        'Process Control'       => ['Eio', 'Libevent', 'POSIX', 'Program execution', 'pthreads'],
-        'String'                => ['Ctype', 'PCRE', 'POSIX Regex', 'Taint'],
-        'Variables'             => ['Filter', 'Variable handling'],
-        'XML'                   => ['libxml', 'SimpleXML', 'XML Parser', 'XML-RPC', 'XMLReader', 'XMLWriter', 'XSLT'] }
 
       def get_name
 
@@ -110,21 +92,57 @@ module Docs
       end
 
       def get_type
-        type = at_css('.up').content.strip
-        type = 'SPL/Iterators' if type.end_with? 'Iterator'
-        type.remove! ' Functions'
-
-        TYPE_BY_NAME_STARTS_WITH.each_pair do |key, value|
-          break type = value if name.start_with?(key)
+        if slug.include? 'types'
+            'type'
+        elsif slug.include? 'interface'
+            'interface'
+        elsif slug.include? 'variables'
+            'variable'
+        elsif slug.include? 'language.constants'
+            'constant'
+        elsif slug.include? 'appendices'
+            'interface'
+        elsif slug.include? 'migration'
+            'guide'
+        elsif slug.include? 'faq'
+            'guide'
+        elsif slug.include? ' install'
+            'guide'
+        elsif slug.include? 'basic'
+            'guide'
+        elsif slug.include? 'language.expressions.'
+            'guide'
+        elsif slug.include? 'language.operators.'
+            'guide'
+        elsif slug.include? 'control-structures.'
+            'function'
+        elsif slug.include? 'funcs.'
+            'function'
+        elsif slug.include? 'cairocontext.'
+            'function'
+        elsif slug.include? 'function.'
+            'function'
+        elsif slug.include? 'language.oop5'
+            'class'
+        elsif slug.include? 'class.'
+            'class'
+        elsif slug.include? 'language.namespaces.'
+            'namespace'
+        elsif slug.include? 'language.exceptions.'
+            'class'
+        elsif slug.include? 'language.references.'
+            'guide'
+        elsif slug.include? 'operators.'
+            'variable'
+        elsif slug.include? 'context.'
+            'guide'
+        elsif slug.include? '::.'
+            'method'
+        elsif slug.include? 'wrappers.'
+            'class'
+        else
+            'others'
         end
-
-        TYPE_GROUPS.each_pair do |replacement, types|
-          types.each do |t|
-            return replacement if type == t
-          end
-        end
-
-        REPLACE_TYPES[type] || type
       end
 
       def include_default_entry?

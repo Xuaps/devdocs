@@ -30,7 +30,7 @@ module Docs
 
       def get_type
         if slug.start_with?('Axes')
-          'Axes'
+          'axes'
         elsif slug.start_with?('Functions')
           'function'
         else

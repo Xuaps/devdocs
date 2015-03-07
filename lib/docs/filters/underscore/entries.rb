@@ -36,7 +36,7 @@ module Docs
           node.css('.header', '.alias b').each do |header|
             header.content.split(',').each do |name|
               custom_parsed_uri = get_parsed_uri.sub('index', name.downcase) + '#' + node['id']
-              entries << [name, node['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
+              entries << [name, node['id'], type.downcase, custom_parsed_uri, get_parent_uri, get_docset]
             end
           end
         end

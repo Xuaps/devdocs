@@ -26,15 +26,13 @@ module Docs
 
       def get_type
         if path.include? 'assert'
-            'Assert'
+            'assert'
         elsif path.include? 'bdd'
-             'Bdd'
+             'function'
         elsif path.include? 'plugin'
-             'Plugin'
+             'object'
         elsif path.include? 'installation'
-             'Installation'
-        elsif path.include? 'bdd'
-             'Bdd'
+             'guide'
         else
              'others'
         end

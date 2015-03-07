@@ -36,13 +36,13 @@ module Docs
 
       def get_type
         if slug.start_with?('Element')
-          'Elements'
+          'element'
         elsif slug.start_with?('Attribute')
-          'Attributes'
+          'attribute'
         elsif slug.start_with?('Tutorial')
-          'Tutorial'
+          'tutorial'
         elsif slug == 'Content_type'
-          'Content types'
+          'type'
         else
           'others'
         end
@@ -57,7 +57,7 @@ module Docs
           next unless dl.name == 'dl'
           name = dl.at_css('dt').content.remove(/[<>]/)
           custom_parsed_uri = get_parsed_uri + '#' + node['id']
-          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          entries << [name, node['id'], get_type.downcase, custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries

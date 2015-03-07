@@ -3,6 +3,11 @@ module Docs
     class EntriesFilter < Docs::EntriesFilter
       # Ordered by precedence
       TYPES = %w(Widgets Events Properties Methods)
+      REPLACE_TYPES = {
+        'Widgets'           => 'function',
+        'Events'            => 'event',
+        'Properties'        => 'property',
+        'Methods'           => 'method'}
 
       def get_name
         name = at_css('h1').content.strip
@@ -37,7 +42,7 @@ module Docs
         types.map! { |type| TYPES.index(type) }
         types.compact!
         types.sort!
-        types.empty? ? 'others' : TYPES[types.first]
+        types.empty? ? 'others' : REPLACE_TYPES[TYPES[types.first]]
       end
     end
   end

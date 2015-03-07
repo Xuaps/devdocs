@@ -31,11 +31,11 @@ module Docs
 
       def get_type
         if slug.include? 'api'
-            'Api'
+            'api'
         elsif slug.include? 'config'
-            'Config'
+            'configuration'
         else
-            'Guides'
+            'guide'
         end
       end
 

@@ -30,7 +30,6 @@ module Docs
       def get_parsed_uri
         subpath = *path.split('/')
         parsed_uri = (context[:docset_uri] + '/' + subpath[1,subpath.size-1].join('/')).downcase
-        puts 'parsed: ' + parsed_uri
         parsed_uri
       end
 
@@ -41,19 +40,25 @@ module Docs
         else
             parent_uri = 'null'
         end
-        puts 'parent: ' + parent_uri
       end
 
       def get_type
-        %w(System.Posix System.Win32 Control.Monad).each do |type|
-          return type if name.start_with?(type)
+        if name.include? 'Data'
+             'data'
+        elsif %w(Complex Array Char Numeric Maybe).include? name or name.include? 'Foreign'
+             'type'
+        elsif %w(List Prelude IO Ratio Random Debug.Trace).include? name or name.include? 'Text' or name.include? 'Trace' or name.include? 'Control'
+             'function'
+        elsif name.include? 'GHC' or name.include? 'Compiler' or name.include? 'System' or name.include? 'GHC'
+             'module'
+        elsif name.include? 'Language'
+             'language'
+        elsif name.include? 'Ix'
+             'class'
+        else
+            'others'
         end
 
-        if name.start_with?('Data')
-          name.split('.')[0..1].join('.')
-        else
-          name.split('.').first
-        end
       end
 
       def additional_entries

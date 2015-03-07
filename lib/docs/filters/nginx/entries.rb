@@ -33,11 +33,11 @@ module Docs
 
       def get_type
         if slug.include? 'core'
-          'Core'
+          'core'
         elsif slug.include? 'module'
-          'Module'
+          'module'
         else
-          'Guides'
+          'guide'
         end
       end
 
@@ -49,7 +49,7 @@ module Docs
           id = node['href'].remove('#')
           next if id.blank?
           custom_parsed_uri = get_parsed_uri + '#' + id
-          entries << [get_name + '.' + name, id, type, custom_parsed_uri, get_parent_uri, get_docset]
+          entries << [get_name + '.' + name, id, get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end
