@@ -7,21 +7,34 @@ module Docs
     self.root_path = 'index.html'
     self.initial_paths = %w(
       reserved.variables.php
+      spl.iterators.php
       funcref.php
+      langref.php
+      ref.bbcode.php
+      ref.filesystem.php
+      ref.url.php
+      ref.info.php
+      ref.fann.php
       refs.database.php
+      refs.math.php
+      ref.apache.php
+      ref.strings.php
+      ref.apc.php
+      ref.apd.php
+      ref.array.php
       set.mysqlinfo.php
       language.control-structures.php
       reserved.exceptions.php
       reserved.interfaces.php)
 
-    html_filters.push 'php2/internal_urls', 'php2/entries', 'php2/clean_html', 'title'
+    html_filters.push 'php2/entries', 'php2/clean_html', 'title'
     text_filters.push 'php2/fix_urls'
 
     options[:title] = false
     options[:root_title] = 'PHP'
     options[:docset_uri] = '/php'
 
-    options[:skip_links] = false
+    #options[:skip_links] = ->(filter) { !filter.initial_page? }
 
     options[:skip_patterns] = [/mysqlnd/]
 
@@ -29,5 +42,11 @@ module Docs
       &copy; 1997&ndash;2014 The PHP Documentation Group<br>
       Licensed under the Creative Commons Attribution License v3.0 or later.
     HTML
+
+    options[:fix_urls] = ->(url) do
+      url.sub! 'http://php.net/manual/en/language.types.string.php#language.types.string.parsing.complex', 'http://php.net/manual/en/language.types.string.php'
+      url.sub! 'http://php.net/manual/en/language.pseudo-types.php#language.types.mixed', 'http://php.net/manual/en/language.pseudo-types.php#language.types.mixed'
+      url
+    end
   end
 end

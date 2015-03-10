@@ -42,7 +42,7 @@ module Docs
     }
 
     options[:fix_urls] = ->(url) do
-      url.sub! %r{https://developer\.mozilla\.org/en\-US/docs/CSS/([a-z@:])}, "#{Css.base_url}/\\1"
+      url.sub! %r{https://php.net//([a-z@:])}, "#{Css.base_url}/\\1"
       url
     end
   end

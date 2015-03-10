@@ -24,6 +24,25 @@ module Docs
         name.strip!
         name
       end
+      
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri
+      end
+
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
+      end
 
       def get_type
         return 'Logging' if slug.start_with? 'library/logging'
@@ -49,26 +68,32 @@ module Docs
       end
 
       def include_default_entry?
-        !at_css('.body > .section:only-child > .toctree-wrapper:last-child') && !type.in?(%w(Language Superseded SunOS))
+        !(at_css('.body > .section:only-child > .toctree-wrapper:last-child') && !type.in?(%w(Language Superseded SunOS))) || slug == 'library/index'
       end
 
       def additional_entries
-        return [] if root_page? || !include_default_entry? || name == 'errno'
+        return [] if !include_default_entry? || name == 'errno'
         clean_id_attributes
         entries = []
 
         css('.class > dt[id]', '.exception > dt[id]', '.attribute > dt[id]').each do |node|
-          entries << [node['id'], node['id']]
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          name = subpath + '.' + node['id']
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         css('.data > dt[id]').each do |node|
           if node['id'].split('.').last.upcase! # skip constants
-            entries << [node['id'], node['id']]
+            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            name = subpath + '.' + node['id']
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
 
         css('.function > dt[id]', '.method > dt[id]', '.classmethod > dt[id]').each do |node|
-          entries << [node['id'] + '()', node['id']]
+          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          name = subpath + '.' + node['id'] + '()'
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries

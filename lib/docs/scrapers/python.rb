@@ -2,11 +2,14 @@ module Docs
   class Python < FileScraper
     self.version = '3.4.2'
     self.type = 'sphinx'
-    self.dir = '/Users/Thibaut/DevDocs/Docs/Python' # downloaded from docs.python.org/3/download.html
+    self.dir = '/home/desarrollo/Descargas/docs/python3' # downloaded from docs.python.org/3/download.html
     self.base_url = 'http://docs.python.org/3/'
     self.root_path = 'library/index.html'
 
     html_filters.push 'python/entries', 'python/clean_html'
+
+    options[:root_title] = 'Python3'
+    options[:docset_uri] = '/python3'
 
     options[:only_patterns] = [/\Alibrary\//]
 

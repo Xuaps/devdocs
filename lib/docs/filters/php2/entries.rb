@@ -6,11 +6,21 @@ module Docs
       def get_name
 
         return 'IntlException' if slug == 'class.intlexception'
-        name = css('> .sect1 > .title', 'h1', 'h2').first.content
+        name = css('> .sect1 > .title', 'h1', 'h2', 'h4','.section > table > caption > strong').first.content
         name.remove! 'The '
         name.sub! ' class', ' (class)'
         name.sub! ' interface', ' (interface)'
         name
+      end
+
+      def get_alias
+          node = xpath('//li[@class="current"]/a/text()')
+          if node.nil? or name.include? '::' or path.start_with?('ref.pdo-sqlsrv.php')
+              _alias = name
+          else
+              _alias = node.to_s
+          end
+          _alias
       end
 
       def get_docset
@@ -19,12 +29,16 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_alias)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_alias)
+        end
         parsed_uri
       end
       # transform string into a valid uri
       def urilized(str)
-         str.downcase.tr(' ','_')
+         str.downcase.tr(' ','_').tr('//','').tr("'", "").tr('/','-').tr('"', '').gsub(/\u200B/){''}
       end
 
       def get_parent_uri
@@ -34,6 +48,9 @@ module Docs
            if not EXCLUDED_PATH.include? link
                parent_uri += '/' + self.urilized(link)
            end
+        end
+        if parent_uri == context[:docset_uri]
+            parent_uri = 'null'
         end
         parent_uri
       end
@@ -93,7 +110,7 @@ module Docs
       end
 
       def include_default_entry?
-        !initial_page? && doc.at_css('.reference', '.refentry', '.sect1')
+        doc.at_css('.reference', '.refentry', '.sect1', 'section', '.set', '.legalnotice', '.book', '.chapter', '.appendix', '.preface', '.section', '.article','.part')
       end
     end
   end

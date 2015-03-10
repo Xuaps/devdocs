@@ -4,18 +4,20 @@ module Docs
     self.slug = 'python2'
     self.version = '2.7.8'
     self.type = 'sphinx'
-    self.dir = '/Users/Thibaut/DevDocs/Docs/Python2' # downloaded from docs.python.org/2.7/download.html
+    self.dir = '/home/desarrollo/Descargas/docs/python2' # downloaded from docs.python.org/2.7/download.html
     self.base_url = 'http://docs.python.org/2.7/'
     self.root_path = 'library/index.html'
 
     html_filters.push 'python2/entries', 'python/clean_html'
+
+    options[:root_title] = 'Python2'
+    options[:docset_uri] = '/python2'
 
     options[:only_patterns] = [/\Alibrary\//]
 
     options[:skip] = %w(
       library/2to3.html
       library/formatter.html
-      library/index.html
       library/intro.html
       library/undoc.html
       library/unittest.mock-examples.html
