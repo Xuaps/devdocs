@@ -48,7 +48,7 @@ class DocImporter():
         for entry in json_data:
             path = entry['path']
             parsed_uri = entry['parsed_uri']
-            content = content.replace(u'"' + path +'"', u'"' + parsed_uri + '"')
+            content = content.replace(u'href="' + path, u'href="' + parsed_uri)
         return content
 
     def importToDB(self):
