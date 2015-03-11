@@ -105,6 +105,9 @@ module Docs
       /table.rows
       /XMLHttpRequest/FormData
       /Performance.now
+      /element.scrollTop
+      /element.scrollTopMax
+      /
       /Document_Object_Model)
 
     options[:fix_urls] = ->(url) do

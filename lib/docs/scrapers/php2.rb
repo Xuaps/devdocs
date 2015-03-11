@@ -4,7 +4,7 @@ module Docs
     self.type = 'php'
     self.version = 'up to 5.6.2'
     self.base_url = 'http://php.net/manual/en/'
-    self.root_path = 'index.html'
+    self.root_path = 'index.php'
     self.initial_paths = %w(
       reserved.variables.php
       spl.iterators.php
@@ -37,6 +37,9 @@ module Docs
     #options[:skip_links] = ->(filter) { !filter.initial_page? }
 
     options[:skip_patterns] = [/mysqlnd/]
+    options[:skip] = %w(
+        php_manual.php
+    )
 
     options[:attribution] = <<-HTML
       &copy; 1997&ndash;2014 The PHP Documentation Group<br>

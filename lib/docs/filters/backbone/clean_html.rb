@@ -18,6 +18,10 @@ module Docs
           node.name = 'code'
         end
 
+        css('pre').each do |node|
+          node['class'] = 'runnable  language-javascript'
+        end
+
         doc
       end
     end

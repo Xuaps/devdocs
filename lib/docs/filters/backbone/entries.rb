@@ -2,14 +2,25 @@ module Docs
   class Backbone
     class EntriesFilter < Docs::EntriesFilter
 
+
       def get_docset
         docset = context[:root_title]
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        parsed_uri
+      end
+
       def get_parsed_uri
         parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
+      end
+      # transform string into a valid uri
+      
+      def urilized(str)
+         str.downcase.tr(' ','_').tr('//','').tr("'", "").tr('/','-').tr('"', '').gsub(/\u200B/){''}
       end
 
       def get_parent_uri
@@ -44,8 +55,9 @@ module Docs
           if node.name == 'h2'
             type = node.content.remove 'Backbone.'
             if type.capitalize! # sync, history
-              custom_parsed_uri = get_parsed_uri + '#' + node['id']
-              entries << [node.content, node['id'], get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset]
+              name = node.content
+              custom_parsed_uri = get_parsed_uri_by_name(name)
+              entries << [name, node['id'], get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset]
             end
             next
           end
@@ -56,7 +68,7 @@ module Docs
               name = "#{li.at_css('b').content.delete('"').strip} event"
               id = name.parameterize
               li['id'] = id
-              custom_parsed_uri = get_parsed_uri + '#' + id
+              custom_parsed_uri = get_parsed_uri_by_name(name)
               entries << [name, id, get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset] unless name == entries.last[0]
             end
             next
@@ -71,7 +83,7 @@ module Docs
               name = [type.downcase, li.at_css('a').content.split.first].join('.')
               id = name.parameterize
               li['id'] = id
-              custom_parsed_uri = get_parsed_uri + '#' + id
+              custom_parsed_uri = get_parsed_uri_by_name(name)
               entries << [name, id, get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset]
             end
             next
@@ -88,7 +100,7 @@ module Docs
           elsif type != 'Utility'
             name.prepend "#{type.downcase}."
           end
-          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset]
         end
 

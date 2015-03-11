@@ -5,6 +5,8 @@ import sys
 import ConfigParser
 import os.path
 
+from lxml import html
+
 class DocImporter():
     connection_string = ''
     content_path = ''
@@ -42,6 +44,12 @@ class DocImporter():
             self.default_uri = self.config.get(self.docset, 'default_uri', 0)
             self.index_path = self.content_path + self.docset +  '/index.json'
 
+    def ProcessContent(self, json_data, content):
+        for entry in json_data:
+            path = entry['path']
+            parsed_uri = entry['parsed_uri']
+            content = content.replace(u'"' + path +'"', u'"' + parsed_uri + '"')
+        return content
 
     def importToDB(self):
         json_data = self.processJSON(self.index_path)
@@ -49,12 +57,16 @@ class DocImporter():
         self.initTable(conn)
         self.emptyTable(conn,self.docset_name)
         previous_uri = ''
+        total = len(json_data)
+        i = 0
         for entry in json_data:
             _name = entry['name']
+            if self.debugMode:
+                print ('Process: ' + entry['path']).ljust(50) + ('[' + str(i)+ '/' + str(total) + ']').rjust(30)
+                i+=1
             if entry['path'].find('#')!= -1:
                  entry['path'] = entry['path'].split('#')[0]
-                 #entry['parsed_uri'] += '.' + _name
-            _content = self.getContent(self.content_path + self.docset + '/' + entry['path'] + '.html')
+            _content = self.ProcessContent(json_data, self.getContent(self.content_path + self.docset + '/' + entry['path'] + '.html'))
             if entry['parent_uri'] == 'null':
                 _parent_uri = None
             else:
@@ -73,13 +85,11 @@ class DocImporter():
 
 
     def getContent(self, path):
-        if self.debugMode:
-            print path
         # case for PHP in tidy.html.html
         if path.find('.html.html')!=-1:
             path = path.replace('.html.html', '.html')
         with open(path, 'r') as content_file:
-            content = content_file.read()
+            content = content_file.read().decode('utf-8')
         return content
 
 
