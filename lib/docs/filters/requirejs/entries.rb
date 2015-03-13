@@ -10,8 +10,12 @@ module Docs
         docset
       end
 
-      def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
         parsed_uri
       end
 
@@ -48,15 +52,17 @@ module Docs
           if node.name == 'h2'
             type = node.content
           elsif node.name == 'h3' || node.name == 'h4'
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
-            entries << [node.content, node['id'], get_type, custom_parsed_uri.sub('index',node.content.downcase.lstrip.tr(' ', '_')), get_parent_uri, get_docset]
+            name = node.content
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
 
         css('p[id^="config-"]').each do |node|
           next if node['id'].include?('note')
-          custom_parsed_uri = get_parsed_uri + '#' + node['id']
-          entries << [node.at_css('strong').content, node['id'], 'configuration', custom_parsed_uri.sub('index',node.at_css('strong').content.downcase.lstrip.tr(' ', '_')), get_parent_uri, get_docset]
+          name = node.at_css('strong').content
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, node['id'], 'configuration', custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries
