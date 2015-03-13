@@ -73,7 +73,6 @@ class DocImporter():
                 i+=1
             if entry['path'].find('#')!= -1:
                  entry['path'] = entry['path'].split('#')[0]
-            print '###############################' + entry['path'] + '###########################'
             _content = self.ProcessContent(json_data, self.getContent(self.content_path + self.docset + '/' + entry['path'] + '.html'))
             if entry['parent_uri'] == 'null':
                 _parent_uri = None
