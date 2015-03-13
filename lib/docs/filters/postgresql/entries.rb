@@ -1,6 +1,31 @@
 module Docs
   class Postgresql
     class EntriesFilter < Docs::EntriesFilter
+
+      ADDITIONAL_ENTRIES = {
+        'functions-geometry' => [
+          %w(Geometry nil others /postgresql/geometry null PostgreSQL) ],
+        'functions-math' => [
+          %w(Math nil others /postgresql/math null PostgreSQL) ],
+        'functions-json' => [
+          %w(JSON-functions nil others /postgresql/data null PostgreSQL) ],
+        'functions-range' => [
+          %w(Range-functions nil others /postgresql/operator null PostgreSQL) ],
+        'functions-net' => [
+          %w(Network-functions nil others /postgresql/network null PostgreSQL) ],
+        'functions' => [
+          %w(Functions nil others /postgresql/function null PostgreSQL)],
+        'runtime-config' => [
+          %w(Configurations nil others /postgresql/configuration null PostgreSQL)],
+        'functions-string' => [
+          %w(Strings nil others /postgresql/string null PostgreSQL)],
+        'datatype-character' => [
+          %w(Types nil others /postgresql/type null PostgreSQL)],
+        'functions-binarystring' => [
+          %w(Binary-functions nil others /postgresql/binary_operators null PostgreSQL)]}
+
+      SLUG_TYPES = {
+        'configuration' =>               %w(runtime-config-replication runtime-config-resource runtime-config-logging)}
       REPLACE_NAMES = {
         'Sorting Rows'                    => 'ORDER BY',
         'Select Lists'                    => 'SELECT Lists',
@@ -10,6 +35,11 @@ module Docs
         'Sequence Manipulation Functions' => 'Sequence Functions',
         'System Administration Functions' => 'Administration Functions',
         'System Information Functions'    => 'Information Functions' }
+      SKIP_ENTRIES_ANCHOR = [
+         '34char34',
+         '124470',
+         '12447'
+      ]
 
       PREPEND_TYPES = [
         'Type Conversion',
@@ -45,18 +75,21 @@ module Docs
         docset
       end
 
-      def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
         parsed_uri
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+          if get_type == 'others'
+              parent_uri = 'null'
+          else
+              parent_uri = context[:docset_uri]+ '/' + self.urilized(get_type)
+          end
       end
 
       def get_filtering_type
@@ -77,17 +110,24 @@ module Docs
       end
 
       def get_type
-          _type = result[:pg_chapter_name].to_s
-          if _type.downcase.include? 'configuration' or _type.downcase.include? 'localization'
+          if SLUG_TYPES['configuration'].include? slug
             'configuration'
-          elsif _type.downcase.include? 'authentication' or _type.downcase.include? 'roles'
-            'security'
-          elsif _type.downcase.include? 'type'
+          elsif slug.downcase.include? 'math'
+            'math'
+          elsif slug.downcase.include? 'geometry'
+            'geometry'
+          elsif slug.downcase.include? 'datatype' or slug.downcase.include? 'array'
             'type'
-          elsif _type.downcase.include? 'function' or _type.downcase.include? 'fulltext'
+          elsif slug.downcase.include? 'bitstring' or slug.downcase.include? 'functions-string'
+            'string'
+          elsif slug.downcase.include? 'range' or slug.downcase.include? 'binarystring'
+            'operator'
+          elsif slug.downcase.include? 'json'
+            'data'
+          elsif slug.downcase.include? 'net'
+            'network'
+          elsif slug.downcase.include? 'function' or slug.downcase.include? 'fulltext'
              'function'
-          elsif _type.downcase.include? 'backup' or _type.downcase.include? 'managing' or _type.downcase.include? 'maintenance'
-             'maintenance'
           else
              'others'
           end
@@ -96,11 +136,10 @@ module Docs
       def additional_entries
         return [] if skip_additional_entries?
         return config_additional_entries if get_filtering_type && get_filtering_type.include?('Configuration')
-        return data_types_additional_entries if get_filtering_type == 'Data Types'
+        return data_types_additional_entries.concat ADDITIONAL_ENTRIES['datatype-character'] if get_filtering_type == 'Data Types'
         return get_heading_entries('h3[id]') if slug == 'functions-xml'
 
         entries = get_heading_entries('h2[id]')
-
         case slug
         when 'queries-union'
           entries.concat get_custom_entries('p > .LITERAL:first-child')
@@ -114,11 +153,27 @@ module Docs
         when 'functions-admin'
           entries.concat get_custom_entries('.TABLE td:first-child > code')
         when 'functions-string'
-          entries.concat get_custom_entries('> div[id^="FUNC"] td:first-child > code')
+          entries.concat get_custom_entries('> div[id^="FUNC"] td:first-child > code').concat ADDITIONAL_ENTRIES[slug]
+        when 'functions-math'
+          entries.concat ADDITIONAL_ENTRIES[slug]
+        when 'functions-geometry'
+          entries.concat ADDITIONAL_ENTRIES[slug]
+        when 'runtime-config'
+          entries.concat ADDITIONAL_ENTRIES[slug]
+        when 'functions-json'
+          entries.concat ADDITIONAL_ENTRIES[slug]
+        when 'functions-range'
+          entries.concat ADDITIONAL_ENTRIES[slug]
+        when 'functions-net'
+          entries.concat ADDITIONAL_ENTRIES[slug]
+        when 'functions-binarystring'
+          entries.concat ADDITIONAL_ENTRIES[slug]
+        when 'functions'
+          entries.concat ADDITIONAL_ENTRIES[slug]
         else
           if get_filtering_type && get_filtering_type.start_with?('Functions')
             entries.concat get_custom_entries('> .TABLE td:first-child > code:first-child')
-            entries.concat %w(IS NULL BETWEEN DISTINCT\ FROM).map { |name| ["#{self.name}: #{name}",nil, get_type, get_parsed_uri + '#' +name, get_parent_uri, get_docset] } if slug == 'functions-comparison'
+            entries.concat %w(IS NULL BETWEEN DISTINCT\ FROM).map { |name| ["#{self.name}: #{name}",nil, get_type, get_parsed_uri_by_name(name), get_parent_uri, get_docset] } if slug == 'functions-comparison'
           end
         end
 
@@ -128,7 +183,7 @@ module Docs
       def config_additional_entries
         css('.VARIABLELIST dt[id]').map do |node|
           name = node.at_css('.VARNAME').content
-          custom_parsed_uri = parsed_uri + '#' + node['id']
+          custom_parsed_uri = get_parsed_uri_by_name(name)
           ["Config: #{name}", node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
@@ -181,8 +236,8 @@ module Docs
         css(selector).each_with_object([]) do |node, entries|
           name = node.content
           clean_heading_name(name)
-          custom_parsed_uri = parsed_uri + '#' + node['id']
-          entries << ["#{name}", node['id'], get_type, custom_parsed_uri, parent_uri, docset] unless skip_heading?(name)
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << ["#{name}", node['id'], get_type, custom_parsed_uri, parent_uri, docset] unless SKIP_ENTRIES_ANCHOR.include?(node['id'])
         end
       end
 
@@ -195,12 +250,18 @@ module Docs
           name.squeeze! ' '
           name.remove! %r{\([^\)]*\z} # bug fix: json_populate_record
           name = '||' if name.include? ' || '
+          case slug
+            when 'functions-bitstring'
+              name.prepend 'Bitstring operator '
+            when 'functions-string'
+              name.prepend 'String operator '
+            end
           id = name.gsub(/[^a-z0-9\-_]/) { |char| char.ord }
           id = id.parameterize
           unless entries.any? { |entry| entry[0] == name }
             node['id'] = id
-            custom_parsed_uri = get_parsed_uri + '#' + id
-            entries << [name, id, get_type, custom_parsed_uri, parent_uri, docset]
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, id, get_type, custom_parsed_uri, parent_uri, docset] unless SKIP_ENTRIES_ANCHOR.include?(id)
           end
         end
       end

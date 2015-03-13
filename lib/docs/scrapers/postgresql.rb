@@ -41,7 +41,9 @@ module Docs
       /\Aapp\-/,
       /\Addl\-/,
       /\Adml\-/,
+      /\Aruntime\-/,
       /\Aqueries\-/,
+      /\Apattern\-/,
       /\Adatatype\-/,
       /\Afunctions\-/,
       /\Atypeconv\-/,
@@ -57,6 +59,8 @@ module Docs
       /\Amonitoring\-/,
       /\Awal\-/,
       /\Adisk/,
+      /functions/,
+      /bitstring_operators/,
       /role/,
       /recovery/,
       /standby/]
