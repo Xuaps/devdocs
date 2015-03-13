@@ -19,6 +19,10 @@ module Docs
     def default_entry
       [name]
     end
+      # transform string into a valid uri
+    def urilized(str)
+        str.downcase.tr(' ','_').tr('//','').tr("'", "").tr('/','-').tr('"', '').tr('::', '-').tr(':','').tr('?','').tr('*','ast').gsub(/\u200B/){''}
+    end
 
     def additional_entries
       []
@@ -39,6 +43,11 @@ module Docs
       @parsed_uri = root_page? ? nil : get_parsed_uri
     end
 
+    def anchor
+      return @anchor if defined? @anchor
+      @anchor = root_page? ? nil : get_anchor
+    end
+
     def parent_uri
       return @parent_uri if defined? @parent_uri
       @parent_uri = root_page? ? nil : get_parent_uri
@@ -46,6 +55,18 @@ module Docs
 
     def get_name
       slug.to_s.gsub('_', ' ').gsub('/', '.').squish!
+    end
+
+    def get_docset
+      context[:root_title]
+    end
+    
+    def get_parsed_uri
+        context[:docset_uri] + '/' + self.urilized(name)
+    end
+
+    def get_anchor
+      'null'
     end
 
     def type
@@ -67,12 +88,13 @@ module Docs
       end
     end
 
-    def build_entry(name, frag = nil, type = nil, parsed_uri = nil, parent_uri = nil, docset = nil)
+    def build_entry(name, anchor = nil, type = nil, parsed_uri = nil, parent_uri = nil, docset = nil)
+      anchor = "null" if anchor == 'nil'
       type ||= self.type
       docset ||= self.docset
       parsed_uri ||= self.parsed_uri
       parent_uri ||= self.parent_uri
-      Entry.new name, frag ? "#{path}##{frag}" : path, type, parsed_uri, parent_uri, docset
+      Entry.new name, path, type, parsed_uri, anchor, parent_uri, docset
     end
   end
 end
