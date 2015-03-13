@@ -88,8 +88,8 @@ module Docs
       end
     end
 
-    def build_entry(name, anchor = nil, type = nil, parsed_uri = nil, parent_uri = nil, docset = nil)
-      anchor = "null" if anchor == 'nil'
+    def build_entry(name, frag = nil, type = nil, parsed_uri = nil, anchor = nil, parent_uri = nil, docset = nil)
+      anchor = "" if anchor == nil
       type ||= self.type
       docset ||= self.docset
       parsed_uri ||= self.parsed_uri

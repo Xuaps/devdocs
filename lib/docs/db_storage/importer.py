@@ -4,6 +4,7 @@ import psycopg2
 import sys
 import ConfigParser
 import os.path
+import re
 
 from lxml import html
 
@@ -45,10 +46,16 @@ class DocImporter():
             self.index_path = self.content_path + self.docset +  '/index.json'
 
     def ProcessContent(self, json_data, content):
+        i = 0
         for entry in json_data:
             path = entry['path']
             parsed_uri = entry['parsed_uri']
-            content = content.replace(u'href="' + path, u'href="' + parsed_uri)
+            if entry['anchor']!='':
+                path += '#' + entry['anchor']
+            link_re = re.compile('href=("' + path + '(?:#[-\w]*){0,1}").*>')
+            for match in re.findall(link_re,content):
+                content = content.replace(match, '"' + parsed_uri + '"')
+            i+=1
         return content
 
     def importToDB(self):
@@ -66,6 +73,7 @@ class DocImporter():
                 i+=1
             if entry['path'].find('#')!= -1:
                  entry['path'] = entry['path'].split('#')[0]
+            print '###############################' + entry['path'] + '###########################'
             _content = self.ProcessContent(json_data, self.getContent(self.content_path + self.docset + '/' + entry['path'] + '.html'))
             if entry['parent_uri'] == 'null':
                 _parent_uri = None

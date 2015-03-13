@@ -15,6 +15,11 @@ module Docs
         parsed_uri
       end
 
+      def get_parsed_uri_by_name(name)
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        parsed_uri
+      end
+
       def get_parent_uri
         subpath = *path.split('/')
         if subpath.length > 1
@@ -42,8 +47,8 @@ module Docs
         css('.antiscroll-inner a').each_with_object [] do |node, entries|
           id = node['href'].remove('#') + '-section'
           name = node.content.strip.split(' / ')[0]
-          custom_parsed_uri = get_parent_uri + '#' + id
-          entries << [name, id, type, custom_parsed_uri, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, id, type, custom_parsed_uri, id, get_parent_uri, get_docset]
         end
       end
     end

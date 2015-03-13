@@ -4,25 +4,25 @@ module Docs
 
       ADDITIONAL_ENTRIES = {
         'functions-geometry' => [
-          %w(Geometry nil others /postgresql/geometry null PostgreSQL) ],
+          %w(Geometry nil others /postgresql/geometry null null PostgreSQL) ],
         'functions-math' => [
-          %w(Math nil others /postgresql/math null PostgreSQL) ],
+          %w(Math nil others /postgresql/math null null PostgreSQL) ],
         'functions-json' => [
-          %w(JSON-functions nil others /postgresql/data null PostgreSQL) ],
+          %w(JSON-functions nil others /postgresql/data null null PostgreSQL) ],
         'functions-range' => [
-          %w(Range-functions nil others /postgresql/operator null PostgreSQL) ],
+          %w(Range-functions nil others /postgresql/operator null null PostgreSQL) ],
         'functions-net' => [
-          %w(Network-functions nil others /postgresql/network null PostgreSQL) ],
+          %w(Network-functions nil others /postgresql/network null null PostgreSQL) ],
         'functions' => [
-          %w(Functions nil others /postgresql/function null PostgreSQL)],
+          %w(Functions nil others /postgresql/function null null PostgreSQL)],
         'runtime-config' => [
-          %w(Configurations nil others /postgresql/configuration null PostgreSQL)],
+          %w(Configurations nil others /postgresql/configuration null null PostgreSQL)],
         'functions-string' => [
-          %w(Strings nil others /postgresql/string null PostgreSQL)],
+          %w(Strings nil others /postgresql/string null null PostgreSQL)],
         'datatype-character' => [
-          %w(Types nil others /postgresql/type null PostgreSQL)],
+          %w(Types nil others /postgresql/type null null PostgreSQL)],
         'functions-binarystring' => [
-          %w(Binary-functions nil others /postgresql/binary_operators null PostgreSQL)]}
+          %w(Binary-functions nil others /postgresql/binary_operators null null PostgreSQL)]}
 
       SLUG_TYPES = {
         'configuration' =>               %w(runtime-config-replication runtime-config-resource runtime-config-logging)}
@@ -173,7 +173,7 @@ module Docs
         else
           if get_filtering_type && get_filtering_type.start_with?('Functions')
             entries.concat get_custom_entries('> .TABLE td:first-child > code:first-child')
-            entries.concat %w(IS NULL BETWEEN DISTINCT\ FROM).map { |name| ["#{self.name}: #{name}",nil, get_type, get_parsed_uri_by_name(name), get_parent_uri, get_docset] } if slug == 'functions-comparison'
+            entries.concat %w(IS NULL BETWEEN DISTINCT\ FROM).map { |name| ["#{self.name}: #{name}", nil, get_type, get_parsed_uri_by_name(name), nil, get_parent_uri, get_docset] } if slug == 'functions-comparison'
           end
         end
 
@@ -184,7 +184,7 @@ module Docs
         css('.VARIABLELIST dt[id]').map do |node|
           name = node.at_css('.VARNAME').content
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          ["Config: #{name}", node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          ["Config: #{name}", node['id'], get_type, custom_parsed_uri, node['id'], get_parent_uri, get_docset]
         end
       end
 
@@ -237,7 +237,7 @@ module Docs
           name = node.content
           clean_heading_name(name)
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          entries << ["#{name}", node['id'], get_type, custom_parsed_uri, parent_uri, docset] unless SKIP_ENTRIES_ANCHOR.include?(node['id'])
+          entries << ["#{name}", node['id'], get_type, custom_parsed_uri, node['id'], parent_uri, docset] unless SKIP_ENTRIES_ANCHOR.include?(node['id'])
         end
       end
 
@@ -261,7 +261,7 @@ module Docs
           unless entries.any? { |entry| entry[0] == name }
             node['id'] = id
             custom_parsed_uri = get_parsed_uri_by_name(name)
-            entries << [name, id, get_type, custom_parsed_uri, parent_uri, docset] unless SKIP_ENTRIES_ANCHOR.include?(id)
+            entries << [name, id, get_type, custom_parsed_uri, id, parent_uri, docset] unless SKIP_ENTRIES_ANCHOR.include?(id)
           end
         end
       end

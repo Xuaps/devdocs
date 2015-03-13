@@ -17,11 +17,6 @@ module Docs
         parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
       end
-      # transform string into a valid uri
-      
-      def urilized(str)
-         str.downcase.tr(' ','_').tr('//','').tr("'", "").tr('/','-').tr('"', '').gsub(/\u200B/){''}
-      end
 
       def get_parent_uri
         subpath = *path.split('/')
