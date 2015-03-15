@@ -52,7 +52,7 @@ class DocImporter():
             parsed_uri = entry['parsed_uri']
             if entry['anchor']!='':
                 path += '#' + entry['anchor']
-            link_re = re.compile('href=("' + path + '(?:#[-\w]*){0,1}").*>')
+            link_re = re.compile('href=("' + path + '(?:#[-\w]*){0,1}").*>', re.IGNORECASE)
             for match in re.findall(link_re,content):
                 content = content.replace(match, '"' + parsed_uri + '"')
             i+=1
@@ -81,8 +81,9 @@ class DocImporter():
             _type = entry['type']
             _docset = entry['docset']
             _uri = entry['parsed_uri']
+            _anchor = entry['anchor']
             if previous_uri != _uri:
-                self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri)
+                self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri,_anchor)
                 previous_uri = _uri
         #self.Commit(conn)
         self.moveToData(conn)
@@ -113,19 +114,20 @@ class DocImporter():
     def Commit(self, conn):
         conn.commit()
 
-    def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri):
+    def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri, _anchor):
         pgcursor = conn.cursor()
-        sqlinsertitem = "INSERT INTO temp_refs (reference, content, parent, type, docset, uri) VALUES (%s, %s, %s, %s, %s, %s);"
+        sqlinsertitem = "INSERT INTO temp_refs (reference, content, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s);"
         pgcursor.execute(sqlinsertitem,[_name,
                                         _content,
                                         _parent,
                                         _type,
                                         _docset,
-                                        _uri])
+                                        _uri,
+                                        _anchor])
 
 
     def moveToData(self, conn):
-        sqlmovedata = 'INSERT INTO refs (reference, content,uri,parent_uri,type,docset) SELECT reference,content,uri,parent,type, docset FROM temp_refs;'
+        sqlmovedata = 'INSERT INTO refs (reference, content,uri,content_anchor,parent_uri,type,docset) SELECT reference,content,uri,content_anchor,parent,type, docset FROM temp_refs;'
         pgcursor = conn.cursor()
         pgcursor.execute(sqlmovedata)
 

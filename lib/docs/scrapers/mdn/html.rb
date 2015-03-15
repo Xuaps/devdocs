@@ -3,7 +3,7 @@ module Docs
     self.name = 'HTML'
     self.base_url = 'https://developer.mozilla.org/en-US/docs/Web/HTML'
     self.root_path = '/Element'
-    self.initial_paths = %w(/Attributes /Link_types /element)
+    self.initial_paths = %w(/Attributes /Link_types /element /Global_elements)
 
     html_filters.push 'html/clean_html', 'html/entries', 'title'
 
