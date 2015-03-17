@@ -6,8 +6,21 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
@@ -36,20 +49,19 @@ module Docs
 
       def additional_entries
         
-
         doc.children.each_with_object [] do |node, entries|
           if node.name == 'h2'
             name = node.content
             type = name
             node['id'] = name
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [name, node['id'], get_type(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset] if type == 'Middleware'
             next
           elsif node.name == 'h3'
             next if type == 'Middleware'
             name = node.content.strip
             name.sub! %r{\(.+\)}, '()'
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [name, node['id'], get_type(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset]
           end
         end

@@ -4,6 +4,12 @@ module Docs
     self.type = 'nginx'
     self.version = '1.7.9'
     self.base_url = 'http://nginx.org/en/docs/'
+    self.root_path = 'index.html'
+    self.initial_paths = %w(
+      varindex.html
+      dirindex.html
+    )
+
 
     html_filters.push 'nginx/clean_html', 'nginx/entries'
 
@@ -12,8 +18,7 @@ module Docs
     options[:docset_uri] = '/nginx'
     options[:skip] = %w(
       contributing_changes.html
-      dirindex.html
-      varindex.html)
+      dirindex.html)
 
     options[:skip_patterns] = [/\/faq\//]
 

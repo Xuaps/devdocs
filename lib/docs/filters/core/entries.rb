@@ -21,7 +21,7 @@ module Docs
     end
       # transform string into a valid uri
     def urilized(str)
-        str.downcase.tr(' ','_').tr('//','').tr("'", "").tr('/','-').tr('"', '').tr('::', '-').tr(':','').tr('?','').tr('*','ast').gsub(/\u200B/){''}
+        str.downcase.tr(' ','_').tr('//','').tr("'", "").tr("<", "_").tr(">", "_").tr('/','-').tr('"', '').tr('(', '').tr(')', '').tr('::', '-').tr(':','').tr('?','').tr('*','ast').gsub(/\u200B/){''}
     end
 
     def additional_entries
@@ -88,8 +88,9 @@ module Docs
       end
     end
 
-    def build_entry(name, frag = nil, type = nil, parsed_uri = nil, anchor = nil, parent_uri = nil, docset = nil)
-      anchor = "" if anchor == nil
+    def build_entry(name, frag = nil, type = nil, parsed_uri = nil, parent_uri = nil, docset = nil)
+      anchor = frag
+      anchor = "" if frag == nil or frag == 'nil'
       type ||= self.type
       docset ||= self.docset
       parsed_uri ||= self.parsed_uri

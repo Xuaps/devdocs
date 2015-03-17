@@ -20,8 +20,21 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
@@ -56,10 +69,9 @@ module Docs
           dl = node.next_element
           next unless dl.name == 'dl'
           name = dl.at_css('dt').content.remove(/[<>]/)
-          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], get_type.downcase, custom_parsed_uri, get_parent_uri, get_docset]
         end
-
         entries
       end
     end

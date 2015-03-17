@@ -16,47 +16,47 @@ module Docs
 
       ADDITIONAL_ENTRIES = {
         'shape' => [
-          %w(rect() Syntax function /css/shape/syntax Syntax /css/shape CSS)],
+          %w(rect() Syntax function /css/_shape_/syntax /css/_shape_ CSS)],
         'uri' => [
-          %w(The-url-functional-notation The_url()_functional_notation function /css/uri/the-url-functional-notation The_url()_functional_notation /css/uri CSS) ],
+          %w(The-url-functional-notation The_url()_functional_notation function /css/uri/the-url-functional-notation null CSS) ],
         'timing-function' => [
-          %w(cubic-bezier() The_cubic-bezier()_class_of_timing-functions function /css/timing-function/cubic-bezier() The_cubic-bezier()_class_of_timing-functions /css/timing-function CSS),
-          %w(steps() The_steps()_class_of_timing-functions function /css/timing-function/steps() The_steps()_class_of_timing-functions /css/timing-function CSS),
-          %w(linear linear value /css/timing-function/linear linear /css/timing-function CSS),
-          %w(ease ease value /css/timing-function/ease ease /css/timing-function CSS),
-          %w(ease-in ease-in value /css/timing-function/ease-in ease-in /css/timing-function CSS),
-          %w(ease-in-out ease-in-out value /css/timing-function/ease-in-out ease-in-out /css/timing-function CSS),
-          %w(ease-out ease-out value /css/timing-function/ease-out ease-out /css/timing-function CSS),
-          %w(step-start step-start value /css/timing-function/step-start step-start /css/timing-function CSS),
-          %w(step-end step-end value /css/timing-function/step-end step-end /css/timing-function CSS) ],
+          %w(cubic-bezier() The_cubic-bezier()_class_of_timing-functions function /css/_timing-function_/cubic-bezier()  /css/_timing-function_ CSS),
+          %w(steps() The_steps()_class_of_timing-functions function /css/_timing-function_/steps() /css/_timing-function_ CSS),
+          %w(linear linear value /css/_timing-function_/linear /css/_timing-function_ CSS),
+          %w(ease ease value /css/_timing-function_/ease /css/_timing-function_ CSS),
+          %w(ease-in ease-in value /css/_timing-function_/ease-in /css/_timing-function_ CSS),
+          %w(ease-in-out ease-in-out value /css/_timing-function_/ease-in-out /css/_timing-function_ CSS),
+          %w(ease-out ease-out value /css/_timing-function_/ease-out /css/_timing-function_ CSS),
+          %w(step-start step-start value /css/_timing-function_/step-start /css/_timing-function_ CSS),
+          %w(step-end step-end value /css/_timing-function_/step-end /css/_timing-function_ CSS) ],
         'color_value' => [
-          %w(transparent transparent_keyword value color_value/transparent transparent_keyword /css/color_value CSS),
-          %w(currentColor currentColor_keyword value color_value/currentColor currentColor_keyword /css/color_value CSS),
-          %w(rgb() rgb() function /css/color_value/rgb() rgb() /css/color_value CSS),
-          %w(hsl() hsl() function /css/color_value/hsl() hsl() /css/color_value CSS),
-          %w(rgba() rgba() function /css/color_value/rgba() rgba() /css/color_value CSS),
-          %w(hsla() hsla() function /css/color_value/hsla() hsla() /css/color_value CSS) ],
+          %w(transparent transparent_keyword value /css/_color_/transparent /css/_color_ CSS),
+          %w(currentColor currentColor_keyword value /css/_color_/currentColor /css/_color_ CSS),
+          %w(rgb() rgb() function /css/_color_/rgb() /css/_color_ CSS),
+          %w(hsl() hsl() function /css/_color_/hsl() /css/_color_ CSS),
+          %w(rgba() rgba() function /css/_color_/rgba() /css/_color_ CSS),
+          %w(hsla() hsla() function /css/_color_/hsla() /css/_color_ CSS) ],
         'transform-function' => [
-          %w(matrix() matrix() function /css/transform-function/matrix() matrix() /css/transform-function CSS),
-          %w(matrix3d() matrix3d() function /css/transform-function/matrix3d() matrix3d() /css/transform-function CSS),
-          %w(rotate() rotate() function /css/transform-function/rotate() rotate() /css/transform-function CSS),
-          %w(rotate3d() rotate3d() function /css/transform-function/rotate3d() rotate3d() /css/transform-function CSS),
-          %w(rotateX() rotateX() function /css/transform-function/rotateX() rotateX() /css/transform-function CSS),
-          %w(rotateY() rotateY() function /css/transform-function/rotateY() rotateY() /css/transform-function CSS),
-          %w(rotateZ() rotateZ() function /css/transform-function/rotateZ() rotateZ() /css/transform-function CSS),
-          %w(scale() scale() function /css/transform-function/scale() scale() /css/transform-function CSS),
-          %w(scale3d() scale3d() function /css/transform-function/scale3d() scale3d() /css/transform-function CSS),
-          %w(scaleX() scaleX() function /css/transform-function/scaleX() scaleX() /css/transform-function CSS),
-          %w(scaleY() scaleY() function /css/transform-function/scaleY() scaleY() /css/transform-function CSS),
-          %w(scaleZ() scaleZ() function /css/transform-function/scaleZ() scaleZ() /css/transform-function CSS),
-          %w(skew() skew() function /css/transform-function/skew skew() /css/transform-function CSS),
-          %w(skewX() skewX() function /css/transform-function/skewX() skewX() /css/transform-function CSS),
-          %w(skewY() skewY() function /css/transform-function/skewY() skewY() /css/transform-function CSS),
-          %w(translate() translate() function /css/transform-function/translate() translate() /css/transform-function CSS),
-          %w(translate3d() translate3d() function /css/transform-function/translate3d() translate3d() /css/transform-function CSS),
-          %w(translateX() translateX() function /css/transform-function/translateX() translateX() /css/transform-function CSS),
-          %w(translateY() translateY() function /css/transform-function/translateY() translateY() /css/transform-function CSS),
-          %w(translateZ() translateZ() function /css/transform-function/translateZ() translateZ() /css/transform-function CSS) ]}
+          %w(matrix() matrix() function /css/transform-function/matrix() /css/transform-function CSS),
+          %w(matrix3d() matrix3d() function /css/transform-function/matrix3d() /css/transform-function CSS),
+          %w(rotate() rotate() function /css/transform-function/rotate() /css/transform-function CSS),
+          %w(rotate3d() rotate3d() function /css/transform-function/rotate3d() /css/transform-function CSS),
+          %w(rotateX() rotateX() function /css/transform-function/rotateX() /css/transform-function CSS),
+          %w(rotateY() rotateY() function /css/transform-function/rotateY() /css/transform-function CSS),
+          %w(rotateZ() rotateZ() function /css/transform-function/rotateZ() /css/transform-function CSS),
+          %w(scale() scale() function /css/transform-function/scale() /css/transform-function CSS),
+          %w(scale3d() scale3d() function /css/transform-function/scale3d() /css/transform-function CSS),
+          %w(scaleX() scaleX() function /css/transform-function/scaleX() /css/transform-function CSS),
+          %w(scaleY() scaleY() function /css/transform-function/scaleY() /css/transform-function CSS),
+          %w(scaleZ() scaleZ() function /css/transform-function/scaleZ() /css/transform-function CSS),
+          %w(skew() skew() function /css/transform-function/skew /css/transform-function CSS),
+          %w(skewX() skewX() function /css/transform-function/skewX() /css/transform-function CSS),
+          %w(skewY() skewY() function /css/transform-function/skewY() /css/transform-function CSS),
+          %w(translate() translate() function /css/transform-function/translate() /css/transform-function CSS),
+          %w(translate3d() translate3d() function /css/transform-function/translate3d() /css/transform-function CSS),
+          %w(translateX() translateX() function /css/transform-function/translateX() /css/transform-function CSS),
+          %w(translateY() translateY() function /css/transform-function/translateY() /css/transform-function CSS),
+          %w(translateZ() translateZ() function /css/transform-function/translateZ() /css/transform-function CSS) ]}
 
       def get_name
         case type
@@ -72,7 +72,11 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 

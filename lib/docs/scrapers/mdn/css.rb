@@ -14,16 +14,12 @@ module Docs
       /At-rule
       /Comments
       /Specificity
-      /actual_value
-      /initial_value
       /inheritance
       /specified_value
-      /computed_value
       /used_value actual_value
       /box_model
       /Replaced_element
       /Value_definition_syntax
-      /Pseudo-elements
       /Layout_mode
       /Visual_formatting_model
       /Shorthand_properties
@@ -42,7 +38,7 @@ module Docs
     }
 
     options[:fix_urls] = ->(url) do
-      url.sub! %r{https://php.net//([a-z@:])}, "#{Css.base_url}/\\1"
+      url.sub! %r{https://developer\.mozilla\.org/en\-US/docs/CSS/([a-z@:])}, "#{Css.base_url}/\\1"
       url
     end
   end

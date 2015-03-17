@@ -1,10 +1,7 @@
 module Docs
   class Bower
     class EntriesFilter < Docs::EntriesFilter
-      ENTRIES_TYPE_BY_SLUG = {
-        'api'    => 'Commands',
-        'config' => '.bowerrc'
-      }
+      ENTRIES_SLUG = %w(api config)
 
       def get_name
         at_css('h1').content
@@ -15,8 +12,21 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
@@ -39,12 +49,17 @@ module Docs
         end
       end
 
-      def additional_entries
-        return [] unless type = ENTRIES_TYPE_BY_SLUG[slug]
+      def include_default_entry?
+        ENTRIES_SLUG.include? slug
+      end
 
+      def additional_entries
         css('#bowerrc-specification + ul a', '#commands + p + ul a').map do |node|
-          custom_parsed_uri = get_parsed_uri.sub('index', 'api') + node['href']
-          [node.content, node['href'].remove('#'), get_type, custom_parsed_uri , get_parent_uri, get_docset]
+          name = node.content
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entry = [name, node['href'].remove('#'), get_type, custom_parsed_uri , get_parent_uri, get_docset]
+          puts '##############' + slug + '###################'
+          pp entry
         end
       end
     end

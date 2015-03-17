@@ -10,8 +10,21 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
@@ -38,8 +51,9 @@ module Docs
         return [] if type == 'guide'
 
         css('h2').map do |node|
-          custom_parsed_uri = get_parsed_uri.sub('index', name.downcase) + '#' + node['id']
-          [node.content, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          name = node.content
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

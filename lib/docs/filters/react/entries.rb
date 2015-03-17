@@ -16,6 +16,15 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
       def get_parsed_uri
         parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
@@ -55,7 +64,8 @@ module Docs
           name.remove! %r{[#\(\)]}
           name.remove! %r{\w+\:}
           id = node.at_css('.anchor')['name']
-          [name, id, get_type, get_parsed_uri + '#' + id, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          [name, id, get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end
