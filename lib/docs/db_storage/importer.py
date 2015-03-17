@@ -48,15 +48,27 @@ class DocImporter():
     def ProcessContent(self, json_data, content):
         i = 0
         for entry in json_data:
-            path = entry['path']
+            path = self.getPath(entry)
             parsed_uri = entry['parsed_uri']
-            if entry['anchor']!='':
-                path += '#' + entry['anchor']
-            link_re = re.compile('href=("' + path + '(?:#[-\w]*){0,1}").*>', re.IGNORECASE)
+            link_re = re.compile('href=("(?:[\.\/\w]*){0,1}' + path + '(?:[\.\w]){0,1}(?:#[-\w\.]*){0,1}").*>', re.IGNORECASE)
             for match in re.findall(link_re,content):
                 content = content.replace(match, '"' + parsed_uri + '"')
             i+=1
         return content
+
+    def getPath(self,entry):
+        path = entry['path']
+        if self.docset == 'phpunit':
+            path+= '.html'
+        elif self.docset == 'nginx':
+            path+= '.html'
+
+        if entry['anchor']!='':
+            if self.docset == 'bower':
+                path = '#' + entry['anchor']
+            else:
+                path += '#' + entry['anchor']
+        return re.escape(path)
 
     def importToDB(self):
         json_data = self.processJSON(self.index_path)
