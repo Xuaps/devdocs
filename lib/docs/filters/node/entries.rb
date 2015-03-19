@@ -7,13 +7,19 @@ module Docs
         'modules'  => 'module' }
 
       REPLACE_TYPES = {
+        'Assert'                 => 'function',
         'Addons'                 => 'others',
-        'Util'                   => 'others',
         'Debugger'               => 'others',
+        'Cluster'                => 'others',
+        'Modules'                => 'others',
+        'Util'                   => 'others',
         'Path'                   => 'core',
         'File System'            => 'core',
         'os'                     => 'core',
         'Child Process'          => 'core',
+        'Process'                => 'core',
+        'Console'                => 'core',
+        'TTY'                    => 'core',
         'HTTPS'                  => 'network',
         'HTTP'                   => 'network',
         'TLS (SSL)'              => 'network',
@@ -22,16 +28,21 @@ module Docs
         'Net'                    => 'network',
         'Domain'                 => 'network',
         'DNS'                    => 'network',
-        'TTY'                    => 'core',
         'Smalloc'                => 'function',
         'Zlib'                   => 'function',
         'StringDecoder'          => 'function',
         'Timer'                  => 'function',
+        'Timers'                 => 'function',
         'Crypto'                 => 'function',
         'REPL'                   => 'function',
         'Query String'           => 'function',
-        'Punycode'               => 'function',
-        'Executing JavaScript'   => 'function' }
+        'Executing JavaScript'   => 'function',
+        'Readline'               => 'function',
+        'Stream'                 => 'data',
+        'Buffer'                 => 'data',
+        'Punycode'               => 'data',
+        'Events'                 => 'event',
+        'Global Objects'         => 'object'}
 
       IGNORE_DEFAULT_ENTRY = %w(globals timers domain buffer)
 
@@ -48,8 +59,16 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+          context[:docset_uri] + '/' + self.urilized(name)
+      end
+
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
@@ -63,16 +82,12 @@ module Docs
       end
 
       def get_type
-        'others'
-      end
-
-      def get_type_name(typename)
-        REPLACE_TYPES[type] || "others"
+        type = at_css('h1').content.strip
+        REPLACE_TYPES[type] || "#{type.first.upcase}#{type[1..-1]}"
       end
 
       def additional_entries
-        return [] if type == 'others'
-
+        path = get_path + '.html'
         klass = nil
         entries = []
 
@@ -89,8 +104,8 @@ module Docs
 
           # Ignore most global objects (found elsewhere)
           if type == 'Global Objects'
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
-            entries << [name, node['id'], get_type_name(type), custom_parsed_uri, get_parent_uri, get_docset] if name.start_with?('_') || name == 'global'
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset] if name.start_with?('_') || name == 'global'
             next
           end
 
@@ -98,16 +113,16 @@ module Docs
           if name.gsub! 'Class: ', ''
             name.remove! 'events.' # EventEmitter
             klass = name
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
-            entries << [name, node['id'], get_type_name(type), custom_parsed_uri, get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
             next
           end
 
           # Events
           if name.sub! %r{\AEvent: '(.+)'\z}, '\1'
             name << " event (#{klass || get_type})"
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
-            entries << [name, node['id'], get_type_name(type), custom_parsed_uri, get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
             next
           end
 
@@ -135,11 +150,10 @@ module Docs
 
           # Skip duplicates (listen, connect, etc.)
           unless name == entries[-1].try(:first) || name == entries[-2].try(:first)
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
-            entries << [name, node['id'], get_type_name(type), custom_parsed_uri, get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
-
         entries
       end
     end

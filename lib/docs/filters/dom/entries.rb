@@ -10,7 +10,6 @@ module Docs
         XMLHttpRequest.)
 
       def get_name
-        puts path
         name = super
         CLEANUP_NAMES.each { |str| name.remove!(str) }
         name.sub! 'Input.', 'HTMLInputElement.'

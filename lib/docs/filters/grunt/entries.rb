@@ -11,6 +11,10 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+          context[:docset_uri] + '/' + self.urilized(name)
+      end
+
       def get_parsed_uri
         parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
@@ -29,12 +33,14 @@ module Docs
       end
 
       def get_type
-        if name.include? 'config'
+        if name.downcase.include? 'config'
             'configuration'
-        elsif name.include? 'event'
+        elsif name.downcase.include? 'event'
             'event'
-        elsif name.include? 'fail'
+        elsif name.downcase.include? 'fail'
             'error'
+        elsif name.downcase.include? 'file'
+            'file'
         else
           'others'
         end
@@ -48,7 +54,7 @@ module Docs
           name.remove! %r{\s.+\z}
 
           next if name == self.name
-          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end

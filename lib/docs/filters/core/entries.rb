@@ -57,6 +57,10 @@ module Docs
       slug.to_s.gsub('_', ' ').gsub('/', '.').squish!
     end
 
+    def get_path
+      path
+    end
+
     def get_docset
       context[:root_title]
     end

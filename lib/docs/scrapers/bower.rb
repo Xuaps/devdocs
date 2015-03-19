@@ -4,7 +4,7 @@ module Docs
     self.type = 'bower'
     self.version = '1.3.12'
     self.base_url = 'http://bower.io/docs/'
-    self.root_path = 'api'
+    self.root_path = 'api/'
 
     html_filters.push 'bower/clean_html', 'bower/entries'
 
@@ -17,5 +17,6 @@ module Docs
       &copy; 2014 Bower contributors<br>
       Licensed under the Creative Commons Attribution License.
     HTML
+
   end
 end

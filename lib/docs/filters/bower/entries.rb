@@ -49,17 +49,12 @@ module Docs
         end
       end
 
-      def include_default_entry?
-        ENTRIES_SLUG.include? slug
-      end
-
       def additional_entries
+        return [] unless ENTRIES_SLUG.include? slug
         css('#bowerrc-specification + ul a', '#commands + p + ul a').map do |node|
           name = node.content
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          entry = [name, node['href'].remove('#'), get_type, custom_parsed_uri , get_parent_uri, get_docset]
-          puts '##############' + slug + '###################'
-          pp entry
+          [name, node['href'].remove('#'), get_type, custom_parsed_uri , get_parent_uri, get_docset]
         end
       end
     end

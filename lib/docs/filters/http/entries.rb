@@ -5,6 +5,19 @@ module Docs
         at_css('h1').content.sub(/\A\s*HTTP\s+(.+)\s+Definitions\s*\z/, '\1').pluralize
       end
 
+      def get_parsed_uri_by_name(name)
+          context[:docset_uri] + '/' + self.urilized(name)
+      end
+      
+      def get_parent_uri
+        subpath = *path.split('/')
+        if subpath.length > 1
+            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
+        else
+            parent_uri = 'null'
+        end
+      end
+
       def include_default_entry?
         false
       end
@@ -13,7 +26,10 @@ module Docs
         return [] if root_page?
 
         css(type == 'Status Codes' ? 'h3' : 'h2').map do |node|
-          [node.content, node['id']]
+          name = node.content
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          puts path
+          [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

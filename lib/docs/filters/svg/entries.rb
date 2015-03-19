@@ -30,11 +30,7 @@ module Docs
       end
 
       def get_parsed_uri
-        if get_parent_uri == 'null'
-            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
-        else
-            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
-        end
+        parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
       end
 

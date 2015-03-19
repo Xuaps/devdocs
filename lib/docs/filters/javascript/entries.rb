@@ -42,7 +42,7 @@ module Docs
       end
 
       def get_parsed_uri
-            parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
       end
 
@@ -77,14 +77,14 @@ module Docs
       end
 
       def include_default_entry?
-        node = doc.at_css '.overheadIndicator'
+        #node = doc.at_css '.overheadIndicator'
 
         # Can't use :first-child because #doc is a DocumentFragment
-        return true unless node && node.parent == doc && !node.previous_element
+        return true #unless node && node.parent == doc && !node.previous_element
 
-        !node.content.include?('not on a standards track') &&
-        !node.content.include?('removed from the Web') &&
-        !node.content.include?('could be removed at any time')
+        #!node.content.include?('not on a standards track') &&
+        #!node.content.include?('removed from the Web') &&
+        #!node.content.include?('could be removed at any time')
       end
     end
   end

@@ -1,6 +1,17 @@
 module Docs
   class Requirejs
     class EntriesFilter < Docs::EntriesFilter
+      SLUG_ENTRIES = %w(
+      api
+      optimization
+      jquery
+      node
+      dojo
+      commonjs
+      plugins
+      why
+      whyamd)
+
       def get_name
         at_css('h1').content
       end
@@ -15,6 +26,15 @@ module Docs
             parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
         else
             parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
+      def get_parsed_uri
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
         end
         parsed_uri
       end
@@ -43,10 +63,11 @@ module Docs
       end
 
       def additional_entries
-        return [] unless root_page?
-
+        return [] unless SLUG_ENTRIES.include? slug
+        result[:path] = get_path + '.html'
         entries = []
         type = nil
+
 
         css('*').each do |node|
           if node.name == 'h2'

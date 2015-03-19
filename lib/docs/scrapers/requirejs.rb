@@ -4,8 +4,8 @@ module Docs
     self.type = 'requirejs'
     self.version = '2.1.15'
     self.base_url = 'http://requirejs.org/docs/'
-    self.root_path = 'api.html'
     self.initial_paths = %w(
+      api.html
       optimization.html
       jquery.html
       node.html
@@ -14,7 +14,6 @@ module Docs
       plugins.html
       why.html
       whyamd.html)
-
     html_filters.push 'requirejs/clean_html', 'requirejs/entries'
 
     options[:container] = '#content'

@@ -22,8 +22,6 @@ module Docs
       end
     end
 
-    options[:skip] = ['/Element/shadow']
-
     options[:replace_paths] = {
       '/Element/h1' => '/Element/Heading_Elements',
       '/Element/h2' => '/Element/Heading_Elements',
@@ -31,5 +29,11 @@ module Docs
       '/Element/h4' => '/Element/Heading_Elements',
       '/Element/h5' => '/Element/Heading_Elements',
       '/Element/h6' => '/Element/Heading_Elements' }
+
+    options[:fix_urls] = ->(url) do
+      url.sub! %r{https://developer\.mozilla\.org/en\-US/docs/Web/HTML/([_a-z@:])},  "#{Javascript.base_url}/\\1"
+      url.sub! 'https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories', 'https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories'
+      url
+    end
   end
 end

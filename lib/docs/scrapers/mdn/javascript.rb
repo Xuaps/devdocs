@@ -18,7 +18,6 @@ module Docs
       /Global_Objects/Iterator
       /Reserved_Words
       /arrow_functions
-      /rest_parameters
       /default_parameters
       /Strict_mode
       /Functions/rest_parameters
