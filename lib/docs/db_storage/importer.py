@@ -63,7 +63,11 @@ class DocImporter():
     def getMatchedLink(self, path, anchor, match):
         if match == '"' + path + '#' + anchor + '"':
             searchstr = path + '#' + anchor
+        elif match == '"' + path + '.html#' + anchor + '"':
+            searchstr = path + '#' + anchor
         elif match == '"' + path + '"':
+            searchstr = path
+        elif match == '"' + path + '.html"':
             searchstr = path
         elif match == '"#' + anchor + '"':
             searchstr = '"#' + anchor + '"'
