@@ -45,30 +45,32 @@ class DocImporter():
             self.default_uri = self.config.get(self.docset, 'default_uri', 0)
             self.index_path = self.content_path + self.docset +  '/index.json'
 
+
     def ProcessContent(self, json_data, content):
-        i = 0
-        for entry in json_data:
-            path = self.getPath(entry)
-            parsed_uri = entry['parsed_uri']
-            link_re = re.compile('href=("(?:[\.\/\w]*){0,1}' + path + '(?:[\.\w]){0,1}(?:#[-\w\.]*){0,1}").*>', re.IGNORECASE)
-            for match in re.findall(link_re,content):
-                content = content.replace(match, '"' + parsed_uri + '"')
-            i+=1
+        link_re = re.compile('href=("[\#\/\-\w\.]*")[ \w="\/]*>', re.IGNORECASE)
+        searchstr = ''
+        #print '###########################\n' + content
+        for match in re.findall(link_re,content):
+            for entry in json_data:
+                path = entry['path']
+                anchor = entry['anchor']
+                parsed_uri = entry['parsed_uri']
+                searchstr = self.getMatchedLink(path, anchor, match)
+                if searchstr != '':
+                    content = content.replace(searchstr, '"' + parsed_uri + '"',1)
         return content
 
-    def getPath(self,entry):
-        path = entry['path']
-        if self.docset == 'phpunit':
-            path+= '.html'
-        elif self.docset == 'nginx':
-            path+= '.html'
+    def getMatchedLink(self, path, anchor, match):
+        if match == '"' + path + '#' + anchor + '"':
+            searchstr = path + '#' + anchor
+        elif match == '"' + path + '"':
+            searchstr = path
+        elif match == '"#' + anchor + '"':
+            searchstr = '"#' + anchor + '"'
+        else:
+            searchstr = ''
+        return searchstr
 
-        if entry['anchor']!='':
-            if self.docset == 'bower':
-                path = '#' + entry['anchor']
-            else:
-                path += '#' + entry['anchor']
-        return re.escape(path)
 
     def importToDB(self):
         json_data = self.processJSON(self.index_path)
