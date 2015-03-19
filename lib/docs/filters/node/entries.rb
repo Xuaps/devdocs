@@ -132,7 +132,6 @@ module Docs
 
           # Skip all that start with an uppercase letter ("Example") or include a space ("exports alias")
           next unless (name.first.upcase! && !name.include?(' ')) || name.start_with?('Class Method')
-
           # Differentiate server classes (http, https, net, etc.)
           name.sub!('server.') { "#{(klass || 'https').sub('.', '_').downcase!}." }
           # Differentiate socket classes (net, dgram, etc.)
