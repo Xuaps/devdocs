@@ -22,6 +22,8 @@ module Docs
       ref.apc.php
       ref.apd.php
       ref.array.php
+      eventbufferevent.construct.php
+      eventbufferevent.setcallbacks.php
       set.mysqlinfo.php
       language.control-structures.php
       reserved.exceptions.php
@@ -37,9 +39,7 @@ module Docs
     #options[:skip_links] = ->(filter) { !filter.initial_page? }
 
     options[:skip_patterns] = [/mysqlnd/]
-    options[:skip] = %w(
-        php_manual.php
-    )
+    options[:skip] = ['php_manual.php','indexes.examples.php']
 
     options[:attribution] = <<-HTML
       &copy; 1997&ndash;2014 The PHP Documentation Group<br>

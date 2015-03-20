@@ -48,7 +48,7 @@ module Docs
           id = node['href'].remove('#') + '-section'
           name = node.content.strip.split(' / ')[0]
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          entries << [name, id, type, custom_parsed_uri, id, get_parent_uri, get_docset]
+          entries << [name, id, type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end

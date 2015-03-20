@@ -71,6 +71,8 @@ class DocImporter():
             searchstr = path
         elif match == '"#' + anchor + '"':
             searchstr = '"#' + anchor + '"'
+        elif match.find('#') != -1:
+            searchstr = '"' + match.split('#')[0] + '"'
         else:
             searchstr = ''
         return searchstr
