@@ -1,0 +1,7 @@
+{"entries":[
+{"name":"EventTarget","path":"eventtarget","type":"object","parsed_uri":"/dom/eventtarget","anchor":"","parent_uri":"null","docset":"DOM"},
+{"name":"Document.loadOverlay","path":"document/loadoverlay","type":"others","parsed_uri":"/dom/document/loadoverlay","anchor":"","parent_uri":"/dom/document","docset":"DOM"},
+{"name":"Document.compatMode","path":"document/compatmode","type":"others","parsed_uri":"/dom/document/compatmode","anchor":"","parent_uri":"/dom/document","docset":"DOM"},
+{"name":"Document.compatMode","path":"document/compatmode","type":"others","parsed_uri":"/dom/document/compatmode","anchor":"","parent_uri":"/dom/document","docset":"DOM"},
+{"name":"Document.implementation","path":"document/implementation","type":"object","parsed_uri":"/dom/document/implementation","anchor":"","parent_uri":"/dom/document","docset":"DOM"}
+]}
