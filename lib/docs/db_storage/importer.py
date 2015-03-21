@@ -17,6 +17,7 @@ class DocImporter():
     index_path = ''
     default_uri = ''
     total_entries = 0
+    link_re = re.compile('href="([*\#\/\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
     def __init__(self, docset):
@@ -45,38 +46,16 @@ class DocImporter():
             self.default_uri = self.config.get(self.docset, 'default_uri', 0)
             self.index_path = self.content_path + self.docset +  '/index.json'
 
-
-    def ProcessContent(self, json_data, content):
-        link_re = re.compile('href=("[\#\/\-\w\.]*")[ \w="\/]*>', re.IGNORECASE)
-        searchstr = ''
-        #print '###########################\n' + content
-        for match in re.findall(link_re,content):
-            for entry in json_data:
-                path = entry['path']
-                anchor = entry['anchor']
-                parsed_uri = entry['parsed_uri']
-                searchstr = self.getMatchedLink(path, anchor, match)
-                if searchstr != '':
-                    content = content.replace(searchstr, '"' + parsed_uri + '"',1)
+    def ProcessContent(self, entries, content):
+        links = self.CreateLinkCollection(entries)
+        for match in re.findall(self.link_re,content):
+            keymatch = match
+            if match.find('#')!=-1 and match not in links.keys():
+                keymatch = match[:match.find('#')]
+            if keymatch in links.keys():
+                #print '- ' + match + ': ' + links[keymatch]
+                content = content.replace(match, links[keymatch],1)
         return content
-
-    def getMatchedLink(self, path, anchor, match):
-        if match == '"' + path + '#' + anchor + '"':
-            searchstr = path + '#' + anchor
-        elif match == '"' + path + '.html#' + anchor + '"':
-            searchstr = path + '#' + anchor
-        elif match == '"' + path + '"':
-            searchstr = path
-        elif match == '"' + path + '.html"':
-            searchstr = path
-        elif match == '"#' + anchor + '"':
-            searchstr = '"#' + anchor + '"'
-        elif match.find('#') != -1:
-            searchstr = '"' + match.split('#')[0] + '"'
-        else:
-            searchstr = ''
-        return searchstr
-
 
     def importToDB(self):
         json_data = self.processJSON(self.index_path)
@@ -105,11 +84,18 @@ class DocImporter():
             if previous_uri != _uri:
                 self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri,_anchor)
                 previous_uri = _uri
-        #self.Commit(conn)
         self.moveToData(conn)
         self.updateDocsets(conn,self.docset_name, self.default_uri)
         self.Commit(conn)
         self.Finish(conn)
+
+    def CreateLinkCollection(self, entries):
+        links = {}
+        for entry in entries:
+            links[entry['path']] = entry['parsed_uri']
+            links[entry['path'] + '#' + entry['anchor']] = entry['parsed_uri']
+            links['#' + entry['anchor']] = entry['parsed_uri']
+        return links
 
 
     def getContent(self, path):
