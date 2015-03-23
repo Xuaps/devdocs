@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 import json
 import psycopg2
 import sys
@@ -49,11 +50,11 @@ class DocImporter():
     def ProcessContent(self, entries, content):
         links = self.CreateLinkCollection(entries)
         for match in re.findall(self.link_re,content):
-            keymatch = match
-            if match.find('#')!=-1 and match not in links.keys():
-                keymatch = match[:match.find('#')]
+            keymatch = match.lower().replace('../', '')
+            if match.find('#')!=-1 and keymatch not in links.keys():
+                keymatch = keymatch[:keymatch.find('#')]
             if keymatch in links.keys():
-                #print '- ' + match + ': ' + links[keymatch]
+                #print '"' + keymatch + '" - "' + match + '" : "' + links[keymatch] + '"'
                 content = content.replace(match, links[keymatch],1)
         return content
 
@@ -92,9 +93,9 @@ class DocImporter():
     def CreateLinkCollection(self, entries):
         links = {}
         for entry in entries:
-            links[entry['path']] = entry['parsed_uri']
-            links[entry['path'] + '#' + entry['anchor']] = entry['parsed_uri']
-            links['#' + entry['anchor']] = entry['parsed_uri']
+            links[entry['path'].lower()] = entry['parsed_uri']
+            links[(entry['path'] + '#' + entry['anchor']).lower()] = entry['parsed_uri']
+            links['#' + entry['anchor'].lower()] = entry['parsed_uri']
         return links
 
 
