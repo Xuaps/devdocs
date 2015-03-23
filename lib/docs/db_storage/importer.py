@@ -18,7 +18,7 @@ class DocImporter():
     index_path = ''
     default_uri = ''
     total_entries = 0
-    link_re = re.compile('href="([*\#\/\-\w\.]*)"', re.IGNORECASE)
+    link_re = re.compile('href="(?!http:\/\/)([*\#\/\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
     def __init__(self, docset):
@@ -65,7 +65,7 @@ class DocImporter():
         self.emptyTable(conn,self.docset_name)
         previous_uri = ''
         total = len(json_data)
-        i = 0
+        i = 1
         for entry in json_data:
             _name = entry['name']
             if self.debugMode:
@@ -73,7 +73,8 @@ class DocImporter():
                 i+=1
             if entry['path'].find('#')!= -1:
                  entry['path'] = entry['path'].split('#')[0]
-            _content = self.ProcessContent(json_data, self.getContent(self.content_path + self.docset + '/' + entry['path'] + '.html'))
+            filename = self.getFileName(self.content_path,self.docset, entry['path'])
+            _content = self.ProcessContent(json_data, self.getContent(filename))
             if entry['parent_uri'] == 'null':
                 _parent_uri = None
             else:
@@ -93,17 +94,27 @@ class DocImporter():
     def CreateLinkCollection(self, entries):
         links = {}
         for entry in entries:
-            links[entry['path'].lower()] = entry['parsed_uri']
-            links[(entry['path'] + '#' + entry['anchor']).lower()] = entry['parsed_uri']
-            links['#' + entry['anchor'].lower()] = entry['parsed_uri']
+            if entry['path'].lower() not in links.keys() or entry['anchor']=='':
+                links[entry['path'].lower()] = entry['parsed_uri']
+            if entry['anchor']!= '':
+                links[(entry['path'] + '#' + entry['anchor']).lower()] = entry['parsed_uri']
+                links['#' + entry['anchor'].lower()] = entry['parsed_uri']
+            #patch for Chai
+            if entry['path'].find('/index')!=-1:
+                links[entry['path'].replace('/index','').lower()] = entry['parsed_uri']
+            #patch for Git
+            if entry['path'].find('docs/')!=-1:
+                links[entry['path'].replace('/docs/','').replace('docs/','').lower()] = entry['parsed_uri']
         return links
 
+    def getFileName(self, content_path, docset, path):
+        if path.find('.html')==-1:
+            path += '.html'
+        filename = content_path + docset + '/' + path
+        return filename
 
-    def getContent(self, path):
-        # case for PHP in tidy.html.html
-        if path.find('.html.html')!=-1:
-            path = path.replace('.html.html', '.html')
-        with open(path, 'r') as content_file:
+    def getContent(self, filename):
+        with open(filename, 'r') as content_file:
             content = content_file.read().decode('utf-8')
         return content
 

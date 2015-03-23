@@ -1,0 +1,7 @@
+{"entries":[
+{"name":"Introduction","path":"jquery.html","type":"guide","parsed_uri":"/requirejs/_introduction__","anchor":"intro","parent_uri":"null","docset":"RequireJS"},
+{"name":"Define a Module with a Name","path":"api.html","type":"api","parsed_uri":"/requirejs/define_a_module_with_a_name","anchor":"modulename","parent_uri":"null","docset":"RequireJS"},
+{"name":"Example loading jquery from a CDN","path":"jquery.html","type":"guide","parsed_uri":"/requirejs/_example_loading_jquery_from_a_cdn__","anchor":"cdnconfig","parent_uri":"null","docset":"RequireJS"},
+{"name":"Mapping Modules to use noConflict","path":"jquery.html","type":"guide","parsed_uri":"/requirejs/_mapping_modules_to_use_noconflict__","anchor":"noconflictmap","parent_uri":"null","docset":"RequireJS"},
+{"name":"map","path":"api.html","type":"configuration","parsed_uri":"/requirejs/map","anchor":"config-map","parent_uri":"null","docset":"RequireJS"}
+]}

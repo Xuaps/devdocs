@@ -1,0 +1,8 @@
+{"entries":[
+{"name":"gitattributes","path":"gitattributes","type":"function","parsed_uri":"/git/gitattributes","anchor":"","parent_uri":"null","docset":"Git"},
+{"name":"git annotate","path":"git-annotate","type":"function","parsed_uri":"/git/git-annotate","anchor":"","parent_uri":"null","docset":"Git"},
+{"name":"git upload-archive","path":"git-upload-archive","type":"function","parsed_uri":"/git/git-upload-archive","anchor":"","parent_uri":"null","docset":"Git"},
+{"name":"git blame","path":"git-blame","type":"lists","parsed_uri":"/git/git-blame","anchor":"","parent_uri":"null","docset":"Git"},
+{"name":"git-http-backend","path":"git-http-backend","type":"function","parsed_uri":"/git/git-http-backend","anchor":"","parent_uri":"null","docset":"Git"},
+{"name":"git log","path":"git-log","type":"lists","parsed_uri":"/git/git-log","anchor":"","parent_uri":"null","docset":"Git"}
+]}

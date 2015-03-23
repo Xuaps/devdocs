@@ -1,0 +1,12 @@
+{"entries":[
+{"name":"AND","path":"functions-logical","type":"function","parsed_uri":"/postgresql/function/and","anchor":"657868","parent_uri":"/postgresql/function","docset":"PostgreSQL"},
+{"name":"ANY/SOME (array)","path":"functions-comparisons","type":"function","parsed_uri":"/postgresql/function/anysome_(array)","anchor":"AEN19712","parent_uri":"/postgresql/function","docset":"PostgreSQL"},
+{"name":"Math","path":"functions-math","type":"others","parsed_uri":"/postgresql/math","anchor":"","parent_uri":"null","docset":"PostgreSQL"},
+{"name":"String Functions and Operators","path":"functions-string","type":"string","parsed_uri":"/postgresql/string_functions_and_operators","anchor":"","parent_uri":"/postgresql/string","docset":"PostgreSQL"},
+{"name":"Binary String Functions and Operators","path":"functions-binarystring","type":"operator","parsed_uri":"/postgresql/binary_string_functions_and_operators","anchor":"","parent_uri":"/postgresql/operator","docset":"PostgreSQL"},
+{"name":"Bit String Functions and Operators","path":"functions-bitstring","type":"string","parsed_uri":"/postgresql/bit_string_functions_and_operators","anchor":"","parent_uri":"/postgresql/string","docset":"PostgreSQL"},
+{"name":"LIKE","path":"functions-matching","type":"function","parsed_uri":"/postgresql/function/like","anchor":"FUNCTIONS-LIKE","parent_uri":"/postgresql/function","docset":"PostgreSQL"},
+{"name":"Pattern Matching","path":"functions-matching","type":"function","parsed_uri":"/postgresql/pattern_matching","anchor":"","parent_uri":"/postgresql/function","docset":"PostgreSQL"},
+{"name":"LIKE","path":"functions-matching","type":"function","parsed_uri":"/postgresql/function/like","anchor":"FUNCTIONS-LIKE","parent_uri":"/postgresql/function","docset":"PostgreSQL"},
+{"name":"SIMILAR TO Regular Expressions","path":"functions-matching","type":"function","parsed_uri":"/postgresql/function/similar_to_regular_expressions","anchor":"FUNCTIONS-SIMILARTO-REGEXP","parent_uri":"/postgresql/function","docset":"PostgreSQL"}
+]}

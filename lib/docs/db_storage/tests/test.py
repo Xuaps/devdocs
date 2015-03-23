@@ -8,8 +8,6 @@ from refly_scraper.items import ReferenceItem
 from importer import DocImporter
 
 
-
-    
 class ImporterTest(unittest.TestCase):
     def test_json(self):
         importer = DocImporter('javascript')
@@ -57,6 +55,66 @@ class ImporterTest(unittest.TestCase):
         importer = DocImporter('html')
         entries = importer.processJSON('tests/data/test_html.json')
         content = importer.ProcessContent(entries, importer.getContent('tests/data/test_html.html'))
-        print 'HTML\n' + content
         self.assertEqual(content, u'<ul><li><a href="/html/global_attributes" style="line-height: 21px;" title="HTML/Global attributes">global attributes</a></li><li><a href="/html/element/base" title="The HTML Base Element (&lt;base&gt;) specifies the base URL to use for all relative URLs contained within a document. There can be only one &lt;base&gt; element in a document."><code>&lt;base&gt;</code></a></li><li><a href="/html/element/link" title="The HTML Link Element (&lt;link&gt;) specifies relationships between the current document and an external resource. Possible uses for this element include defining a relational framework for navigation. This Element is most used to link to style sheets."><code>&lt;link&gt;</code></a></li><li><a href="/html/element/meter" title="The HTML &lt;meter&gt; Element represents either a scalar value within a known range or a fractional value."><code>&lt;meter&gt;</code></a></li><li><a href="/html/element/basefont" title="The HTML basefont element (&lt;basefont&gt;) establishes a default font size for a document. Font size then can be varied relative to the base font size using the &lt;font&gt; element."><code>&lt;basefont&gt;</code></a></li></ul>')
-        
+
+    def test_Node(self):
+        importer = DocImporter('node')
+        entries = importer.processJSON('tests/data/test_node.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_node.html'))
+        self.assertEqual(content, u'<ul><li><a href="/nodejs/stream.writable">Writable Stream</a></li><li><a href="/nodejs/http.incomingmessage">http.IncomingMessage</a></li><li><a href="/nodejs/eventemitter">EventEmitter</a></li><li><a href="/nodejs/buffer.inspect_max_bytes">Buffer</a></li><li><a href="/nodejs/agent.destroy"><code>destroy()</code></a></li><li><a href="/nodejs/new_agent">constructor options</a></li></ul>')
+
+    def test_Nginx(self):
+        importer = DocImporter('nginx')
+        entries = importer.processJSON('tests/data/test_nginx.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_nginx.html'))
+        self.assertEqual(content, u'<ul><li><a href="/nginx/server">server</a></li><li><a href="/nginx/error_log">selected client addresses</a></li><li><a href="/nginx/error_log">error_log</a></li><li><a href="/nginx/auth_request_set">auth_request_set</a><br><a href="/nginx/autoindex">autoindex</a></li><li><a href="/nginx/autoindex_format">autoindex_format</a></li></ul>')
+
+    def test_React(self):
+        importer = DocImporter('react')
+        entries = importer.processJSON('tests/data/test_react.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_react.html'))
+        self.assertEqual(content, u'<ul><li><a href="/react/animation"><code>TransitionGroup</code> and <code>CSSTransitionGroup</code></a></li><li><a href="/react/two-way-binding-helpers"><code>LinkedStateMixin</code></a></li><li><a href="/react/class-name-manipulation"><code>classSet</code></a></li><li><a href="/react/react_elements_">ReactElement / ReactElement Factory</a></li><li><a href="/react/react_components_">ReactComponent / ReactComponent Class</a></li><li><a href="/react/react_nodes_">ReactNode</a></li></ul>')
+
+    def test_PostgreSQL(self):
+        importer = DocImporter('postgresql')
+        entries = importer.processJSON('tests/data/test_postgresql.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_postgresql.html'))
+        self.assertEqual(content, u'<ul><li><a href="/postgresql/function/and">Logical Operators</a></li><li><a href="functions-comparison">Comparison Operators</a></li><li><a href="/postgresql/math">Mathematical Functions and Operators</a></li><li><a href="/postgresql/string_functions_and_operators">String Functions and Operators</a></li><li><a href="/postgresql/binary_string_functions_and_operators">Binary String Functions and Operators</a></li><li><a href="/postgresql/bit_string_functions_and_operators">Bit String Functions and Operators</a></li><li><a href="/postgresql/pattern_matching">Pattern Matching</a></li><li><a href="/postgresql/function/like"><code class="FUNCTION">LIKE</code></a></li><li><a href="/postgresql/function/similar_to_regular_expressions"><code class="FUNCTION">SIMILAR TO</code> Regular Expressions</a></li></ul>')
+
+    def test_RequireJS(self):
+        importer = DocImporter('requirejs')
+        entries = importer.processJSON('tests/data/test_requirejs.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_requirejs.html'))
+        self.assertEqual(content, u'<ul><li><a href="/requirejs/_introduction__">Introduction</a></li><li><a href="/requirejs/define_a_module_with_a_name">Module Name</a></li><li><a href="/requirejs/_example_loading_jquery_from_a_cdn__">Example loading jquery from a CDN</a></li><li><a href="/requirejs/_mapping_modules_to_use_noconflict__">Mapping Modules to use noConflict</a></li><li><a href="/requirejs/_mapping_modules_to_use_noconflict__">later</a></li><li><a href="api#config-map">map config</a></li></ul>')
+
+    def test_Bower(self):
+        importer = DocImporter('bower')
+        entries = importer.processJSON('tests/data/test_bower.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_bower.html'))
+        print content
+        self.assertEqual(content, u'<ul><li><a href="/bower/analytics">analytics</a></li> <li><a href="/bower/cwd">cwd</a></li><li><a href="/bower/https-proxy">https-proxy</a></li><li><a href="/bower/color">color</a></li><li><a href="/bower/register">Register</a></li><li><a href="/bower/analytics">analytics</a></li><li><a href="/bower/init"><code>bower init</code></a></li></ul>')
+
+    def test_Bower(self):
+        importer = DocImporter('bower')
+        entries = importer.processJSON('tests/data/test_bower.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_bower.html'))
+        self.assertEqual(content, u'<ul><li><a href="/bower/analytics">analytics</a></li> <li><a href="/bower/cwd">cwd</a></li><li><a href="/bower/https-proxy">https-proxy</a></li><li><a href="/bower/color">color</a></li><li><a href="/bower/register">Register</a></li><li><a href="/bower/analytics">analytics</a></li><li><a href="/bower/init"><code>bower init</code></a></li></ul>')
+
+    def test_Grunt(self):
+        importer = DocImporter('grunt')
+        entries = importer.processJSON('tests/data/test_grunt.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_grunt.html'))
+        self.assertEqual(content, u'<ul><li><a href="/grunt/using-the-cli">Using the CLI</a></li><li><a href="/grunt/api/grunt">grunt.fatal</a></li></ul>')
+
+    def test_Chai(self):
+        importer = DocImporter('chai')
+        entries = importer.processJSON('tests/data/test_chai.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_chai.html'))
+        print content
+        self.assertEqual(content, u'<ul><li><a href="guide/plugins/">core concepts</a></li><li><a href="/chai/addproperty" class="clean-button">View addProperty API</a></li><li><a href="/chai/addmethod" class="clean-button">View addMethod API</a></li></ul>')
+
+    def test_Git(self):
+        importer = DocImporter('git')
+        entries = importer.processJSON('tests/data/test_git.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_git.html'))
+        self.assertEqual(content, u'<ul><li><a href="/git/gitattributes">gitattributes[5]</a></li><li><a href="/git/git-upload-archive">git-upload-archive[1]</a></li><li><a href="/git/git-http-backend">ATTRIBUTES</a></li><li><a href="/git/git-log">git-log[1]</a></li><li><a href="/git/git-blame">git-blame[1]</a></li></ul>')

@@ -1,0 +1,8 @@
+{"entries":[
+{"name":"stream.Writable","path":"stream","type":"data","parsed_uri":"/nodejs/stream.writable","anchor":"stream_class_stream_writable","parent_uri":"null","docset":"NodeJS"},
+{"name":"http.IncomingMessage","path":"http","type":"network","parsed_uri":"/nodejs/http.incomingmessage","anchor":"http_http_incomingmessage","parent_uri":"null","docset":"NodeJS"},
+{"name":"EventEmitter","path":"events","type":"event","parsed_uri":"/nodejs/eventemitter","anchor":"events_class_events_eventemitter","parent_uri":"null","docset":"NodeJS"},
+{"name":"buffer.INSPECT_MAX_BYTES","path":"buffer","type":"data","parsed_uri":"/nodejs/buffer.inspect_max_bytes","anchor":"buffer_buffer_inspect_max_bytes","parent_uri":"null","docset":"NodeJS"},
+{"name":"agent.destroy()","path":"http","type":"network","parsed_uri":"/nodejs/agent.destroy","anchor":"http_agent_destroy","parent_uri":"null","docset":"NodeJS"},
+{"name":"new Agent()","path":"http","type":"network","parsed_uri":"/nodejs/new_agent","anchor":"http_new_agent_options","parent_uri":"null","docset":"NodeJS"}
+]}

@@ -1,0 +1,8 @@
+{"entries":[
+{"name":"analytics","path":"config","type":"configuration","parsed_uri":"/bower/analytics","anchor":"analytics","parent_uri":"null","docset":"Bower"},
+{"name":"cwd","path":"config","type":"configuration","parsed_uri":"/bower/cwd","anchor":"cwd","parent_uri":"null","docset":"Bower"},
+{"name":"https-proxy","path":"config","type":"configuration","parsed_uri":"/bower/https-proxy","anchor":"https-proxy","parent_uri":"null","docset":"Bower"},
+{"name":"color","path":"config","type":"configuration","parsed_uri":"/bower/color","anchor":"color","parent_uri":"null","docset":"Bower"},
+{"name":"Register","path":"creating-packages","type":"guide","parsed_uri":"/bower/register","anchor":"register","parent_uri":"null","docset":"Bower"},
+{"name":"init","path":"api","type":"api","parsed_uri":"/bower/init","anchor":"init","parent_uri":"null","docset":"Bower"}
+]}
