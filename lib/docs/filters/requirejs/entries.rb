@@ -64,14 +64,17 @@ module Docs
 
       def additional_entries
         return [] unless SLUG_ENTRIES.include? slug
-        result[:path] = get_path + '.html'
         entries = []
         type = nil
 
 
         css('*').each do |node|
           if node.name == 'h2'
-            type = node.content
+            next if node == nil
+            name = node.content
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            id = node['id']
+            entries << [name, id, 'guide', custom_parsed_uri, get_parent_uri, get_docset]
           elsif node.name == 'h3' || node.name == 'h4'
             name = node.content
             custom_parsed_uri = get_parsed_uri_by_name(name)
@@ -85,7 +88,6 @@ module Docs
           custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], 'configuration', custom_parsed_uri, get_parent_uri, get_docset]
         end
-
         entries
       end
     end

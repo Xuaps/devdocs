@@ -1,7 +1,7 @@
 module Docs
   class Bower
     class EntriesFilter < Docs::EntriesFilter
-      ENTRIES_SLUG = %w(api config)
+      ENTRIES_SLUG = %w(api config creating-packages)
 
       def get_name
         at_css('h1').content
@@ -51,10 +51,20 @@ module Docs
 
       def additional_entries
         return [] unless ENTRIES_SLUG.include? slug
-        css('#bowerrc-specification + ul a', '#commands + p + ul a').map do |node|
-          name = node.content
-          custom_parsed_uri = get_parsed_uri_by_name(name)
-          [name, node['href'].remove('#'), get_type, custom_parsed_uri , get_parent_uri, get_docset]
+        if slug == 'creating-packages'
+            css('h2').map do |node|
+                name = node.content
+                custom_parsed_uri = get_parsed_uri_by_name(name)
+                id = node['id']
+                [name, id, get_type, custom_parsed_uri , get_parent_uri, get_docset]
+            end
+        else
+            css('#bowerrc-specification + ul a', '#commands + p + ul a').map do |node|
+              name = node.content
+              custom_parsed_uri = get_parsed_uri_by_name(name)
+              id = node['href'].remove('#')
+              [name, id, get_type, custom_parsed_uri , get_parent_uri, get_docset]
+            end
         end
       end
     end

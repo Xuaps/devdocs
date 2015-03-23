@@ -21,5 +21,6 @@ module Docs
       &copy; 2011&ndash;2014 Jake Luer<br>
       Licensed under the MIT License.
     HTML
+
   end
 end

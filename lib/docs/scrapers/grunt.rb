@@ -24,5 +24,8 @@ module Docs
       &copy; 2014 Grunt Team<br>
       Licensed under the MIT License.
     HTML
+
+    
   end
+
 end

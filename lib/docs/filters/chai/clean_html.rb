@@ -17,6 +17,13 @@ module Docs
           node.content = node.content
         end
 
+        # Fix confictive links
+        css('a').each do |node|
+          node['href'] = node['href'].remove('../../')
+          if node['href'] == '../plugins/index'
+              node['href'] = 'guide/plugins'
+          end
+        end
         doc
       end
     end

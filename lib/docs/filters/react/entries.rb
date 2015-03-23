@@ -5,6 +5,7 @@ module Docs
         top-level-api
         component-api
         component-specs
+        glossary
       )
 
       def get_name
@@ -59,7 +60,8 @@ module Docs
       def additional_entries
         return [] unless API_SLUGS.include?(slug)
 
-        css('.inner-content h3, .inner-content h4').map do |node|
+        css('.inner-content h3, .inner-content h4, .inner-content h2').map do |node|
+
           name = node.content
           name.remove! %r{[#\(\)]}
           name.remove! %r{\w+\:}

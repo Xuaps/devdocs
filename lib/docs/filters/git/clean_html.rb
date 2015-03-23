@@ -38,6 +38,14 @@ module Docs
         css('tt', 'p > em').each do |node|
           node.name = 'code'
         end
+        
+        # Fix confictive links
+        css('a').each do |node|
+          if !node['href'].nil?
+              node['href'] = node['href'].remove('http://git-scm.com/docs/').remove('/docs/').remove('docs/')
+          end
+        end
+
       end
     end
   end

@@ -1,6 +1,7 @@
 module Docs
   class Chai
     class EntriesFilter < Docs::EntriesFilter
+
       def get_name
         at_css('h1').content
       end
@@ -11,7 +12,7 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path.sub('/index','')
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         parsed_uri
       end
 
@@ -21,12 +22,7 @@ module Docs
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+        parent_uri = 'null'
       end
 
       def get_type
@@ -35,7 +31,7 @@ module Docs
         elsif path.include? 'bdd'
              'function'
         elsif path.include? 'plugin'
-             'object'
+             'plugin'
         elsif path.include? 'installation'
              'guide'
         else

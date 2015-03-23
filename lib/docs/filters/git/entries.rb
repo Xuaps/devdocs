@@ -2,7 +2,8 @@ module Docs
   class Git
     class EntriesFilter < Docs::EntriesFilter
       def get_name
-        slug.sub '-', ' '
+        name = path
+        name
       end
 
       def get_docset
@@ -16,13 +17,9 @@ module Docs
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+          parent_uri = 'null'
       end
+
       def get_type
         node = css('p')
         if node[0]
@@ -41,6 +38,7 @@ module Docs
             'others'
         end
       end
+
     end
   end
 end
