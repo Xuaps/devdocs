@@ -1,0 +1,7 @@
+{"entries":[
+{"name":"global attributes","path":"global_attributes","type":"standard","parsed_uri":"/html/global_attributes","anchor":"","parent_uri":"null","docset":"HTML"},
+{"name":"basefont","path":"element/basefont","type":"obsolete","parsed_uri":"/html/element/basefont","anchor":"","parent_uri":"/html/element","docset":"HTML"},
+{"name":"base","path":"element/base","type":"standard","parsed_uri":"/html/element/base","anchor":"","parent_uri":"/html/element","docset":"HTML"},
+{"name":"link","path":"element/link","type":"standard","parsed_uri":"/html/element/link","anchor":"","parent_uri":"/html/element","docset":"HTML"},
+{"name":"meter","path":"element/meter","type":"type","parsed_uri":"/html/element/meter","anchor":"","parent_uri":"/html/element","docset":"HTML"}
+]}

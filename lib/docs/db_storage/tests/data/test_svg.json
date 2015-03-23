@@ -1,0 +1,8 @@
+{"entries":[
+{"name":"attribute","path":"attribute","type":"attribute","parsed_uri":"/svg/attribute","anchor":"","parent_uri":"null","docset":"SVG"},
+{"name":"attribute.class","path":"attribute/class","type":"attribute","parsed_uri":"/svg/attribute/class","anchor":"","parent_uri":"/svg/attribute","docset":"SVG"},
+{"name":"attribute.style","path":"attribute/style","type":"attribute","parsed_uri":"/svg/attribute/style","anchor":"","parent_uri":"/svg/attribute","docset":"SVG"},
+{"name":"attribute.externalresourcesrequired","path":"attribute/externalresourcesrequired","type":"attribute","parsed_uri":"/svg/attribute/externalresourcesrequired","anchor":"","parent_uri":"/svg/attribute","docset":"SVG"},
+{"name":"attribute.dx","path":"attribute/dx","type":"attribute","parsed_uri":"/svg/attribute/dx","anchor":"","parent_uri":"/svg/attribute","docset":"SVG"},
+{"name":"attribute.dy","path":"attribute/dy","type":"attribute","parsed_uri":"/svg/attribute/dy","anchor":"","parent_uri":"/svg/attribute","docset":"SVG"}
+]}

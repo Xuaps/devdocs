@@ -1,0 +1,8 @@
+{"entries":[
+{"name":"boolean()","path":"functions/boolean","type":"function","parsed_uri":"/xpath/functions/boolean","anchor":"","parent_uri":"/xpath/functions","docset":"XPath"},
+{"name":"ceiling()","path":"functions/ceiling","type":"function","parsed_uri":"/xpath/functions/ceiling","anchor":"","parent_uri":"/xpath/functions","docset":"XPath"},
+{"name":"choose()","path":"functions/choose","type":"function","parsed_uri":"/xpath/functions/choose","anchor":"","parent_uri":"/xpath/functions","docset":"XPath"},
+{"name":"concat()","path":"functions/concat","type":"function","parsed_uri":"/xpath/functions/concat","anchor":"","parent_uri":"/xpath/functions","docset":"XPath"},
+{"name":"contains()","path":"functions/contains","type":"function","parsed_uri":"/xpath/functions/contains","anchor":"","parent_uri":"/xpath/functions","docset":"XPath"},
+{"name":"count()","path":"functions/count","type":"function","parsed_uri":"/xpath/functions/count","anchor":"","parent_uri":"/xpath/functions","docset":"XPath"}
+]}
