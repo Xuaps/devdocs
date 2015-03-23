@@ -87,7 +87,6 @@ module Docs
       end
 
       def additional_entries
-        path = get_path + '.html'
         klass = nil
         entries = []
 
@@ -97,10 +96,7 @@ module Docs
           klass = nil if node.name == 'h2'
           name = node.content.strip
 
-          # Skip constructors
-          if name.start_with? 'new '
-            next
-          end
+
 
           # Ignore most global objects (found elsewhere)
           if type == 'Global Objects'
@@ -131,7 +127,7 @@ module Docs
           name.remove! 'assert(), ' # assert/assert.ok
 
           # Skip all that start with an uppercase letter ("Example") or include a space ("exports alias")
-          next unless (name.first.upcase! && !name.include?(' ')) || name.start_with?('Class Method')
+          next unless name.first.upcase! || name.start_with?('Class Method')
           # Differentiate server classes (http, https, net, etc.)
           name.sub!('server.') { "#{(klass || 'https').sub('.', '_').downcase!}." }
           # Differentiate socket classes (net, dgram, etc.)
