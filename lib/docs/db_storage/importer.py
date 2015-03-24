@@ -18,7 +18,7 @@ class DocImporter():
     index_path = ''
     default_uri = ''
     total_entries = 0
-    link_re = re.compile('href="(?!http:\/\/)([*\#\/\-\w\.]*)"', re.IGNORECASE)
+    link_re = re.compile('href="(?!http:\/\/)([\(\)\*_\#\/%\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
     def __init__(self, docset):
@@ -55,7 +55,7 @@ class DocImporter():
                 keymatch = keymatch[:keymatch.find('#')]
             if keymatch in links.keys():
                 #print '"' + keymatch + '" - "' + match + '" : "' + links[keymatch] + '"'
-                content = content.replace(match, links[keymatch],1)
+                content = content.replace('"' + match + '"', '"' + links[keymatch] + '"',1)
         return content
 
     def importToDB(self):
@@ -99,12 +99,6 @@ class DocImporter():
             if entry['anchor']!= '':
                 links[(entry['path'] + '#' + entry['anchor']).lower()] = entry['parsed_uri']
                 links['#' + entry['anchor'].lower()] = entry['parsed_uri']
-            #patch for Chai
-            if entry['path'].find('/index')!=-1:
-                links[entry['path'].replace('/index','').lower()] = entry['parsed_uri']
-            #patch for Git
-            if entry['path'].find('docs/')!=-1:
-                links[entry['path'].replace('/docs/','').replace('docs/','').lower()] = entry['parsed_uri']
         return links
 
     def getFileName(self, content_path, docset, path):
