@@ -41,12 +41,17 @@ class ImporterTest(unittest.TestCase):
         content = importer.ProcessContent(entries, importer.getContent('tests/data/test_css.html'))
         self.assertEqual(content, u'<a href="/css/height"><code>height</code></a>, <a href="/css/box-sizing"><code>box-sizing</code></a>, <a href="/css/min-width"><code>min-width</code></a>, <a href="/css/max-width"><code>max-width</code></a><a href="/css/_percentage_" title="Values of the &lt;percentage&gt; CSS data type are interpolated as real, floating-point numbers.">percentage</a>')
 
+    def test_D3(self):
+        importer = DocImporter('d3')
+        entries = importer.processJSON('tests/data/test_d3.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_d3.html'))
+        print content
+        self.assertEqual(content, u'<div><a href="/d3/selection.attr">attributes</a>, <a href="/d3/selection.style">styles</a>, <a href="/d3/selection.property">properties</a>, <a href="/d3/selection.html">HTML</a> and <a href="/d3/selection.text">text</a></div>')
+
     def test_DOM(self):
         importer = DocImporter('dom')
         entries = importer.processJSON('tests/data/test_dom.json')
         content = importer.ProcessContent(entries, importer.getContent('tests/data/test_dom.html'))
-
-
         self.assertEqual(content, u'<a href="/dom/eventtarget" title="EventTarget is an interface implemented by objects that can receive events and may have listeners for them."><code>EventTarget</code></a><a href="/dom/document/loadoverlay" title="The documentation about this has not yet been written; please consider contributing!"><code>document.load</code></a><a href="/dom/document/compatmode" title="Indicates whether the document is rendered in Quirks mode or Standards mode."><code>Document.compatMode</code></a><a href="document/domconfig" title="This should return the DOMConfiguration for the document."><code>Document.domConfig</code></a><a href="/dom/document/implementation" title="Returns a DOMImplementation object associated with the current document."><code>Document.implementation</code></a>')
 
     def test_DOM_EVENTS(self):
@@ -74,11 +79,16 @@ class ImporterTest(unittest.TestCase):
         content = importer.ProcessContent(entries, importer.getContent('tests/data/test_html.html'))        
         self.assertEqual(content, u'<ul><li><a href="/html/global_attributes" style="line-height: 21px;" title="HTML/Global attributes">global attributes</a></li><li><a href="/html/element/base" title="The HTML Base Element (&lt;base&gt;) specifies the base URL to use for all relative URLs contained within a document. There can be only one &lt;base&gt; element in a document."><code>&lt;base&gt;</code></a></li><li><a href="/html/element/link" title="The HTML Link Element (&lt;link&gt;) specifies relationships between the current document and an external resource. Possible uses for this element include defining a relational framework for navigation. This Element is most used to link to style sheets."><code>&lt;link&gt;</code></a></li><li><a href="/html/element/meter" title="The HTML &lt;meter&gt; Element represents either a scalar value within a known range or a fractional value."><code>&lt;meter&gt;</code></a></li><li><a href="/html/element/meter" title="The HTML &lt;meter&gt; Element represents either a scalar value within a known range or a fractional value."><code>&lt;meter&gt;</code></a></li><li><a href="/html/element/basefont" title="The HTML basefont element (&lt;basefont&gt;) establishes a default font size for a document. Font size then can be varied relative to the base font size using the &lt;font&gt; element."><code>&lt;basefont&gt;</code></a></li><li><a href="/html/element/option" title="In a Web form, the HTML &lt;option&gt; element is used to create a control representing an item within a &lt;select&gt;, an &lt;optgroup&gt; or a &lt;datalist&gt; HTML5 element."><code>&lt;option&gt;</code></a></li></ul>')
 
+    def test_JQuery(self):
+        importer = DocImporter('jquery')
+        entries = importer.processJSON('tests/data/test_jquery.json')
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_jquery.html'))
+        self.assertEqual(content, u'<ul><li><a href="/jquery/jquery.parsehtml">$.parseHTML()</a></li><li><a href="/jquery/jquery.each"><em>each</em> function</a></li><li><a href="/jquery/jquery.merge"><em>Merge</em> function</a></li><li><a href="/jquery/jquery.parsehtml">ParseHtml function</a></li><li><a href="/jquery/jquery.proxy">Proxy function</a></li></ul>')
+
     def test_JavaScript(self):
-        importer = DocImporter('php')
+        importer = DocImporter('javascript')
         entries = importer.processJSON('tests/data/test_javascript.json')
-        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_javascript.html'))
-        
+        content = importer.ProcessContent(entries, importer.getContent('tests/data/test_javascript.html'))       
         self.assertEqual(content, u'<dl><dt><a href="/javascript/statements/block" title="A block statement"><code>Block</code></a></dt><dt><a href="/javascript/statements/break" title="The break statement"><code>break</code></a></dt><dt><a href="/javascript/statements/continue" title="The continue statement"><code>continue</code></a></dt><dt><a href="/javascript/statements/empty" title="An empty statement"><code>Empty</code></a></dt><dt><a href="/javascript/statements/if...else" title="The if statement"><code>if...else</code></a></dt><dt><a href="/javascript/statements/switch" title="The switch statement"><code>switch</code></a></dt><dt><a href="/javascript/statements/throw" title="The throw statement"><code>throw</code></a></dt><dt><a href="/javascript/statements/try...catch" title="The try...catch statement"><code>try...catch</code></a></dt><dt><a href="/javascript/operators/yield" title="The yield operator"><code>try...catch</code></a></dt><dt><a href="/javascript/operators/yield+" title="The yield* operator"><code>try...catch</code></a></dt><dt><a href="/javascript/functions/arguments" title="The arguments functions"><code>arguments</code></a></dt></dl>')
 
     def test_Nginx(self):
