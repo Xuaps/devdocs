@@ -1,0 +1,7 @@
+{"entries":[
+{"name":"Amazon Fire OS Configuration","path":"guide_platforms_amazonfireos_config.md","type":"guide","parsed_uri":"/apache-cordova/amazon_fire_os_configuration","anchor":"","parent_uri":"null","docset":"Apache Cordova"},
+{"name":"Amazon Fire OS WebViews","path":"guide_platforms_amazonfireos_webview.md","type":"guide","parsed_uri":"/apache-cordova/amazon_fire_os_webviews","anchor":"","parent_uri":"null","docset":"Apache Cordova"},
+{"name":"Amazon Fire OS Plugins","path":"guide_platforms_amazonfireos_plugin.md","type":"guide","parsed_uri":"/apache-cordova/amazon_fire_os_plugins","anchor":"","parent_uri":"null","docset":"Apache Cordova"},
+{"name":"Overview","path":"guide_overview_index.md","type":"guide","parsed_uri":"/apache-cordova/overview","anchor":"","parent_uri":"null","docset":"Apache Cordova"},
+{"name":"The Command-Line Interface","path":"guide_cli_index.md","type":"guide","parsed_uri":"/apache-cordova/the_command-line_interface","anchor":"","parent_uri":"null","docset":"Apache Cordova"}
+]}
