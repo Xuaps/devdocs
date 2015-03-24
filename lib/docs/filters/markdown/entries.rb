@@ -7,6 +7,10 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+          context[:docset_uri] + '/' + self.urilized(name)
+      end
+
       def get_parsed_uri
         parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
@@ -43,7 +47,7 @@ module Docs
             type = node.content.strip
           elsif node.name == 'h3'
             name = node.content.strip
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [name, node['id'], get_type(type), custom_parsed_uri, get_parent_uri, get_docset]
           end
         end

@@ -30,6 +30,15 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
       def get_parsed_uri
         if get_parent_uri == 'null'
             parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
@@ -57,6 +66,7 @@ module Docs
         types.sort!
         types.empty? ? 'others' : REPLACE_TYPES[TYPES[types.first]]
       end
+
     end
   end
 end
