@@ -23,18 +23,13 @@ module Docs
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+          parent_uri = 'null'
       end
 
       def get_type(typename)
           if typename == 'events'
               'event'
-          elsif typename == 'router' or  typename == 'utility' or  typename == 'sync' or  typename == 'model' or  typename == 'history'
+          elsif typename == 'router' or  typename == 'Utility' or  typename == 'sync' or  typename == 'model' or  typename == 'history'
               'function'
           elsif typename == 'collection'
               'collection'
@@ -48,7 +43,7 @@ module Docs
       def additional_entries
         entries = []
         type = nil
-
+        
         css('[id]').each do |node|
           # Module
           if node.name == 'h2'
@@ -60,7 +55,6 @@ module Docs
             end
             next
           end
-
           # Built-in events
           if node['id'] == 'Events-catalog'
             node.next_element.css('li').each do |li|

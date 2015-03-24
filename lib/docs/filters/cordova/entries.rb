@@ -16,7 +16,7 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         parsed_uri
       end
 
@@ -45,7 +45,7 @@ module Docs
         css('h2').map do |node|
           name = node.content
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          [name, node['id'], get_type, custom_parsed_uri,node['id'], get_parent_uri, get_docset]
+          [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end
     end
