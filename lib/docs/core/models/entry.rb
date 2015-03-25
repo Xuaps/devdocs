@@ -45,7 +45,11 @@ module Docs
     end
 
     def root?
-      path == 'index'
+      if anchor!=''
+          return false
+      else
+          return path == 'index'
+      end
     end
 
     def as_json
