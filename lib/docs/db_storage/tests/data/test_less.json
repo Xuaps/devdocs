@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"data-uri","path":"functions","type":"function","parsed_uri":"/less/data-uri","anchor":"misc-functions-data-uri","parent_uri":"null","docset":"Less"},
+{"name":"default","path":"functions","type":"function","parsed_uri":"/less/default","anchor":"misc-functions-default","parent_uri":"null","docset":"Less"},
+{"name":"desaturate","path":"functions","type":"function","parsed_uri":"/less/desaturate","anchor":"color-operations-desaturate","parent_uri":"null","docset":"Less"},
+{"name":"difference","path":"functions","type":"function","parsed_uri":"/less/difference","anchor":"color-blending-difference","parent_uri":"null","docset":"Less"}
+]}

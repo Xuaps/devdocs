@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"Assertions","path":"index","type":"others","parsed_uri":"/sinonjs/assertions","anchor":"assertions","parent_uri":"null","docset":"SinonJS"},
+{"name":"clock.restore()","path":"index","type":"function","parsed_uri":"/sinonjs/clock.restore","anchor":"clock-restore","parent_uri":"null","docset":"SinonJS"},
+{"name":"clock.tick()","path":"index","type":"function","parsed_uri":"/sinonjs/clock.tick","anchor":"clock-tick","parent_uri":"null","docset":"SinonJS"},
+{"name":"expectation.atLeast()","path":"index","type":"others","parsed_uri":"/sinonjs/expectation.atleast","anchor":"expectation-atleast","parent_uri":"null","docset":"SinonJS"}
+]}

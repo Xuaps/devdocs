@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"Widget factory","path":"jquery.widget","type":"function","parsed_uri":"/jqueryui/jquery.widget","anchor":"","parent_uri":"null","docset":"JQuery UI"},
+{"name":"CSS framework","path":"theming/css-framework","type":"others","parsed_uri":"/jqueryui/theming/css-framework","anchor":"","parent_uri":"/jqueryui/theming","docset":"JQuery UI"},
+{"name":"Easings","path":"easings","type":"others","parsed_uri":"/jqueryui/easings","anchor":"","parent_uri":"null","docset":"JQuery UI"},
+{"name":"Icons","path":"theming/icons","type":"others","parsed_uri":"/jqueryui/theming/icons","anchor":"","parent_uri":"/jqueryui/theming","docset":"JQuery UI"}
+]}

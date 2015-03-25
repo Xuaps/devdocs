@@ -1,0 +1,12 @@
+{"entries":[
+{"name":"Overview","path":"index","type":"others","parsed_uri":"/markdown/overview","anchor":"overview","parent_uri":"null","docset":"MarkDown"},
+{"name":"Philosophy","path":"index","type":"guide","parsed_uri":"/markdown/philosophy","anchor":"philosophy","parent_uri":"null","docset":"MarkDown"},
+{"name":"Inline HTML","path":"index","type":"guide","parsed_uri":"/markdown/inline_html","anchor":"html","parent_uri":"null","docset":"MarkDown"},
+{"name":"Automatic Escaping for Special Characters","path":"index","type":"guide","parsed_uri":"/markdown/automatic_escaping_for_special_characters","anchor":"autoescape","parent_uri":"null","docset":"MarkDown"},
+{"name":"Paragraphs and Line Breaks","path":"index","type":"element","parsed_uri":"/markdown/paragraphs_and_line_breaks","anchor":"p","parent_uri":"null","docset":"MarkDown"},
+{"name":"Headers","path":"index","type":"element","parsed_uri":"/markdown/headers","anchor":"header","parent_uri":"null","docset":"MarkDown"},
+{"name":"Blockquotes","path":"index","type":"element","parsed_uri":"/markdown/blockquotes","anchor":"blockquote","parent_uri":"null","docset":"MarkDown"},
+{"name":"Lists","path":"index","type":"element","parsed_uri":"/markdown/lists","anchor":"list","parent_uri":"null","docset":"MarkDown"},
+{"name":"Code Blocks","path":"index","type":"element","parsed_uri":"/markdown/code_blocks","anchor":"precode","parent_uri":"null","docset":"MarkDown"},
+{"name":"Horizontal Rules","path":"index","type":"element","parsed_uri":"/markdown/horizontal_rules","anchor":"hr","parent_uri":"null","docset":"MarkDown"}
+]}
