@@ -18,6 +18,7 @@ class DocImporter():
     index_path = ''
     default_uri = ''
     total_entries = 0
+    links = {}
     link_re = re.compile('href="(?!http:\/\/)([\(\)\*_\#\/%\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
@@ -47,23 +48,25 @@ class DocImporter():
             self.default_uri = self.config.get(self.docset, 'default_uri', 0)
             self.index_path = self.content_path + self.docset +  '/index.json'
 
-    def ProcessContent(self, entries, content):
-        links = self.CreateLinkCollection(entries)
+
+    def ProcessContent(self, content):
         for match in re.findall(self.link_re,content):
             keymatch = match.lower().replace('../', '')
-            if match.find('#')!=-1 and keymatch not in links.keys():
+            if match.find('#')!=-1 and keymatch not in self.links.keys():
                 keymatch = keymatch[:keymatch.find('#')]
-            if keymatch in links.keys():
-                #print '"' + keymatch + '" - "' + match + '" : "' + links[keymatch] + '"'
-                content = content.replace('"' + match + '"', '"' + links[keymatch] + '"',1)
+            if keymatch in self.links.keys():
+                #print '"' + keymatch + '" - "' + match + '" : "' + self.links[keymatch] + '"'
+                content = content.replace('"' + match + '"', '"' + self.links[keymatch] + '"',1)
         return content
 
     def importToDB(self):
         json_data = self.processJSON(self.index_path)
+        self.links = self.CreateLinkCollection(json_data)
         conn = psycopg2.connect(self.connection_string)
         self.initTable(conn)
         self.emptyTable(conn,self.docset_name)
         previous_uri = ''
+        procesed_entries = {}
         total = len(json_data)
         i = 1
         for entry in json_data:
@@ -74,7 +77,13 @@ class DocImporter():
             if entry['path'].find('#')!= -1:
                  entry['path'] = entry['path'].split('#')[0]
             filename = self.getFileName(self.content_path,self.docset, entry['path'])
-            _content = self.ProcessContent(json_data, self.getContent(filename))
+            #Avoid Process the same Page twice
+            if entry['path'] in procesed_entries.keys():
+                _content = procesed_entries[entry['path']]
+            else:
+                _content = self.ProcessContent(self.getContent(filename))
+                procesed_entries[entry['path']] = _content
+
             if entry['parent_uri'] == 'null':
                 _parent_uri = None
             else:
@@ -102,7 +111,7 @@ class DocImporter():
         return links
 
     def getFileName(self, content_path, docset, path):
-        if path.find('.html')==-1:
+        if not path.endswith('.html'):
             path += '.html'
         filename = content_path + docset + '/' + path
         return filename
