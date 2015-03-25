@@ -44,7 +44,10 @@ module Docs
         type = 'others'
         doc.children.each_with_object [] do |node, entries|
           if node.name == 'h2'
-            type = node.content.strip
+            name = node.content.strip
+            type = name
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, node['id'], 'others', custom_parsed_uri, get_parent_uri, get_docset]
           elsif node.name == 'h3'
             name = node.content.strip
             custom_parsed_uri = get_parsed_uri_by_name(name)

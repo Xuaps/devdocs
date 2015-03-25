@@ -1,7 +1,7 @@
 module Docs
   class Less
     class EntriesFilter < Docs::EntriesFilter
-      def name
+      def get_name
         at_css('h2').content
       end
 
@@ -10,8 +10,12 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+          context[:docset_uri] + '/' + self.urilized(name.strip)
+      end
+
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         parsed_uri
       end
 
@@ -44,23 +48,25 @@ module Docs
         css('h2').each do |node|
           name = node.content.strip
           name = 'Rulesets' if name == 'Passing Rulesets to Mixins'
-          custom_parsed_uri = get_parsed_uri + '#' + node['id']
+          custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset] unless name == 'Overview'
         end
 
         css('h3[id^="import-options-"]').each do |node|
-          custom_parsed_uri = get_parsed_uri + '#' + node['id']
-          entries << ["@import #{node.content}", node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          name = "@import #{node.content}"
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries.concat [
-          ['@{} interpolation', 'variables-feature-variable-interpolation', get_type, get_parsed_uri + '#variables-feature-variable-interpolation', get_parent_uri, get_docset],
-          ['url()',             'variables-feature-urls', get_type, get_parsed_uri + '#variables-feature-urls', get_parent_uri, get_docset],
-          ['@property',         'variables-feature-properties', get_type, get_parsed_uri + '#variables-feature-properties', get_parent_uri, get_docset],
-          ['@@var',             'variables-feature-variable-names', get_type, get_parsed_uri + '#variables-feature-variable-names', get_parent_uri, get_docset],
-          [':extend(all)',      'extend-feature-extend-all-', get_type, get_parsed_uri + '#extend-feature-extend-all-', get_parent_uri, get_docset],
-          ['@arguments',        'mixins-parametric-feature-the-arguments-variable', get_type, get_parsed_uri + '#mixins-parametric-feature-the-arguments-variable', get_parent_uri, get_docset],
-          ['@rest',             'mixins-parametric-feature-advanced-arguments-and-the-rest-variable', get_type, get_parsed_uri + '#mixins-parametric-feature-advanced-arguments-and-the-rest-variable', get_parent_uri, get_docset]]
+          ['Pattern Matching',  'mixins-parametric-feature-pattern-matching', get_type, get_parsed_uri_by_name('Pattern Matching'), get_parent_uri, get_docset],
+          ['@{} interpolation', 'variables-feature-variable-interpolation', get_type, get_parsed_uri_by_name('@{} interpolation'), get_parent_uri, get_docset],
+          ['url()',             'variables-feature-urls', get_type, get_parsed_uri_by_name('url()'), get_parent_uri, get_docset],
+          ['@property',         'variables-feature-properties', get_type, get_parsed_uri_by_name('@property'), get_parent_uri, get_docset],
+          ['@@var',             'variables-feature-variable-names', get_type, get_parsed_uri_by_name('@@var'), get_parent_uri, get_docset],
+          [':extend(all)',      'extend-feature-extend-all-', get_type, get_parsed_uri_by_name('extend(all)'), get_parent_uri, get_docset],
+          ['@arguments',        'mixins-parametric-feature-the-arguments-variable', get_type, get_parsed_uri_by_name('@arguments'), get_parent_uri, get_docset],
+          ['@rest',             'mixins-parametric-feature-advanced-arguments-and-the-rest-variable', get_type, get_parsed_uri_by_name('@rest'), get_parent_uri, get_docset]]
 
         entries
       end
@@ -74,7 +80,8 @@ module Docs
             type = node.content
             type.sub! %r{(.+) Functions}, 'Functions: \1'
           elsif node.name == 'h4'
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
+            name = node.content
+            custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [node.content, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
           end
         end

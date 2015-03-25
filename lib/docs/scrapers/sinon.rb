@@ -4,7 +4,6 @@ module Docs
     self.type = 'sinon'
     self.version = '1.12.1'
     self.base_url = 'http://sinonjs.org/docs/'
-
     html_filters.push 'sinon/clean_html', 'sinon/entries', 'title'
 
     options[:title] = 'Sinon.JS'
