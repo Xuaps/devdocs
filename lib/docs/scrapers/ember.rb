@@ -1,6 +1,6 @@
 module Docs
   class Ember < UrlScraper
-    self.name = 'Ember.js'
+    self.name = 'EmberJS'
     self.slug = 'ember'
     self.type = 'ember'
     self.version = '1.9.0'
@@ -9,7 +9,7 @@ module Docs
     html_filters.push 'ember/clean_html', 'ember/entries', 'title'
 
     options[:title] = false
-    options[:root_title] = 'Ember.js'
+    options[:root_title] = 'EmberJS'
     options[:docset_uri] = '/ember'
 
     options[:container] = ->(filter) do
@@ -18,8 +18,7 @@ module Docs
 
     # Duplicates
     options[:skip] = %w(
-      classes/String.html
-      data/classes/DS.html)
+      classes/String.html)
 
     # Empty
     options[:skip].concat %w(

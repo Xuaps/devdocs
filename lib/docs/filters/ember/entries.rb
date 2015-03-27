@@ -1,7 +1,13 @@
 module Docs
   class Ember
     class EntriesFilter < Docs::EntriesFilter
-
+      ADDITIONAL_ENTRIES = {
+        'modules/ember' => [
+          %w(Modules nil others /ember/modules null EmberJS)],
+        'data/classes/DS.Store' => [
+          %w(Data/Classes nil class /ember/data/classes null EmberJS)],
+        'data/modules/ember-data' => [
+          %w(Data/Modules nil class /ember/data/modules null EmberJS)]}
 
       def get_name
         name = at_css('.api-header').content.split.first
@@ -14,64 +20,78 @@ module Docs
         docset = context[:root_title]
         docset
       end
+      
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
       def get_parent_uri
         subpath = *path.split('/')
-        if subpath.length > 1
+        if subpath.size > 1
             parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-            #TODO
-            if parent_uri == '/ember/classes'
-                parent_uri = 'null'
-            end
         else
             parent_uri = 'null'
         end
+        parent_uri
       end
 
       def get_type
         if at_css('.api-header').content.include?('Module')
-          'Modules'
+          'modules'
         elsif name.include? 'helper' or name.include? 'inject' or name.include? 'Libraries'
-          'Helpers'
+          'helpers'
         elsif name.include? 'Data' or name.include? 'Promise' or name.include? 'DS' or name.include? 'Binding' or name.include? 'Deferred' or name.include? 'RSVP' or name.include? 'Adapter' or name.include? 'ProxyMixin'
-          'Data'
+          'data'
         elsif name.include? 'Controller'
-          'Controller'
+          'controller'
         elsif name.include? 'Array' or name.include? 'Set' or name.include? 'Enumerable' or name.include? 'SortableMixin'
-          'Collection'
+          'collection'
         elsif name.include? 'Application' or name.include? 'Observable' or name.include? 'Router' or name.include? 'Logger' or name.include? 'Instrumentation'
-          'Application'
+          'application'
         elsif name.include? 'Test'
-          'Test'
+          'test'
         elsif name.include? 'Handle' or name.include? 'Event' or name.include? 'TargetAction'
-          'Events'
+          'event'
         elsif name.include? 'Location' or name.include? 'HTML' or name.include? 'Route'
-          'Network'
+          'network'
         elsif name.include? 'Object' or  name.include? 'Comparable' or name.include? 'Copyable' or name.include? 'ComputedProperty' or name.include? 'Component' or name.include? 'String' or name.include? 'Freezable' or name.include? 'Error' or name.include? 'Date' or name.include? 'Namespace'
-          'Object'
+          'object'
         elsif name.include? 'View' or name.include? 'TextArea' or name.include? 'TextField' or name.include? 'Checkbox' or name.include? 'Select' or name.include? 'InjectedProperty' or name.include? 'DefaultResolver'
-          'View'
+          'view'
         elsif name.include? 'Ember'
-          'Core'
+          'core'
         else
-          'Others'
+          'others'
         end
       end
 
       def additional_entries
+        puts 'slug: ' + slug
+        if ADDITIONAL_ENTRIES.include? slug
+            return ADDITIONAL_ENTRIES[slug]
+        end
         css('.item-entry').map do |node|
           heading = node.at_css('h2')
-          name = heading.content.strip
+          name = heading.content.strip.tr('#', '.')
 
           if self.name == 'Handlebars Helpers'
             name << ' (handlebars helper)'
-            custom_parsed_uri = get_parsed_uri + '#' + heading['id']
-            next [name.tr('#', '.'), heading['id'], type, custom_parsed_uri, get_parent_uri, get_docset]
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            next [name.tr('#', '.'), heading['id'], type, custom_parsed_uri, get_parsed_uri, get_docset]
           end
 
           # Give their own type to "Ember.platform", "Ember.run", etc.
@@ -86,8 +106,8 @@ module Docs
 
           name << '()'     if node['class'].include? 'method'
           name << ' event' if node['class'].include? 'event'
-          custom_parsed_uri = get_parsed_uri + '#' + heading['id']
-          [name.tr('#', '.'), heading['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          [name, heading['id'], get_type, custom_parsed_uri, get_parsed_uri, get_docset]
         end
       end
     end
