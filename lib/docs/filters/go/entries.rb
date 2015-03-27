@@ -9,6 +9,8 @@ module Docs
       def get_name
         name = at_css('h1').content
         name.remove! 'Package '
+        name.remove! 'Directory /src/'
+        puts 'slug: ' + path + '-' + name
         name
       end
 
@@ -17,18 +19,32 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        parsed_uri = get_parsed_uri + '/' + self.urilized(name)
+        parsed_uri
+      end
+
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path.sub('/index', '')
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
+        puts parent_uri
+        puts parsed_uri
         parsed_uri
       end
 
       def get_parent_uri
-        subpath = *path.sub('/index', '').split('/')
-        if subpath.length > 1
+        subpath = *path.sub('/index', '').sub('go/', '').split('/')
+        puts path
+        pp subpath
+        if subpath.size > 1
             parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
         else
             parent_uri = 'null'
         end
+        parent_uri
       end
 
       def get_type
@@ -38,11 +54,11 @@ module Docs
         elsif IO_TYPES.include? type
             type = 'io'
         elsif CORE_TYPES.include? type
-             type = 'core'
+            type = 'core'
         elsif TYPE_TYPES.include? type
-             type = 'type'
+            type = 'type'
         elsif NETWORK_TYPES.include? type
-             type = 'network'
+            type = 'network'
         else
             type = 'others'
         end
@@ -61,15 +77,19 @@ module Docs
             name = "#{self.name} constants"
           when 'Variables'
             name = "#{self.name} variables"
+          else
+            name = node.content
           end
-          custom_parsed_uri = get_parsed_uri + node['href']
-          entries << [name, node['href'][1..-1], get_type, custom_parsed_uri, get_parent_uri, get_docset] if name
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          #TODO
+          if get_parsed_uri == '/go/go_programming_language'
+              entries << [name, node['href'][1..-1], get_type, custom_parsed_uri, 'null', get_docset] if name
+          else
+              entries << [name, node['href'][1..-1], get_type, custom_parsed_uri, get_parsed_uri, get_docset] if name
+          end
         end
       end
 
-      def include_default_entry?
-        path!='go/build/index'
-      end
     end
   end
 end
