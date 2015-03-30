@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"Sub-repositories","path":"index","type":"others","parsed_uri":"/go/go_programming_language/sub-repositories","anchor":"subrepo","parent_uri":"null","docset":"Go"},
+{"name":"Writer (zip)","path":"archive/zip/index","type":"function","parsed_uri":"/go/archive/zip/writer_zip","anchor":"Writer","parent_uri":"/go/archive/zip","docset":"Go"},
+{"name":"lzw","path":"compress/lzw/index","type":"function","parsed_uri":"/go/compress/lzw","anchor":"","parent_uri":"/go/compress","docset":"Go"},
+{"name":"Map() (bytes)","path":"bytes/index","type":"type","parsed_uri":"/go/bytes/map_bytes","anchor":"Map","parent_uri":"/go/bytes","docset":"Go"}
+]}

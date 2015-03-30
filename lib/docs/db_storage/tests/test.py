@@ -66,12 +66,26 @@ class ImporterTest(unittest.TestCase):
         content = importer.ProcessContent(importer.getContent('tests/data/test_dom_events.html'))
         self.assertEqual(content, u'<ul><li><a href="/dom_events/loadstart"><code>loadstart</code></a></li><li><a href="/dom_events/progress"><code>progress</code></a></li><li><a href="/dom_events/error_(progressevent)"><code>error</code></a></li><li><a href="/dom_events/abort_(progressevent)"><code>abort</code></a></li><li><a href="/dom_events/load"><code>load</code></a></li><li><a href="/dom_events/loadend"><code>loadend</code></a></li></ul>')
 
+    def test_Ember(self):
+        importer = DocImporter('ember')
+        entries = importer.processJSON('tests/data/test_ember.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_ember.html'))
+        self.assertEqual(content, u'<ul><li><a href="/ember/classes/view">Ember.View</a></li><li><a href="/ember/modules/ember-views">ember-views</a></li></ul>')
+
     def test_Git(self):
         importer = DocImporter('git')
         entries = importer.processJSON('tests/data/test_git.json')
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_git.html'))
         self.assertEqual(content, u'<ul><li><a href="/git/gitattributes">gitattributes[5]</a></li><li><a href="/git/git-upload-archive">git-upload-archive[1]</a></li><li><a href="/git/git-http-backend">ATTRIBUTES</a></li><li><a href="/git/git-log">git-log[1]</a></li><li><a href="/git/git-blame">git-blame[1]</a></li></ul>')
+
+    def test_Go(self):
+        importer = DocImporter('go')
+        entries = importer.processJSON('tests/data/test_go.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_go.html'))
+        self.assertEqual(content, u'<ul><li><a href="/go/archive/zip/writer_zip">zip</a></li><li><a href="/go/bytes/map_bytes">bytes</a></li><li><a href="/go/compress/lzw">lzw</a></li><li><a href="/go/go_programming_language/sub-repositories">Sub-repositories</a></li></ul>')
 
     def test_Grunt(self):
         importer = DocImporter('grunt')

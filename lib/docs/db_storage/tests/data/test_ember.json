@@ -1,0 +1,5 @@
+{"entries":[
+{"name":"ember-views","path":"modules/ember-views","type":"modules","parsed_uri":"/ember/modules/ember-views","anchor":"","parent_uri":"/ember/modules","docset":"EmberJS"},
+{"name":"View","path":"classes/ember.view","type":"view","parsed_uri":"/ember/classes/view","anchor":"","parent_uri":"/ember/classes","docset":"EmberJS"},
+{"name":"View.views","path":"classes/ember.view","type":"view","parsed_uri":"/ember/classes/view.views","anchor":"property_views","parent_uri":"/ember/classes/view","docset":"EmberJS"}
+]}
