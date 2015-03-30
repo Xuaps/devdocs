@@ -5,9 +5,9 @@ module Docs
         'modules/ember' => [
           %w(Modules nil others /ember/modules null EmberJS)],
         'data/classes/DS.Store' => [
-          %w(Data/Classes nil class /ember/data/classes null EmberJS)],
+          %w(Data/Classes nil others /ember/data/classes null EmberJS)],
         'data/modules/ember-data' => [
-          %w(Data/Modules nil class /ember/data/modules null EmberJS)]}
+          %w(Data/Modules nil others /ember/data/modules null EmberJS)]}
 
       def get_name
         name = at_css('.api-header').content.split.first
@@ -50,20 +50,20 @@ module Docs
       end
 
       def get_type
-        if at_css('.api-header').content.include?('Module')
-          'modules'
-        elsif name.include? 'helper' or name.include? 'inject' or name.include? 'Libraries'
-          'helpers'
+        if name.include? 'Class'
+          'class'
+        elsif name.include? 'helper' or name.include? 'inject' or name.include? 'Libraries' or name.include? 'Namespace'
+          'namespace'
+        elsif name.include? 'Module'
+          'module'
         elsif name.include? 'Data' or name.include? 'Promise' or name.include? 'DS' or name.include? 'Binding' or name.include? 'Deferred' or name.include? 'RSVP' or name.include? 'Adapter' or name.include? 'ProxyMixin'
           'data'
-        elsif name.include? 'Controller'
-          'controller'
+        elsif name.downcase.include? 'controller' or name.include? 'test'
+          'function'
         elsif name.include? 'Array' or name.include? 'Set' or name.include? 'Enumerable' or name.include? 'SortableMixin'
           'collection'
         elsif name.include? 'Application' or name.include? 'Observable' or name.include? 'Router' or name.include? 'Logger' or name.include? 'Instrumentation'
-          'application'
-        elsif name.include? 'Test'
-          'test'
+          'core'
         elsif name.include? 'Handle' or name.include? 'Event' or name.include? 'TargetAction'
           'event'
         elsif name.include? 'Location' or name.include? 'HTML' or name.include? 'Route'
