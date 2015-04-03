@@ -53,9 +53,14 @@ module Docs
           if node.name == 'h2'
             name = node.content
             type = name
-            node['id'] = name
             custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [name, node['id'], get_type(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset] if type == 'Middleware'
+            next
+          elsif node.name == 'h4'
+            name = node.content
+            type = name
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, node['id'], get_type(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset]
             next
           elsif node.name == 'h3'
             next if type == 'Middleware'

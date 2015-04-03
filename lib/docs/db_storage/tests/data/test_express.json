@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"req.baseUrl","path":"index","type":"request","parsed_uri":"/express/req.baseurl","anchor":"req.baseUrl","parent_uri":"null","docset":"Express"},
+{"name":"app.route()","path":"index","type":"application","parsed_uri":"/express/app.route","anchor":"app.route","parent_uri":"null","docset":"Express"},
+{"name":"app.METHOD()","path":"index","type":"application","parsed_uri":"/express/app.method","anchor":"app.METHOD","parent_uri":"null","docset":"Express"},
+{"name":"app.render()","path":"index","type":"application","parsed_uri":"/express/app.render","anchor":"app.render","parent_uri":"null","docset":"Express"}
+]}

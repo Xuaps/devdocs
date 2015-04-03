@@ -73,6 +73,13 @@ class ImporterTest(unittest.TestCase):
         content = importer.ProcessContent(importer.getContent('tests/data/test_ember.html'))
         self.assertEqual(content, u'<ul><li><a href="/ember/classes/view">Ember.View</a></li><li><a href="/ember/modules/ember-views">ember-views</a></li></ul>')
 
+    def test_Express(self):
+        importer = DocImporter('express')
+        entries = importer.processJSON('tests/data/test_express.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_express.html'))
+        self.assertEqual(content, u'<ul><li><a href="/express/app.render">app.render</a></li><li><a href="/express/app.route">app.route</a></li><li><a href="/express/app.method">app.METHOD</a></li><li><a href="/express/req.baseurl">baseUrl</a></li></ul>')
+
     def test_Git(self):
         importer = DocImporter('git')
         entries = importer.processJSON('tests/data/test_git.json')
