@@ -15,7 +15,11 @@ module Docs
         css('#faq', '.run').remove
 
         css('tt').each do |node|
-          node.name = 'code'
+          node.name = 'pre'
+        end
+
+        css('code').each do |node|
+          node.name = 'pre'
         end
 
         css('pre').each do |node|

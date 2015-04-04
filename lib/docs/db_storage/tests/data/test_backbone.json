@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"Backbone.on","path":"index","type":"event","parsed_uri":"/backbonejs/backbone.on","anchor":"Events-on","parent_uri":"null","docset":"BackboneJS"},
+{"name":"Backbone.listenTo","path":"index","type":"event","parsed_uri":"/backbonejs/backbone.listento","anchor":"Events-listenTo","parent_uri":"null","docset":"BackboneJS"},
+{"name":"model.validate","path":"index","type":"function","parsed_uri":"/backbonejs/model.validate","anchor":"Model-validate","parent_uri":"null","docset":"BackboneJS"},
+{"name":"model.destroy","path":"index","type":"function","parsed_uri":"/backbonejs/model.destroy","anchor":"Model-destroy","parent_uri":"null","docset":"BackboneJS"}
+]}

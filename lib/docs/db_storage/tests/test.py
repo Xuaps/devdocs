@@ -17,6 +17,13 @@ class ImporterTest(unittest.TestCase):
 
 # LINK TESTS
 
+    def test_BackboneJS(self):
+        importer = DocImporter('backbone')
+        entries = importer.processJSON('tests/data/test_backbone.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_backbone.html'))
+        self.assertEqual(content, u'<ul><li><a href="/backbonejs/backbone.on">on</a></li><li><a href="/backbonejs/model.validate">validation</a></li><li><a href="/backbonejs/backbone.listento">listenTo</a></li><li><a href="/backbonejs/model.destroy">destroyed</a></li></ul>')
+
     def test_Bower(self):
         importer = DocImporter('bower')
         entries = importer.processJSON('tests/data/test_bower.json')
