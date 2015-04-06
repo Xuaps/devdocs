@@ -19,7 +19,7 @@ class DocImporter():
     default_uri = ''
     total_entries = 0
     links = {}
-    link_re = re.compile('href="(?!http:\/\/)([\(\)\*_\#\/%\-\w\.]*)"', re.IGNORECASE)
+    link_re = re.compile('href="(?!http:\/\/)([\(\)\*$_\#\/%\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
     def __init__(self, docset):
@@ -51,7 +51,7 @@ class DocImporter():
 
     def ProcessContent(self, content):
         for match in re.findall(self.link_re,content):
-            keymatch = match.lower().replace('../', '')
+            keymatch = match.lower().replace('../', '').replace('%24', '$')
             if match.find('#')!=-1 and keymatch not in self.links.keys():
                 keymatch = keymatch[:keymatch.find('#')]
             if keymatch in self.links.keys():
