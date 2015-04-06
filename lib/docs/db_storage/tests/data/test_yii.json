@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"db\\Connection open()","path":"yii-db-connection","type":"data","parsed_uri":"/yii/db.connection_open","anchor":"open()-detail","parent_uri":"null","docset":"Yii"},
+{"name":"db\\DataReader","path":"yii-db-datareader","type":"data","parsed_uri":"/yii/yii-db-datareader","anchor":"","parent_uri":"null","docset":"Yii"},
+{"name":"db\\Connection $slaves","path":"yii-db-connection","type":"data","parsed_uri":"/yii/db.connection_$slaves","anchor":"$slaves-detail","parent_uri":"null","docset":"Yii"},
+{"name":"db\\Connection $username","path":"yii-db-connection","type":"data","parsed_uri":"/yii/db.connection_$username","anchor":"$username-detail","parent_uri":"null","docset":"Yii"}
+]}

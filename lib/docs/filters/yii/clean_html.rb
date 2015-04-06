@@ -31,7 +31,11 @@ module Docs
         css('.detail-table td.signature').each do |node|
           node.name = 'th'
         end
-
+        css('a').each do |node|
+          if node.inner_html.include? '¶'
+              node.remove
+          end
+        end
         doc
       end
     end

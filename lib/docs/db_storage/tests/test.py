@@ -219,3 +219,11 @@ class ImporterTest(unittest.TestCase):
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_xpath.html'))
         self.assertEqual(content, u'<ul><li><a href="/xpath/functions/boolean" title="en/XPath/Functions/boolean">boolean()</a></li> <li><a href="/xpath/functions/ceiling" title="en/XPath/Functions/ceiling">ceiling()</a></li> <li><a href="/xpath/functions/choose" title="en/XPath/Functions/choose">choose()</a></li> <li><a href="/xpath/functions/concat" title="en/XPath/Functions/concat">concat()</a></li> <li><a href="/xpath/functions/contains" title="en/XPath/Functions/contains">contains()</a></li> <li><a href="/xpath/functions/count" title="en/XPath/Functions/count">count()</a></li></ul>')
+
+    def test_Yii(self):
+        importer = DocImporter('yii')
+        entries = importer.processJSON('tests/data/test_yii.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_yii.html'))
+        print content
+        self.assertEqual(content, u'<ul><li><a href="/yii/db.connection_open">open()</a></li><li><a href="/yii/yii-db-datareader">yii\db\DataReader</a></li><li><a href="/yii/db.connection_$slaves">$slaves</a></li><li><a href="/yii/db.connection_$username">$username</a></li</ul>')
