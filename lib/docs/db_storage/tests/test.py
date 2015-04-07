@@ -213,6 +213,13 @@ class ImporterTest(unittest.TestCase):
         content = importer.ProcessContent(importer.getContent('tests/data/test_svg.html'))
         self.assertEqual(content, u'<h3 id="Global_attributes">Global attributes</h3><ul><li><a href="/svg/attribute" title="en/SVG/Attribute#ConditionalProccessing">Conditional processing attributes</a> \xbb</li><li><a href="/svg/attribute" title="en/SVG/Attribute#Core">Core attributes</a></li><li><a href="/svg/attribute" title="en/SVG/Attribute#GraphicalEvent">Graphical event attributes</a></li><li><a href="/svg/attribute" title="en/SVG/Attribute#Presentation">Presentation attributes</a></li><li><a href="/svg/attribute" title="en/SVG/Attribute#XLink">XLink attributes</a> </li><li><code><a href="/svg/attribute/class">class</a></code></li><li><code><a href="/svg/attribute/style">style</a></code></li><li><code><a href="/svg/attribute/externalresourcesrequired">externalResourcesRequired</a></code></li><li><code><a href="/svg/attribute/dx">dx</a></code></li><li><code><a href="/svg/attribute/dy">dy</a></code></li></ul>')
 
+    def test_Underscore(self):
+        importer = DocImporter('underscore')
+        entries = importer.processJSON('tests/data/test_underscore.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_underscore.html'))
+        self.assertEqual(content, u'<ul><li><a href="/underscorejs/isempty">isEmpty</a></li><li><a href="/underscorejs/groupby">groupBy</a></li><li><a href="/underscorejs/zip">zip</a></li><li><a href="/underscorejs/findindex">_.findIndex</a></li></ul>')
+
     def test_XPATH(self):
         importer = DocImporter('xpath')
         entries = importer.processJSON('tests/data/test_xpath.json')

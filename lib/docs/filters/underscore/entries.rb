@@ -7,6 +7,15 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
       def get_parsed_uri
         parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
@@ -35,7 +44,7 @@ module Docs
           # Method
           node.css('.header', '.alias b').each do |header|
             header.content.split(',').each do |name|
-              custom_parsed_uri = get_parsed_uri.sub('index', name.downcase) + '#' + node['id']
+              custom_parsed_uri = get_parsed_uri_by_name(name)
               entries << [name, node['id'], type.downcase, custom_parsed_uri, get_parent_uri, get_docset]
             end
           end
