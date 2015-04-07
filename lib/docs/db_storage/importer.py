@@ -111,6 +111,9 @@ class DocImporter():
             # EXCEPTION FOR EmberJS
             if entry['path'].lower().find('classes/') != -1 and (entry['path'].lower().replace('classes/','') not in links.keys() or entry['anchor']==''):
                links[entry['path'].lower().replace('classes/','')] = entry['parsed_uri']
+            # EXCEPTION FOR Chai
+            if entry['path'].find('helpers/index') != -1:
+                links['helpers/index'] = entry['parsed_uri']
         return links
 
     def getFileName(self, content_path, docset, path):
