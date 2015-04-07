@@ -5,7 +5,12 @@ module Docs
     self.version = '1.10.0'
     self.base_url = 'http://chaijs.com'
     self.root_path = '/api/'
-    self.initial_paths = %w(/guide/installation/ /api/bdd/)
+    self.initial_paths = %w(
+      /guide/installation/
+      /guide/helpers/
+      /guide/plugins
+      /api/bdd/
+    )
 
     html_filters.push 'chai/entries', 'chai/clean_html'
 

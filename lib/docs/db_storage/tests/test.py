@@ -36,7 +36,7 @@ class ImporterTest(unittest.TestCase):
         entries = importer.processJSON('tests/data/test_chai.json')
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_chai.html'))
-        self.assertEqual(content, u'<ul><li><a href="guide/plugins/">core concepts</a></li><li><a href="/chai/addproperty" class="clean-button">View addProperty API</a></li><li><a href="/chai/addmethod" class="clean-button">View addMethod API</a></li></ul>')
+        self.assertEqual(content, u'<ul><li><a href="guide/plugins/">core concepts</a></li><li><a href="/chai/addproperty" class="clean-button">View addProperty API</a></li><li><a href="/chai/addmethod" class="clean-button">View addMethod API</a></li><li><a href="/chai/building_a_helper">Building a Helper</a></li></ul>')
 
     def test_Cordova(self):
         importer = DocImporter('cordova')

@@ -1,5 +1,6 @@
 {"entries":[
 {"name":"Core Plugin Concepts","path":"guide/plugins/index","type":"plugin","parsed_uri":"/chai/core_plugin_concepts","anchor":"","parent_uri":"null","docset":"Chai"},
 {"name":"addProperty","path":"api/plugins/index","type":"plugin","parsed_uri":"/chai/addproperty","anchor":"addProperty-section","parent_uri":"null","docset":"Chai"},
-{"name":"addMethod","path":"api/plugins/index","type":"plugin","parsed_uri":"/chai/addmethod","anchor":"addMethod-section","parent_uri":"null","docset":"Chai"}
+{"name":"addMethod","path":"api/plugins/index","type":"plugin","parsed_uri":"/chai/addmethod","anchor":"addMethod-section","parent_uri":"null","docset":"Chai"},
+{"name":"Building a Helper","path":"guide/helpers/index","type":"others","parsed_uri":"/chai/building_a_helper","anchor":"","parent_uri":"null","docset":"Chai"}
 ]}
