@@ -19,7 +19,7 @@ class DocImporter():
     default_uri = ''
     total_entries = 0
     links = {}
-    link_re = re.compile('href="(?!http:\/\/)([\(\)\*$_\#\/%\-\w\.]*)"', re.IGNORECASE)
+    link_re = re.compile('href="(?!http:\/\/)([\(\)\*:$_\#\/%\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
     def __init__(self, docset):
@@ -51,12 +51,14 @@ class DocImporter():
 
     def ProcessContent(self, content):
         for match in re.findall(self.link_re,content):
+            anchor = ''
             keymatch = match.lower().replace('../', '').replace('%24', '$')
             if match.find('#')!=-1 and keymatch not in self.links.keys():
+                anchor = keymatch[keymatch.find('#'):]
                 keymatch = keymatch[:keymatch.find('#')]
             if keymatch in self.links.keys():
                 #print '"' + keymatch + '" - "' + match + '" : "' + self.links[keymatch] + '"'
-                content = content.replace('"' + match + '"', '"' + self.links[keymatch] + '"',1)
+                content = content.replace('"' + match + '"', '"' + self.links[keymatch] + anchor + '"',1)
         return content
 
     def importToDB(self):
@@ -106,14 +108,19 @@ class DocImporter():
             if entry['path'].lower() not in links.keys() or entry['anchor']=='':
                 links[entry['path'].lower()] = entry['parsed_uri']
             if entry['anchor']!= '':
+                links[entry['path'][entry['path'].find('/'):].lower()] = entry['parsed_uri']
                 links[(entry['path'] + '#' + entry['anchor']).lower()] = entry['parsed_uri']
                 links['#' + entry['anchor'].lower()] = entry['parsed_uri']
             # EXCEPTION FOR EmberJS
             if entry['path'].lower().find('classes/') != -1 and (entry['path'].lower().replace('classes/','') not in links.keys() or entry['anchor']==''):
                links[entry['path'].lower().replace('classes/','')] = entry['parsed_uri']
+            # EXCEPTION FOR Haskell
+            if entry['docset'].lower() == 'haskell':
+               links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
             # EXCEPTION FOR Chai
             if entry['path'].find('helpers/index') != -1:
-                links['helpers/index'] = entry['parsed_uri']
+               links['helpers/index'] = entry['parsed_uri']
+
         return links
 
     def getFileName(self, content_path, docset, path):
