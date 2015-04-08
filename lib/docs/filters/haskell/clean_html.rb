@@ -37,6 +37,7 @@ module Docs
         css('a[name]').each do |node|
           node['id'] = node['name']
           node.remove_attribute('name')
+          node.name = 'span'
         end
 
         css('p.caption').each do |node|

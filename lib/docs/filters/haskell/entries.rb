@@ -27,19 +27,24 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
       def get_parsed_uri
         subpath = *path.split('/')
-        parsed_uri = (context[:docset_uri] + '/' + subpath[1,subpath.size-1].join('/')).downcase
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         parsed_uri
       end
 
       def get_parent_uri
         subpath = *path.split('/')
-        if subpath.size > 1 
-            parent_uri = (context[:docset_uri] + '/' + subpath[1,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+        parent_uri = 'null'
       end
 
       def get_type
@@ -63,7 +68,6 @@ module Docs
 
       def additional_entries
         return [] if IGNORE_ENTRIES_PATHS.include?(subpath)
-
         css('#synopsis > ul > li').each_with_object [] do |node, entries|
           link = node.at_css('a')
           next unless link['href'].start_with?('#')
@@ -72,7 +76,8 @@ module Docs
           name.sub! %r{\A\((.+?)\)}, '\1'
           #name.sub!(/ (?:\:\: (\w+))?.+\z/) { |_| $1 ? " (#{$1})" : '' }
           next if name == self.name
-          entries << [name, link['href'].remove('#'),get_type, get_parsed_uri + link['href'], get_parsed_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, link['href'].remove('#'),get_type, custom_parsed_uri, get_parsed_uri, get_docset]
         end
       end
 

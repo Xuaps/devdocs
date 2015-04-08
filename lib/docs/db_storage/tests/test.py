@@ -16,7 +16,6 @@ class ImporterTest(unittest.TestCase):
         self.assertEqual(len(entries), 11)
 
 # LINK TESTS
-
     def test_BackboneJS(self):
         importer = DocImporter('backbone')
         entries = importer.processJSON('tests/data/test_backbone.json')
@@ -43,15 +42,15 @@ class ImporterTest(unittest.TestCase):
         entries = importer.processJSON('tests/data/test_cordova.json')
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_cordova.html'))
-        self.assertEqual(content, u'<ul><li><a href="/apache-cordova/overview">Overview</a></li><li><a href="/apache-cordova/the_command-line_interface">The Command-Line Interface</a></li><li><a href="/apache-cordova/amazon_fire_os_configuration">Amazon Fire OS Configuration</a></li><li><a href="/apache-cordova/amazon_fire_os_webviews">Amazon Fire OS WebViews</a></li><li><a href="/apache-cordova/amazon_fire_os_plugins">Amazon Fire OS Plugins</a></li></ul>')
+        print content
+        self.assertEqual(content, u'<ul><li><a href="/apache-cordova/overview#overview">Overview</a></li><li><a href="/apache-cordova/the_command-line_interface#the%20command-line%20interface">The Command-Line Interface</a></li><li><a href="/apache-cordova/amazon_fire_os_configuration#amazon%20fire%20os%20configuration">Amazon Fire OS Configuration</a></li><li><a href="/apache-cordova/amazon_fire_os_webviews#amazon%20fire%20os%20webviews">Amazon Fire OS WebViews</a></li><li><a href="/apache-cordova/amazon_fire_os_plugins#amazon%20fire%20os%20plugins">Amazon Fire OS Plugins</a></li></ul>')
 
     def test_CSS(self):
         importer = DocImporter('php')
         entries = importer.processJSON('tests/data/test_css.json')
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_css.html'))
-        self.assertEqual(content, u'<a href="/css/height"><code>height</code></a>, <a href="/css/box-sizing"><code>box-sizing</code></a>, <a href="/css/min-width"><code>min-width</code></a>, <a href="/css/max-width"><code>max-width</code></a><a href="/css/_percentage_" title="Values of the &lt;percentage&gt; CSS data type are interpolated as real, floating-point numbers.">percentage</a>')
-
+        self.assertEqual(content, u'<a href="/css/height"><code>height</code></a>, <a href="/css/box-sizing"><code>box-sizing</code></a>, <a href="/css/min-width"><code>min-width</code></a>, <a href="/css/max-width"><code>max-width</code></a><a href="/css/_percentage_#interpolation" title="Values of the &lt;percentage&gt; CSS data type are interpolated as real, floating-point numbers.">percentage</a>')
     def test_D3(self):
         importer = DocImporter('d3')
         entries = importer.processJSON('tests/data/test_d3.json')
@@ -108,6 +107,14 @@ class ImporterTest(unittest.TestCase):
         content = importer.ProcessContent(importer.getContent('tests/data/test_grunt.html'))
         self.assertEqual(content, u'<ul><li><a href="/grunt/using-the-cli">Using the CLI</a></li><li><a href="/grunt/api/grunt">grunt.fatal</a></li></ul>')
 
+    def test_Haskell(self):
+        importer = DocImporter('haskell')
+        entries = importer.processJSON('tests/data/test_haskell.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_haskell.html'))
+        print content
+        self.assertEqual(content, u'<ul><li><a href="/haskell/data-intmap-lazy#v:mapwithkey">mapWithKey</a></li><li><a href="/haskell/data-intmap-strict/intmap_a#t:intmap">IntMap</a></li><li><a href="/haskell/data-intmap-strict/intmap_a#t:key">Key</a></li><li><a href="/haskell/data-intmap-strict/intmap_a#v:foldrwithkey">foldrWithKey</a></li></ul>')
+
     def test_HTML(self):
         importer = DocImporter('html')
         entries = importer.processJSON('tests/data/test_html.json')
@@ -162,14 +169,15 @@ class ImporterTest(unittest.TestCase):
         entries = importer.processJSON('tests/data/test_nginx.json')
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_nginx.html'))
-        self.assertEqual(content, u'<ul><li><a href="/nginx/server">server</a></li><li><a href="/nginx/error_log">selected client addresses</a></li><li><a href="/nginx/error_log">error_log</a></li><li><a href="/nginx/auth_request_set">auth_request_set</a><br><a href="/nginx/autoindex">autoindex</a></li><li><a href="/nginx/autoindex_format">autoindex_format</a></li></ul>')
+        self.assertEqual(content, u'<ul><li><a href="/nginx/server">server</a></li><li><a href="/nginx/debug_connection">selected client addresses</a></li><li><a href="/nginx/error_log">error_log</a></li><li><a href="/nginx/auth_request_set">auth_request_set</a><br><a href="/nginx/autoindex">autoindex</a></li><li><a href="/nginx/autoindex_format">autoindex_format</a></li></ul>')
 
     def test_Node(self):
         importer = DocImporter('node')
         entries = importer.processJSON('tests/data/test_node.json')
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_node.html'))
-        self.assertEqual(content, u'<ul><li><a href="/nodejs/stream.writable">Writable Stream</a></li><li><a href="/nodejs/http.incomingmessage">http.IncomingMessage</a></li><li><a href="/nodejs/eventemitter">EventEmitter</a></li><li><a href="/nodejs/buffer.inspect_max_bytes">Buffer</a></li><li><a href="/nodejs/agent.destroy"><code>destroy()</code></a></li><li><a href="/nodejs/new_agent">constructor options</a></li></ul>')
+        print content
+        self.assertEqual(content, u'<ul><li><a href="/nodejs/stream.writable">Writable Stream</a></li><li><a href="/nodejs/http.incomingmessage">http.IncomingMessage</a></li><li><a href="/nodejs/eventemitter">EventEmitter</a></li><li><a href="/nodejs/buffer.inspect_max_bytes#buffer_buffer">Buffer</a></li><li><a href="/nodejs/agent.destroy"><code>destroy()</code></a></li><li><a href="/nodejs/new_agent">constructor options</a></li></ul>')
 
     def test_PostgreSQL(self):
         importer = DocImporter('postgresql')
@@ -211,7 +219,8 @@ class ImporterTest(unittest.TestCase):
         entries = importer.processJSON('tests/data/test_svg.json')
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_svg.html'))
-        self.assertEqual(content, u'<h3 id="Global_attributes">Global attributes</h3><ul><li><a href="/svg/attribute" title="en/SVG/Attribute#ConditionalProccessing">Conditional processing attributes</a> \xbb</li><li><a href="/svg/attribute" title="en/SVG/Attribute#Core">Core attributes</a></li><li><a href="/svg/attribute" title="en/SVG/Attribute#GraphicalEvent">Graphical event attributes</a></li><li><a href="/svg/attribute" title="en/SVG/Attribute#Presentation">Presentation attributes</a></li><li><a href="/svg/attribute" title="en/SVG/Attribute#XLink">XLink attributes</a> </li><li><code><a href="/svg/attribute/class">class</a></code></li><li><code><a href="/svg/attribute/style">style</a></code></li><li><code><a href="/svg/attribute/externalresourcesrequired">externalResourcesRequired</a></code></li><li><code><a href="/svg/attribute/dx">dx</a></code></li><li><code><a href="/svg/attribute/dy">dy</a></code></li></ul>')
+        print content
+        self.assertEqual(content, u'<h3 id="Global_attributes">Global attributes</h3><ul><li><a href="/svg/attribute#conditionalproccessing" title="en/SVG/Attribute#ConditionalProccessing">Conditional processing attributes</a> \xbb</li><li><a href="/svg/attribute#core" title="en/SVG/Attribute#Core">Core attributes</a></li><li><a href="/svg/attribute#graphicalevent" title="en/SVG/Attribute#GraphicalEvent">Graphical event attributes</a></li><li><a href="/svg/attribute#presentation" title="en/SVG/Attribute#Presentation">Presentation attributes</a></li><li><a href="/svg/attribute#xlink" title="en/SVG/Attribute#XLink">XLink attributes</a> </li><li><code><a href="/svg/attribute/class">class</a></code></li><li><code><a href="/svg/attribute/style">style</a></code></li><li><code><a href="/svg/attribute/externalresourcesrequired">externalResourcesRequired</a></code></li><li><code><a href="/svg/attribute/dx">dx</a></code></li><li><code><a href="/svg/attribute/dy">dy</a></code></li></ul>')
 
     def test_Underscore(self):
         importer = DocImporter('underscore')

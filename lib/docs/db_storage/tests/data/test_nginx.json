@@ -1,4 +1,5 @@
 {"entries":[
+{"name":"debug_connection","path":"ngx_core_module","type":"core","parsed_uri":"/nginx/debug_connection","anchor":"debug_connection","parent_uri":"/nginx/core","docset":"Nginx"},
 {"name":"autoindex_format","path":"http/ngx_http_autoindex_module","type":"module","parsed_uri":"/nginx/autoindex_format","anchor":"autoindex_format","parent_uri":"/nginx/module","docset":"Nginx"},
 {"name":"server","path":"http/ngx_http_core_module","type":"core","parsed_uri":"/nginx/server","anchor":"server","parent_uri":"/nginx/core","docset":"Nginx"},
 {"name":"error_log","path":"ngx_core_module","type":"core","parsed_uri":"/nginx/error_log","anchor":"error_log","parent_uri":"/nginx/core","docset":"Nginx"},

@@ -21,7 +21,7 @@ module Docs
     end
       # transform string into a valid uri
     def urilized(str)
-        str.downcase.tr(' ','_').tr('//','').tr("'", "").tr('/','-').tr('"', '').tr('(', '').tr(')', '').tr('::', '-').tr(':','').tr('?','').tr('*','+').gsub(/\u200B/){''}
+        str.downcase.tr(' ','_').tr('//','').tr("'", ".").tr('/','-').tr('"', '').tr('(', '').tr(')', '').tr('::', '-').tr(':','').tr('?','').tr('*','+').gsub(/\u200B/){''}
     end
 
     def additional_entries

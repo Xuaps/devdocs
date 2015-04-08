@@ -1,0 +1,7 @@
+{"entries":[
+{"name":"mapWithKey :: (k -> a -> b) -> Map k a -> Map k b","path":"containers-0.5.5.1/data-map-strict","type":"data","parsed_uri":"/haskell/data-map-strict/mapwithkey_--_k_->_a_->_b_->_map_k_a_->_map_k_b","anchor":"v:mapWithKey","parent_uri":"/haskell/data-map-strict","docset":"Haskell"},
+{"name":"IntMap a","path":"containers-0.5.5.1/data-intmap-strict","type":"data","parsed_uri":"/haskell/data-intmap-strict/intmap_a","anchor":"t:IntMap","parent_uri":"/haskell/data-intmap-strict","docset":"Haskell"},
+{"name":"Key = Int","path":"containers-0.5.5.1/data-intset","type":"data","parsed_uri":"/haskell/data-intset/key_=_int","anchor":"t:Key","parent_uri":"/haskell/data-intset","docset":"Haskell"},
+{"name":"Data.IntMap.Lazy","path":"containers-0.5.5.1/data-intmap-lazy","type":"data","parsed_uri":"/haskell/data-intmap-lazy","anchor":"","parent_uri":"/haskell/data-intmap-lazy","docset":"Haskell"},
+{"name":"foldrWithKey :: (k -> a -> b -> b) -> b -> Map k a -> b","path":"containers-0.5.5.1/data-map-strict","type":"data","parsed_uri":"/haskell/data-map-strict/foldrwithkey_--_k_->_a_->_b_->_b_->_b_->_map_k_a_->_b","anchor":"v:foldrWithKey","parent_uri":"/haskell/data-map-strict","docset":"Haskell"}
+]}
