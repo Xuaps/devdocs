@@ -117,6 +117,10 @@ class DocImporter():
             # EXCEPTION FOR Haskell
             if entry['docset'].lower() == 'haskell':
                links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
+            # EXCEPTION FOR Python
+            if entry['docset'].lower() == 'python3' or entry['docset'].lower() == 'python2':
+               links[entry['path'][entry['path'].find('/')+1:].lower() + '.html'] = entry['parsed_uri']
+               links[entry['path'] + '.html'] = entry['parsed_uri']
             # EXCEPTION FOR Chai
             if entry['path'].find('helpers/index') != -1:
                links['helpers/index'] = entry['parsed_uri']
