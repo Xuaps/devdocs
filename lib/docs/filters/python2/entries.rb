@@ -2,18 +2,41 @@ module Docs
   class Python2
     class EntriesFilter < Docs::EntriesFilter
       REPLACE_TYPES = {
-        'compiler package'                        => 'Compiler',
-        'Cryptographic'                           => 'Cryptography',
-        'Custom Interpreters'                     => 'Interpreters',
-        'Data Compression & Archiving'            => 'Data Compression',
-        'Generic Operating System'                => 'Operating System',
-        'Graphical User Interfaces with Tk'       => 'Tk',
-        'Internet Data Handling'                  => 'Internet Data',
-        'Internet Protocols & Support'            => 'Internet',
-        'Interprocess Communication & Networking' => 'Networking',
-        'MacOSA'                                  => 'Mac OS',
-        'Program Frameworks'                      => 'Frameworks',
-        'Structured Markup Processing Tools'      => 'Structured Markup' }
+        'compiler package'                        => 'function',
+        'Cryptographic'                           => 'function',
+        'Custom Interpreters'                     => 'function',
+        'SGI IRIX'                                => 'function',
+        'Numeric & Mathematical'                  => 'type',
+        'String'                                  => 'type',
+        'Data Types'                              => 'type',
+        'Graphical User Interfaces with Tk'       => 'view',
+        'Multimedia'                              => 'view',
+        'Structured Markup Processing Tools'      => 'view',
+        'Internet Data Handling'                  => 'network',
+        'Internet Protocols & Support'            => 'network',
+        'Interprocess Communication & Networking' => 'network',
+        'Internationalization'                    => 'language',
+        'Language'                                => 'language',
+        'File & Directory Access'                 => 'io',
+        'Importing'                               => 'io',
+        'Data Compression & Archiving'            => 'data',
+        'Data Persistence'                        => 'data',
+        'Generic Operating System'                => 'core',
+        'Runtime'                                 => 'core',
+        'Operating System'                        => 'core',
+        'MacOSA'                                  => 'core',
+        'Unix'                                    => 'core',
+        'Optional Operating System'               => 'core',
+        'MS Windows'                              => 'core',
+        'SunOS'                                   => 'core',
+        'Program Frameworks'                      => 'core',
+        'Built-in Exceptions'                     => 'exception',
+        'Development Tools'                       => 'others',
+        'Debugging & Profiling'                   => 'others',
+        'File Formats'                            => 'others',
+        'Restricted Execution'                    => 'others',
+        'Software Packaging & Distribution'       => 'others'
+      }
 
       def get_name
         name = at_css('h1').content
@@ -45,18 +68,25 @@ module Docs
       end
 
       def get_type
-        return 'Logging' if slug.start_with? 'library/logging'
+        return 'others' if slug.start_with? 'library/logging'
 
         type = at_css('.related a[accesskey="U"]').content
 
         if type == 'The Python Standard Library'
           type = at_css('h1').content
+          if type.include? 'Functions'
+              type = 'function'
+          elsif type.include? 'Built-in Types'
+              type = 'type'
+          elsif type.include? 'Built-in Constants'
+              type = 'data'
+          end
         elsif type.include?('I/O') || %w(select selectors).include?(name)
-          type = 'Input/ouput'
+          type = 'io'
         elsif type.start_with? '18'
-          type = 'Internet Data Handling'
+          type = 'network'
         elsif type.include? 'Mac'
-          type = 'Mac OS'
+          type = 'core'
         end
 
         type.remove! %r{\A\d+\.\s+} # remove list number
