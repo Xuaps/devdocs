@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"hsla","path":"sass/script/functions","type":"function","parsed_uri":"/sass/hsla","anchor":"hsla-instance_method","parent_uri":"null","docset":"Sass"},
+{"name":"adjust_hue","path":"sass/script/functions","type":"function","parsed_uri":"/sass/adjust_hue","anchor":"adjust_hue-instance_method","parent_uri":"null","docset":"Sass"},
+{"name":"red","path":"sass/script/functions","type":"function","parsed_uri":"/sass/red","anchor":"red-instance_method","parent_uri":"null","docset":"Sass"},
+{"name":":load_paths","path":"file.sass_reference","type":"styles","parsed_uri":"/sass/-load_paths","anchor":"load_paths-option","parent_uri":"null","docset":"Sass"}
+]}

@@ -13,7 +13,7 @@ module Docs
     options[:docset_uri] = '/sass'
 
     options[:container] = ->(filter) do
-      filter.root_page? ? '#filecontents' : '#instance_method_details'
+      filter.root_page? ? '#filecontents' : '#content'
     end
 
     options[:attribution] = <<-HTML

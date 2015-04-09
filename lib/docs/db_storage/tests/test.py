@@ -221,6 +221,13 @@ class ImporterTest(unittest.TestCase):
         content = importer.ProcessContent(importer.getContent('tests/data/test_requirejs.html'))
         self.assertEqual(content, u'<ul><li><a href="/requirejs/_introduction__">Introduction</a></li><li><a href="/requirejs/define_a_module_with_a_name">Module Name</a></li><li><a href="/requirejs/_example_loading_jquery_from_a_cdn__">Example loading jquery from a CDN</a></li><li><a href="/requirejs/_mapping_modules_to_use_noconflict__">Mapping Modules to use noConflict</a></li><li><a href="/requirejs/_mapping_modules_to_use_noconflict__">later</a></li><li><a href="api#config-map">map config</a></li></ul>')
 
+    def test_Sass(self):
+        importer = DocImporter('sass')
+        entries = importer.processJSON('tests/data/test_sass.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_sass.html'))
+        self.assertEqual(content, u'<ul><li><a href="/sass/hsla" title="Sass::Script::Functions#hsla (method)">hsla($hue, $saturation, $lightness, $alpha)</a></li><li><a href="/sass/adjust_hue" title="Sass::Script::Functions#adjust_hue (method)">adjust-hue($color, $degrees)</a></li><li><a href="/sass/red" title="Sass::Script::Functions#red (method)">red($color)</a></li><li><a href="/sass/-load_paths" title="&lt;code&gt;:load_paths&lt;/code&gt; array"><code>:load_paths</code> array</a></li></ul>')
+
     def test_Sinon(self):
         importer = DocImporter('sinon')
         entries = importer.processJSON('tests/data/test_sinon.json')
