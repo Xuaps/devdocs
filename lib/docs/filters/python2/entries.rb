@@ -30,18 +30,18 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+          context[:docset_uri] + '/' + self.urilized(name)
+      end
+
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         parsed_uri
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+        parent_uri = 'null'
+        parent_uri
       end
 
       def get_type
@@ -77,23 +77,23 @@ module Docs
         entries = []
 
         css('.class > dt[id]', '.exception > dt[id]', '.attribute > dt[id]').each do |node|
-          custom_parsed_uri = get_parsed_uri + '#' + node['id']
-          name = subpath + '.' + node['id']
-          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          name = node['id']
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parsed_uri, get_docset]
         end
 
         css('.data > dt[id]').each do |node|
           if node['id'].split('.').last.upcase! # skip constants
-            custom_parsed_uri = get_parsed_uri + '#' + node['id']
-            name = subpath + '.' + node['id']
-            entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+            name = node['id']
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, node['id'], get_type, custom_parsed_uri, get_parsed_uri, get_docset]
           end
         end
 
         css('.function > dt[id]', '.method > dt[id]', '.classmethod > dt[id]').each do |node|
-          custom_parsed_uri = get_parsed_uri + '#' + node['id']
-          name = subpath + '.' + node['id'] + '()'
-          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          name = node['id'] + '()'
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parsed_uri, get_docset]
         end
 
         entries

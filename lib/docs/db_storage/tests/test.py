@@ -193,6 +193,20 @@ class ImporterTest(unittest.TestCase):
         content = importer.ProcessContent(importer.getContent('tests/data/test_php.html'))
         self.assertEqual(content, u'<ul class="chunklist chunklist_part"><li><a href="/javascript/p1">P1</a></li><li><a href="/javascript/p2">P2</a></li><li><a href="/javascript/p3">P3</a></li><li><a href="/javascript/p4">P4</a></li><li><a href="/javascript/p5">P5</a></li><li><a href="/javascript/p6">P6</a></li><li><a href="/javascript/p7">P7</a></li><li><a href="/javascript/p8">P8</a></li><li><a href="/javascript/p9">P9</a></li><li><a href="/javascript/p10">P10</a></li><li><a href="/javascript/p11">P11</a></li><li><a href="/javascript/p12">P12</a></li></ul>')
 
+    def test_Python2(self):
+        importer = DocImporter('python2')
+        entries = importer.processJSON('tests/data/test_python2.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_python2.html'))
+        self.assertEqual(content, u'<ul><li><a class="reference internal" href="/python2/array.array.extend" title="array.array.extend"><code>extend()</code></a></li><li><a class="reference internal" href="/python2/array.array.tofile" title="array.array.tofile"><code>tofile()</code></a></li><li><a class="reference internal" href="/python2/array.array.fromlist" title="array.array.fromlist"><code>fromlist()</code></a></li><li><a class="reference internal" href="/python2/array.array.fromunicode" title="array.array.fromunicode"><code>fromunicode()</code></a</li><li><a class="reference internal" href="exceptions#exceptions.TypeError" title="exceptions.TypeError"><code>TypeError</code></a></li></ul>')
+
+    def test_Python3(self):
+        importer = DocImporter('python')
+        entries = importer.processJSON('tests/data/test_python3.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_python3.html'))
+        self.assertEqual(content, u'<ul><li><a class="reference internal" href="/python3/base_event_loop#asyncio-event-loop"><em>event loop</em></a></li><li><a class="reference internal" href="/python3/transports_and_protocols_low-level_api#asyncio-transport"><em>transport</em></a></li><li><a class="reference internal" href="/python3/asyncio.future#asyncio.future" title="asyncio.Future"><tt class="xref py py-class docutils literal"><span class="pre">Future</span></tt></a></li><li><a class="reference internal" href="/python3/base_event_loop">18.5.1. Base Event Loop</a></li></ul>')
+
     def test_React(self):
         importer = DocImporter('react')
         entries = importer.processJSON('tests/data/test_react.json')

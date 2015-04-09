@@ -1,0 +1,7 @@
+{"entries":[
+{"name":"array.array.extend()","path":"library/array","type":"Data Types","parsed_uri":"/python2/array.array.extend","anchor":"array.array.extend","parent_uri":"/python2/array","docset":"Python2"},
+{"name":"array.array.tofile()","path":"library/array","type":"Data Types","parsed_uri":"/python2/array.array.tofile","anchor":"array.array.tofile","parent_uri":"/python2/array","docset":"Python2"},
+{"name":"array.array.fromlist()","path":"library/array","type":"Data Types","parsed_uri":"/python2/array.array.fromlist","anchor":"array.array.fromlist","parent_uri":"/python2/array","docset":"Python2"},
+{"name":"Exceptions","path":"library/exceptions","type":"Built-in Exceptions","parsed_uri":"/python2/exceptions","anchor":"","parent_uri":"null","docset":"Python2"},
+{"name":"array.array.fromunicode()","path":"library/array","type":"Data Types","parsed_uri":"/python2/array.array.fromunicode","anchor":"array.array.fromunicode","parent_uri":"/python2/array","docset":"Python2"}
+]}
