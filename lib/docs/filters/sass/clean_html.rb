@@ -13,6 +13,14 @@ module Docs
 
       def root
         at_css('.maruku_toc').remove
+        css('a[href]').each do |node|
+            node['href'] = node['href'].sub('../../','')
+            if node['href'].include? 'file.sass_reference'
+                puts 'href: ' + node['href']
+                node['href'] = node['href'].sub('file.sass_reference', 'index')
+                puts 'href: ' + node['href']
+            end
+        end
       end
 
       def other
@@ -40,6 +48,16 @@ module Docs
         css('div.inline').each do |node|
           node.content = node.content
           node.name = 'span'
+        end
+
+        css('a[href]').each do |node|
+            if node['href'].include? '../'
+                node['href'] = node['href'].sub('../../','')
+            end
+            if node['href'].include? 'file.sass_reference'
+                puts 'href: ' + node['href']
+                node['href'] = node['href'].sub('file.sass_reference', 'index')
+            end
         end
 
         # Remove links to type classes (e.g. Number)

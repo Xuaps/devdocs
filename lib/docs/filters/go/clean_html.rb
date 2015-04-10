@@ -33,6 +33,13 @@ module Docs
           node.content = node.content
         end
 
+        # fix links
+        css('a[href]').each do |node|
+            if node['href'].end_with? '/index'
+                node['href'] = 'math/' + node['href'].sub('/index', '')
+            end
+        end
+
         # Fix example markup
         css('.play').each do |node|
           node.children = node.at_css('.code').children

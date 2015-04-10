@@ -105,9 +105,6 @@ class DocImporter():
     def CreateLinkCollection(self, entries):
         links = {}
         for entry in entries:
-            # EXCEPTION FOR Sass
-            if entry['docset'].lower() == 'sass' and entry['path'] == 'index':
-               entry['path'] = 'file.sass_reference'
             if entry['path'].lower() not in links.keys() or entry['anchor']=='':
                 links[entry['path'].lower()] = entry['parsed_uri']
             if entry['anchor']!= '':
