@@ -7,7 +7,8 @@ module Docs
     self.base_url = 'https://lodash.com/docs'
 
     html_filters.push 'lodash/clean_html', 'lodash/entries', 'title'
-
+    options[:root_title] = 'Lo-Dash'
+    options[:docset_uri] = '/lodash'
     options[:title] = 'Lo-Dash'
     options[:container] = 'h1+div+div'
     options[:skip_links] = true

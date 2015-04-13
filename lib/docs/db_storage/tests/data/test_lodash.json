@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"_.detect()","path":"index","type":"collection","parsed_uri":"/lodash/_.detect","anchor":"find","parent_uri":"null","docset":"Lo-Dash"},
+{"name":"_.matchesProperty()","path":"index","type":"function","parsed_uri":"/lodash/_.matchesproperty","anchor":"matchesProperty","parent_uri":"null","docset":"Lo-Dash"},
+{"name":"_.property()","path":"index","type":"function","parsed_uri":"/lodash/_.property","anchor":"property","parent_uri":"null","docset":"Lo-Dash"},
+{"name":"_.matches()","path":"index","type":"function","parsed_uri":"/lodash/_.matches","anchor":"matches","parent_uri":"null","docset":"Lo-Dash"}
+]}

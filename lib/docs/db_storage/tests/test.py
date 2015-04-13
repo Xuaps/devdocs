@@ -164,6 +164,13 @@ class ImporterTest(unittest.TestCase):
         content = importer.ProcessContent(importer.getContent('tests/data/test_less.html'))
         self.assertEqual(content, u'<ul><li><a href="/less/data-uri">data-uri</a></li><li><a href="/less/default">default</a></li><li><a href="/less/desaturate">desaturate</a></li><li><a href="/less/difference">difference</a></li></ul>')
 
+    def test_Lodash(self):
+        importer = DocImporter('lodash')
+        entries = importer.processJSON('tests/data/test_lodash.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_lodash.html'))
+        self.assertEqual(content, u'<ul><li><a href="/lodash/_.property"><code>_.<span class="me1">property</span></code></a></li><li><a href="/lodash/_.matches"><code>_.<span class="me1">matches</span></code></a></li><li><a href="/lodash/_.matchesproperty"><code>_.<span class="me1">matchesProperty</span></code></a></li><li><a href="/lodash/_.detect"><code>_.<span class="me1">find</span></code></a></li></ul>')
+
     def test_Nginx(self):
         importer = DocImporter('nginx')
         entries = importer.processJSON('tests/data/test_nginx.json')
