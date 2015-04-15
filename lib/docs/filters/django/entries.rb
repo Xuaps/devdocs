@@ -1,8 +1,32 @@
 module Docs
   class Django
     class EntriesFilter < Docs::EntriesFilter
+
       def get_name
         at_css('h1').content.remove("\u{00b6}")
+      end
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri_by_name(name)
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        parsed_uri
+      end
+
+      def get_parsed_uri
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
+        parsed_uri
+      end
+
+      def get_parent_uri
+          parent_uri = 'null'
       end
 
       def get_type
@@ -32,7 +56,7 @@ module Docs
           name.remove! 'contrib.'
           name << '()' if node['class'].include?('method') || node['class'].include?('function')
 
-          entries << [name, id, type]
+          entries << [name, id, type, custom_parsed_uri, get_parsed_uri, get_docset]
         end
 
         entries

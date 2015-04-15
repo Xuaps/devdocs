@@ -1,9 +1,10 @@
 module Docs
   class Grunt
     class EntriesFilter < Docs::EntriesFilter
-      NULL_PARENT_URIs = %w(api)
+
       def get_name
-        at_css('h1').content
+        name = at_css('h1').content
+        name
       end
 
       def get_docset
@@ -12,24 +13,16 @@ module Docs
       end
 
       def get_parsed_uri_by_name(name)
-          context[:docset_uri] + '/' + self.urilized(name)
+          get_parsed_uri + '/' + self.urilized(name)
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         parsed_uri
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-            if NULL_PARENT_URIs.include? subpath[subpath.size-1]
-               parent_uri = 'null'
-            end
-        else
-            parent_uri = 'null'
-        end
+        'null'
       end
 
       def get_type
@@ -55,13 +48,10 @@ module Docs
 
           next if name == self.name
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          entries << [name, node['id'], get_type, custom_parsed_uri, get_parsed_uri, get_docset]
         end
       end
 
-      def include_default_entry?
-        name != 'Inside Tasks'
-      end
     end
   end
 end

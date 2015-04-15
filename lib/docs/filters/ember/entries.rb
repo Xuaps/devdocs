@@ -6,6 +6,8 @@ module Docs
           %w(Modules nil others /ember/modules null EmberJS)],
         'data/classes/DS.Store' => [
           %w(Data/Classes nil others /ember/data/classes null EmberJS)],
+        'classes/Libraries' => [
+          %w(Classes nil others /ember/classes null EmberJS)],
         'data/modules/ember-data' => [
           %w(Data/Modules nil others /ember/data/modules null EmberJS)]}
 

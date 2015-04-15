@@ -16,26 +16,26 @@ module Docs
 
       ADDITIONAL_ENTRIES = {
         'shape' => [
-          %w(rect() Syntax function /css/_shape_/syntax /css/_shape_ CSS)],
+          %w(rect() Syntax function /css/<shape>/syntax /css/<shape> CSS)],
         'uri' => [
           %w(The-url-functional-notation The_url()_functional_notation function /css/uri/the-url-functional-notation null CSS) ],
         'timing-function' => [
-          %w(cubic-bezier() The_cubic-bezier()_class_of_timing-functions function /css/_timing-function_/cubic-bezier()  /css/_timing-function_ CSS),
-          %w(steps() The_steps()_class_of_timing-functions function /css/_timing-function_/steps() /css/_timing-function_ CSS),
-          %w(linear linear value /css/_timing-function_/linear /css/_timing-function_ CSS),
-          %w(ease ease value /css/_timing-function_/ease /css/_timing-function_ CSS),
-          %w(ease-in ease-in value /css/_timing-function_/ease-in /css/_timing-function_ CSS),
-          %w(ease-in-out ease-in-out value /css/_timing-function_/ease-in-out /css/_timing-function_ CSS),
-          %w(ease-out ease-out value /css/_timing-function_/ease-out /css/_timing-function_ CSS),
-          %w(step-start step-start value /css/_timing-function_/step-start /css/_timing-function_ CSS),
-          %w(step-end step-end value /css/_timing-function_/step-end /css/_timing-function_ CSS) ],
+          %w(cubic-bezier() The_cubic-bezier()_class_of_timing-functions function /css/<timing-function>/cubic-bezier()  /css/<timing-function> CSS),
+          %w(steps() The_steps()_class_of_timing-functions function /css/<timing-function>/steps() /css/<timing-function> CSS),
+          %w(linear linear value /css/<timing-function>/linear /css/<timing-function> CSS),
+          %w(ease ease value /css/<timing-function>/ease /css/<timing-function> CSS),
+          %w(ease-in ease-in value /css/<timing-function>/ease-in /css/<timing-function> CSS),
+          %w(ease-in-out ease-in-out value /css/<timing-function>/ease-in-out /css/<timing-function> CSS),
+          %w(ease-out ease-out value /css/<timing-function>/ease-out /css/<timing-function> CSS),
+          %w(step-start step-start value /css/<timing-function>/step-start /css/<timing-function> CSS),
+          %w(step-end step-end value /css/<timing-function>/step-end /css/<timing-function> CSS) ],
         'color_value' => [
-          %w(transparent transparent_keyword value /css/_color_/transparent /css/_color_ CSS),
-          %w(currentColor currentColor_keyword value /css/_color_/currentColor /css/_color_ CSS),
-          %w(rgb() rgb() function /css/_color_/rgb() /css/_color_ CSS),
-          %w(hsl() hsl() function /css/_color_/hsl() /css/_color_ CSS),
-          %w(rgba() rgba() function /css/_color_/rgba() /css/_color_ CSS),
-          %w(hsla() hsla() function /css/_color_/hsla() /css/_color_ CSS) ],
+          %w(transparent transparent_keyword value /css/<color>/transparent /css/<color> CSS),
+          %w(currentColor currentColor_keyword value /css/<color>/currentColor /css/<color> CSS),
+          %w(rgb() rgb() function /css/<color>/rgb() /css/<color> CSS),
+          %w(hsl() hsl() function /css/<color>/hsl() /css/<color> CSS),
+          %w(rgba() rgba() function /css/<color>/rgba() /css/<color> CSS),
+          %w(hsla() hsla() function /css/<color>/hsla() /css/<color> CSS) ],
         'transform-function' => [
           %w(matrix() matrix() function /css/transform-function/matrix() /css/transform-function CSS),
           %w(matrix3d() matrix3d() function /css/transform-function/matrix3d() /css/transform-function CSS),

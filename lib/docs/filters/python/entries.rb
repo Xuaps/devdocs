@@ -127,21 +127,21 @@ module Docs
         entries = []
 
         css('.class > dt[id]', '.exception > dt[id]', '.attribute > dt[id]').each do |node|
-          name = node['id']
+          name = node['id'].remove(/\w+\-/)
           custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         css('.data > dt[id]').each do |node|
           if node['id'].split('.').last.upcase! # skip constants
-            name = node['id']
+            name = node['id'].remove(/\w+\-/)
             custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
 
         css('.function > dt[id]', '.method > dt[id]', '.classmethod > dt[id]').each do |node|
-          name = node['id']
+          name = node['id'].remove(/\w+\-/)
           custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name + '()', node['id'], get_type, custom_parsed_uri, get_parsed_uri, get_docset]
         end
@@ -152,7 +152,7 @@ module Docs
       def clean_id_attributes
         css('.section > .target[id]').each do |node|
           if dt = node.at_css('+ dl > dt')
-            dt['id'] ||= node['id'].remove(/\w+\-/)
+            dt['id'] ||= node['id']
           end
           node.remove
         end

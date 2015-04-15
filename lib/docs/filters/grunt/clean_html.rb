@@ -15,6 +15,12 @@ module Docs
           node.parent['id'] = node['name']
           node.before(node.children).remove
         end
+        # Fix wrong anchor
+        css('a').each do |node|
+          if node['href'].include? '/grunt.log#grunt.log.error'
+              node['href'] = '#grunt.log.error-grunt.verbose.error'
+          end
+        end
 
         # Remove code highlighting
         css('pre').each do |node|

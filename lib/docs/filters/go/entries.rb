@@ -10,7 +10,6 @@ module Docs
         name = at_css('h1').content
         name.remove! 'Package '
         name.remove! 'Directory /src/'
-        puts 'slug: ' + path + '-' + name
         name
       end
 
@@ -30,15 +29,11 @@ module Docs
         else
             parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
         end
-        puts parent_uri
-        puts parsed_uri
         parsed_uri
       end
 
       def get_parent_uri
         subpath = *path.sub('/index', '').sub('go/', '').split('/')
-        puts path
-        pp subpath
         if subpath.size > 1
             parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
         else
