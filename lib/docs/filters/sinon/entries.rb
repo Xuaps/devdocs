@@ -47,7 +47,7 @@ module Docs
       def additional_entries
         entries = []
         type = config = nil
-
+        entries << ['Spi API','spyprops','others','/sinonjs/spiapi', 'null', 'SinonJS']
         css('*').each do |node|
           if node.name == 'h2'
             config = false
@@ -73,7 +73,7 @@ module Docs
               next if name =~ /\s/
               next if entries.any? { |entry| entry[0].casecmp(name) == 0 }
 
-              id = name.parameterize
+              id = name.parameterize.remove 'sinon-'
               code.parent['id'] = id
               custom_parsed_uri = get_parsed_uri_by_name(name)
               entries << [name, id, get_type_by_name(type), custom_parsed_uri, get_parent_uri, get_docset]
