@@ -1,6 +1,11 @@
 module Docs
   class Node
     class CleanHtmlFilter < Filter
+      REPLACED_ANCHOR = {
+        '#http_response_end_data_encoding'    => '#http_response_end_data_encoding_callback',
+        '#http_response_write_chunk_encoding' => '#http_response_write_chunk_encoding_callback',
+        '#http_response_writehead_statuscode_reasonphrase_headers' => '#http_response_writehead_statuscode_statusmessage_headers'
+      }
       def call
         # Remove "#" links
         css('.mark').each do |node|
@@ -16,6 +21,12 @@ module Docs
           node.content = node.content
         end
 
+        #fix anchors
+        css('a').each do |node|
+          if REPLACED_ANCHOR.has_key? node['href']
+              node['href'] = REPLACED_ANCHOR[node['href']]
+          end
+        end
         doc
       end
     end
