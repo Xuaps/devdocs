@@ -12,12 +12,13 @@ module Docs
         'Debugger'               => 'others',
         'Cluster'                => 'others',
         'Modules'                => 'others',
-        'Util'                   => 'others',
+        'util'                   => 'others',
+        'console'                   => 'core',
         'Path'                   => 'core',
         'File System'            => 'core',
         'os'                     => 'core',
         'Child Process'          => 'core',
-        'Process'                => 'core',
+        'process'                => 'core',
         'Console'                => 'core',
         'TTY'                    => 'core',
         'HTTPS'                  => 'network',
@@ -25,7 +26,7 @@ module Docs
         'TLS (SSL)'              => 'network',
         'UDP / Datagram Sockets' => 'network',
         'URL'                    => 'network',
-        'Net'                    => 'network',
+        'net'                    => 'network',
         'Domain'                 => 'network',
         'DNS'                    => 'network',
         'Smalloc'                => 'function',
@@ -38,13 +39,14 @@ module Docs
         'Query String'           => 'function',
         'Executing JavaScript'   => 'function',
         'Readline'               => 'function',
+        'Process'                => 'function',
         'Stream'                 => 'data',
         'Buffer'                 => 'data',
-        'Punycode'               => 'data',
+        'punycode'               => 'data',
         'Events'                 => 'event',
         'Global Objects'         => 'object'}
 
-      IGNORE_DEFAULT_ENTRY = %w(globals timers domain buffer)
+      IGNORE_DEFAULT_ENTRY = %w()
 
       def include_default_entry?
         !IGNORE_DEFAULT_ENTRY.include?(slug)
@@ -99,7 +101,7 @@ module Docs
 
 
           # Ignore most global objects (found elsewhere)
-          if type == 'Global Objects'
+          if type == 'object'
             custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset] if name.start_with?('_') || name == 'global'
             next
