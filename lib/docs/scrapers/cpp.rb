@@ -10,7 +10,7 @@ module Docs
     html_filters.insert_before 'clean_html', 'c/fix_code'
     html_filters.push 'cpp/entries', 'c/clean_html', 'title'
     text_filters.push 'cpp/fix_urls'
-    options[:root_title] = 'C++'
+    options[:root_title] = 'Cpp'
     options[:docset_uri] = '/cpp'
     options[:container] = '#content'
     options[:title] = false
