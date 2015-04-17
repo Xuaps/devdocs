@@ -31,6 +31,19 @@ module Docs
           node.before(node.children).remove
         end
 
+        css('pre.screen').each do |node|
+          content = node.content
+          node.name = 'div'
+          node.content = ''
+          content.split(/\n/).each do |fragment|
+              span = Nokogiri::XML::Node.new "span", @doc
+              br = Nokogiri::XML::Node.new "br", @doc
+              span.content = fragment
+              node << span
+              node << br
+          end
+        end
+
         css('[style], [border], [valign]').each do |node|
           node.remove_attribute('style')
           node.remove_attribute('border')
