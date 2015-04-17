@@ -386,6 +386,17 @@ class ImporterTest(unittest.TestCase):
         self.assertEqual(errorcounter, 0)
         self.assertEqual(content, u'<ul><li><a href="/sinonjs/assertions">Assertions</a></li><li><a href="/sinonjs/clock.restore">clock.restore()</a></li><li><a href="/sinonjs/clock.tick">clock.tick()</a></li><li><a href="/sinonjs/expectation.atleast">expectation.atLeast()</a></li></ul>')
 
+    def test_Socketio(self):
+        importer = DocImporter('socketio')
+        entries = importer.processJSON('tests/data/test_socketio.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_socketio.html'))
+        errorcounter = self.Uris_x_parent_uris("socketio","../../../public/docs/socketio/index.json")
+        anchornotfound = self.CheckAnchors('socketio')
+        self.assertEqual(anchornotfound, 0)
+        self.assertEqual(errorcounter, 0)
+        self.assertEqual(content, u'')
+
     def test_SVG(self):
         importer = DocImporter('svg')
         entries = importer.processJSON('tests/data/test_svg.json')
