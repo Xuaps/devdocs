@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"Middleware","path":"middleware","type":"guide","parsed_uri":"/mongoosejs/middleware","anchor":"","parent_uri":"null","docset":"MongooseJS"},
+{"name":"Schema.add()","path":"api","type":"schema","parsed_uri":"/mongoosejs/schema.add","anchor":"schema_Schema-add","parent_uri":"null","docset":"MongooseJS"},
+{"name":"SchemaType()","path":"api","type":"schema","parsed_uri":"/mongoosejs/schematype","anchor":"schematype_SchemaType","parent_uri":"null","docset":"MongooseJS"},
+{"name":"SchemaType.index()","path":"api","type":"schema","parsed_uri":"/mongoosejs/schematype.index","anchor":"schematype_SchemaType-index","parent_uri":"null","docset":"MongooseJS"}
+]}

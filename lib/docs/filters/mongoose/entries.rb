@@ -14,6 +14,15 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(name)
+        end
+        parsed_uri
+      end
+
       def get_parsed_uri
         parsed_uri = context[:docset_uri] + '/' + path
         parsed_uri
@@ -29,7 +38,7 @@ module Docs
       end
       def get_type
         if slug == 'api'
-          'Mongoose'
+          'language'
         else
           'guide'
         end
@@ -43,7 +52,7 @@ module Docs
         elsif name.include? 'Connection' or  name.include? 'Query'
           'network'
         elsif name.include? 'Mongoose' or name.include? 'VirtualType'
-          'Mongoose'
+          'language'
         elsif name.include? 'Object' or name.include? 'Validation'
           'object'
         else
@@ -62,9 +71,10 @@ module Docs
           name.sub! %r{\(.+\)}, '()'
           next if name.include?(' ')
 
+          name = name.tr('#','.')
           type = name.split(/[#\.\(]/).first
-          custom_parsed_uri = get_parsed_uri + '#' + node['id']
-          entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, node['id'], get_type_name(name), custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries
