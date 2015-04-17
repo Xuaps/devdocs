@@ -9,6 +9,8 @@ module Docs
     html_filters.push 'socketio/clean_html', 'socketio/entries'
 
     options[:container] = '#content'
+    options[:root_title] = 'SocketIO'
+    options[:docset_uri] = '/socketio'
     options[:trailing_slash] = false
     options[:skip] = %w(faq)
 
