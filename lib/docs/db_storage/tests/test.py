@@ -12,8 +12,6 @@ from importer import DocImporter
 
 class ImporterTest(unittest.TestCase):
 
-    link_re = re.compile('href="(?!http:\/\/)([\(\)\*:$_\#\/%\-\w\.]*)"', re.IGNORECASE)
-
     def test_json(self):
         importer = DocImporter('javascript')
         entries = importer.processJSON('tests/data/test_javascript.json')
@@ -22,11 +20,6 @@ class ImporterTest(unittest.TestCase):
 
 # LINK TESTS
 
-    def test_json(self):
-        importer = DocImporter('javascript')
-        entries = importer.processJSON('tests/data/test_javascript.json')
-        self.assertEqual(entries[0]['name'], 'P1')
-        self.assertEqual(len(entries), 11)
 
     def test_BackboneJS(self):
         importer = DocImporter('backbone')
