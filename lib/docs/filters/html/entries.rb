@@ -74,7 +74,7 @@ module Docs
         elsif slug == 'Element/Heading_Elements'
             (1..6).map do |n|
                 name = 'h' + n.to_s
-                id = name
+                id = 'All_headings'
                 custom_parsed_uri = get_parsed_uri_by_name(name)
                 [name, id, 'element', custom_parsed_uri, get_parsed_uri, get_docset]
             end
