@@ -6,6 +6,7 @@ import sys
 import ConfigParser
 import os.path
 import re
+import logging
 
 from lxml import html
 
@@ -97,9 +98,17 @@ class DocImporter():
             if previous_uri != _uri:
                 self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri,_anchor)
                 previous_uri = _uri
-        self.moveToData(conn)
-        self.updateDocsets(conn,self.docset_name, self.default_uri)
-        self.Commit(conn)
+        try:
+            self.moveToData(conn)
+            self.updateDocsets(conn,self.docset_name, self.default_uri)
+            self.Commit(conn)
+        except Exception, e:
+            self.Rollback(conn)
+            f = open('log.txt', 'a')
+            f.write('error in ' + self.docset_name + ':  %s\n' % e)
+            print '========= ERROR ============='
+            print e
+            f.close()
         self.Finish(conn)
 
     def CreateLinkCollection(self, entries):
@@ -141,16 +150,26 @@ class DocImporter():
 
 
     def processJSON(self,file_path):
-        with open(file_path) as json_file:
-            json_data = json.load(json_file)
-        self.total_entries = len(json_data['entries'])
-        return json_data['entries']
+        if os.path.isfile(file_path):
+            with open(file_path) as json_file:
+                json_data = json.load(json_file)
+            self.total_entries = len(json_data['entries'])
+            return json_data['entries']
+        else:
+            f = open('log.txt', 'a')
+            f.write('error in ' + self.docset_name + ':  %s\n' % e)
+            print '========= ERROR ============='
+            print 'index.json not found'
 
     def Connect():
         return psycopg2.connect(self.connection_string)
 
     def Commit(self, conn):
         conn.commit()
+        print self.docset_name + ' import succeed! \n ' + str(self.total_entries) + ' imported'
+
+    def Rollback(self, conn):
+        conn.rollback()
 
     def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri, _anchor):
         pgcursor = conn.cursor()
@@ -193,5 +212,5 @@ class DocImporter():
             pgcursor.execute(sqldocsetinsert,[docset, default_uri, True])
 
     def Finish(self,conn):
+        self.initTable(conn)
         conn.close()
-        print self.docset_name + ' import succeed! \n ' + str(self.total_entries) + ' imported'
