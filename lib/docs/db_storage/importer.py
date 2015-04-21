@@ -169,6 +169,7 @@ class DocImporter():
         pgcursor = conn.cursor()
         pgcursor.execute(sqlmovedata)
 
+
     def emptyTable(self, conn, docset):
         sqlemptytables = 'DELETE FROM refs WHERE docset=%s;'
         pgcursor = conn.cursor()
