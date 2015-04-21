@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"Variadic functions","path":"utility/variadic","type":"Utilities","parsed_uri":"/cpp/utilities_library/variadic_functions","anchor":"","parent_uri":"/cpp/utilities_library","docset":"Cpp"},
+{"name":"Algorithms library","path":"algorithm","type":"Algorithm","parsed_uri":"/cpp/algorithms_library","anchor":"","parent_uri":"null","docset":"Cpp"},
+{"name":"ctime","path":"header/ctime","type":"Standard library header files","parsed_uri":"/cpp/standard_library_header_files/ctime","anchor":"","parent_uri":"/cpp/standard_library_header_files","docset":"Cpp"},
+{"name":"chrono","path":"header/chrono","type":"Standard library header files","parsed_uri":"/cpp/standard_library_header_files/chrono","anchor":"","parent_uri":"/cpp/standard_library_header_files","docset":"Cpp"}
+]}

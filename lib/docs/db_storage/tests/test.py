@@ -65,6 +65,17 @@ class ImporterTest(unittest.TestCase):
         self.assertEqual(errorcounter, 0)
         self.assertEqual(content, u'<ul><li><a href="/apache-cordova/overview#overview">Overview</a></li><li><a href="/apache-cordova/the_command-line_interface#the%20command-line%20interface">The Command-Line Interface</a></li><li><a href="/apache-cordova/amazon_fire_os_configuration#amazon%20fire%20os%20configuration">Amazon Fire OS Configuration</a></li><li><a href="/apache-cordova/amazon_fire_os_webviews#amazon%20fire%20os%20webviews">Amazon Fire OS WebViews</a></li><li><a href="/apache-cordova/amazon_fire_os_plugins#amazon%20fire%20os%20plugins">Amazon Fire OS Plugins</a></li></ul>')
 
+    def test_Cpp(self):
+        importer = DocImporter('cpp')
+        entries = importer.processJSON('tests/data/test_cpp.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_cpp.html'))
+        errorcounter = self.Uris_x_parent_uris("cordova","../../../public/docs/cpp/index.json")
+        anchornotfound = self.CheckAnchors('cpp')
+        self.assertEqual(anchornotfound, 0)
+        self.assertEqual(errorcounter, 0)
+        self.assertEqual(content, u'<ul><li><a href="/cpp/utilities_library/variadic_functions" title="cpp/utility/variadic"> Handling of variable length argument lists</a></li><li><a href="/cpp/algorithms_library" title="cpp/algorithm"> standard algorithms</a></li><li><a href="/cpp/standard_library_header_files/ctime" title="cpp/header/ctime"><code>&lt;ctime&gt;</code></a></li><li><a href="/cpp/standard_library_header_files/chrono" title="cpp/header/chrono"><code>&lt;chrono&gt;</code></a></li></ul>')
+
     def test_CSS(self):
         importer = DocImporter('php')
         entries = importer.processJSON('tests/data/test_css.json')
@@ -395,7 +406,7 @@ class ImporterTest(unittest.TestCase):
         anchornotfound = self.CheckAnchors('socketio')
         self.assertEqual(anchornotfound, 0)
         self.assertEqual(errorcounter, 0)
-        self.assertEqual(content, u'')
+        self.assertEqual(content, u'<ul><li><a href="/socketio/namespaces#sending-messages-from-the-outside-world">\u201cSending messages from the outside-world\u201d</a></li><li><a href="/socketio/server_api/namespace">Namespace</a></li><li><a href="/socketio/server_api">Server api</a></li><li><a href="/socketio/server_api/server.emit">Server emit</a></li></ul>')
 
     def test_SVG(self):
         importer = DocImporter('svg')

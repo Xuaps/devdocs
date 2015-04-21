@@ -1,0 +1,6 @@
+{"entries":[
+{"name":"Namespace.use","path":"server-api","type":"namespace","parsed_uri":"/socketio/server_api/namespace.use","anchor":"namespace-use-fn-function-namespace","parent_uri":"/socketio/server_api","docset":"SocketIO"},{"name":"Namespaces","path":"rooms-and-namespaces","type":"guide","parsed_uri":"/socketio/namespaces","anchor":"","parent_uri":"null","docset":"SocketIO"},
+{"name":"Namespace","path":"server-api","type":"namespace","parsed_uri":"/socketio/server_api/namespace","anchor":"namespace","parent_uri":"/socketio/server_api","docset":"SocketIO"},
+{"name":"Server API","path":"server-api","type":"guide","parsed_uri":"/socketio/server_api","anchor":"","parent_uri":"null","docset":"SocketIO"},
+{"name":"Server.emit","path":"server-api","type":"network","parsed_uri":"/socketio/server_api/server.emit","anchor":"server-emit","parent_uri":"/socketio/server_api","docset":"SocketIO"}
+]}

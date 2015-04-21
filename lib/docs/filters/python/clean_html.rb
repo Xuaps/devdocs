@@ -2,7 +2,7 @@ module Docs
   class Python
     class CleanHtmlFilter < Filter
       def call
-        @doc = at_css '.body > .section'
+        #@doc = at_css '.body > .section'
 
         # Clean inline code elements
 

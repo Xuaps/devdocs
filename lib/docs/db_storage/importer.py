@@ -104,6 +104,7 @@ class DocImporter():
             self.Commit(conn)
         except Exception, e:
             self.Rollback(conn)
+            self.initTable(conn)
             f = open('log.txt', 'a')
             f.write('error in ' + self.docset_name + ':  %s\n' % e)
             print '========= ERROR ============='
@@ -198,6 +199,7 @@ class DocImporter():
         sqlinittable = 'TRUNCATE TABLE temp_refs;'
         pgcursor = conn.cursor()
         pgcursor.execute(sqlinittable)
+        conn.commit()
 
     def updateDocsets(self, conn, docset, default_uri):
         sqldocsetselect = "SELECT docset FROM docsets WHERE docset = %s;"

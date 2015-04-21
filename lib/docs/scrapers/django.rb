@@ -4,7 +4,7 @@ module Docs
     self.type = 'sphinx'
     self.version = '1.7.1'
     self.dir = '/Users/Thibaut/DevDocs/Docs/Django'
-    self.base_url = 'https://docs.djangoproject.com/en/1.7/'
+    self.base_url = 'https://docs.djangoproject.com/en/1.8/'
     self.root_path = 'index.html'
 
     html_filters.push 'django/entries', 'django/clean_html'
