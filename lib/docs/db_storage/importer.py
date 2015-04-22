@@ -66,39 +66,40 @@ class DocImporter():
         json_data = self.processJSON(self.index_path)
         self.links = self.CreateLinkCollection(json_data)
         conn = psycopg2.connect(self.connection_string)
-        self.initTable(conn)
-        self.emptyTable(conn,self.docset_name)
-        previous_uri = ''
-        procesed_entries = {}
-        total = len(json_data)
-        i = 1
-        for entry in json_data:
-            _name = entry['name']
-            if self.debugMode:
-                print ('Process: ' + entry['path']).ljust(50) + ('[' + str(i)+ '/' + str(total) + ']').rjust(30)
-                i+=1
-            if entry['path'].find('#')!= -1:
-                 entry['path'] = entry['path'].split('#')[0]
-            filename = self.getFileName(self.content_path,self.docset, entry['path'])
-            #Avoid Process the same Page twice
-            if entry['path'] in procesed_entries.keys():
-                _content = procesed_entries[entry['path']]
-            else:
-                _content = self.ProcessContent(self.getContent(filename))
-                procesed_entries[entry['path']] = _content
-
-            if entry['parent_uri'] == 'null':
-                _parent_uri = None
-            else:
-                _parent_uri = entry['parent_uri']
-            _type = entry['type']
-            _docset = entry['docset']
-            _uri = entry['parsed_uri']
-            _anchor = entry['anchor']
-            if previous_uri != _uri:
-                self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri,_anchor)
-                previous_uri = _uri
         try:
+            self.initTable(conn)
+            self.emptyTable(conn,self.docset_name)
+            previous_uri = ''
+            procesed_entries = {}
+            total = len(json_data)
+            i = 1
+            for entry in json_data:
+                _name = entry['name']
+                if self.debugMode:
+                    print ('Process: ' + entry['path']).ljust(50) + ('[' + str(i)+ '/' + str(total) + ']').rjust(30)
+                    i+=1
+                if entry['path'].find('#')!= -1:
+                     entry['path'] = entry['path'].split('#')[0]
+                filename = self.getFileName(self.content_path,self.docset, entry['path'])
+                #Avoid Process the same Page twice
+                if entry['path'] in procesed_entries.keys():
+                    _content = procesed_entries[entry['path']]
+                else:
+                    _content = self.ProcessContent(self.getContent(filename))
+                    procesed_entries[entry['path']] = _content
+
+                if entry['parent_uri'] == 'null':
+                    _parent_uri = None
+                else:
+                    _parent_uri = entry['parent_uri']
+                _type = entry['type']
+                _docset = entry['docset']
+                _uri = entry['parsed_uri']
+                _anchor = entry['anchor']
+                if previous_uri != _uri:
+                    self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri,_anchor)
+                    previous_uri = _uri
+        
             self.moveToData(conn)
             self.updateDocsets(conn,self.docset_name, self.default_uri)
             self.Commit(conn)
@@ -115,6 +116,7 @@ class DocImporter():
     def CreateLinkCollection(self, entries):
         links = {}
         for entry in entries:
+            print entry['path']
             if entry['path'].lower() not in links.keys() or entry['anchor']=='':
                 links[entry['path'].lower()] = entry['parsed_uri']
             if entry['anchor']!= '':
@@ -134,7 +136,11 @@ class DocImporter():
             # EXCEPTION FOR Chai
             if entry['path'].find('helpers/index') != -1:
                links['helpers/index'] = entry['parsed_uri']
-
+            # EXCEPTION FOR C++
+            if entry['docset'].lower() == 'cpp':
+                links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
+                links[entry['path'].replace('fs/', '').replace('experimental/', '')] = entry['parsed_uri']
+                links[entry['path'].split('/')[-1]] = entry['parsed_uri']
         return links
 
     def getFileName(self, content_path, docset, path):
@@ -157,10 +163,7 @@ class DocImporter():
             self.total_entries = len(json_data['entries'])
             return json_data['entries']
         else:
-            f = open('log.txt', 'a')
-            f.write('error in ' + self.docset_name + ':  %s\n' % e)
-            print '========= ERROR ============='
-            print 'index.json not found'
+            raise Exception("'index.json not found in docset " + self.docset_name)
 
     def Connect():
         return psycopg2.connect(self.connection_string)
@@ -194,6 +197,7 @@ class DocImporter():
         sqlemptytables = 'DELETE FROM refs WHERE docset=%s;'
         pgcursor = conn.cursor()
         pgcursor.execute(sqlemptytables, [docset])
+        conn.commit()
 
     def initTable(self, conn):
         sqlinittable = 'TRUNCATE TABLE temp_refs;'
