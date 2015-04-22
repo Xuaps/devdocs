@@ -51,6 +51,7 @@ class DocImporter():
 
 
     def ProcessContent(self, content):
+        f = open('brokenlinks.txt', 'a')
         for match in re.findall(self.link_re,content):
             anchor = ''
             keymatch = match.lower().replace('../', '').replace('%24', '$')
@@ -60,6 +61,10 @@ class DocImporter():
             if keymatch in self.links.keys():
                 #print '"' + keymatch + '" - "' + match + '" : "' + self.links[keymatch] + '"'
                 content = content.replace('"' + match + '"', '"' + self.links[keymatch] + anchor + '"',1)
+            if keymatch not in self.links:
+                f.write('error in ' + self.docset_name + ':  %s\n' % keymatch)
+                print 'uri: ' + keymatch
+        f.close()
         return content
 
     def importToDB(self):
@@ -136,7 +141,7 @@ class DocImporter():
             if entry['path'].find('helpers/index') != -1:
                links['helpers/index'] = entry['parsed_uri']
             # EXCEPTION FOR C++
-            if entry['docset'].lower() == 'cpp':
+            if entry['docset'].lower() == 'cpp' or entry['docset'].lower() == 'c':
                 links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
                 links[entry['path'].replace('fs/', '').replace('experimental/', '')] = entry['parsed_uri']
                 links[entry['path'].split('/')[-1]] = entry['parsed_uri']
@@ -152,8 +157,6 @@ class DocImporter():
         with open(filename, 'r') as content_file:
             content = content_file.read().decode('utf-8')
         return content
-
-
 
     def processJSON(self,file_path):
         if os.path.isfile(file_path):
