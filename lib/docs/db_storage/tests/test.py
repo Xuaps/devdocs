@@ -70,11 +70,12 @@ class ImporterTest(unittest.TestCase):
         entries = importer.processJSON('tests/data/test_cpp.json')
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_cpp.html'))
+        print content
         errorcounter = self.Uris_x_parent_uris("cordova","../../../public/docs/cpp/index.json")
         anchornotfound = self.CheckAnchors('cpp')
         self.assertEqual(anchornotfound, 0)
         self.assertEqual(errorcounter, 0)
-        self.assertEqual(content, u'<ul><li><a href="/cpp/utilities_library/variadic_functions" title="cpp/utility/variadic"> Handling of variable length argument lists</a></li><li><a href="/cpp/algorithms_library" title="cpp/algorithm"> standard algorithms</a></li><li><a href="/cpp/standard_library_header_files/ctime" title="cpp/header/ctime"><code>&lt;ctime&gt;</code></a></li><li><a href="/cpp/standard_library_header_files/chrono" title="cpp/header/chrono"><code>&lt;chrono&gt;</code></a></li></ul>')
+        self.assertEqual(content, u'<ul><li><a href="/cpp/filesystem_library/path" title="cpp/experimental/fs/path"> <span class="t-lines"><span>path</span></span></a></li><li><a href="/cpp/algorithms_library" title="cpp/algorithm"> standard algorithms</a></li><li><a href="/cpp/standard_library_header_files/ctime" title="cpp/header/ctime"><code>&lt;ctime&gt;</code></a></li><li><a href="/cpp/filesystem_library/filesystem_error" title="cpp/experimental/fs/filesystem error"> <span class="t-lines"><span>filesystem_error</span></span></a></li><li><a href="/cpp/standard_library_header_files/chrono" title="cpp/header/chrono"><code>&lt;chrono&gt;</code></a></li><li><a href="/cpp/filesystem_library/filesystem_error/filesystem_error--filesystem_error" title="cpp/experimental/fs/filesystem error/filesystem error"> <span class="t-lines"><span>(constructor)</span></span></a></li><li><a href="/cpp/numerics_library/common_mathematical_functions/fp_normal._fp_subnormal._fp_zero._fp_infinite._fp_nan/fp_infinite" title="cpp/numeric/math/FP categories">FP_INFINITE</a></li></ul>')
 
     def test_CSS(self):
         importer = DocImporter('php')

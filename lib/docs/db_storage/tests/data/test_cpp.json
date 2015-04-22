@@ -1,6 +1,9 @@
 {"entries":[
-{"name":"Variadic functions","path":"utility/variadic","type":"Utilities","parsed_uri":"/cpp/utilities_library/variadic_functions","anchor":"","parent_uri":"/cpp/utilities_library","docset":"Cpp"},
+{"name":"path","path":"experimental/fs/path","type":"others","parsed_uri":"/cpp/filesystem_library/path","anchor":"","parent_uri":"/cpp/filesystem_library","docset":"Cpp"},
+{"name":"filesystem_error","path":"experimental/fs/filesystem_error","type":"others","parsed_uri":"/cpp/filesystem_library/filesystem_error","anchor":"","parent_uri":"/cpp/filesystem_library","docset":"Cpp"},
+{"name":"filesystem_error::filesystem_error","path":"experimental/fs/filesystem_error/filesystem_error","type":"others","parsed_uri":"/cpp/filesystem_library/filesystem_error/filesystem_error--filesystem_error","anchor":"","parent_uri":"/cpp/filesystem_library/filesystem_error","docset":"Cpp"},
 {"name":"Algorithms library","path":"algorithm","type":"Algorithm","parsed_uri":"/cpp/algorithms_library","anchor":"","parent_uri":"null","docset":"Cpp"},
+{"name":"FP_INFINITE","path":"numeric/math/fp_categories","type":"others","parsed_uri":"/cpp/numerics_library/common_mathematical_functions/fp_normal._fp_subnormal._fp_zero._fp_infinite._fp_nan/fp_infinite","anchor":"","parent_uri":"/cpp/numerics_library/common_mathematical_functions/fp_normal._fp_subnormal._fp_zero._fp_infinite._fp_nan","docset":"Cpp"},
 {"name":"ctime","path":"header/ctime","type":"Standard library header files","parsed_uri":"/cpp/standard_library_header_files/ctime","anchor":"","parent_uri":"/cpp/standard_library_header_files","docset":"Cpp"},
 {"name":"chrono","path":"header/chrono","type":"Standard library header files","parsed_uri":"/cpp/standard_library_header_files/chrono","anchor":"","parent_uri":"/cpp/standard_library_header_files","docset":"Cpp"}
 ]}
