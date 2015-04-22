@@ -1,9 +1,12 @@
 module Docs
   class C < FileScraper
     self.type = 'c'
-    self.dir = '/home/desarrollo/Descargas/docs/c'
+    self.dir = '/home/desarrollo/Descargas/docs/reference/en/c'
     self.base_url = 'http://en.cppreference.com/w/c/'
     self.root_path = 'header.html'
+    self.initial_paths = %w(
+      /program.html
+    )
 
     html_filters.insert_before 'clean_html', 'c/fix_code'
     html_filters.push 'c/entries', 'c/clean_html', 'title'
