@@ -200,6 +200,13 @@ class ImporterTest(unittest.TestCase):
         self.assertEqual(errorcounter, 0)
         self.assertEqual(content, u'<ul><li><a href="/html/global_attributes" style="line-height: 21px;" title="HTML/Global attributes">global attributes</a></li><li><a href="/html/element/base" title="The HTML Base Element (&lt;base&gt;) specifies the base URL to use for all relative URLs contained within a document. There can be only one &lt;base&gt; element in a document."><code>&lt;base&gt;</code></a></li><li><a href="/html/element/link" title="The HTML Link Element (&lt;link&gt;) specifies relationships between the current document and an external resource. Possible uses for this element include defining a relational framework for navigation. This Element is most used to link to style sheets."><code>&lt;link&gt;</code></a></li><li><a href="/html/element/meter" title="The HTML &lt;meter&gt; Element represents either a scalar value within a known range or a fractional value."><code>&lt;meter&gt;</code></a></li><li><a href="/html/element/meter" title="The HTML &lt;meter&gt; Element represents either a scalar value within a known range or a fractional value."><code>&lt;meter&gt;</code></a></li><li><a href="/html/element/basefont" title="The HTML basefont element (&lt;basefont&gt;) establishes a default font size for a document. Font size then can be varied relative to the base font size using the &lt;font&gt; element."><code>&lt;basefont&gt;</code></a></li><li><a href="/html/element/option" title="In a Web form, the HTML &lt;option&gt; element is used to create a control representing an item within a &lt;select&gt;, an &lt;optgroup&gt; or a &lt;datalist&gt; HTML5 element."><code>&lt;option&gt;</code></a></li></ul>')
 
+    def test_HTTP(self):
+        importer = DocImporter('http')
+        errorcounter = self.Uris_x_parent_uris("html","../../../public/docs/http/index.json")
+        anchornotfound = self.CheckAnchors('http')
+        self.assertEqual(anchornotfound, 0)
+        self.assertEqual(errorcounter, 0)
+
     def test_JavaScript(self):
         importer = DocImporter('javascript')
         entries = importer.processJSON('tests/data/test_javascript.json')
