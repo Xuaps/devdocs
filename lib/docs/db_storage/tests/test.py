@@ -12,6 +12,11 @@ from importer import DocImporter
 
 class ImporterTest(unittest.TestCase):
 
+    docsets = {
+    'backbone',
+    'bower',
+    'chai'
+    }
     def test_json(self):
         importer = DocImporter('javascript')
         entries = importer.processJSON('tests/data/test_javascript.json')
@@ -53,6 +58,17 @@ class ImporterTest(unittest.TestCase):
         self.assertEqual(anchornotfound, 0)
         self.assertEqual(errorcounter, 0)
         self.assertEqual(content, u'<ul><li><a href="guide/plugins/">core concepts</a></li><li><a href="/chai/addproperty" class="clean-button">View addProperty API</a></li><li><a href="/chai/addmethod" class="clean-button">View addMethod API</a></li><li><a href="/chai/building_a_helper">Building a Helper</a></li></ul>')
+
+    def test_C(self):
+        importer = DocImporter('c')
+        entries = importer.processJSON('tests/data/test_c.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_c.html'))
+        errorcounter = self.Uris_x_parent_uris("c","../../../public/docs/c/index.json")
+        anchornotfound = self.CheckAnchors('c')
+        self.assertEqual(anchornotfound, 0)
+        self.assertEqual(errorcounter, 0)
+        self.assertEqual(content, u'<ul><li><a href="/c/error_handling" title="c/error">Conditionally compiled macro that compares its argument to zero</a></li><li><a href="/c/type_support/numeric_limits" title="c/types/limits">Sizes of basic types</a></li><li><a href="/c/program_support_utilities" title="c/program">Signal handling</a></li><li><a href="/c/numerics/common_mathematical_functions" title="c/numeric/math">Common mathematics functions</a></li><li><a href="/c/variadic_functions" title="c/variadic">Variable arguments</a></li></ul>')
 
     def test_Cordova(self):
         importer = DocImporter('cordova')

@@ -39,7 +39,7 @@ module Docs
         end
 
         css('area[href]').each do |node|
-          node['href'] = node['href'].remove('.html')
+          node['href'] = node['href'].remove('.html').gsub('%23', '#')
         end
 
         css('h1 ~ .fmbox').each do |node|

@@ -1,0 +1,7 @@
+{"entries":[
+{"name":"Variadic functions","path":"variadic","type":"others","parsed_uri":"/c/variadic_functions","anchor":"","parent_uri":"null","docset":"C"},
+{"name":"Error handling","path":"error","type":"others","parsed_uri":"/c/error_handling","anchor":"","parent_uri":"null","docset":"C"},
+{"name":"Numeric limits","path":"types/limits","type":"type","parsed_uri":"/c/type_support/numeric_limits","anchor":"","parent_uri":"/c/type_support","docset":"C"},
+{"name":"Common mathematical functions","path":"numeric/math","type":"others","parsed_uri":"/c/numerics/common_mathematical_functions","anchor":"","parent_uri":"/c/numerics","docset":"C"},
+{"name":"Program support utilities","path":"program","type":"others","parsed_uri":"/c/program_support_utilities","anchor":"","parent_uri":"null","docset":"C"}
+]}
