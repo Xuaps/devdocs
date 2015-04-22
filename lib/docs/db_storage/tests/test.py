@@ -70,7 +70,6 @@ class ImporterTest(unittest.TestCase):
         entries = importer.processJSON('tests/data/test_cpp.json')
         importer.links = importer.CreateLinkCollection(entries)
         content = importer.ProcessContent(importer.getContent('tests/data/test_cpp.html'))
-        print content
         errorcounter = self.Uris_x_parent_uris("cordova","../../../public/docs/cpp/index.json")
         anchornotfound = self.CheckAnchors('cpp')
         self.assertEqual(anchornotfound, 0)
@@ -371,6 +370,18 @@ class ImporterTest(unittest.TestCase):
         self.assertEqual(anchornotfound, 0)
         self.assertEqual(errorcounter, 0)
         self.assertEqual(content, u'<ul><li><a href="/react/animation"><code>TransitionGroup</code> and <code>CSSTransitionGroup</code></a></li><li><a href="/react/two-way-binding-helpers"><code>LinkedStateMixin</code></a></li><li><a href="/react/class-name-manipulation"><code>classSet</code></a></li><li><a href="/react/react_elements_">ReactElement / ReactElement Factory</a></li><li><a href="/react/react_components_">ReactComponent / ReactComponent Class</a></li><li><a href="/react/react_nodes_">ReactNode</a></li></ul>')
+
+    def test_Redis(self):
+        importer = DocImporter('redis')
+        entries = importer.processJSON('tests/data/test_redis.json')
+        importer.links = importer.CreateLinkCollection(entries)
+        content = importer.ProcessContent(importer.getContent('tests/data/test_redis.html'))
+        print content
+        errorcounter = self.Uris_x_parent_uris("redis","../../../public/docs/redis/index.json")
+        anchornotfound = self.CheckAnchors('redis')
+        self.assertEqual(anchornotfound, 0)
+        self.assertEqual(errorcounter, 0)
+        self.assertEqual(content, u'<ul><li><a href="/redis/bitpos">BITPOS</a></li><li><a href="/redis/blpop">BLPOP</a></li><li><a href="/redis/cluster-info">CLUSTER INFO</a></li><li><a href="/redis/cluster-countkeysinslot">CLUSTER COUNTKEYSINSLOT</a></li></ul>')
 
     def test_RequireJS(self):
         importer = DocImporter('requirejs')
