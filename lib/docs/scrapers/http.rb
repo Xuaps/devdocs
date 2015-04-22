@@ -6,7 +6,8 @@ module Docs
     self.root_path = 'rfc2616.html'
 
     html_filters.push 'http/clean_html', 'http/entries'
-
+    options[:root_title] = 'Http'
+    options[:docset_uri] = '/http'
     options[:only] = %w(rfc2616-sec10.html rfc2616-sec14.html)
     options[:container] = ->(filter) { '.toc' if filter.root_page? }
     options[:attribution] = "&copy; 1999 The Internet Society"

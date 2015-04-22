@@ -2,7 +2,12 @@ module Docs
   class Http
     class EntriesFilter < Docs::EntriesFilter
       def get_type
-        at_css('h1').content.sub(/\A\s*HTTP\s+(.+)\s+Definitions\s*\z/, '\1').pluralize
+        type = at_css('h1').content.sub(/\A\s*HTTP\s+(.+)\s+Definitions\s*\z/, '\1').pluralize
+        if type == 'Status Codes'
+            'status code'
+        else
+             'header'
+        end
       end
 
       def get_parsed_uri_by_name(name)
@@ -25,7 +30,7 @@ module Docs
       def additional_entries
         return [] if root_page?
 
-        css(type == 'Status Codes' ? 'h3' : 'h2').map do |node|
+        css(type == 'status code' ? 'h3' : 'h2').map do |node|
           name = node.content
           custom_parsed_uri = get_parsed_uri_by_name(name)
           puts path
