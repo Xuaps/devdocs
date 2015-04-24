@@ -101,13 +101,11 @@ module Docs
       def additional_entries
         names = at_css('#firstHeading').content.split(',')[1..-1]
         names.concat ADDITIONAL_NAMES[name] || []
-        pp names
         names.map { |mapname| [get_custom_name(mapname),nil,get_type,get_parsed_uri_by_name(mapname),get_parsed_uri, get_docset] }
       end
 
       def include_default_entry?
-         @include_default_entry = true
-         return @include_default_entry
+         true
       end
     end
   end

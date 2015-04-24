@@ -48,6 +48,7 @@ module Docs
             customname += '2'
         end
         customparsed_uri = get_parsed_uri + '/' + self.urilized(customname)
+        customparsed_uri
       end
       
       def get_docset
@@ -57,10 +58,10 @@ module Docs
 
 
       def get_parsed_uri
-        if parent_uri == 'null'
+        if get_parent_uri == 'null'
             parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         else
-            parsed_uri = parent_uri + '/' + self.urilized(get_name)
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
         end
         parsed_uri
       end
@@ -105,18 +106,31 @@ module Docs
       end
 
       def additional_entries
+         names = []
+         entries = []
+         hasoperator = false
          return [] unless include_default_entry?
-         names = at_css('#firstHeading').content.remove(%r{\(.+?\)}).split(',')[1..-1]
-         names.each(&:strip!).reject! do |name|
-           name.size <= 2 || name == '...' || name =~ /\A[<>]/ || name.start_with?('operator')
+         mainname = at_css('#firstHeading').content.remove(%r{\(.+?\)})
+         if mainname.include? 'operator'
+             mainname.sub('operator',',')
+             hasoperator = true
          end
-         names.map { |mapname| [get_custom_name(mapname),nil,get_type,get_parsed_uri_by_name(mapname),get_parsed_uri, get_docset] }
-       end
-
-       def include_default_entry?
-         @include_default_entry = true #at_css('.t-navbar > div:nth-child(4) > a') && at_css('#firstHeading').content !~ /\A\s*operator./
-         return @include_default_entry
-       end
+         names = mainname.split(',')[1..-1]
+         names.each do |_name|
+             _name.prepend 'operator ' if hasoperator
+             customname = get_custom_name(_name)
+             puts customname
+             customparseduri = get_parsed_uri_by_name(_name)
+             puts customparseduri
+             customparenturi = get_parsed_uri
+             entries << [customname,nil,get_type,customparseduri,get_parsed_uri, get_docset]
+         end
+         entries
+      end
+      
+      def include_default_entry?
+        true
+      end
     end
   end
 end
