@@ -15,7 +15,15 @@ class ImporterTest(unittest.TestCase):
     docsets = {
     'backbone',
     'bower',
-    'chai'
+    'c',
+    'chai',
+    'cordova',
+    'cpp',
+    'css',
+    'd3',
+    'dom',
+    'dom_events',
+    'ember'
     }
     def test_json(self):
         importer = DocImporter('javascript')
@@ -298,6 +306,13 @@ class ImporterTest(unittest.TestCase):
         self.assertEqual(anchornotfound, 0)
         self.assertEqual(errorcounter, 0)
         self.assertEqual(content, u'<ul> <li><a href="/markdown/overview">Overview</a><li><a href="/markdown/philosophy">Philosophy</a></li> <li><a href="/markdown/inline_html">Inline HTML</a></li> <li><a href="/markdown/automatic_escaping_for_special_characters">Automatic Escaping for Special Characters</a></li><li><a href="/markdown/paragraphs_and_line_breaks">Paragraphs and Line Breaks</a></li> <li><a href="/markdown/headers">Headers</a></li> <li><a href="/markdown/blockquotes">Blockquotes</a></li> <li><a href="/markdown/lists">Lists</a></li> <li><a href="/markdown/code_blocks">Code Blocks</a></li> <li><a href="/markdown/horizontal_rules">Horizontal Rules</a></li></ul>')
+
+    def test_Modernizr(self):
+        importer = DocImporter('modernizr')
+        errorcounter = self.Uris_x_parent_uris("modernizr","../../../public/docs/modernizr/index.json")
+        anchornotfound = self.CheckAnchors('modernizr')
+        self.assertEqual(anchornotfound, 0)
+        self.assertEqual(errorcounter, 0)
 
     def test_Mongoose(self):
         importer = DocImporter('mongoosejs')

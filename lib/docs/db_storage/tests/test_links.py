@@ -17,12 +17,11 @@ class LinkTester(unittest.TestCase):
 
     links = {}
     link_re = re.compile('href="(?!http:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
-    docset = ''
+    docset = 'cpp'
     haserror = 0
     index_path = ''
     content_path = '../../../public/docs/'
     def testLinks(self):
-        self.docset = 'cpp'
         self.index_path = self.content_path + self.docset +  '/index.json'
         json_data = self.processJSON(self.index_path)
         self.links = self.CreateLinkCollection(json_data)
@@ -45,7 +44,7 @@ class LinkTester(unittest.TestCase):
                 anchor = keymatch[keymatch.find('#'):]
                 keymatch = keymatch[:keymatch.find('#')]
             if keymatch not in self.links:
-                self.haserror += 1
+                self.haserror = self.haserror + 1
                 hour = time.strftime("%d/%m/%Y %H:%M:%S")
                 self.f.write('-' + keymatch + ' in ' + self.filename + ' at '+ hour + '\n')
         return self.haserror
@@ -75,7 +74,7 @@ class LinkTester(unittest.TestCase):
             # EXCEPTION FOR C++
             if entry['docset'].lower() == 'cpp' or entry['docset'].lower() == 'c':
                 links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
-                links[entry['path'].replace('fs/', '').replace('experimental/', '')] = entry['parsed_uri']
+                links[entry['path'].replace('fs/', '').replace('io/', '').replace('experimental/', '')] = entry['parsed_uri']
                 links[entry['path'].split('/')[-1]] = entry['parsed_uri']
         return links
 
