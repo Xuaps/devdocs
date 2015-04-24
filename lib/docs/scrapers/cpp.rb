@@ -6,7 +6,9 @@ module Docs
     self.dir = '/home/desarrollo/Descargas/docs/reference/en/cpp'
     self.base_url = 'http://en.cppreference.com/w/cpp/'
     self.root_path = 'header.html'
-
+    self.initial_paths = %w(
+      /experimental.html
+    )
     html_filters.insert_before 'clean_html', 'c/fix_code'
     html_filters.push 'cpp/entries', 'c/clean_html', 'title'
     text_filters.push 'cpp/fix_urls'
