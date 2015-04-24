@@ -6,6 +6,7 @@ import sys
 import ConfigParser
 import os.path
 import re
+import time
 import logging
 
 from lxml import html
@@ -15,12 +16,13 @@ class DocImporter():
     content_path = ''
     debugMode = False
     docset = ''
+    filename = ''
     docset_name = ''
     index_path = ''
     default_uri = ''
     total_entries = 0
     links = {}
-    link_re = re.compile('href="(?!http:\/\/)([\(\)\*:$_\#\/%\-\w\.]*)"', re.IGNORECASE)
+    link_re = re.compile('href="(?!http:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
     def __init__(self, docset):
@@ -33,6 +35,7 @@ class DocImporter():
         self.connection_string = "host='"+ Host + "' dbname='" + DBname + "' user='" + User + "' password='" + Password + "'"
         self.debugMode = bool(self.config.get('Config', 'debugMode', 0))
         self.content_path = self.config.get('Path', 'base_path', 0)
+        self.brokenlinksfile = open('brokenlinks.log', 'a')
         if docset == 'all':
             sections = self.config.sections()
             for sect in sections:
@@ -41,7 +44,7 @@ class DocImporter():
                     self.docset_name = self.config.get(sect, 'name', 0)
                     self.default_uri = self.config.get(sect, 'default_uri', 0)
                     self.index_path = self.content_path + sect +  '/index.json'
-                    print '######################' + sect + '######################'
+                    print '########################################   ' + sect + '   ########################################'
                     self.importToDB()
         else:
             self.docset = docset
@@ -51,7 +54,6 @@ class DocImporter():
 
 
     def ProcessContent(self, content):
-        f = open('brokenlinks.txt', 'a')
         for match in re.findall(self.link_re,content):
             anchor = ''
             keymatch = match.lower().replace('../', '').replace('%24', '$')
@@ -62,9 +64,8 @@ class DocImporter():
                 #print '"' + keymatch + '" - "' + match + '" : "' + self.links[keymatch] + '"'
                 content = content.replace('"' + match + '"', '"' + self.links[keymatch] + anchor + '"',1)
             if keymatch not in self.links:
-                f.write('error in ' + self.docset_name + ':  %s\n' % keymatch)
-                print 'uri: ' + keymatch
-        f.close()
+                hour = time.strftime("%d/%m/%Y %H:%M:%S")
+                self.brokenlinksfile.write('-' + keymatch + ' in ' + self.filename + ' at '+ hour + '\n')
         return content
 
     def importToDB(self):
@@ -72,6 +73,9 @@ class DocImporter():
         self.links = self.CreateLinkCollection(json_data)
         conn = psycopg2.connect(self.connection_string)
         try:
+            self.brokenlinksfile.write('\n\n\n########################################   ' + self.docset_name + '   ########################################\n\n\n')
+            f = open('errors.log', 'a')
+            f.write('\n\n\n########################################   ' + self.docset_name + '   ########################################\n\n\n')
             self.initTable(conn)
             self.emptyTable(conn,self.docset_name)
             previous_uri = ''
@@ -90,6 +94,7 @@ class DocImporter():
                 if entry['path'] in procesed_entries.keys():
                     _content = procesed_entries[entry['path']]
                 else:
+                    self.filename = filename
                     _content = self.ProcessContent(self.getContent(filename))
                     procesed_entries[entry['path']] = _content
 
@@ -111,11 +116,12 @@ class DocImporter():
         except Exception, e:
             self.Rollback(conn)
             self.initTable(conn)
-            f = open('log.txt', 'a')
-            f.write('error in ' + self.docset_name + ':  %s\n' % e)
+            hour = time.strftime("%d/%m/%Y - %H:%M:%S")
+            f.write('- ' + hour + ' error in ' + self.docset_name + ':  %s\n' % e)
             print '========= ERROR ============='
             print e
-            f.close()
+        f.close()
+        self.brokenlinksfile.close()
         self.Finish(conn)
 
     def CreateLinkCollection(self, entries):
@@ -143,7 +149,7 @@ class DocImporter():
             # EXCEPTION FOR C++
             if entry['docset'].lower() == 'cpp' or entry['docset'].lower() == 'c':
                 links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
-                links[entry['path'].replace('fs/', '').replace('experimental/', '')] = entry['parsed_uri']
+                links[entry['path'].replace('fs/', '').replace('io/', '').replace('experimental/', '')] = entry['parsed_uri']
                 links[entry['path'].split('/')[-1]] = entry['parsed_uri']
         return links
 
