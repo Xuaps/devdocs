@@ -1,12 +1,46 @@
 module Docs
   class Modernizr
     class EntriesFilter < Docs::EntriesFilter
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri_by_name(name)
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        parsed_uri
+      end
+
+      def get_parsed_uri
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        parsed_uri
+      end
+
+      def get_parent_uri
+        'null'
+      end
+
+      def get_type_by_name(_type)
+        if _type.include? 'Miscellaneous features'
+          'others'
+        elsif _type.include? 'Modernizr'
+          'function'
+        elsif _type.include? 'CSS features'
+          'css'
+        elsif _type.include? 'HTML5 features'
+          'html5'
+        else
+          'others'
+        end
+      end
       def additional_entries
         entries = []
 
         css('h3[id]').each do |node|
           next unless name = node.content.strip[/\AModernizr\.\w+\(\)/]
-          entries << [name, node['id'], 'Modernizr']
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, node['id'], 'function', custom_parsed_uri, 'null', get_docset]
         end
 
         css('section[id]').each do |node|
@@ -17,7 +51,8 @@ module Docs
           node.remove_attribute('id')
 
           name.prepend('Modernizr.') unless name.start_with?('Modernizr')
-          entries << [name, heading['id'], 'Modernizr']
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, heading['id'], 'function', custom_parsed_uri, 'null', get_docset]
         end
 
         css('h4[id^="features-"] + table').each do |table|
@@ -25,7 +60,9 @@ module Docs
           type << ' features' unless type.end_with?('features')
 
           table.css('tbody th[id]').each do |node|
-            entries << [node.content, node['id'], type]
+            name = node.content.strip
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [node.content, node['id'], get_type_by_name(type), custom_parsed_uri, 'null', get_docset]
           end
         end
 

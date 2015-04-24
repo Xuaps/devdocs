@@ -7,6 +7,8 @@ module Docs
 
     html_filters.push 'modernizr/entries', 'modernizr/clean_html', 'title'
 
+    options[:root_title] = 'Modernizr'
+    options[:docset_uri] = '/modernizr'
     options[:title] = 'Modernizr'
     options[:container] = '#documentation'
     options[:skip_links] = true
