@@ -14,7 +14,12 @@ module Docs
           end
         else
           at_css('h2').name = 'h1'
-
+          # fix links
+          css('a[href]').each do |node|
+              if node['href'] == 'index'
+                  node.name = 'span'
+              end
+          end
           css('h3').each do |node|
             node.name = 'h2'
           end

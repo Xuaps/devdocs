@@ -8,6 +8,8 @@ module Docs
     html_filters.replace 'rdoc/entries', 'nokogiri2/entries'
 
     options[:root_title] = 'Nokogiri'
+    options[:root_title] = 'Nokogiri'
+    options[:docset_uri] = '/nokogiri' 
     options[:only_patterns] = [/\ANokogiri/]
 
     options[:attribution] = <<-HTML

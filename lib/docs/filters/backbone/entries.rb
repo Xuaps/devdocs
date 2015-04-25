@@ -48,11 +48,9 @@ module Docs
           # Module
           if node.name == 'h2'
             type = node.content.remove 'Backbone.'
-            if type.capitalize! # sync, history
-              name = node.content
-              custom_parsed_uri = get_parsed_uri_by_name(name)
-              entries << [name, node['id'], get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset]
-            end
+            name = node.content
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, node['id'], get_type(type.downcase), custom_parsed_uri, get_parent_uri, get_docset]
             next
           end
           # Built-in events

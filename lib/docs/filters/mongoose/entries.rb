@@ -61,8 +61,9 @@ module Docs
       end
 
       def additional_entries
-        return [] unless slug == 'api'
         entries = []
+        entries << ['Getting Started', nil, 'others', '/mongoosejs/getting_started', 'null', get_docset] if slug == 'index'
+        return [] unless slug == 'api'
 
         css('h3[id]').each do |node|
           next if node['id'] == 'index_'
