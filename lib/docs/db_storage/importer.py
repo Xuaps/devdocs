@@ -15,6 +15,7 @@ class DocImporter():
     connection_string = ''
     content_path = ''
     debugMode = False
+    linkerrors = []
     docset = ''
     filename = ''
     docset_name = ''
@@ -22,7 +23,7 @@ class DocImporter():
     default_uri = ''
     total_entries = 0
     links = {}
-    link_re = re.compile('href="(?!http:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
+    link_re = re.compile('href="(?!https?:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
     def __init__(self, docset):
@@ -35,7 +36,6 @@ class DocImporter():
         self.connection_string = "host='"+ Host + "' dbname='" + DBname + "' user='" + User + "' password='" + Password + "'"
         self.debugMode = bool(self.config.get('Config', 'debugMode', 0))
         self.content_path = self.config.get('Path', 'base_path', 0)
-        self.brokenlinksfile = open('brokenlinks.log', 'a')
         if docset == 'all':
             sections = self.config.sections()
             for sect in sections:
@@ -63,9 +63,9 @@ class DocImporter():
             if keymatch in self.links.keys():
                 #print '"' + keymatch + '" - "' + match + '" : "' + self.links[keymatch] + '"'
                 content = content.replace('"' + match + '"', '"' + self.links[keymatch] + anchor + '"',1)
-            if keymatch not in self.links:
+            if keymatch not in self.links and anchor == '':
                 hour = time.strftime("%d/%m/%Y %H:%M:%S")
-                self.brokenlinksfile.write('-' + keymatch + ' in ' + self.filename + ' at '+ hour + '\n')
+                self.linkerrors.append('-' + keymatch + ' in ' + self.filename + ' at '+ hour)
         return content
 
     def importToDB(self):
@@ -73,9 +73,7 @@ class DocImporter():
         self.links = self.CreateLinkCollection(json_data)
         conn = psycopg2.connect(self.connection_string)
         try:
-            self.brokenlinksfile.write('\n\n\n########################################   ' + self.docset_name + '   ########################################\n\n\n')
-            f = open('errors.log', 'a')
-            f.write('\n\n\n########################################   ' + self.docset_name + '   ########################################\n\n\n')
+            self.brokenlinksfile = open('brokenlinks.log', 'a')
             self.initTable(conn)
             self.emptyTable(conn,self.docset_name)
             previous_uri = ''
@@ -114,13 +112,19 @@ class DocImporter():
             self.updateDocsets(conn,self.docset_name, self.default_uri)
             self.Commit(conn)
         except Exception, e:
+            self.ferrors = open('errors.log', 'a')
+            self.ferrors.write('\n\n\n########################################   ' + self.docset_name + '   ########################################\n\n\n')
             self.Rollback(conn)
             self.initTable(conn)
             hour = time.strftime("%d/%m/%Y - %H:%M:%S")
-            f.write('- ' + hour + ' error in ' + self.docset_name + ':  %s\n' % e)
+            self.ferrors.write('- ' + hour + ' error in ' + self.docset_name + ':  %s\n' % e)
+            self.ferrors.close()
             print '========= ERROR ============='
             print e
-        f.close()
+        if len(self.linkerrors)>0:
+            self.brokenlinksfile.write('\n\n\n########################################   ' + self.docset_name + '   ########################################\n\n\n')
+        for error in self.linkerrors:
+            self.brokenlinksfile.write(error + '\n')
         self.brokenlinksfile.close()
         self.Finish(conn)
 

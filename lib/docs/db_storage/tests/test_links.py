@@ -16,25 +16,29 @@ from importer import DocImporter
 class LinkTester(unittest.TestCase):
 
     links = {}
-    link_re = re.compile('href="(?!http:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
-    docset = 'cpp'
-    haserror = 0
+    link_re = re.compile('href="(?!https?:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
+    docset = 'mongoosejs'
+    linkerrors = []
     index_path = ''
     content_path = '../../../public/docs/'
     def testLinks(self):
+        self.brokenlinksfile = open('brokenlinks.log', 'a')
         self.index_path = self.content_path + self.docset +  '/index.json'
         json_data = self.processJSON(self.index_path)
         self.links = self.CreateLinkCollection(json_data)
-        self.f = open('brokenlinks.log', 'a')
-        self.f.write('\n\n\n########################################   ' + self.docset + '   ########################################\n\n\n')
         for entry in json_data:
             if entry['path'].find('#')!= -1:
                  entry['path'] = entry['path'].split('#')[0]
             filename = self.getFileName(self.content_path,self.docset, entry['path'])
             self.filename = filename
-            _errors = self.ProcessContent(self.getContent(filename))
-        self.f.close()
-        self.assertEqual(_errors, 0)
+            self.ProcessContent(self.getContent(filename))
+
+        if len(self.linkerrors)>0:
+            self.brokenlinksfile.write('\n\n\n########################################   ' + self.docset + '   ########################################\n\n\n')
+        for error in self.linkerrors:
+            self.brokenlinksfile.write(error + '\n')
+        self.brokenlinksfile.close()
+        self.assertEqual(len(self.linkerrors), 0)
 
     def ProcessContent(self, content):
         for match in re.findall(self.link_re,content):
@@ -43,11 +47,9 @@ class LinkTester(unittest.TestCase):
             if match.find('#')!=-1 and keymatch not in self.links.keys():
                 anchor = keymatch[keymatch.find('#'):]
                 keymatch = keymatch[:keymatch.find('#')]
-            if keymatch not in self.links:
-                self.haserror = self.haserror + 1
+            if keymatch not in self.links and anchor == '':
                 hour = time.strftime("%d/%m/%Y %H:%M:%S")
-                self.f.write('-' + keymatch + ' in ' + self.filename + ' at '+ hour + '\n')
-        return self.haserror
+                self.linkerrors.append('-' + keymatch + ' in ' + self.filename + ' at '+ hour)
 
     def CreateLinkCollection(self, entries):
         links = {}
