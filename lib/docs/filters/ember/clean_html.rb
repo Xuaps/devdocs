@@ -53,7 +53,27 @@ module Docs
           node.before(div).parent = div
           div.add_child(div.next_element) while div.next_element.name == 'span'
         end
-
+        # fix links
+        css('a[href]').each do |node|
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+            sluglist = slug.split('/')
+            nodelist = node['href'].split('/')
+            newhref = []
+            nodelist.each do |item|
+              if item == '..'
+                sluglist.pop
+              else
+                newhref << item
+              end
+            end
+            sluglist.pop
+            if sluglist.size>0
+              node['href'] = sluglist.join('/') + '/' + newhref.join('/')
+            else
+              node['href'] = newhref.join('/')
+            end
+          end
+        end
         # Remove code highlighting
         css('.highlight').each do |node|
           node.content = node.at_css('.code pre').content

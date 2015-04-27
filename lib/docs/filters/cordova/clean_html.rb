@@ -1,6 +1,7 @@
 module Docs
   class Cordova
     class CleanHtmlFilter < Filter
+      BROKEN_LINKS = ['cordova_camera_camera.md', 'cordova_media_capture_capture.md','cordova_contacts_contacts.md','cordova_geolocation_geolocation.md']
       def call
         if root_page? || slug == 'cordova_events_events.md'
           css('h1, h2').each do |node|
@@ -20,6 +21,13 @@ module Docs
         css('a[name]').each do |node|
           node.parent['id'] = node['name']
           node.before(node.children).remove
+        end
+
+        css('a[href]').each do |node|
+          if BROKEN_LINKS.include? node['href']
+            node['class'] = 'broken'
+            node['href'] = '/help#brokenlink'
+          end
         end
 
         # Remove code highlighting

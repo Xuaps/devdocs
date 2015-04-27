@@ -52,7 +52,7 @@ module Docs
         'id/id'
       ]
       def call
-        css('h1').remove if root_page?
+        css('h1').remove if root_page? 
 
         css('#siteSub', '#contentSub', '.printfooter', '.t-navbar', '.editsection', '#toc',
             '.t-dsc-sep', '.t-dcl-sep', '#catlinks', '.ambox-notice', '.mw-cite-backlink',
