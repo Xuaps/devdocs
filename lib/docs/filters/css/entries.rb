@@ -5,7 +5,7 @@ module Docs
         gradient image integer length number percentage position_value ratio
         resolution shape string time timing-function uri user-ident)
 
-      FUNCTION_SLUGS = %w(attr calc cross-fade cubic-bezier cycle element
+      FUNCTION_SLUGS = %w(attr reference calc cross-fade cubic-bezier cycle element
         linear-gradient radial-gradient repeating-linear-gradient
         repeating-radial-gradient var)
 

@@ -2,8 +2,9 @@ module Docs
   class Css < Mdn
     self.name = 'CSS'
     self.base_url = 'https://developer.mozilla.org/en-US/docs/Web/CSS'
-    self.root_path = '/Reference'
-
+    self.initial_paths = %w(
+      /Reference
+    )
     html_filters.push 'css/clean_html', 'css/entries'
 
     options[:root_title] = 'CSS'
