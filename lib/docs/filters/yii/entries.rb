@@ -24,7 +24,7 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         parsed_uri
       end
 
