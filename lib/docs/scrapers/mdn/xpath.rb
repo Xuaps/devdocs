@@ -8,6 +8,7 @@ module Docs
 
     options[:root_title] = 'XPath'
     options[:docset_uri] = '/xpath'
+    options[:skip_patterns] = [/\w*\$\w+/i]
     
 
 

@@ -4,7 +4,6 @@ module Docs
     self.base_url = 'https://developer.mozilla.org/en-US/docs/Web/SVG'
 
     html_filters.push 'svg/clean_html', 'svg/entries', 'title'
-
     options[:root_title] = 'SVG'
     options[:docset_uri] = '/svg'
     options[:title] = ->(filter) do
@@ -16,7 +15,7 @@ module Docs
         false
       end
     end
-
+    options[:skip_patterns] = [/\w*\$\w+/i]
     options[:skip] = %w(
       /Compatibility_sources
       /FAQ

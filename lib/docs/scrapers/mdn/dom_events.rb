@@ -6,7 +6,9 @@ module Docs
 
     html_filters.insert_after 'clean_html', 'dom_events/clean_html'
     html_filters.push 'dom_events/entries', 'title'
-
+    self.initial_paths = %w(
+      /Events)
+    options[:skip_patterns] = [/\w*\$\w+/i]
     options[:root_title] = 'DOM Events'
     options[:docset_uri] = '/dom_events'
     options[:fix_urls] = ->(url) do

@@ -3,8 +3,8 @@ module Docs
     self.abstract = true
     self.type = 'mdn'
 
-    params[:raw] = 1
-    params[:macros] = 1
+    # params[:raw] = 1
+    # params[:macros] = 1
 
     html_filters.push 'mdn/clean_html'
     text_filters.insert_before 'attribution', 'mdn/contribute_link'
@@ -20,8 +20,8 @@ module Docs
 
     private
 
-    def process_response?(response)
-      super && response.effective_url.query == 'raw=1&macros=1'
-    end
+    # def process_response?(response)
+    #   super && response.effective_url.query == 'raw=1&macros=1'
+    # end
   end
 end

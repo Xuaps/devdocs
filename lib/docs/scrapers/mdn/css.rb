@@ -32,7 +32,7 @@ module Docs
       /image()
       /paged_media)
 
-    options[:skip_patterns] = [/\-webkit/, /\-moz/, /Extensions/, /Tools/]
+    options[:skip_patterns] = [/\-webkit/, /\-moz/, /Extensions/, /Tools/, /\w*\$\w+/i,]
 
     options[:replace_paths] = {
       '/%3Cbasic-shape%3E' => '/basic-shape'

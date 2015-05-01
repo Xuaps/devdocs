@@ -9,6 +9,7 @@ module Docs
 
     options[:docset_uri] = '/javascript'
 
+    options[:skip_patterns] = [/\w*\$\w+/i]
     # Don't want
     options[:skip] = %w(
       /About

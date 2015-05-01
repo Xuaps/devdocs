@@ -21,7 +21,7 @@ module Docs
         "<#{filter.default_title}>"
       end
     end
-
+    options[:skip_patterns] = [/\w*\$\w+/i]
     options[:replace_paths] = {
       '/Element/h1' => '/Element/Heading_Elements',
       '/Element/h2' => '/Element/Heading_Elements',

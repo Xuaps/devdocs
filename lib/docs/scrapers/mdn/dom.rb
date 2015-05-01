@@ -11,6 +11,7 @@ module Docs
       /identitymanager
       /css_object_model
       /web_crypto_api
+      /CSSStyleDeclaration
       /canvas_api/tutorial)
 
     # Don't want
@@ -55,7 +56,6 @@ module Docs
       /window.navigator.requestWakeLock
       /window.updateCommands
       /window.pkcs11)
-
     options[:skip_patterns] = [
       /NS/,
       /XPC/,
@@ -64,6 +64,7 @@ module Docs
       /webkit/i,
       /gamepad/i,
       /UserData/,
+      /\w*\$\w+/i,
       /\A\/Camera/,
       /\A\/Data_Store_API/,
       /\A\/DataStore/,
