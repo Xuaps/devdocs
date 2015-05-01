@@ -1,6 +1,11 @@
 module Docs
   class Php2
     class CleanHtmlFilter < Filter
+      BROKEN_LINKS = [
+        'url.imagemagick.usage.color_mods.sigmoidal',
+        'url.mongodb.dochub.maxWriteBatchSize',
+        'url.mongodb.dochub.maxbsonobjectsize'
+      ]
       def call
         root_page? ? root : other
         doc
@@ -25,6 +30,15 @@ module Docs
         # Remove top-level <div>
         if doc.elements.length == 1
           @doc = doc.first_element_child
+        end
+        #fixing links
+        css('a[href]').each do |node|
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://'
+            if BROKEN_LINKS.include? node['href']
+              node['class'] = 'broken'
+              node['href'] = '/help#brokenlink'
+            end
+          end
         end
 
         # Put code blocks in <pre> tags

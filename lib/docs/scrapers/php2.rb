@@ -39,7 +39,7 @@ module Docs
     #options[:skip_links] = ->(filter) { !filter.initial_page? }
 
     options[:skip_patterns] = [/mysqlnd/]
-    options[:skip] = ['php_manual.php','indexes.examples.php']
+    options[:skip] = ['php_manual.php','indexes.examples.php', 'url.mongodb.dochub.maxWriteBatchSize', 'url.imagemagick.usage.color_mods.sigmoidal','url.mongodb.dochub.maxbsonobjectsize']
 
     options[:attribution] = <<-HTML
       &copy; 1997&ndash;2014 The PHP Documentation Group<br>

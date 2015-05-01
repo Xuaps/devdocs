@@ -15,7 +15,7 @@ module Docs
 
       def get_alias
           node = xpath('//li[@class="current"]/a/text()')
-          if node.nil? or name.include? '::' or path.start_with?('ref.pdo-sqlsrv.php')
+          if node.nil? or get_name.include? '::' or path.start_with?('ref.pdo-sqlsrv.php')
               _alias = name
           else
               _alias = node.to_s
