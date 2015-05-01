@@ -13,7 +13,8 @@ module Docs
       if entry.is_a? Array
         entry.each(&method(:add))
       else
-        add_entry(entry) unless entry.root?
+        # I have no idea about what this is good for.
+        add_entry(entry) #unless entry.root?
       end
     end
 

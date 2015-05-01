@@ -17,7 +17,7 @@ module Docs
     end
 
     def default_entry
-      [name]
+      [get_name, nil, get_type, get_parsed_uri, get_parent_uri, get_docset]
     end
       # transform string into a valid uri
     def urilized(str)
