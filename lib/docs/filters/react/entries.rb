@@ -9,7 +9,7 @@ module Docs
       )
 
       def get_name
-        at_css('h1').child.content
+        at_css('h1').child.content.strip
       end
 
       def get_docset
@@ -27,7 +27,7 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         parsed_uri
       end
 

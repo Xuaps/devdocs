@@ -1,6 +1,12 @@
 module Docs
   class Jquery
     class CleanHtmlFilter < Filter
+      BROKEN_LINKS = [
+        'content-grids'
+      ]
+      REPLACED_LINKS = {
+          'stacking-elements' => 'theming/stacking-elements'
+      }
       def call
         css('hr', '.icon-link', '.entry-meta').remove
 
@@ -15,6 +21,20 @@ module Docs
           # Change headings on index page
           css('h1.entry-title').each do |node|
             node.name = 'h2'
+          end
+        end
+
+        #fix links
+        css('a[href]').each do |node|
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+            puts node['href']
+            node['href'] = CleanWrongCharacters(node['href']).remove '../'
+            if BROKEN_LINKS.include? node['href'].downcase
+               node['class'] = 'broken'
+               node['href'] = '/help#brokenlink'
+            elsif REPLACED_LINKS[node['href'].downcase.remove! '../']
+                node['href'] = REPLACED_LINKS[node['href'].remove '../']
+            end
           end
         end
 
@@ -35,6 +55,9 @@ module Docs
         end
 
         doc
+      end
+      def CleanWrongCharacters(href)
+          href.gsub('%23', '#').gsub('%28', '(').gsub('%29', ')').gsub('%21', '!').gsub('%7b', '{').gsub('%7e', '~').gsub('%2a', '*').gsub('%2b', '+').gsub('%3d', '=')
       end
     end
   end

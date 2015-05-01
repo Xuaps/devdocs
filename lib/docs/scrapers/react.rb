@@ -5,7 +5,6 @@ module Docs
     self.version = '0.12.2'
     self.base_url = 'http://facebook.github.io/react/docs/'
     self.root_path = 'getting-started.html'
-
     html_filters.push 'react/entries', 'react/clean_html'
 
     options[:container] = '.documentationContent'

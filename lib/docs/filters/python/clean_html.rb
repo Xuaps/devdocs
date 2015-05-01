@@ -1,11 +1,13 @@
 module Docs
   class Python
     class CleanHtmlFilter < Filter
+      BROKEN_LINKS = [
+
+      ]
       def call
         #@doc = at_css '.body > .section'
-
+        css('.related').remove
         # Clean inline code elements
-
         css('tt.literal').each do |node|
           node.before(node.children).remove
         end

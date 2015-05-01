@@ -4,12 +4,12 @@ module Docs
     self.type = 'grunt'
     self.version = '0.4.5'
     self.base_url = 'http://gruntjs.com/'
-    self.root_path = 'getting-started'
-    self.initial_paths = %w(api/grunt)
+    self.initial_paths = %w(api/grunt getting-started)
 
     html_filters.push 'grunt/clean_html', 'grunt/entries'
 
     options[:only] = %w(
+      getting-started
       configuring-tasks
       sample-gruntfile
       creating-tasks

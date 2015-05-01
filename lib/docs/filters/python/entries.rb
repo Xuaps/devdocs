@@ -53,8 +53,8 @@ module Docs
 
       def get_type
         return 'others' if slug.start_with? 'library/logging'
-
-        type = at_css('.related a[accesskey="U"]').content
+        type = ''
+        type = at_css('.related a[accesskey="U"]').content if at_css('.related a[accesskey="U"]')
 
         if type == 'The Python Standard Library'
           type = at_css('h1').content
@@ -65,7 +65,7 @@ module Docs
           elsif type.include? 'Functions'
               type = 'function'
           end
-        elsif type.include?('I/O') || %w(select selectors).include?(name)
+        elsif type.include?('I/O') || %w(select selectors).include?(get_name)
           type = 'io'
         elsif type.start_with? '19'
           type = 'network'
@@ -122,7 +122,7 @@ module Docs
       end
 
       def additional_entries
-        return [] if root_page? || !include_default_entry? || name == 'errno'
+        return [] if root_page? || !include_default_entry? || get_name == 'errno'
         clean_id_attributes
         entries = []
 

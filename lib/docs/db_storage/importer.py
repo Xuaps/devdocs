@@ -23,7 +23,7 @@ class DocImporter():
     default_uri = ''
     total_entries = 0
     links = {}
-    link_re = re.compile('href="(?!https?:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
+    link_re = re.compile('<a[\w _\-="]*href="(?!.*:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
     def __init__(self, docset):
@@ -62,10 +62,10 @@ class DocImporter():
                 keymatch = keymatch[:keymatch.find('#')]
             if keymatch in self.links.keys():
                 #print '"' + keymatch + '" - "' + match + '" : "' + self.links[keymatch] + '"'
-                content = content.replace('"' + match + '"', '"' + self.links[keymatch] + anchor + '"',1)
-            if keymatch not in self.links and anchor == '':
+                content = content.replace('"' + re.escape(match) + '"', '"' + self.links[keymatch] + anchor + '"',1)
+            if keymatch not in self.links and anchor == ''  and keymatch != '/help':
                 hour = time.strftime("%d/%m/%Y %H:%M:%S")
-                self.linkerrors.append('-' + keymatch + ' in ' + self.filename + ' at '+ hour)
+                self.linkerrors.append('- "' + keymatch + '" in ' + self.filename)
         return content
 
     def importToDB(self):
@@ -73,7 +73,6 @@ class DocImporter():
         self.links = self.CreateLinkCollection(json_data)
         conn = psycopg2.connect(self.connection_string)
         try:
-            self.brokenlinksfile = open('brokenlinks.log', 'a')
             self.initTable(conn)
             self.emptyTable(conn,self.docset_name)
             previous_uri = ''
@@ -112,20 +111,24 @@ class DocImporter():
             self.updateDocsets(conn,self.docset_name, self.default_uri)
             self.Commit(conn)
         except Exception, e:
-            self.ferrors = open('errors.log', 'a')
+            hour = time.strftime("%d/%m/%Y %H:%M:%S")
+            self.ferrors = open('errors_' + hour.replace('/','_').replace(' ','_').replace(':','-') + '.log', 'a')
             self.ferrors.write('\n\n\n########################################   ' + self.docset_name + '   ########################################\n\n\n')
             self.Rollback(conn)
             self.initTable(conn)
-            hour = time.strftime("%d/%m/%Y - %H:%M:%S")
+            self.linkerrors = []
             self.ferrors.write('- ' + hour + ' error in ' + self.docset_name + ':  %s\n' % e)
             self.ferrors.close()
             print '========= ERROR ============='
             print e
         if len(self.linkerrors)>0:
-            self.brokenlinksfile.write('\n\n\n########################################   ' + self.docset_name + '   ########################################\n\n\n')
-        for error in self.linkerrors:
-            self.brokenlinksfile.write(error + '\n')
-        self.brokenlinksfile.close()
+            brokenlinksfile = open('brokenlinks_' + self.docset_name +'.log', 'a')
+            hour = time.strftime("%d/%m/%Y %H:%M:%S")
+            brokenlinksfile.write('\n\n\n########################################   ' + hour + '   -   ' + self.docset_name + '   ########################################\n\n\n')
+            for error in self.linkerrors:
+                brokenlinksfile.write(error + '\n')
+            self.linkerrors = []
+            brokenlinksfile.close()
         self.Finish(conn)
 
     def CreateLinkCollection(self, entries):
@@ -137,9 +140,6 @@ class DocImporter():
                 links[entry['path'][entry['path'].find('/'):].lower()] = entry['parsed_uri']
                 links[(entry['path'] + '#' + entry['anchor']).lower()] = entry['parsed_uri']
                 links['#' + entry['anchor'].lower()] = entry['parsed_uri']
-            # EXCEPTION FOR EmberJS
-            if entry['path'].lower().find('classes/') != -1 and (entry['path'].lower().replace('classes/','') not in links.keys() or entry['anchor']==''):
-               links[entry['path'].lower().replace('classes/','')] = entry['parsed_uri']
             # EXCEPTION FOR Haskell
             if entry['docset'].lower() == 'haskell':
                links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
@@ -147,9 +147,6 @@ class DocImporter():
             if entry['docset'].lower() == 'python3' or entry['docset'].lower() == 'python2':
                links[entry['path'][entry['path'].find('/')+1:].lower() + '.html'] = entry['parsed_uri']
                links[entry['path'] + '.html'] = entry['parsed_uri']
-            # EXCEPTION FOR Chai
-            if entry['path'].find('helpers/index') != -1:
-               links['helpers/index'] = entry['parsed_uri']
             # EXCEPTION FOR C++
             if entry['docset'].lower() == 'cpp' or entry['docset'].lower() == 'c':
                 links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
