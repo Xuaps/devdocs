@@ -1,6 +1,7 @@
 module Docs
   class Git
     class CleanHtmlFilter < Filter
+
       def call
         root_page? ? root : other
         doc
@@ -12,6 +13,34 @@ module Docs
 
       def other
         css('h1 + h2', '#_git + div', '#_git').remove
+
+        css('a[href]').each do |node|
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+            if node['href'].start_with? ':'
+              node['class'] = 'broken'
+              node['href'] = '/help#brokenlink'
+            elsif node['href'].start_with? 'howto/'
+              node['href'] = 'https://github.com/git/git/blob/master/Documentation/' + node['href'] + '.txt'
+            else
+              sluglist = slug.split('/')
+              nodelist = node['href'].split('/')
+              newhref = []
+              nodelist.each do |item|
+                if item == '..'
+                  sluglist.pop
+                else
+                  newhref << item
+                end
+              end
+              sluglist.pop
+              if sluglist.size>0
+                node['href'] = sluglist.join('/') + '/' + newhref.join('/')
+              else
+                node['href'] = newhref.join('/')
+              end
+            end
+          end
+        end
 
         css('> div', 'pre > tt', 'pre > em', 'div.paragraph').each do |node|
           node.before(node.children).remove
