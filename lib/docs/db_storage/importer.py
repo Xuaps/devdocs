@@ -62,8 +62,8 @@ class DocImporter():
                 keymatch = keymatch[:keymatch.find('#')]
             if keymatch in self.links.keys():
                 #print '"' + keymatch + '" - "' + match + '" : "' + self.links[keymatch] + '"'
-                content = content.replace('"' + re.escape(match) + '"', '"' + self.links[keymatch] + anchor + '"',1)
-            if keymatch not in self.links and anchor == ''  and keymatch != '/help':
+                content = content.replace('"' + match + '"', '"' + self.links[keymatch] + anchor + '"',1)
+            if keymatch not in self.links and anchor == '' and keymatch != '/help':
                 hour = time.strftime("%d/%m/%Y %H:%M:%S")
                 self.linkerrors.append('- "' + keymatch + '" in ' + self.filename)
         return content
