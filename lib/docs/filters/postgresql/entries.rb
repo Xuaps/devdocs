@@ -56,7 +56,11 @@ module Docs
         'Reliability and the Write-Ahead Log' => 'Write-Ahead Log' }
 
       def base_name
-        @base_name ||= clean_heading_name(at_css('h1').content)
+        if at_css('h1')
+            @base_name = clean_heading_name(at_css('h1').content)
+        else
+            @base_name = 'Reference'
+        end
       end
 
 
@@ -73,6 +77,15 @@ module Docs
       def get_docset
         docset = context[:root_title]
         docset
+      end
+
+      def get_parsed_uri
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
+        parsed_uri
       end
 
       def get_parsed_uri_by_name(name)
@@ -201,7 +214,7 @@ module Docs
       end
 
       def include_default_entry?
-        !initial_page? && !at_css('.TOC')
+        true #!initial_page? && !at_css('.TOC')
       end
 
       SKIP_ENTRIES_SLUGS = [
