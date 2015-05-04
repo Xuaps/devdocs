@@ -49,8 +49,12 @@ module Docs
         parent_uri
       end
 
-      def get_type(type)
+      def get_type_by_name(type)
         TYPENAMES[type] || type
+      end
+
+      def get_type
+        'others'
       end
 
       def additional_entries
@@ -64,12 +68,12 @@ module Docs
             name = heading.content
             name.sub! %r{\(.+?\)}, '()'
             custom_parsed_uri = get_parsed_uri_by_name(name)
-            entries << [name, heading['id'], get_type(type), custom_parsed_uri, get_parent_uri, get_docset]
+            entries << [name, heading['id'], get_type_by_name(type), custom_parsed_uri, get_parent_uri, get_docset]
 
             if h4 = heading.parent.at_css('h4') and h4.content.strip == 'Aliases'
               h4.next_element.content.split(',').each do |n|
                 custom_parsed_uri = get_parsed_uri_by_name(n)
-                entries << ["#{n.strip}()", heading['id'], get_type(type), custom_parsed_uri, get_parent_uri, get_docset]
+                entries << ["#{n.strip}()", heading['id'], get_type_by_name(type), custom_parsed_uri, get_parent_uri, get_docset]
               end
             end
           end

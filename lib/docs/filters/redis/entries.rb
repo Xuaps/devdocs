@@ -24,20 +24,24 @@ module Docs
       end
 
       def get_type
-        case at_css('aside > ul:last-child a').content.strip
-        when 'DEL'          then 'function'
-        when 'APPEND'       then 'function'
-        when 'HDEL'         then 'function'
-        when 'BLPOP'        then 'function'
-        when 'SADD'         then 'function'
-        when 'ZADD'         then 'function'
-        when 'PSUBSCRIBE'   then 'function'
-        when 'DISCARD'      then 'function'
-        when 'EVAL'         then 'function'
-        when 'AUTH'         then 'network'
-        when 'BGREWRITEAOF' then 'network'
-        when 'PFADD'        then 'others'
-        else 'others'
+        if at_css('aside > ul:last-child a')
+          case at_css('aside > ul:last-child a').content.strip
+            when 'DEL'          then 'function'
+            when 'APPEND'       then 'function'
+            when 'HDEL'         then 'function'
+            when 'BLPOP'        then 'function'
+            when 'SADD'         then 'function'
+            when 'ZADD'         then 'function'
+            when 'PSUBSCRIBE'   then 'function'
+            when 'DISCARD'      then 'function'
+            when 'EVAL'         then 'function'
+            when 'AUTH'         then 'network'
+            when 'BGREWRITEAOF' then 'network'
+            when 'PFADD'        then 'others'
+            else 'others'
+          end
+        else
+          'others'
         end
       end
     end

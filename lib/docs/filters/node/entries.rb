@@ -84,7 +84,11 @@ module Docs
       end
 
       def get_type
-        type = at_css('h1').content.strip
+        if at_css('h1')
+          type = at_css('h1').content.strip
+        else
+          type = 'others'
+        end
         REPLACE_TYPES[type] || "#{type.first.upcase}#{type[1..-1]}"
       end
 

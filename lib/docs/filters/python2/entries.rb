@@ -70,7 +70,11 @@ module Docs
       def get_type
         return 'others' if slug.start_with? 'library/logging'
 
-        type = at_css('.related a[accesskey="U"]').content
+        if at_css('.related a[accesskey="U"]')
+          type = at_css('.related a[accesskey="U"]').content
+        else
+          type = 'others'
+        end
 
         if type == 'The Python Standard Library'
           type = at_css('h1').content

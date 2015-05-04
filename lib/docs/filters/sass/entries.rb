@@ -38,7 +38,7 @@ module Docs
           parent_uri = 'null'
       end
 
-      def get_type(typename)
+      def get_type_by_name(typename)
           if typename == 'SassScript'
               'language'
           elsif typename == 'Functions'
@@ -50,6 +50,10 @@ module Docs
           else
              'others'
           end
+      end
+
+      def get_type()
+         'others'
       end
 
       def include_default_entry?
@@ -72,7 +76,7 @@ module Docs
             if type == 'Function Directives'
               name = '@function'
               custom_parsed_uri = get_parsed_uri_by_name(name)
-              entries << [name, node['id'], get_type('@-Rules and Directives'), custom_parsed_uri, get_parent_uri, get_docset]
+              entries << [name, node['id'], get_type_by_name('@-Rules and Directives'), custom_parsed_uri, get_parent_uri, get_docset]
             end
 
             if type.include? 'Directives'
@@ -100,7 +104,7 @@ module Docs
             next unless name =~ /\A@[\w\-]+\z/ || name == '!optional'
           end
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          entries << [name, node['id'], get_type(type), custom_parsed_uri, get_parent_uri, get_docset]
+          entries << [name, node['id'], get_type_by_name(type), custom_parsed_uri, get_parent_uri, get_docset]
         end
 
         entries
@@ -114,7 +118,7 @@ module Docs
               name = node.at_css('strong').content.strip
           end
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          entries << [name, node['id'], get_type('Functions'), custom_parsed_uri, get_parent_uri, get_docset]
+          entries << [name, node['id'], get_type_by_name('Functions'), custom_parsed_uri, get_parent_uri, get_docset]
           entries
         end
       end

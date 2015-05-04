@@ -5,7 +5,7 @@ module Docs
     self.root_path = '/Element'
     self.initial_paths = %w(/Attributes /Link_types /element /Global_elements)
 
-    html_filters.push 'html/clean_html', 'html/entries', 'title'
+    html_filters.push  'html/entries', 'html/clean_html', 'title'
 
     options[:root_title] = 'HTML'
     options[:docset_uri] = '/html'

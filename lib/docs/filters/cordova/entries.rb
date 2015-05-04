@@ -2,7 +2,11 @@ module Docs
   class Cordova
     class EntriesFilter < Docs::EntriesFilter
       def get_name
-        at_css('h1').content.remove(' Guide')
+        if at_css('h1')
+          at_css('h1').content.remove(' Guide')
+        else
+          'Cordova'
+        end
       end
 
       def get_docset

@@ -13,7 +13,11 @@ module Docs
       whyamd)
 
       def get_name
-        at_css('h1').content
+        if at_css('h1')
+            at_css('h1').content
+        else
+            'RequireJS'
+        end
       end
 
       def get_docset

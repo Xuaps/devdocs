@@ -3,7 +3,11 @@ module Docs
     class EntriesFilter < Docs::EntriesFilter
 
       def get_name
-        name = at_css('h1').content
+        if at_css('h1')
+          name = at_css('h1').content
+        else
+          name = 'Grunt'
+        end
         name
       end
 
@@ -26,6 +30,10 @@ module Docs
       end
 
       def get_type
+        'others'
+      end
+
+      def get_type_by_name(name)
         if name.downcase.include? 'config'
             'configuration'
         elsif name.downcase.include? 'event'
@@ -48,7 +56,7 @@ module Docs
 
           next if name == self.name
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          entries << [name, node['id'], get_type, custom_parsed_uri, get_parsed_uri, get_docset]
+          entries << [name, node['id'], get_type_by_name(name), custom_parsed_uri, get_parsed_uri, get_docset]
         end
       end
 

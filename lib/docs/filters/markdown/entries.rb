@@ -26,7 +26,7 @@ module Docs
         end
       end
 
-      def get_type(typename)
+      def get_type_by_name(typename)
           if typename == 'Overview'
               'guide'
           elsif typename == 'Miscellaneous'
@@ -40,6 +40,10 @@ module Docs
           end
       end
 
+      def get_type
+         'others'
+      end
+
       def additional_entries
         type = 'others'
         doc.children.each_with_object [] do |node, entries|
@@ -51,7 +55,7 @@ module Docs
           elsif node.name == 'h3'
             name = node.content.strip
             custom_parsed_uri = get_parsed_uri_by_name(name)
-            entries << [name, node['id'], get_type(type), custom_parsed_uri, get_parent_uri, get_docset]
+            entries << [name, node['id'], get_type_by_name(type), custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
       end
