@@ -1,7 +1,7 @@
 module Docs
   class Haskell
     class EntriesFilter < Docs::EntriesFilter
-      NULL_PARENT_URIs = %w(haskell98-2.0.0.3)
+      #NULL_PARENT_URIs = %w(haskell98-2.0.0.3)
       IGNORE_ENTRIES_PATHS = %w(
         bytestring-0.10.4.0/Data-ByteString-Lazy.html
         bytestring-0.10.4.0/Data-ByteString-Char8.html
@@ -87,7 +87,7 @@ module Docs
       end
 
       def include_default_entry?
-        at_css('#synopsis > ul > li')
+        true #at_css('#synopsis > ul > li')
       end
     end
   end

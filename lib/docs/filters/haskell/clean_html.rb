@@ -1,6 +1,24 @@
 module Docs
   class Haskell
     class CleanHtmlFilter < Filter
+      BROKEN_LINKS = [
+        '$',
+        'control-exception-exception',
+        'control-parallel',
+        'fallthrough',
+        'system-filepath',
+        'data-bytestring-builder-ascii',
+        'hello',
+        'control-monad-trans-state',
+        'foreign-foreignptr',
+        'data-generics-basics',
+        'data-generics-instances',
+        'control-monad-trans-writer',
+        'base-4.7.0.0/foreign-foreignptr',
+        'if'
+      ]
+      REPLACED_LINKS = {
+      }
       def call
         root_page? ? root : other
         doc
@@ -13,6 +31,19 @@ module Docs
       end
 
       def other
+        css('a[href]').each do |node|
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+            node['href'] = CleanWrongCharacters(node['href']).remove '../'
+            if REPLACED_LINKS[node['href'].downcase.remove! '../']
+                node['href'] = REPLACED_LINKS[node['href'].remove '../']
+            elsif node['href'].include? '/grunt.log#grunt.log.error'
+                node['href'] = '#grunt.log.error-grunt.verbose.error'
+            elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
+               node['class'] = 'broken'
+               node['href'] = '/help#brokenlink'
+            end
+          end
+        end
         css('h1').each do |node|
           node.remove if node.content == 'Documentation'
         end

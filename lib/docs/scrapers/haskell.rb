@@ -11,7 +11,6 @@ module Docs
     options[:container] = '#content'
     options[:root_title] = 'Haskell'
     options[:docset_uri] = '/haskell'
-    options[:skip] = %w()
 
     options[:skip_patterns] = [/src\//, /doc-index/, /haskell2010/, /ghc-/, /Cabal-/]
 

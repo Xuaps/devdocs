@@ -5,7 +5,8 @@ module Docs
         'content-grids'
       ]
       REPLACED_LINKS = {
-          'stacking-elements' => 'theming/stacking-elements'
+          'stacking-elements' => 'theming/stacking-elements',
+          'jquery.cssnumer'   => 'jquery.cssnumber'
       }
       def call
         css('hr', '.icon-link', '.entry-meta').remove
