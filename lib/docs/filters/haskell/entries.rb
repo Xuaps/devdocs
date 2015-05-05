@@ -18,7 +18,11 @@ module Docs
         unix-2.7.0.1/System-Posix-Terminal-ByteString.html)
 
       def get_name
-        at_css('#module-header .caption').content.strip
+        if at_css('#module-header .caption')
+          at_css('#module-header .caption').content.strip
+        else
+          'Haskell'
+        end
       end
 
 
@@ -48,6 +52,7 @@ module Docs
       end
 
       def get_type
+        name = get_name
         if name.include? 'Data'
              'data'
         elsif %w(Complex Array Char Numeric Maybe).include? name or name.include? 'Foreign'

@@ -12,7 +12,11 @@ module Docs
           %w(Data/Modules nil others /ember/data/modules null EmberJS)]}
 
       def get_name
-        name = at_css('.api-header').content.split.first
+        if at_css('.api-header')
+          name = at_css('.api-header').content.split.first
+        else
+          name = 'EmberJS'
+        end
         # Remove "Ember." prefix if the next character is uppercase
         name.sub! %r{\AEmber\.([A-Z])(?!EATURES)}, '\1'
         name == 'Handlebars.helpers' ? 'Handlebars Helpers' : name
@@ -52,6 +56,7 @@ module Docs
       end
 
       def get_type
+        name = get_name
         if name.include? 'Class'
           'class'
         elsif name.include? 'helper' or name.include? 'inject' or name.include? 'Libraries' or name.include? 'Namespace'

@@ -32,8 +32,11 @@ module Docs
             parent_uri = 'null'
         end
       end
-
-      def get_type(name, id)
+      
+      def get_type
+        'others'
+      end
+      def get_type_by_name(name, id)
         if name.include? 'req.' or name.include? 'Request' or id.include? 'req.'
             'request'
         elsif name.include? 'app.' or name.include? 'Application' or id.include? 'app.'
@@ -54,20 +57,20 @@ module Docs
             name = node.content
             type = name
             custom_parsed_uri = get_parsed_uri_by_name(name)
-            entries << [name, node['id'], get_type(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset] if type == 'Middleware'
+            entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset] if type == 'Middleware'
             next
           elsif node.name == 'h4'
             name = node.content
             type = name
             custom_parsed_uri = get_parsed_uri_by_name(name)
-            entries << [name, node['id'], get_type(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset]
+            entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset]
             next
           elsif node.name == 'h3'
             next if type == 'Middleware'
             name = node.content.strip
             name.sub! %r{\(.+\)}, '()'
             custom_parsed_uri = get_parsed_uri_by_name(name)
-            entries << [name, node['id'], get_type(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset]
+            entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
       end
