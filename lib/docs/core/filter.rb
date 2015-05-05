@@ -74,5 +74,8 @@ module Docs
       warn "#{self.class.name} is re-parsing the document" unless ENV['RACK_ENV'] == 'test'
       super
     end
+    def CleanWrongCharacters(href)
+      href.gsub('%23', '#').gsub('%24', '$').gsub('%28', '(').gsub('%29', ')').gsub('%21', '!').gsub('%7b', '{').gsub('%7e', '~').gsub('%2a', '*').gsub('%2b', '+').gsub('%3d', '=')
+    end
   end
 end
