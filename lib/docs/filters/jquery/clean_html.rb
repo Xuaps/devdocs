@@ -27,7 +27,6 @@ module Docs
         #fix links
         css('a[href]').each do |node|
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
-            puts node['href']
             node['href'] = CleanWrongCharacters(node['href']).remove '../'
             if BROKEN_LINKS.include? node['href'].downcase
                node['class'] = 'broken'

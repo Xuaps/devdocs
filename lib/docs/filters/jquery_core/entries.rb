@@ -40,6 +40,10 @@ module Docs
         parsed_uri
       end
 
+      def get_parsed_uri_by_name(name)
+          get_parsed_uri + '/' + self.urilized(name)
+      end
+
       def get_parsed_uri
         if get_parent_uri == 'null'
             parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
@@ -58,6 +62,16 @@ module Docs
         end
       end
 
+      def additional_entries
+        return [] if root_page?
+
+        css('h3[id]', 'h2[id]').map do |node|
+          name = node.content
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
+        end
+      end
+
       def get_type
         return 'data' if slug == 'Ajax_Events'
         categories = css 'span.category'
@@ -67,7 +81,6 @@ module Docs
         types.sort!
         types.empty? ? 'others' : REPLACE_TYPES[TYPES[types.first]]
       end
-
     end
   end
 end

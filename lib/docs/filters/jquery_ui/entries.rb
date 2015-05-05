@@ -22,6 +22,10 @@ module Docs
         docset
       end
 
+      def get_parsed_uri_by_name(name)
+          get_parsed_uri + '/' + self.urilized(name)
+      end
+
       def get_parsed_uri
         parsed_uri = context[:docset_uri] + '/' + path.sub('/index', '')
         parsed_uri
@@ -37,13 +41,27 @@ module Docs
       end
 
       def get_type
-        categories = css 'span.category'
-        types = categories.map { |node| node.at_css('a').content.strip }
+        categories = css 'span.category > a'
+        types = categories.map { |node| node.content.strip }
         types.map! { |type| TYPES.index(type) }
         types.compact!
         types.sort!
         types.empty? ? 'others' : REPLACE_TYPES[TYPES[types.first]]
       end
+
+      def additional_entries
+        entries = []
+        return [] if root_page?
+        css('[id].api-item > h3').each do |node|
+          node.at_css('.returns').remove if node.at_css('.returns')
+          name = node.content
+          id = node.parent['id']
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, id, get_type, custom_parsed_uri, get_parent_uri, get_docset]
+        end
+        entries
+      end
+
     end
   end
 end
