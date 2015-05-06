@@ -2,6 +2,10 @@ module Docs
   class Modernizr
     class EntriesFilter < Docs::EntriesFilter
 
+      def get_name
+        'Index'
+      end
+
       def get_docset
         docset = context[:root_title]
         docset
@@ -19,6 +23,10 @@ module Docs
 
       def get_parent_uri
         'null'
+      end
+
+      def get_type
+        'others'
       end
 
       def get_type_by_name(_type)
