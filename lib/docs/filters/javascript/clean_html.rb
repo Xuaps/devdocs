@@ -5,6 +5,9 @@ module Docs
       BROKEN_LINKS = [
           'en-us/docs/web/guide/prefixes'
       ]
+      REPLACED_LINKS = {
+          'functions/strict_mode' => 'strict_mode'
+      }
       def call
         root_page? ? root : other
         doc
@@ -12,7 +15,7 @@ module Docs
 
       def root
         #Cleaning content
-        css('.center','.column-container').remove
+        css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
 
         # Remove heading links
         css('h2 > a').each do |node|
@@ -23,16 +26,18 @@ module Docs
 
       def other
         #Cleaning content
-        css('.center','.column-container').remove
+        css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
         css('a[href]').each do |node|
           node['href'] = CleanWrongCharacters(node['href']).remove '_(event)'
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
             if node['class'] == 'new'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
+            elsif REPLACED_LINKS[node['href'].remove! '../']
+              node['href'] = REPLACED_LINKS[node['href'].remove! '../']
             elsif BROKEN_LINKS.include?node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')
@@ -50,8 +55,6 @@ module Docs
               else
                 node['href'] = newhref.join('/')
               end
-              puts 'slug: ' + slug
-              puts 'node: ' + node['href']
             end
           end
         end

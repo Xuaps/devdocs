@@ -30,6 +30,10 @@ module Docs
         end
       end
 
+      def get_type
+          'others'
+      end
+
       def get_type_by_name(typename)
           if typename.include? 'Fake timers' or typename.include? 'Fake XMLHttpRequest' or typename.include? 'Sandboxes' or typename.include? 'Spies'
               'function'

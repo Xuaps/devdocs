@@ -12,24 +12,24 @@ module Docs
       end
 
       def root
+        css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
         doc.inner_html = doc.at_css('#Documentation + dl').to_html
       end 
 
       def other
         css('.prevnext').remove
-        css('.article-meta', '#main-nav', '.wiki-block contributors', '.oauth-login-picker','.wiki-block', '.column-container p bdi').remove
+        css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
         css('a[href]').each do |node|
           node['href'] = CleanWrongCharacters(node['href']).remove '_(event)'
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
             if node['class'] == 'new'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include?node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].remove! '../']
-              node['class'] = REPLACED_LINKS[node['href'].remove! '../']
-              node['href'] = '/help#brokenlink'
+              node['href'] = REPLACED_LINKS[node['href'].remove! '../']
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')
@@ -64,9 +64,6 @@ module Docs
           node['class'] = 'index'
           css('h3').each { |n| n.name = 'span' }
         end
-      end
-      def CleanWrongCharacters(href)
-          href.gsub('%23', '#').gsub('%28', '(').gsub('%29', ')').gsub('%21', '!').gsub('%7b', '{').gsub('%7e', '~').gsub('%2a', '*').gsub('%2b', '+').gsub('%3d', '=')
       end
     end
   end

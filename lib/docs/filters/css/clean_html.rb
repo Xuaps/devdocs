@@ -2,7 +2,8 @@ module Docs
   class Css
     class CleanHtmlFilter < Filter
       BROKEN_LINKS = [
-          'en-us/docs/web/guide/prefixes'
+          'en-us/docs/web/guide/prefixes',
+          'counter'
       ]
 
       def call
@@ -12,21 +13,22 @@ module Docs
 
       def root
         # Remove "CSS3 Tutorials" and everything after
-        css('#CSS3_Tutorials ~ *', '#CSS3_Tutorials','.center','.column-container').remove
+        css('footer','div.article-meta', '#wiki-left', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
+        css('#CSS3_Tutorials ~ *', '#CSS3_Tutorials').remove
       end
 
       def other
         #Cleaning content
-        css('.center','.column-container').remove
+        css('footer','div.article-meta', '#wiki-left', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
         # fix links
         css('a[href]').each do |node|
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
             if node['class'] == 'new'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include?node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')

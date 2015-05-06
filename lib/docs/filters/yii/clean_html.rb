@@ -49,20 +49,16 @@ module Docs
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
             if node['class'] == 'new'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include?node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].remove! '../']
-              node['class'] = REPLACED_LINKS[node['href'].remove! '../']
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + REPLACED_LINKS[node['href'].remove! '../']
             end
           end
         end
         doc
-      end
-      def CleanWrongCharacters(href)
-          href.gsub('%23', '#').gsub('%28', '(').gsub('%29', ')').gsub('%21', '!').gsub('%7b', '{').gsub('%7e', '~').gsub('%2a', '*').gsub('%2b', '+').gsub('%3d', '=')
       end
     end
   end

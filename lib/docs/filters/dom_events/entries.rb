@@ -43,6 +43,7 @@ module Docs
       def get_name
         name = super.split.first
         name << " (#{type})" if APPEND_TYPE.include?(type)
+        name = 'Index' if not name
         name
       end
 

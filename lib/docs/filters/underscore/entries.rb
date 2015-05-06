@@ -29,7 +29,9 @@ module Docs
             parent_uri = 'null'
         end
       end
-
+      def get_type
+        'others'
+      end
       def additional_entries
         entries = []
         type = nil
@@ -40,7 +42,7 @@ module Docs
             type = node.content.split.first
             next
           end
-
+          type = 'others' if not type
           # Method
           node.css('.header', '.alias b').each do |header|
             header.content.split(',').each do |name|

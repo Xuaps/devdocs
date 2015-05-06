@@ -32,8 +32,8 @@ module Docs
 
         css(type == 'status code' ? 'h3' : 'h2').map do |node|
           name = node.content
+          puts 'name: ' + name 
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          puts path
           [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
         end
       end

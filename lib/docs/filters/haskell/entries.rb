@@ -41,14 +41,17 @@ module Docs
       end
 
       def get_parsed_uri
-        subpath = *path.split('/')
-        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
-      def get_parent_uri
-        subpath = *path.split('/')
+      def get_parent_uri       
         parent_uri = 'null'
+        parent_uri
       end
 
       def get_type

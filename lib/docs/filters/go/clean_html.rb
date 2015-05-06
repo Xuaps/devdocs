@@ -23,7 +23,7 @@ module Docs
             node['href'] = CleanWrongCharacters(node['href'])
             if BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')

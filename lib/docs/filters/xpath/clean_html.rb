@@ -16,21 +16,22 @@ module Docs
         if table = at_css('.topicpage-table')
           table.after(table.css('td').children).remove
         end
+        css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
       end
 
       def other
 
         #Cleaning content
-        css('.article-meta', '#main-nav', '.wiki-block contributors', '.oauth-login-picker','.wiki-block', '.column-container p bdi').remove
+        css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
         css('a[href]').each do |node|
           node['href'] = CleanWrongCharacters(node['href'])
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
             if node['class'] == 'new'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include?node['href'].downcase.remove!
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             elsif !node['href'].start_with? '#'
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')

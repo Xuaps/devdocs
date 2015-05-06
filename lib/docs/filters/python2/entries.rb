@@ -102,7 +102,7 @@ module Docs
       end
 
       def include_default_entry?
-        !(at_css('.body > .section:only-child > .toctree-wrapper:last-child') && !type.in?(%w(Language Superseded SunOS))) || slug == 'library/index'
+        true #!(at_css('.body > .section:only-child > .toctree-wrapper:last-child') && !type.in?(%w(Language Superseded SunOS))) || slug == 'library/index'
       end
 
       def additional_entries

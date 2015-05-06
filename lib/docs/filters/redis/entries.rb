@@ -2,7 +2,9 @@ module Docs
   class Redis
     class EntriesFilter < Docs::EntriesFilter
       def get_name
-        slug.gsub('-', ' ')
+        name = slug.gsub('-', ' ')
+        name = 'Index' if name == ''
+        name
       end
       def get_docset
         docset = context[:root_title]

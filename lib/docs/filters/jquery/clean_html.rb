@@ -31,7 +31,7 @@ module Docs
             node['href'] = CleanWrongCharacters(node['href']).remove '../'
             if BROKEN_LINKS.include? node['href'].downcase
                node['class'] = 'broken'
-               node['href'] = '/help#brokenlink'
+               node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].downcase.remove! '../']
                 node['href'] = REPLACED_LINKS[node['href'].remove '../']
             end
@@ -55,9 +55,6 @@ module Docs
         end
 
         doc
-      end
-      def CleanWrongCharacters(href)
-          href.gsub('%23', '#').gsub('%28', '(').gsub('%29', ')').gsub('%21', '!').gsub('%7b', '{').gsub('%7e', '~').gsub('%2a', '*').gsub('%2b', '+').gsub('%3d', '=')
       end
     end
   end

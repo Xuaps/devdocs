@@ -18,7 +18,7 @@ module Docs
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
             if node['href'].start_with? ':'
               node['class'] = 'broken'
-              node['href'] = '/help#brokenlink'
+              node['href'] = context[:domain] + '/help#brokenlink'
             elsif node['href'].start_with? 'howto/'
               node['href'] = 'https://github.com/git/git/blob/master/Documentation/' + node['href'] + '.txt'
             else

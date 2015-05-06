@@ -37,14 +37,6 @@ module Docs
           'others'
         end
       end
-
-      def additional_entries
-        if root_page?
-            [['index', nil, 'others']]
-        else
-            []
-        end
-      end
     end
   end
 end

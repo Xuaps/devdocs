@@ -11,6 +11,7 @@ module Docs
         if name.in?(%w(Element Attribute Content\ type))
           "#{name}s"
         else
+          name = 'Index' if name == ''
           name
         end
       end

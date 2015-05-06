@@ -30,7 +30,7 @@ module Docs
                 node['href'] = '#grunt.log.error-grunt.verbose.error'
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
                node['class'] = 'broken'
-               node['href'] = '/help#brokenlink'
+               node['href'] = context[:domain] + '/help#brokenlink'
             end
           end
         end

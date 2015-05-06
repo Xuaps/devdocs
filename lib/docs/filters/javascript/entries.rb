@@ -24,6 +24,7 @@ module Docs
             end
             name << ".#{method}"
           end
+          name = 'Index' if name == ''
 
           name
         else
