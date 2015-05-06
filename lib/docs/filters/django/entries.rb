@@ -1,7 +1,40 @@
 module Docs
   class Django
     class EntriesFilter < Docs::EntriesFilter
-
+      REPLACE_TYPES = {
+        'django.contrib.admin'        => 'core',
+        'django.contrib.auth'         => 'others',
+        'django.apps'                 => 'configuration',
+        'django.conf'                 => 'configuration',
+        'django.setup'                => 'configuration',
+        'django.contrib.contenttypes' => 'type',
+        'django.core'                 => 'core',
+        'django.db.backends'          => 'core',
+        'django.db.backends'          => 'data',
+        'django.contrib.postgres'     => 'data',
+        'django.db.connection'        => 'data',
+        'django.db.migrations'        => 'data',
+        'django.db.models'            => 'data',
+        'django.db.transaction'       => 'data',
+        'django.contrib.flatpages'    => 'data',
+        'django.contrib.gis'          => 'data',
+        'django.middleware'           => 'data',
+        'django.dispatch'             => 'network',
+        'django.contrib.redirects'    => 'network',
+        'django.contrib.sessions'     => 'network',
+        'django.shortcuts'            => 'network',
+        'django.http'                 => 'network',
+        'django.utils'                => 'method',
+        'django.contrib.messages'     => 'method',
+        'django.contrib.sitemaps'     => 'configuration',
+        'django.contrib.sites'        => 'configuration',
+        'django.contrib.staticfiles'  => 'configuration',
+        'django.contrib.syndication'  => 'configuration',
+        'django.template'             => 'view',
+        'django.views'                => 'view',
+        'django.forms'                => 'view',
+        'django.test'                 => 'others',
+      }
       def get_name
         at_css('h1').content.remove("\u{00b6}")
       end
@@ -32,13 +65,15 @@ module Docs
       def get_type
         case subpath
         when /\Atopics/
-          'Guides'
+          'guide'
         when /\Aintro/
-          'Guides: Intro'
+          'guide'
         when /\Ahowto/
-          'Guides: How-tos'
+          'guide'
         when /\Aref/
-          'API'
+          'function'
+        else
+          'others'
         end
       end
 
@@ -55,15 +90,15 @@ module Docs
 
           name.remove! 'contrib.'
           name << '()' if node['class'].include?('method') || node['class'].include?('function')
-
-          entries << [name, id, type, custom_parsed_uri, get_parsed_uri, get_docset]
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, id, REPLACE_TYPES[type], custom_parsed_uri, get_parsed_uri, get_docset]
         end
 
         entries
       end
 
       def include_default_entry?
-        at_css('#sidebar a[href="index"]')
+        true #at_css('#sidebar a[href="index"]')
       end
     end
   end
