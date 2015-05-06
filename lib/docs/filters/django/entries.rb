@@ -10,7 +10,6 @@ module Docs
         'django.contrib.contenttypes' => 'type',
         'django.core'                 => 'core',
         'django.db.backends'          => 'core',
-        'django.db.backends'          => 'data',
         'django.contrib.postgres'     => 'data',
         'django.db.connection'        => 'data',
         'django.db.migrations'        => 'data',
