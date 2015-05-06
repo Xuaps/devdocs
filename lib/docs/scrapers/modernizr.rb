@@ -7,6 +7,7 @@ module Docs
 
     html_filters.push 'modernizr/entries', 'modernizr/clean_html', 'title'
 
+    options[:domain] = 'http://www.refly.co'
     options[:root_title] = 'Modernizr'
     options[:docset_uri] = '/modernizr'
     options[:title] = 'Modernizr'
