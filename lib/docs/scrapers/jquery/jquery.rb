@@ -6,6 +6,7 @@ module Docs
     html_filters.push 'jquery/clean_html', 'title'
     text_filters.push 'jquery/clean_urls'
 
+    options[:domain] = 'http://www.refly.co'
     options[:title] = false
     options[:container] = '#content'
     options[:trailing_slash] = false

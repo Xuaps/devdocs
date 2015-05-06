@@ -9,6 +9,7 @@ module Docs
 
     html_filters.push 'knockout/clean_html', 'knockout/entries'
 
+    options[:domain] = 'http://www.refly.co'
     options[:follow_links] = ->(filter) { filter.root_page? }
     options[:container] = ->(filter) { filter.root_page? ? '#wrapper' : '.content' }
 

@@ -7,6 +7,7 @@ module Docs
 
     html_filters.push 'express/clean_html', 'express/entries', 'title'
 
+    options[:domain] = 'http://www.refly.co'
     options[:title] = 'Express'
     options[:root_title] = 'Express'
     options[:docset_uri] = '/express'

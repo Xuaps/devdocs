@@ -32,6 +32,7 @@ module Docs
     html_filters.push 'php2/entries', 'php2/clean_html', 'title'
     text_filters.push 'php2/fix_urls'
 
+    options[:domain] = 'http://www.refly.co'
     options[:title] = false
     options[:root_title] = 'PHP'
     options[:docset_uri] = '/php'

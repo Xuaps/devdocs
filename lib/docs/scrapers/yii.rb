@@ -7,6 +7,7 @@ module Docs
 
     html_filters.push 'yii/clean_html', 'yii/entries'
 
+    options[:domain] = 'http://www.refly.co'
     options[:container] = 'div[role=main]'
     options[:root_title] = 'Yii'
     options[:docset_uri] = '/yii'

@@ -12,6 +12,7 @@ module Docs
     html_filters.push 'c/entries', 'c/clean_html', 'title'
     text_filters.push 'c/fix_urls'
 
+    options[:domain] = 'http://www.refly.co'
     options[:container] = '#content'
     options[:title] = false
     options[:root_title] = 'C'

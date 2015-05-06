@@ -9,7 +9,9 @@ module Docs
     html_filters.push 'mdn/clean_html'
     text_filters.insert_before 'attribution', 'mdn/contribute_link'
 
+    options[:domain] = 'http://www.refly.co'
     options[:trailing_slash] = false
+    options[:title] = false
 
     options[:skip_link] = ->(link) { link['title'].try(:include?, 'hasn\'t been written yet'.freeze) }
 

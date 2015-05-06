@@ -10,17 +10,7 @@ module Docs
     options[:root_title] = 'HTML'
     options[:docset_uri] = '/html'
 
-    options[:title] = ->(filter) do
-      if filter.slug == 'Element/Heading_Elements'
-        'Heading Elements'
-      elsif filter.slug == 'Attributes'
-        'Attributes'
-      elsif filter.slug == 'Link_types'
-        'Link types'
-      else
-        "<#{filter.default_title}>"
-      end
-    end
+    options[:title] = false
     options[:skip_patterns] = [/\w*\$\w+/i]
     options[:replace_paths] = {
       '/Element/h1' => '/Element/Heading_Elements',

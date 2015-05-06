@@ -7,6 +7,7 @@ module Docs
 
     html_filters.push 'sass/clean_html', 'sass/entries', 'title'
 
+    options[:domain] = 'http://www.refly.co'
     options[:only] = %w(Sass/Script/Functions.html)
     options[:root_title] = 'Sass'
     options[:title] = 'Sass Functions'

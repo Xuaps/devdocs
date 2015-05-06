@@ -9,7 +9,6 @@ module Docs
 
     options[:root_title] = 'CSS'
     options[:docset_uri] = '/css'
-
     options[:skip] = %w(
       /Syntax
       /At-rule

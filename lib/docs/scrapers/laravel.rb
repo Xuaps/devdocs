@@ -10,6 +10,7 @@ module Docs
 
     html_filters.push 'laravel/entries', 'laravel/clean_html'
 
+    options[:domain] = 'http://www.refly.co'
     options[:container] = ->(filter) {
       filter.subpath.start_with?('/api') ? nil : '#documentation > article'
     }

@@ -8,9 +8,13 @@ module Docs
 
     html_filters.push 'moment/clean_html', 'moment/entries', 'title'
 
+    options[:domain] = 'http://www.refly.co'
     options[:title] = 'Moment.js'
     options[:container] = '.docs-content'
     options[:skip_links] = true
+    options[:root_title] = 'Moment'
+    options[:docset_uri] = '/moment'
+
 
     options[:attribution] = <<-HTML
       &copy; 2011&ndash;2014 Tim Wood, Iskren Chernev, Moment.js contributors<br>

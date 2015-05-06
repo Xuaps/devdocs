@@ -6,6 +6,7 @@ module Docs
 
     html_filters.push 'markdown/clean_html', 'markdown/entries'
 
+    options[:domain] = 'http://www.refly.co'
     options[:container] = '.article'
     options[:skip_links] = true
     options[:root_title] = 'MarkDown'

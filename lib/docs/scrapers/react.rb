@@ -7,6 +7,7 @@ module Docs
     self.root_path = 'getting-started.html'
     html_filters.push 'react/entries', 'react/clean_html'
 
+    options[:domain] = 'http://www.refly.co'
     options[:container] = '.documentationContent'
     options[:root_title] = 'React'
     options[:docset_uri] = '/react'

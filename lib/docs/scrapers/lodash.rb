@@ -7,6 +7,7 @@ module Docs
     self.base_url = 'https://lodash.com/docs'
 
     html_filters.push 'lodash/clean_html', 'lodash/entries', 'title'
+    options[:domain] = 'http://www.refly.co'
     options[:root_title] = 'Lo-Dash'
     options[:docset_uri] = '/lodash'
     options[:title] = 'Lo-Dash'

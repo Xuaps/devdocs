@@ -8,6 +8,7 @@ module Docs
 
     html_filters.push 'haskell/entries', 'haskell/clean_html'
 
+    options[:domain] = 'http://www.refly.co'
     options[:container] = '#content'
     options[:root_title] = 'Haskell'
     options[:docset_uri] = '/haskell'

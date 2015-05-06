@@ -16,6 +16,7 @@ module Docs
       whyamd.html)
     html_filters.push 'requirejs/clean_html', 'requirejs/entries'
 
+    options[:domain] = 'http://www.refly.co'
     options[:container] = '#content'
     options[:root_title] = 'RequireJS'
     options[:docset_uri] = '/requirejs'

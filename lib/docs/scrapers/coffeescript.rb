@@ -7,6 +7,7 @@ module Docs
 
     html_filters.push 'coffeescript/clean_html', 'coffeescript/entries', 'title'
 
+    options[:domain] = 'http://www.refly.co'
     options[:title] = 'CoffeeScript'
     options[:container] = '.container'
     options[:root_title] = 'CoffeeScript'

@@ -15,6 +15,7 @@ module Docs
       creating-tasks
       using-the-cli
     )
+    options[:domain] = 'http://www.refly.co'
     options[:only_patterns] = [/\Aapi\//]
     options[:root_title] = 'Grunt'
     options[:docset_uri] = '/grunt'

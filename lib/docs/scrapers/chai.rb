@@ -14,6 +14,7 @@ module Docs
 
     html_filters.push 'chai/entries', 'chai/clean_html'
 
+    options[:domain] = 'http://www.refly.co'
     options[:container] = '#content'
     options[:trailing_slash] = true
     options[:root_title] = 'Chai'

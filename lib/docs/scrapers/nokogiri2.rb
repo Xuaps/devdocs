@@ -7,6 +7,7 @@ module Docs
 
     html_filters.replace 'rdoc/entries', 'nokogiri2/entries'
 
+    options[:domain] = 'http://www.refly.co'
     options[:root_title] = 'Nokogiri'
     options[:root_title] = 'Nokogiri'
     options[:docset_uri] = '/nokogiri' 

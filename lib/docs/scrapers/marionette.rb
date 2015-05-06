@@ -9,6 +9,7 @@ module Docs
 
     html_filters.push 'marionette/clean_html', 'marionette/entries'
 
+    options[:domain] = 'http://www.refly.co'
     options[:container] = '#content'
 
     options[:skip] = %w(/readme.html)
