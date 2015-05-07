@@ -4,6 +4,7 @@ module Docs
     self.type = 'coffeescript'
     self.version = '1.8.0'
     self.base_url = 'http://coffeescript.org'
+    self.root_path = 'index.html'
 
     html_filters.push 'coffeescript/clean_html', 'coffeescript/entries', 'title'
 
