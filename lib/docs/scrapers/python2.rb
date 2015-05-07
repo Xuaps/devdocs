@@ -4,7 +4,7 @@ module Docs
     self.slug = 'python2'
     self.version = '2.7.8'
     self.type = 'sphinx'
-    self.dir = '/home/desarrollo/Descargas/docs/python2' # downloaded from docs.python.org/2.7/download.html
+    self.dir = './file_scraper_docs/python2' # downloaded from docs.python.org/2.7/download.html
     self.base_url = 'http://docs.python.org/2.7/'
     self.root_path = 'library/index.html'
 

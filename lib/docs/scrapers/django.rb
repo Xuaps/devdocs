@@ -3,7 +3,7 @@ module Docs
     self.name = 'Django'
     self.type = 'sphinx'
     self.version = '1.8'
-    self.dir = '/home/desarrollo/Descargas/docs/django'
+    self.dir = './file_scraper_docs/django'
     self.base_url = 'https://docs.djangoproject.com/en/1.8/'
     self.root_path = 'index.html'
 
