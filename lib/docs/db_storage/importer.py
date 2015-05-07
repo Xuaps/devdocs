@@ -69,10 +69,10 @@ class DocImporter():
         return content
 
     def importToDB(self):
-        json_data = self.processJSON(self.index_path)
-        self.links = self.CreateLinkCollection(json_data)
         conn = psycopg2.connect(self.connection_string)
         try:
+            json_data = self.processJSON(self.index_path)
+            self.links = self.CreateLinkCollection(json_data)
             self.initTable(conn)
             self.emptyTable(conn,self.docset_name)
             previous_uri = ''
