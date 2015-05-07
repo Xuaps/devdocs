@@ -1,8 +1,23 @@
 #!/bin/bash
+NAME=(c python2 python3 django)
+URLS=(http://upload.cppreference.com/mwiki/images/6/6c/html_book_20141118.tar.gz https://docs.python.org/2.7/archives/python-2.7.10rc0-docs-html.zip https://docs.python.org/3/archives/python-3.4.3-docs-html.zip https://docs.djangoproject.com/m/docs/django-docs-1.8-en.zip)
+for i in {0..3}
+do
+	if [ `echo ${URLS[$i]} | grep -c ".zip" ` -gt 0 ]
+	then
+	    wget ${URLS[$i]} -O ./file_scraper_docs/${NAME[$i]}.zip
+	    unzip ./file_scraper_docs/${NAME[$i]}.zip -d ./file_scraper_docs/${NAME[$i]}/
+    elif [ `echo ${URLS[$i]} | grep -c ".tar.gz" ` -gt 0 ]
+    then
+        wget ${URLS[$i]} -O ./file_scraper_docs/${NAME[$i]}.tar.gz
+        mkdir -p ./file_scraper_docs/${NAME[$i]} && tar -zxvf ./file_scraper_docs/${NAME[$i]}.tar.gz -C ./file_scraper_docs/${NAME[$i]}
+    fi
+done
+
 date=`/bin/date "+%d/%m/%Y -%H:%M:%S"`
 echo "scrapping started at $date"
 OUTPUTLOG='errors.log'
-for docset in backbone bower c chai cordova cpp css d3 dom dom_events ember express git go grunt html http haskell jquery_core jquery_ui jquery_mobile javascript less lodash markdown modernizr moment mongoosejs nginx node php2 phpunit postgresql python2 python react redis requirejs sass sinon socketio svg underscore xpath yii
+for docset in backbone bower c chai coffeescript cordova cpp css d3 django dom dom_events ember express git go grunt html http haskell jquery_core jquery_ui jquery_mobile javascript less lodash markdown modernizr moment mongoosejs nginx node php2 phpunit postgresql python2 python react redis requirejs sass sinon socketio svg underscore xpath yii
 do
 	if thor docs:generate $docset --force
 	then
@@ -17,6 +32,7 @@ date=`/bin/date "+%d/%m/%Y -%H:%M:%S"`
 echo "scrapping finished at $date"
 export DYLD_FALLBACK_LIBRARY_PATH=/Library/PostgreSQL/9.4/lib/
 cd lib/docs/db_storage/
+echo "import started at $date"
 python import_docset.py
 date=`/bin/date "+%d/%m/%Y -%H:%M:%S"`
 echo "import finished at $date"
