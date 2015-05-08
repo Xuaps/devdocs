@@ -38,6 +38,7 @@ class DocsCLI < Thor
       puts 'Done'
     else
       puts "Failed!#{' (try running with --debug for more information)' unless options[:debug]}"
+      exit 1
     end
   rescue Docs::DocNotFound
     invalid_doc(name)
@@ -70,6 +71,7 @@ class DocsCLI < Thor
       puts 'Done'
     else
       puts "Failed!#{' (try running with --debug for more information)' unless options[:debug]}"
+      exit 1
     end
   rescue Docs::DocNotFound
     invalid_doc(name)
@@ -124,7 +126,7 @@ class DocsCLI < Thor
     if docs.empty?
       puts 'ERROR: called with no arguments.'
       puts 'Run "thor docs:list" for usage patterns.'
-      exit
+      exit 1
     end
   end
 
