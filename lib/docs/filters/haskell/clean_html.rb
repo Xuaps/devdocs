@@ -18,6 +18,7 @@ module Docs
         'if'
       ]
       REPLACED_LINKS = {
+        'text-prettyprint-hughespj' => 'pretty-1.1.1.1/text-prettyprint-hughespj'
       }
       def call
         root_page? ? root : other

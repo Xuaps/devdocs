@@ -21,7 +21,7 @@ module Docs
         if at_css('#module-header .caption')
           at_css('#module-header .caption').content.strip
         else
-          'Haskell'
+          'Index'
         end
       end
 
