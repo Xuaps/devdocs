@@ -22,18 +22,38 @@ module Docs
       end
 
       def get_type
+        name = get_name
         if name =~ /observable/i || slug =~ /extender/
-          'Observables'
-        elsif slug.include?('binding') && !name.end_with?('binding')
-          'Binding'
-        elsif slug.include? 'binding'
-          'Bindings'
-        elsif slug.include? 'plugin'
-          'Plugins'
+          'object'
+        elsif slug.include?('binding')
+          'binding'
+        elsif name.include? 'function'
+          'function'
+        elsif name.include? 'Event'
+          'event'
         else
-          'Miscellaneous'
+          'others'
         end
       end
+
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
+        parsed_uri
+      end
+
+      def get_parent_uri
+        'null'
+      end                                         
+
     end
   end
 end

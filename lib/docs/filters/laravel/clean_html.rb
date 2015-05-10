@@ -1,24 +1,63 @@
 module Docs
   class Laravel
     class CleanHtmlFilter < Filter
+
+      BROKEN_LINKS = [
+      ]
+      REPLACED_LINKS = {
+      }
+
       def call
         if subpath.start_with?('/api')
           api
         else
           other
         end
+        css('a[href]').each do |node|
+          node['href'] = CleanWrongCharacters(node['href'])
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+            if REPLACED_LINKS[node['href'].downcase.remove! '../']
+              node['href'] = REPLACED_LINKS[node['href'].remove '../']
+            elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
+              node['class'] = 'broken'
+              node['href'] = context[:domain] + '/help#brokenlink'
+            else
+              sluglist = slug.split('/')
+              nodelist = node['href'].split('/')
+              newhref = []
+              nodelist.each do |item|
+                if item == '..'
+                  sluglist.pop
+                elsif item != 'api' and item != '5.0'
+                  newhref << item
+                end
+              end
+              sluglist.pop
+              if sluglist.size>0
+                node['href'] = sluglist.join('/') + '/' + newhref.join('/')
+              else
+                node['href'] = newhref.join('/')
+              end
+              puts node['href']
+            end
+          end
+        end
 
         doc
       end
 
       def api
-        css('#footer', '.location').remove
-
+        css('#footer', '.location','#site-nav', '#left-column', '.namespace-breadcrumbs').remove
         # Replace .header with <h1>
         css('.header > h1').each do |node|
           node.parent.before(node).remove
           node.content = 'Laravel' if root_page?
         end
+
+        # wrapping NameSpacelist
+        css('.namespace-list').first.name = 'ul' if css('.namespace-list') and css('.namespace-list').first
+        nodes = css('.namespace-list > a')
+        nodes.wrap("<li></li>")
 
         # Remove <abbr>
         css('a > abbr').each do |node|
