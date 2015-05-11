@@ -17,7 +17,7 @@ class LinkTester(unittest.TestCase):
 
     links = {}
     link_re = re.compile('<a[\w _\-="]*href="(?!.*:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
-    docset = 'nginx'
+    docset = 'laravel'
     linkerrors = []
     index_path = ''
     content_path = '../../../public/docs/'

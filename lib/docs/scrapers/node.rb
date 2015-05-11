@@ -13,7 +13,7 @@ module Docs
     options[:root_title] = 'NodeJS'
     options[:docset_uri] = '/nodejs'
     options[:container] = '#apicontent'
-    options[:skip] = %w(index.html all.html documentation.html synopsis.html)
+    options[:skip] = %w(all.html)
 
     options[:attribution] = <<-HTML
       &copy; Joyent, Inc. and other Node contributors<br>

@@ -4,6 +4,7 @@ module Docs
       REPLACE_NAMES = {
         'debugger' => 'Debugger',
         'addons'   => 'C/C++ Addons',
+        'index'    => 'Index',
         'modules'  => 'module' }
 
       REPLACE_TYPES = {
@@ -12,6 +13,7 @@ module Docs
         'Debugger'               => 'others',
         'Cluster'                => 'others',
         'Modules'                => 'others',
+        'Others'                 => 'others',
         'util'                   => 'others',
         'console'                   => 'core',
         'Path'                   => 'core',
@@ -53,6 +55,7 @@ module Docs
       end
 
       def get_name
+        return 'Index' if slug == ''
         REPLACE_NAMES[slug] || slug
       end
 
@@ -89,7 +92,7 @@ module Docs
         else
           type = 'others'
         end
-        REPLACE_TYPES[type] || "#{type.first.upcase}#{type[1..-1]}"
+        REPLACE_TYPES[type] || type
       end
 
       def additional_entries
