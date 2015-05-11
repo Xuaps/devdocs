@@ -19,7 +19,7 @@ mv ./file_scraper_docs/python3/* ./file_scraper_docs/python3/docs
 date=`/bin/date "+%d/%m/%Y -%H:%M:%S"`
 echo "scrapping started at $date"
 OUTPUTLOG='errors.log'
-for docset in backbone bower c chai coffeescript cordova cpp css d3 django dom dom_events ember express git go grunt html http haskell jquery_core jquery_ui jquery_mobile javascript less lodash markdown modernizr moment mongoosejs nginx node php2 phpunit postgresql python2 python react redis requirejs sass sinon socketio svg underscore xpath yii
+for docset in backbone bower c chai coffeescript cordova cpp css d3 django dom dom_events ember express git go grunt html http haskell jquery_core jquery_ui jquery_mobile javascript knockout laravel less lodash marionette markdown modernizr moment mongoosejs nginx node php2 phpunit postgresql python2 python react redis requirejs sass sinon socketio svg underscore xpath yii
 do
 	if thor docs:generate $docset --force
 	then
