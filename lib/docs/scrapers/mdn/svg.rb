@@ -3,7 +3,7 @@ module Docs
     self.name = 'SVG'
     self.base_url = 'https://developer.mozilla.org/en-US/docs/Web/SVG'
 
-    html_filters.push 'svg/clean_html', 'svg/entries', 'title'
+    html_filters.push 'svg/entries', 'svg/clean_html', 'title'
     options[:root_title] = 'SVG'
     options[:docset_uri] = '/svg'
     options[:title] = ->(filter) do

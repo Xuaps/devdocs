@@ -3,12 +3,23 @@ module Docs
     class CleanHtmlFilter < Filter
 
       BROKEN_LINKS = [
-          'en-us/docs/web/guide/prefixes'
+          'en-us/docs/web/guide/prefixes',
+          'en/dom/table.cells',
+          'en/link',
+          'en/style',
+          'en/chrome',
+          'en/dom/element.addeventlistener'
       ]
       REPLACED_LINKS = {
         'float32array' => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array',
         'uint8array'   => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array',
-        'boolean'      => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean'
+        'boolean'      => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean',
+        'arraybuffer'  => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer',
+        'promise'      => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise',
+        'en-us/docs/javascript/reference/global_objects/function/call' => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/Call',
+        'en/dom/range.compareboundarypoints' => 'range/compareboundarypoints',
+        'en/dom/window.screen.top' => 'screen/top',
+        'en/dom/window.top' => 'window/top'
       }
       def call
         root_page? ? root : other
@@ -17,13 +28,13 @@ module Docs
 
       def root
         #Cleaning content
-        css('.center','.column-container').remove
+        css('footer', '.quick-links', 'div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
 
       end
 
       def other
         #Cleaning content
-        css('.center','.column-container').remove
+        css('footer', '.quick-links','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
 
         # fix links
         css('a[href]').each do |node|
@@ -31,7 +42,7 @@ module Docs
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['href'] = context[:domain] + '/help#brokenlink'
-            elsif BROKEN_LINKS.include?node['href'].downcase.remove! '../'
+            elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'
               node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].downcase.remove! '../']

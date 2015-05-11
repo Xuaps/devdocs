@@ -6,8 +6,14 @@ module Docs
           'en-us/docs/web/guide/prefixes',
           'tutorials',
           'element/decorator',
-          'element/en-us/docs/web/api/htmltableheadercellelement'
+          'element/en-us/docs/web/api/htmltableheadercellelement',
+          'screen/en/dom/window.screen.top'
       ]
+      REPLACED_LINKS = {
+        'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/element/en-US/docs/Web/API/HTMLTableHeaderCellElement' => '',
+        'en-us/docs/web/api/htmltableheadercellelement' => 'https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableHeaderCellElement'
+      }
+
       def call
         root_page? ? root : other
         doc
@@ -25,8 +31,8 @@ module Docs
         #Cleaning content
         css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
         css('a[href]').each do |node|
-          if node['href'] == 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/element/en-US/docs/Web/API/HTMLTableHeaderCellElement' or node['href'].downcase == 'en-us/docs/web/api/htmltableheadercellelement'
-              node['href'] = 'https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableHeaderCellElement'
+          if REPLACED_LINKS[node['href'].downcase.remove! '../']
+              node['href'] = REPLACED_LINKS[node['href'].remove '../']
           end
           node['href'] = CleanWrongCharacters(node['href']).remove '_(event)'
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'

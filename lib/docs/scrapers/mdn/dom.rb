@@ -3,12 +3,13 @@ module Docs
     self.name = 'DOM'
     self.base_url = 'https://developer.mozilla.org/en-US/docs/Web/API'
 
-    html_filters.push 'dom/clean_html', 'dom/entries', 'title'
+    html_filters.push 'dom/entries', 'dom/clean_html', 'title'
 
     options[:root_title] = 'DOM'
     options[:docset_uri] = '/dom'
     self.initial_paths = %w(
       /identitymanager
+      /WindowEventHandlers
       /css_object_model
       /web_crypto_api
       /CSSStyleDeclaration
@@ -83,8 +84,26 @@ module Docs
       /\A\/Window\.\w+bar/i,
       /\A\/Apps/,
       /\A\/Contact/,
-      /\A\/L10n/,
-      /\A\/Permission/]
+      /\A\/\w*\.\w*/i,
+      /\A\/L10n/]
+      # /\A\/AnalyserNode\//,
+      # /\A\/Audio\w*\//,
+      # /\A\/Animation\w*\//,
+      # /\A\/Battery\w*\//i,
+      # /\A\/Biquad\w*\//i,
+      # /\A\/Blob\w*\//i,
+      # /\A\/body\w*\//i,
+      # /\A\/broadcast\w*\//i,
+      # /\A\/cache\w*\//i,
+      # /\A\/Canvas\w*\//i,
+      # /\A\/childnode\w*\//i,
+      # /\A\/subtlecrypto\w*\//i,
+      # /\A\/crypto\w*\//i,
+      # /\A\/DelayNode\w*\//i,
+      # /\A\/Device\w*\//i,
+      # /\A\/DOM\w*\//i,
+      # /\A\/document\w*\//i,
+      # /\A\/Permission/]
 
     # Broken / Empty
     options[:skip].concat %w(
@@ -126,8 +145,8 @@ module Docs
       url.sub! "#{Dom.base_url}/Window",                        "#{Dom.base_url}/window"
       url.sub! "#{Dom.base_url}/window.navigator",              "#{Dom.base_url}/navigator"
       url.sub! "#{Dom.base_url}/Selection/",                    "#{Dom.base_url}/Selection."
-      url.sub! "#{Dom.base_url}/windowTimers",                  "#{Dom.base_url}/window"
-      url.sub! "#{Dom.base_url}/windowEventHandlers",           "#{Dom.base_url}/window"
+      # url.sub! "#{Dom.base_url}/windowTimers",                  "#{Dom.base_url}/window"
+      # url.sub! "#{Dom.base_url}/windowEventHandlers",           "#{Dom.base_url}/window"
       url.sub! %r{\/windowLocalStorage(\.localStorage)?}i,      "/window.localStorage"
       url.sub! %r{\/windowSessionStorage(\.sessionStorage)?}i,  "/window.sessionStorage"
       url.sub! "#{Dom.base_url}/Screen.",                       "#{Dom.base_url}/window.screen"

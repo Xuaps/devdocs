@@ -4,8 +4,8 @@ module Docs
     self.slug = 'dom_events'
     self.base_url = 'https://developer.mozilla.org/en-US/docs/Web/Events'
 
-    html_filters.insert_after 'clean_html', 'dom_events/clean_html'
-    html_filters.push 'dom_events/entries', 'title'
+    html_filters.insert_after 'clean_html'
+    html_filters.push 'dom_events/entries', 'dom_events/clean_html', 'title'
     self.initial_paths = %w(
       /Events)
     options[:skip_patterns] = [/\w*\$\w+/i]
