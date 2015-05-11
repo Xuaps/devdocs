@@ -6,6 +6,9 @@ module Docs
 
     html_filters.push 'maxcdn/clean_html', 'maxcdn/entries'
 
+    options[:domain] = 'http://www.refly.co'
+    options[:root_title] = 'MaxCDN'
+    options[:docset_uri] = '/maxcdn'
     options[:container] = '#readme-docs'
     options[:skip_links] = true
 
