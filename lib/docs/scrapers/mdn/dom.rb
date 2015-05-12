@@ -11,6 +11,7 @@ module Docs
       /identitymanager
       /WindowEventHandlers
       /css_object_model
+      /Event
       /web_crypto_api
       /CSSStyleDeclaration
       /canvas_api/tutorial)

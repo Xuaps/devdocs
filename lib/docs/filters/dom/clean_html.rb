@@ -22,20 +22,6 @@ module Docs
         'en/dom/window.top' => 'window/top'
       }
       def call
-        root_page? ? root : other
-        doc
-      end
-
-      def root
-        #Cleaning content
-        css('footer', '.quick-links', 'div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
-
-      end
-
-      def other
-        #Cleaning content
-        css('footer', '.quick-links','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
-
         # fix links
         css('a[href]').each do |node|
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
@@ -67,6 +53,20 @@ module Docs
             end
           end
         end
+
+        root_page? ? root : other
+        doc
+      end
+
+      def root
+        #Cleaning content
+        css('footer', '.quick-links', 'div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
+
+      end
+
+      def other
+        #Cleaning content
+        css('footer', '.quick-links','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
 
         # Bug fix: HTMLElement.offsetWidth
         css('#offsetContainer .comment').remove

@@ -6,35 +6,10 @@ module Docs
         WeakSet)
       INTL_OBJECTS = %w(Collator DateTimeFormat NumberFormat)
 
-
-      def get_name
-        if slug.start_with? 'Global_Objects/'
-          subnames = *slug.sub('Global_Objects/', '').split('/')
-          if subnames.size>2
-            name = subnames[1]
-            method = subnames[2]
-          else
-            name = subnames[0]
-            method = subnames[1]
-          end
-          name.prepend 'Intl.' if INTL_OBJECTS.include?(name)
-          if method
-            unless method == method.upcase || method == 'NaN'
-              method = method[0].downcase + method[1..-1] # e.g. Trim => trim
-            end
-            name << ".#{method}"
-          end
-          name = 'Index' if name == ''
-
-          name
-        else
-          name = super
-          name.remove! 'Functions.'
-          name.remove! 'Functions and function scope.'
-          name.remove! 'Operators.'
-          name.remove! 'Statements.'
-          name
-        end
+      EXCLUDED_PATH = ['MDN','Web technology for developers', 'JavaScript']
+     def get_name
+        name = css('h1').first.content
+        name
       end
 
       def get_docset
@@ -43,17 +18,26 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path.tr('*','+')
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
+        parent_uri = context[:docset_uri]
+        xpath('//nav[@class="crumbs"]//a/text()').each do |node|
+           link = node.content.strip
+           if not EXCLUDED_PATH.include? link
+              parent_uri += '/' + self.urilized(link)
+           end
+        end
+        if parent_uri == context[:docset_uri]
             parent_uri = 'null'
         end
+        parent_uri
       end
 
       def get_type

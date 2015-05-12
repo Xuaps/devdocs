@@ -4,7 +4,7 @@ module Docs
     self.base_url = 'https://developer.mozilla.org/en-US/docs/Web/XPath'
     self.root_path = '/index'
 
-    html_filters.push 'xpath/clean_html', 'xpath/entries', 'title'
+    html_filters.push 'xpath/entries', 'xpath/clean_html', 'title'
 
     options[:root_title] = 'XPath'
     options[:docset_uri] = '/xpath'

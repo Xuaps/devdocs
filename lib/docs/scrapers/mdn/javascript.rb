@@ -32,7 +32,8 @@ module Docs
       /Global_Objects/object/__proto__
       /Global_Objects/object/__definegetter__
       /Global_Objects/object/__definesetter__
-      /Global_Objects/object/__lookupgetter__)
+      /Global_Objects/object/__lookupgetter__
+      /Global_Objects/function/constructor)
     options[:fix_urls] = ->(url) do
       url.sub! 'https://developer.mozilla.org/en-US/docs/JavaScript/Reference',  Javascript.base_url
       url.sub! 'https://developer.mozilla.org/en/JavaScript/Reference',          Javascript.base_url

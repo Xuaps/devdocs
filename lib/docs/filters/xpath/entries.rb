@@ -1,7 +1,7 @@
 module Docs
   class Xpath
     class EntriesFilter < Docs::EntriesFilter
-      
+      EXCLUDED_PATH = ['MDN','Web technology for developers', 'XPath']
       def get_name
         name = super
         name.remove!('Axes.')
@@ -15,17 +15,26 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
+        parent_uri = context[:docset_uri]
+        xpath('//nav[@class="crumbs"]//a/text()').each do |node|
+           link = node.content.strip
+           if not EXCLUDED_PATH.include? link
+              parent_uri += '/' + self.urilized(link)
+           end
+        end
+        if parent_uri == context[:docset_uri]
             parent_uri = 'null'
         end
+        parent_uri
       end
 
       def get_type
