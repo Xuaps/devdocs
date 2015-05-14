@@ -29,7 +29,7 @@ module Docs
         dir = link['href'][/javascript\/([^\/]+)/, 1]
         dir = dir.titleize.gsub('Rql', 'ReQL').gsub('And', 'and')
         if dir.include? 'Joins' or dir.include? 'Data' or  dir.include? 'Tables' or dir.include? 'Databases'
-            'commands'
+            'databse'
         elsif dir.include? 'Manipulation' or  dir.include? 'Math' or dir.include? 'String' or dir.include? 'Dates'
             'function'
         else

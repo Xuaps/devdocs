@@ -2,16 +2,16 @@ module Docs
   class Rethinkdb < UrlScraper
     self.name = 'RethinkDB'
     self.type = 'rethinkdb'
-    self.version = '1.15.2'
+    self.version = '2.0.1'
     self.base_url = 'http://rethinkdb.com/api/javascript/'
 
     html_filters.push 'rethinkdb/entries', 'rethinkdb/clean_html'
 
     options[:domain] = 'http://www.refly.co'
-    options[:trailing_slash] = false
-    options[:container] = '.container .section'
     options[:root_title] = 'RethinkDB'
     options[:docset_uri] = '/rethinkdb'
+    options[:trailing_slash] = false
+    options[:container] = '.docs-article'
 
     options[:fix_urls] = ->(url) do
       url.sub! %r{rethinkdb.com/api/(?!javascript|ruby|python)}, 'rethinkdb.com/api/javascript/'
