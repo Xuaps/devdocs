@@ -54,7 +54,6 @@ module Docs
           if REPLACED_LINKS[node['href'].downcase]
               node['href'] = REPLACED_LINKS[node['href']]
           elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
-            puts 'nodeini: ' + node['href']
             if node.content.strip.include? "\u{00B6}" or node['href'] == '#top'
               node.remove
             elsif node['href'].downcase.include? '/doc/syntax'
@@ -64,7 +63,6 @@ module Docs
               node['class'] = 'broken'
               node['href'] = context[:domain] + '/help#brokenlink'
             else
-              puts slug
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')
               newhref = []
@@ -82,7 +80,6 @@ module Docs
                 node['href'] = newhref.join('/')
               end
             end
-            puts 'nodefin: ' + node['href']
           end
         end
 

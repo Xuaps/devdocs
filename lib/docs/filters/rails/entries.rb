@@ -1,10 +1,6 @@
 module Docs
   class Rails
     class EntriesFilter < Docs::EntriesFilter
-      REPLACED_NAMES = {
-        'ActionView::Helpers' => 'Helpers',
-        '' => '',
-      }
       EXCLUDED_PATH = ['Libraries']
       def get_name
         if at_css('h1')

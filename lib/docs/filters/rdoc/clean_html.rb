@@ -2,6 +2,7 @@ module Docs
   class Rdoc
     class CleanHtmlFilter < Filter
       def call
+        puts doc
         root_page? ? root : other
         doc
       end

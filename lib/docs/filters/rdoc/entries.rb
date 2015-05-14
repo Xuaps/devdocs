@@ -16,7 +16,11 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
         parsed_uri
       end
 
@@ -27,10 +31,11 @@ module Docs
         else
             parent_uri = 'null'
         end
+        parent_uri
       end
 
       def get_type
-        type = name.dup
+        type = get_name
 
         unless type.gsub! %r{::.*\z}, ''
           parent = at_css('.meta-parent').try(:content).to_s
@@ -41,7 +46,7 @@ module Docs
       end
 
       def include_default_entry?
-        at_css('> .description p') || css('.documentation-section').any? { |node| node.content.present? }
+        true #at_css('> .description p') || css('.documentation-section').any? { |node| node.content.present? }
       end
 
       def additional_entries

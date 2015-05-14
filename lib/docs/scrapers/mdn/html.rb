@@ -12,13 +12,6 @@ module Docs
 
     options[:title] = false
     options[:skip_patterns] = [/\w*\$\w+/i]
-    options[:replace_paths] = {
-      '/Element/h1' => '/Element/Heading_Elements',
-      '/Element/h2' => '/Element/Heading_Elements',
-      '/Element/h3' => '/Element/Heading_Elements',
-      '/Element/h4' => '/Element/Heading_Elements',
-      '/Element/h5' => '/Element/Heading_Elements',
-      '/Element/h6' => '/Element/Heading_Elements' }
 
     options[:fix_urls] = ->(url) do
       url.sub! %r{https://developer\.mozilla\.org/en\-US/docs/Web/HTML/([_a-z@:])},  "#{Javascript.base_url}/\\1"

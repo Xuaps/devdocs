@@ -13,10 +13,6 @@ module Docs
     options[:docset_uri] = '/rails'
     options[:container] = '#content'
 
-    options[:skip] = %w()
-
-    options[:skip_patterns] = []
-
     options[:attribution] = <<-HTML
       &copy; 2004&ndash;2014 David Heinemeier Hansson<br>
       Licensed under the MIT License.
