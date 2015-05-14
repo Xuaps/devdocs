@@ -100,6 +100,7 @@ module Docs
           (options[:only] ||= []).concat initial_paths + (root_path? ? [root_path] : ['', '/'])
         end
 
+        options.merge!(additional_options) if respond_to?(:additional_options, true)
         options.freeze
       end
     end
@@ -148,6 +149,30 @@ module Docs
 
     def parse(string)
       Parser.new(string).html
+    end
+
+    module StubRootPage
+      private
+
+      def request_one(url)
+        stub_root_page if url == root_url.to_s
+        super
+      end
+
+      def request_all(urls, &block)
+        stub_root_page
+        super
+      end
+
+      def stub_root_page
+        response = Typhoeus::Response.new(
+          effective_url: root_url.to_s,
+          code: 200,
+          headers: { 'Content-Type' => 'text/html' },
+          body: root_page_body)
+
+        Typhoeus.stub(root_url.to_s).and_return(response)
+      end
     end
   end
 end

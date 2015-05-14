@@ -56,7 +56,7 @@ class DocImporter():
     def ProcessContent(self, content):
         for match in re.findall(self.link_re,content):
             anchor = ''
-            keymatch = match.lower().replace('../', '').replace('%24', '$')
+            keymatch = match.lower().replace('../', '') #.replace('%24', '$')
             if match.find('#')!=-1 and keymatch not in self.links.keys():
                 anchor = keymatch[keymatch.find('#'):]
                 keymatch = keymatch[:keymatch.find('#')]
