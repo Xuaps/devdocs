@@ -17,7 +17,7 @@ class LinkTester(unittest.TestCase):
 
     links = {}
     link_re = re.compile('<a[\w _\-="]*href="(?!.*:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
-    docset = 'laravel'
+    docset = 'dom'
     linkerrors = []
     index_path = ''
     content_path = '../../../public/docs/'
@@ -30,6 +30,7 @@ class LinkTester(unittest.TestCase):
                  entry['path'] = entry['path'].split('#')[0]
             filename = self.getFileName(self.content_path,self.docset, entry['path'])
             self.filename = filename
+            print '################# ' + filename + ' ###################'
             self.ProcessContent(self.getContent(filename))
         if len(self.linkerrors)>0:
             brokenlinksfile = open('brokenlinks_' + self.docset +'.log', 'a')
@@ -44,6 +45,7 @@ class LinkTester(unittest.TestCase):
         for match in re.findall(self.link_re,content):
             anchor = ''
             keymatch = match.lower().replace('%24', '$')
+            print match
             if match.find('#')!=-1 and keymatch not in self.links.keys():
                 anchor = keymatch[keymatch.find('#'):]
                 keymatch = keymatch[:keymatch.find('#')]

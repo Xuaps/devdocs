@@ -25,6 +25,7 @@ module Docs
         # fix links
         css('a[href]').each do |node|
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+            # puts 'nodeini: ' + node['href']
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['href'] = context[:domain] + '/help#brokenlink'
@@ -52,6 +53,7 @@ module Docs
               end
             end
           end
+          # puts 'nodefin: ' + node['href']
         end
 
         root_page? ? root : other
