@@ -1,5 +1,5 @@
 module Docs
-  class Ruby < Rdoc
+  class Ruby < UrlScraper
     # Generated with:
     # rdoc \
     #   --root . \
@@ -9,19 +9,18 @@ module Docs
     #   --format=darkfish \
     #   --no-line-numbers \
     #   --op html .
+    self.name = 'Ruby'
+    self.type = 'Ruby'
+    self.version = '2.2.2'
+    self.base_url =  'http://ruby-doc.org/stdlib-2.2.2/'
+    self.root_path = 'toc.html'
 
-    self.version = '2.2.0'
-    self.dir = '/home/desarrollo/Descargas/docs/ruby'
-    self.base_url = 'http://ruby-doc.org/core-2.2.0/'
-    self.root_path = 'index.html'
-
-    html_filters.replace 'rdoc/entries', 'ruby/entries'
-
+    html_filters.push 'ruby/clean_html', 'ruby/entries'
+    options[:domain] = 'http://www.refly.co'
     options[:root_title] = 'Ruby'
     options[:docset_uri] = '/ruby'
-    options[:title] = ->(filter) { filter.slug == 'globals_rdoc' ? 'Globals' : false }
 
-    options[:skip] += %w(
+    options[:skip] = %w(
       contributing_rdoc.html
       contributors_rdoc.html
       dtrace_probes_rdoc.html
@@ -38,39 +37,10 @@ module Docs
       OptParse.html
       UnicodeNormalize.html)
 
-    options[:skip_patterns] += [
-      /\Alib\//,
-      /\ADEBUGGER__/,
-      /\AException2MessageMapper/,
-      /\AJSON\/Ext/,
-      /\AGem/,
-      /\AHTTP/i,
-      /\AIRB/,
-      /\AMakeMakefile/i,
-      /\AMiniTest/i,
-      /\ANQXML/,
-      /\AOpenSSL/,
-      /\AOptionParser\//,
-      /\APrettyPrint/,
-      /\APride/,
-      /\AProfiler__/,
-      /\APsych\//,
-      /\ARacc/,
-      /\ARake/,
-      /\ARbConfig/,
-      /\ARDoc/,
-      /\AREXML/,
-      /\ARSS/,
-      /\AShell\//,
-      /\ASocket\//,
-      /\ATest/,
-      /\AWEBrick/,
-      /win32/i,
-      /\AXML/,
-      /\AXMP/]
+    options[:skip_patterns] = []
 
     options[:attribution] = <<-HTML
-      Ruby Core &copy; 1993&ndash;2014 Yukihiro Matsumoto<br>
+      Ruby Core &copy; 1993&ndash;2015 Yukihiro Matsumoto<br>
       Licensed under the Ruby License.<br>
       Ruby Standard Library &copy; contributors<br>
       Licensed under their own licenses.
