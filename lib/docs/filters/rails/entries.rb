@@ -1,69 +1,82 @@
 module Docs
   class Rails
-    class EntriesFilter < Docs::Rdoc::EntriesFilter
-      TYPE_BY_NAME_MATCHES = {
-        /Assertions|::Test|Fixture/                          => 'Testing',
-        /\AActiveRecord.+mysql/i                             => 'ActiveRecord/MySQL',
-        /\AActiveRecord.+postgresql/i                        => 'ActiveRecord/PostgreSQL',
-        /\AActiveRecord.+sqlite/i                            => 'ActiveRecord/SQLite',
-        /\AActiveRecord.+Assoc/                              => 'ActiveRecord/Associations',
-        /\AActiveRecord.+Attribute/                          => 'ActiveRecord/Attributes',
-        /\AActiveRecord.+ConnectionAdapters/                 => 'ActiveRecord/Connection',
-        /\AActiveSupport.+(Subscriber|Notifications)/        => 'ActiveSupport/Instrumentation',
-        /\A(False|Nil|True)Class/                            => 'Boolean' }
-
-      TYPE_BY_NAME_STARTS_WITH = {
-        'ActionDispatch::Integration' => 'Testing',
-        'ActionDispatch::Request'     => 'ActionDispatch/Request',
-        'ActionDispatch::Response'    => 'ActionDispatch/Response',
-        'ActionDispatch::Routing'     => 'ActionDispatch/Routing',
-        'ActionView::Helpers'         => 'ActionView/Helpers',
-        'ActiveModel::Errors'         => 'ActiveModel/Validation',
-        'ActiveModel::Valid'          => 'ActiveModel/Validation',
-        'ActiveRecord::Batches'       => 'ActiveModel/Query',
-        'ActiveRecord::Calculations'  => 'ActiveModel/Query',
-        'ActiveRecord::Connection'    => 'ActiveModel/Connection',
-        'ActiveRecord::FinderMethods' => 'ActiveModel/Query',
-        'ActiveRecord::Query'         => 'ActiveModel/Query',
-        'ActiveRecord::Relation'      => 'ActiveModel/Relation',
-        'ActiveRecord::Result'        => 'ActiveModel/Connection',
-        'ActiveRecord::Scoping'       => 'ActiveModel/Query',
-        'ActiveRecord::SpawnMethods'  => 'ActiveModel/Query',
-        'ActiveSupport::Cach'         => 'ActiveSupport/Caching',
-        'ActiveSupport::Inflector'    => 'ActiveSupport/Inflector',
-        'ActiveSupport::Time'         => 'ActiveSupport/TimeZones',
-        'Rails::Application'          => 'Rails/Application',
-        'Rails::Engine'               => 'Rails/Engine',
-        'Rails::Railtie'              => 'Rails/Railtie' }
-
-      def get_type
-        parent = at_css('.meta-parent').try(:content).to_s
-
-        if [name, parent].any? { |str| str.end_with?('Error') || str.end_with?('Exception') }
-          return 'Errors'
+    class EntriesFilter < Docs::EntriesFilter
+      REPLACED_NAMES = {
+        'ActionView::Helpers' => 'Helpers',
+        '' => '',
+      }
+      EXCLUDED_PATH = ['Libraries']
+      def get_name
+        if at_css('h1')
+          name = at_css('h1').content.strip
+          if name.index('::')
+            name = name.split('::').last
+          end
+        else
+          name = slug
         end
-
-        TYPE_BY_NAME_MATCHES.each_pair do |key, value|
-          return value if name =~ key
-        end
-
-        TYPE_BY_NAME_STARTS_WITH.each_pair do |key, value|
-          return value if name.start_with?(key)
-        end
-
-        super
+        name.remove! 'Module: '
+        name.remove! 'Class: '
+        name
       end
 
-      def include_default_entry?
-        super && !skip?
+      def get_docset
+        docset = context[:root_title]
+        docset
+      end
+
+      def get_parsed_uri_by_name(name)
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
+        parsed_uri
+      end
+
+      def get_parsed_uri
+        if get_parent_uri == 'null'
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+        else
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+        end
+        parsed_uri
+      end
+
+      def get_parent_uri
+        parent_uri = context[:docset_uri]
+        xpath('//div[@id="menu"]//a/text()').each do |node|
+           link = node.content.strip
+           if not EXCLUDED_PATH.include? link and !link.start_with? 'Index'
+              parent_uri += '/' + self.urilized(link)
+           end
+        end
+        if parent_uri == context[:docset_uri]
+            parent_uri = 'null'
+        end
+        parent_uri
+      end
+
+      def get_type
+        if at_css('h1')
+          name = at_css('h1').content.strip
+        else
+          name = 'others'
+        end
+        if name.start_with? 'Module'
+          type = 'module'
+        elsif name.start_with? 'Class'
+          type = 'class'
+        else
+          type = 'others'
+        end
+        type
       end
 
       def additional_entries
-        skip? ? [] : super
-      end
-
-      def skip?
-        @skip ||= !css('p').any? { |node| node.content.present? }
+        entries = []
+        css('h3.signature').each do |node|
+          name = node.content.strip
+          custom_parsed_uri = get_parsed_uri_by_name(name)
+          entries << [name, node['id'], 'method', custom_parsed_uri, get_parsed_uri, get_docset]
+        end
+        entries
       end
     end
   end
