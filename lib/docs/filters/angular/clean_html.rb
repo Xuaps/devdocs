@@ -1,16 +1,39 @@
 module Docs
   class Angular
     class CleanHtmlFilter < Filter
+      REPLACED_LINKS = {
+        '' => 'https://code.angularjs.org/1.3.14/docs/guide/'
+      }
+      BROKEN_LINKS = []
+
       def call
         root_page? ? root : other
 
-        # Remove ng-* attributes
+        #Remove ng-* attributes
         css('*').each do |node|
           node.attributes.each_key do |attribute|
             node.remove_attribute(attribute) if attribute.start_with? 'ng-'
           end
         end
+        css('a[href]').each do |node|
+          if REPLACED_LINKS[node['href'].downcase.remove! '../']
+              node['href'] = REPLACED_LINKS[node['href'].remove '../']
+          end
+          node['href'] = node['href'].remove 'api/'
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+            puts 'nodeini: ' + node['href']
+            if node['href'].start_with? 'guide/'
+              node['href'] = 'https://code.angularjs.org/1.3.14/docs/guide/' + node['href'].remove('guide/')
+            elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
+              node['class'] = 'broken'
+              node['href'] = context[:domain] + '/help#brokenlink'
+            end
+            puts 'nodefin: ' + node['href']
+          end
+        end
 
+        css('.improve-docs').remove
+        css('.view-source').remove
         doc
       end
 
@@ -35,8 +58,6 @@ module Docs
         css('header').each do |node|
           node.before(node.children).remove
         end
-
-        at_css('h1').add_child(css('.view-source', '.improve-docs'))
 
         # Remove root-level <div>
         while div = at_css('h1 + div')
