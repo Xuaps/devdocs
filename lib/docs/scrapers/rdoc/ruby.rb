@@ -1,14 +1,5 @@
 module Docs
   class Ruby < UrlScraper
-    # Generated with:
-    # rdoc \
-    #   --root . \
-    #   --page-dir doc \
-    #   --encoding=UTF-8 \
-    #   --visibility=public \
-    #   --format=darkfish \
-    #   --no-line-numbers \
-    #   --op html .
     self.name = 'Ruby'
     self.type = 'Ruby'
     self.version = '2.2.2'
