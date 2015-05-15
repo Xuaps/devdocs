@@ -23,7 +23,7 @@ class DocImporter():
     default_uri = ''
     total_entries = 0
     links = {}
-    link_re = re.compile('<a[\w _\-="]*href="(?!.*:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
+    link_re = re.compile('<a[\w _\-="]*href="(?!\w*:\/\/)([\(\)\*:$\_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
 
     #load config file
     def __init__(self, docset):

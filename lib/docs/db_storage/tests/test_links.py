@@ -16,7 +16,7 @@ from importer import DocImporter
 class LinkTester(unittest.TestCase):
 
     links = {}
-    link_re = re.compile('<a[\w _\-="]*href="(?!.*:\/\/)([\(\)\*:$_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
+    link_re = re.compile('<a[\w _\-="]*href="(?!\w*:\/\/)([\(\)\*:$\_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
     docset = 'dom'
     linkerrors = []
     index_path = ''
