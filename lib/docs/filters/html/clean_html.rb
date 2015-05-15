@@ -5,13 +5,15 @@ module Docs
       BROKEN_LINKS = [
           'en-us/docs/web/guide/prefixes',
           'tutorials',
+          'portfolio',
           'element/decorator',
           'element/en-us/docs/web/api/htmltableheadercellelement',
           'screen/en/dom/window.screen.top'
       ]
       REPLACED_LINKS = {
         'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/element/en-US/docs/Web/API/HTMLTableHeaderCellElement' => '',
-        'en-us/docs/web/api/htmltableheadercellelement' => 'https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableHeaderCellElement'
+        'en-us/docs/web/api/htmltableheadercellelement' => 'https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableHeaderCellElement',
+        'strict_mode' => 'strict_mode'
       }
 
       def call
@@ -31,11 +33,10 @@ module Docs
         #Cleaning content
         css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
         css('a[href]').each do |node|
-          if REPLACED_LINKS[node['href'].downcase.remove! '../']
-              node['href'] = REPLACED_LINKS[node['href'].remove '../']
-          end
           node['href'] = CleanWrongCharacters(node['href']).remove '_(event)'
-          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+          if REPLACED_LINKS[node['href'].downcase.remove! '../']
+              node['href'] = REPLACED_LINKS[node['href'].remove '../']          
+          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://'
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['href'] = context[:domain] + '/help#brokenlink'

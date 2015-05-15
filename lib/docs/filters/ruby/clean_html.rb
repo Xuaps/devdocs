@@ -18,7 +18,9 @@ module Docs
           'bqn0',
           'uwm',
           'widgetclassname',
-          'ary'
+          'ary',
+          '_territory',
+          'status'
       ]
       REPLACED_LINKS = {
         "www.ruby-lang.org" => "http://www.ruby-lang.org",
@@ -53,7 +55,7 @@ module Docs
           node['href'] = CleanWrongCharacters(node['href'])
           if REPLACED_LINKS[node['href'].downcase]
               node['href'] = REPLACED_LINKS[node['href']]
-          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://'
             if node.content.strip.include? "\u{00B6}" or node['href'] == '#top'
               node.remove
             elsif node['href'].downcase.include? '/doc/syntax'

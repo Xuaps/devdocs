@@ -5,7 +5,7 @@ module Docs
     self.initial_paths = %w(
       /Reference
     )
-    html_filters.push 'css/clean_html', 'css/entries'
+    html_filters.push 'css/entries', 'css/clean_html'
 
     options[:root_title] = 'CSS'
     options[:docset_uri] = '/css'

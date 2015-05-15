@@ -57,12 +57,17 @@ module Docs
           %w(translateX() translateX() function /css/transform-function/translateX() /css/transform-function CSS),
           %w(translateY() translateY() function /css/transform-function/translateY() /css/transform-function CSS),
           %w(translateZ() translateZ() function /css/transform-function/translateZ() /css/transform-function CSS) ]}
-
+      EXCLUDED_PATH = ['MDN','Web technology for developers', 'CSS']
       def get_name
         case type
         when 'type' then "<#{super.remove ' value'}>"
         when 'function'  then "#{super}()"
-        else super
+        else
+          if slug == 'Reference'
+            'CSS Reference'
+          else
+            super
+          end
         end
       end
 
@@ -81,12 +86,17 @@ module Docs
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
+        parent_uri = context[:docset_uri]
+        xpath('//nav[@class="crumbs"]//a/text()').each do |node|
+           link = node.content.strip
+           if not EXCLUDED_PATH.include? link
+              parent_uri += '/' + self.urilized(link)
+           end
+        end
+        if parent_uri == context[:docset_uri]
             parent_uri = 'null'
         end
+        parent_uri
       end
       def get_type
         if slug.include? 'selectors'

@@ -6,7 +6,9 @@ module Docs
           'en-us/docs/web/guide/prefixes'
       ]
       REPLACED_LINKS = {
-          'functions/strict_mode' => 'strict_mode'
+          'functions/strict_mode' => 'strict_mode',
+          'strict_mode' => 'strict_mode'
+
       }
       def call
         root_page? ? root : other
@@ -29,7 +31,8 @@ module Docs
         css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
         css('a[href]').each do |node|
           node['href'] = CleanWrongCharacters(node['href']).remove '_(event)'
-          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://'
+            # puts 'nodeini: ' + node['href']
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['href'] = context[:domain] + '/help#brokenlink'
@@ -56,6 +59,7 @@ module Docs
                 node['href'] = newhref.join('/')
               end
             end
+            # puts 'nodefin: ' + node['href']
           end
         end
 

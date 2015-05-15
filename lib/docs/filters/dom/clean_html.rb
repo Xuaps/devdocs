@@ -8,18 +8,24 @@ module Docs
           'en/link',
           'en/style',
           'en/chrome',
+          'en/firefox_3',
+          'en/dom/element',
           'en/dom/element.addeventlistener'
       ]
       REPLACED_LINKS = {
-        'float32array' => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array',
-        'uint8array'   => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array',
-        'boolean'      => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean',
-        'arraybuffer'  => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer',
-        'promise'      => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise',
-        'en-us/docs/javascript/reference/global_objects/function/call' => 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/Call',
+        'float32array' => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/float32array',
+        'uint8array'   => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/uint8array',
+        'int32array'   => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/int32array',
+        'boolean'      => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/boolean',
+        'arraybuffer'  => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/arraybuffer',
+        'promise'      => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/promise',
+        'en/html/element/a' => '#{context[:domain]}/html/html_element_reference/<a>',
+        'en/css/background-color' => '#{context[:domain]}/css/background-color',
+        'en-us/docs/javascript/reference/global_objects/function/call' => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/function/function.prototype.call',
         'en/dom/range.compareboundarypoints' => 'range/compareboundarypoints',
         'en/dom/window.screen.top' => 'screen/top',
-        'en/dom/window.top' => 'window/top'
+        'en/dom/window.top' => 'window/top',
+        'en/dom/document.getelementsbytagname' => 'element/getelementsbytagname'
       }
       def call
         # fix links
