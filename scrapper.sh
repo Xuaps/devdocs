@@ -6,11 +6,11 @@ do
 	if [ `echo ${URLS[$i]} | grep -c ".zip" ` -gt 0 ]
 	then
 	    wget ${URLS[$i]} -O ./file_scraper_docs/${NAME[$i]}.zip
-	    unzip ./file_scraper_docs/${NAME[$i]}.zip -o -d ./file_scraper_docs/${NAME[$i]}/
+	    unzip -o ./file_scraper_docs/${NAME[$i]}.zip -d ./file_scraper_docs/${NAME[$i]}/
     elif [ `echo ${URLS[$i]} | grep -c ".tar.gz" ` -gt 0 ]
     then
         wget ${URLS[$i]} -O ./file_scraper_docs/${NAME[$i]}.tar.gz
-        mkdir -p ./file_scraper_docs/${NAME[$i]} && tar -zxvf --overwrite ./file_scraper_docs/${NAME[$i]}.tar.gz -C ./file_scraper_docs/${NAME[$i]}
+        mkdir -p ./file_scraper_docs/${NAME[$i]} && tar -zxvf ./file_scraper_docs/${NAME[$i]}.tar.gz -C ./file_scraper_docs/${NAME[$i]}
     fi
 done
 mv ./file_scraper_docs/python2/* ./file_scraper_docs/python2/docs
@@ -19,7 +19,7 @@ mv ./file_scraper_docs/python3/* ./file_scraper_docs/python3/docs
 date=`/bin/date "+%d/%m/%Y -%H:%M:%S"`
 echo "scrapping started at $date"
 OUTPUTLOG='errors.log'
-for docset in angular backbone bower c chai coffeescript cordova cpp css d3 django dom dom_events ember express git go grunt html http haskell jquery_core jquery_ui jquery_mobile javascript knockout laravel less lodash marionette markdown modernizr maxcdn moment mongoosejs nginx node nokogiri2 php2 phpunit postgresql python2 python rails react redis requirejs rethinkdb ruby sass sinon socketio svg underscore xpath yii
+for docset in angular backbone bower c chai coffeescript cordova cpp css d3 django dom dom_events ember express git go grunt html http haskell jquery_core jquery_ui jquery_mobile javascript knockout laravel less lodash marionette markdown modernizr maxcdn moment mongoosejs nginx node nokogiri2 npm php2 phpunit postgresql python2 python rails react redis requirejs rethinkdb ruby sass sinon socketio svg underscore xpath yii
 do
 	if thor docs:generate $docset --force
 	then
