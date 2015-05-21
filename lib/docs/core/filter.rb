@@ -77,5 +77,15 @@ module Docs
     def CleanWrongCharacters(href)
         href.gsub('%23', '#').gsub('%40', '@').gsub('%28', '(').gsub('%29', ')').gsub('%21', '!').gsub('%7b', '{').gsub('%7e', '~').gsub('%2a', '*').gsub('%2b', '+').gsub('%3d', '=')
     end
+
+    def WrapContentWithDivs(classname,doc)
+        divremovable = Nokogiri::XML::Node.new "div", doc
+        divcontainer = Nokogiri::XML::Node.new "div", doc
+        divcontainer['class'] = classname
+        divcontainer.children = doc
+        divremovable.children = divcontainer
+        doc = divremovable
+        doc
+    end
   end
 end
