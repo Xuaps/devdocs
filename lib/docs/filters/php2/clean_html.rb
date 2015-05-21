@@ -8,6 +8,7 @@ module Docs
       ]
       def call
         root_page? ? root : other
+        doc = WrapContentWithDivs('_page _php',@doc)
         doc
       end
 
@@ -36,7 +37,7 @@ module Docs
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://'
             if BROKEN_LINKS.include? node['href']
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             end
           end
         end

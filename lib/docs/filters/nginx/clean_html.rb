@@ -30,7 +30,7 @@ module Docs
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
             if BROKEN_LINKS.include?node['href'].downcase
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')
@@ -52,6 +52,7 @@ module Docs
           end
         end
 
+        doc = WrapContentWithDivs('_page _nginx',@doc)
         doc
       end
       def CleanWrongCharacters(href)

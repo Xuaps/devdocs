@@ -8,6 +8,7 @@ module Docs
 
         root_page? ? root : other
 
+        doc = WrapContentWithDivs('_page _yard',@doc)
         doc
       end
 

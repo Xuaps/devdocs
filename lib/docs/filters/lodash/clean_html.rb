@@ -20,6 +20,7 @@ module Docs
           node.content = node.content
         end
 
+        doc = WrapContentWithDivs('_page _lodash',@doc)
         doc
       end
     end

@@ -25,7 +25,7 @@ module Docs
         css('pre').each do |node|
           node['class'] = 'runnable  language-javascript'
         end
-
+        doc = WrapContentWithDivs('_page _underscore',@doc)
         doc
       end
     end

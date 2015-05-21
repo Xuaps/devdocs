@@ -17,7 +17,7 @@ module Docs
             node['href'] = CleanWrongCharacters(node['href'])
             if BROKEN_LINKS.include?node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             elsif !node['href'].start_with? '#' and slug != 'library/index' and !node['href'].start_with? 'mailto:'
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')
@@ -46,6 +46,7 @@ module Docs
 
         root_page? ? root : other
 
+        doc = WrapContentWithDivs('_page _sphinx',@doc)
         doc
       end
 

@@ -14,6 +14,7 @@ module Docs
           node.name = 'code'
         end
 
+        doc = WrapContentWithDivs('_page _redis',@doc)
         doc
       end
     end

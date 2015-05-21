@@ -35,12 +35,12 @@ module Docs
             # puts 'nodeini: ' + node['href']
             if node['class'] == 'new'
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove! '../']
             elsif BROKEN_LINKS.include?node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')

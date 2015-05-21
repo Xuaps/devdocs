@@ -34,10 +34,10 @@ module Docs
             # puts 'nodeini: ' + node['href']
             if node['class'] == 'new'
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].downcase.remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].downcase.remove! '../']
             else

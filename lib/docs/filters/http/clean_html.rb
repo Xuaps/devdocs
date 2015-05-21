@@ -3,6 +3,7 @@ module Docs
     class CleanHtmlFilter < Filter
       def call
         root_page? ? root : other
+        doc = WrapContentWithDivs('_page _rfc',@doc)
         doc
       end
 

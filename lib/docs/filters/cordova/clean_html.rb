@@ -26,7 +26,7 @@ module Docs
         css('a[href]').each do |node|
           if BROKEN_LINKS.include? node['href']
             node['class'] = 'broken'
-            node['href'] = context[:domain] + '/help#brokenlink'
+            # node['href'] = context[:domain] + '/help#brokenlink'
           end
         end
 
@@ -35,6 +35,7 @@ module Docs
           node.content = node.content.remove(/^\ {4,5}/)
         end
 
+        doc = WrapContentWithDivs('_page _cordova',@doc)
         doc
       end
     end

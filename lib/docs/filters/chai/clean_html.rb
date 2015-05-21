@@ -36,6 +36,7 @@ module Docs
               node['href'] = 'api/plugins/index'
           end
         end
+        doc = WrapContentWithDivs('_page _chai',@doc)
         doc
       end
     end

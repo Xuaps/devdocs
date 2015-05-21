@@ -20,6 +20,7 @@ module Docs
 
         css('.docs-method-edit', '#plugins').remove
 
+        doc = WrapContentWithDivs('_page _moment',@doc)
         doc
       end
     end

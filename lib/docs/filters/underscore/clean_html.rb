@@ -28,6 +28,7 @@ module Docs
           node << code
         end
 
+        doc = WrapContentWithDivs('_page _underscore',@doc)
         doc
       end
     end

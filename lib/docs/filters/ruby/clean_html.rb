@@ -35,6 +35,7 @@ module Docs
         end
         root_page? ? root : other
 
+        doc = WrapContentWithDivs('_page _rdoc',@doc)
         doc
 
       end

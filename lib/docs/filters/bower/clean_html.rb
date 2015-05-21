@@ -13,7 +13,7 @@ module Docs
           node['data-lang'] = node.at_css('[data-lang]')['data-lang']
           node.content = node.content
         end
-
+        doc = WrapContentWithDivs('_page _bower',@doc)
         doc
       end
     end

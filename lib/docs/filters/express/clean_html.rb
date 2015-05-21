@@ -22,7 +22,7 @@ module Docs
         css('pre').each do |node|
           node.content = node.content
         end
-
+        doc = WrapContentWithDivs('_page _express',@doc)
         doc
       end
     end

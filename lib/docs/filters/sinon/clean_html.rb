@@ -20,6 +20,7 @@ module Docs
           end
          end
         css('> p:first-child', 'a.api', 'ul.nav').remove
+        doc = WrapContentWithDivs('_page _sinon',@doc)
         doc
       end
     end

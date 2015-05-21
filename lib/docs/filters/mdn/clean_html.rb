@@ -21,7 +21,7 @@ module Docs
         end
 
         css('h2[style]', 'pre[style]').remove_attr('style')
-
+        doc = WrapContentWithDivs('_page _mdn',@doc)
         doc
       end
     end

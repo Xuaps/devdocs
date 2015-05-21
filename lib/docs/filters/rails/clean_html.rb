@@ -18,10 +18,10 @@ module Docs
               node.remove
             elsif node['href'].downcase.include? '/doc/syntax'
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')
@@ -46,6 +46,7 @@ module Docs
 
         root_page? ? root : other
 
+        doc = WrapContentWithDivs('_page _rdoc',@doc)
         doc
 
       end

@@ -29,6 +29,7 @@ module Docs
           node.content = node.content
         end
 
+        doc = WrapContentWithDivs('_page _less',@doc)
         doc
       end
     end

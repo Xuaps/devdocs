@@ -20,7 +20,7 @@ module Docs
               node['href'] = REPLACED_LINKS[node['href'].remove '../']
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              # node['href'] = context[:domain] + '/help#brokenlink'
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')
@@ -43,6 +43,7 @@ module Docs
           end
         end
 
+        doc = WrapContentWithDivs('_page _laravel',@doc)
         doc
       end
 

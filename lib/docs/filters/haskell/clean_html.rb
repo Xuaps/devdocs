@@ -41,7 +41,7 @@ module Docs
                 node['href'] = '#grunt.log.error-grunt.verbose.error'
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
                node['class'] = 'broken'
-               node['href'] = context[:domain] + '/help#brokenlink'
+               # node['href'] = context[:domain] + '/help#brokenlink'
             end
           end
         end
@@ -85,7 +85,7 @@ module Docs
             node['class'] = 'version'
           end
         end
-
+        doc = WrapContentWithDivs('_page _haskell',@doc)
         doc
       end
     end

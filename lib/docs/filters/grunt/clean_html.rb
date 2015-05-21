@@ -30,7 +30,7 @@ module Docs
                 node['href'] = '#grunt.log.error-grunt.verbose.error'
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
                node['class'] = 'broken'
-               node['href'] = context[:domain] + '/help#brokenlink'
+               # node['href'] = context[:domain] + '/help#brokenlink'
             end
           end
         end
@@ -39,7 +39,7 @@ module Docs
         css('pre').each do |node|
           node.content = node.content
         end
-
+        doc = WrapContentWithDivs('_page _grunt',@doc)
         doc
       end
       def CleanWrongCharacters(href)

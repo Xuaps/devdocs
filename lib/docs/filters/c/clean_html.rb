@@ -135,7 +135,7 @@ module Docs
           node.name = 'div'
           node.content = node.content
         end
-
+        doc = WrapContentWithDivs('_page _c',@doc)
         doc
       end
     end

@@ -71,6 +71,7 @@ module Docs
           end
         end
 
+        doc = WrapContentWithDivs('_page _rethinkdb',@doc)
         doc
       end
     end

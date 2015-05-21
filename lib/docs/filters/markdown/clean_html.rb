@@ -10,6 +10,7 @@ module Docs
           node.before(node.children).remove
         end
 
+        doc = WrapContentWithDivs('_page _markdown',@doc)
         doc
       end
     end

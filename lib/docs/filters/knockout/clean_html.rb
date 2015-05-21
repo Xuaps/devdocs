@@ -8,6 +8,7 @@ module Docs
           node.before(node.children).remove
         end
 
+        doc = WrapContentWithDivs('_page _knockout',@doc)
         doc
       end
 

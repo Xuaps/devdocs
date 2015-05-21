@@ -21,19 +21,20 @@ module Docs
           end
           node['href'] = node['href'].remove 'api/'
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
-            puts 'nodeini: ' + node['href']
+            # puts 'nodeini: ' + node['href']
             if node['href'].start_with? 'guide/'
-              node['href'] = 'https://code.angularjs.org/1.3.14/docs/guide/' + node['href'].remove('guide/')
+              #node['href'] = 'https://code.angularjs.org/1.3.14/docs/guide/' + node['href'].remove('guide/')
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              node['href'] = context[:domain] + '/help#brokenlink'
+              #node['href'] = context[:domain] + '/help#brokenlink'
             end
-            puts 'nodefin: ' + node['href']
+            # puts 'nodefin: ' + node['href']
           end
         end
 
         css('.improve-docs').remove
         css('.view-source').remove
+        doc = WrapContentWithDivs('_page _angular',@doc)
         doc
       end
 
@@ -102,6 +103,7 @@ module Docs
             h3.next_element.remove
           end
         end
+
       end
     end
   end

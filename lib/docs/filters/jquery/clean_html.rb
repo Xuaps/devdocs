@@ -31,7 +31,7 @@ module Docs
             node['href'] = CleanWrongCharacters(node['href']).remove '../'
             if BROKEN_LINKS.include? node['href'].downcase
                node['class'] = 'broken'
-               node['href'] = context[:domain] + '/help#brokenlink'
+               # node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].downcase.remove! '../']
                 node['href'] = REPLACED_LINKS[node['href'].remove '../']
             end
@@ -54,6 +54,7 @@ module Docs
           node.parent.replace(node)
         end
 
+        doc = WrapContentWithDivs('_page _jquery',@doc)
         doc
       end
     end

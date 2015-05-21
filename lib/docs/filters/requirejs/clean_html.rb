@@ -15,6 +15,7 @@ module Docs
           link.before(link.children).remove
         end
 
+        doc = WrapContentWithDivs('_page _requirejs',@doc)
         doc
       end
     end

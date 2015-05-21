@@ -54,6 +54,7 @@ module Docs
           node.name = 'code'
         end
 
+        doc = WrapContentWithDivs('_page _coffescript',@doc)
         doc
       end
     end
