@@ -1,16 +1,11 @@
 html {
-  height: 100%;
   font-size: 100%;
-  background: $contentBackground;
 
   @media #{$mediumScreen} { font-size: 93.75%; }
 }
-
+/*
 body {
-  height: 100%;
   margin: 0;
-  overflow: auto;
-  font: normal 1em/1.7 $baseFont;
   color: $textColor;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -19,7 +14,7 @@ body {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
-
+*/
 a {
   color: $linkColor;
   text-decoration: none;
@@ -68,6 +63,7 @@ ol ol ol { list-style-type: lower-roman; }
 
 li + li { margin-top: .25em; }
 li > ul, li > ol, dd > ul, dd > ol { margin: .5em 0; }
+li > p { margin-bottom: .25em; }
 
 dl { margin: 1.5em 0; }
 dt { font-weight: bold; }
@@ -89,6 +85,7 @@ pre, code, samp, %pre, %code {
   font-family: $monoFont;
   font-weight: normal;
   font-style: normal;
+  font-size: .9em;
   color: $textColor;
   white-space: pre-wrap;
   -moz-tab-size: 2;
@@ -101,7 +98,6 @@ pre, %pre {
   padding: .375rem .75rem;
   line-height: 1.5;
   overflow: auto;
-  font-size: .9em;
   @extend %box;
 }
 
@@ -148,6 +144,10 @@ td {
   + td { border-left: 1px solid $boxBorderLight; }
   tr:last-child > & { border-bottom: 0; }
 
+  > pre:only-child, > p:only-child, > ul:only-child, > ol:only-child {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
   > pre:last-child, > p:last-child, > ul:last-child, > ol:last-child { margin-bottom: 0; }
 }
 
