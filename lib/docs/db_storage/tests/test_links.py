@@ -11,12 +11,12 @@ import time
 from scrapy.http import HtmlResponse
 from refly_scraper.items import ReferenceItem
 from importer import DocImporter
+from lxml import html
 
 
 class LinkTester(unittest.TestCase):
 
     links = {}
-    link_re = re.compile('<a[\w _\-="]*href="(?!\w*:\/\/)([\(\)\*:$\_~\+\(\)\!\#\/%\-\w\.]*)"', re.IGNORECASE)
     docset = 'dom'
     linkerrors = []
     index_path = ''
@@ -42,15 +42,27 @@ class LinkTester(unittest.TestCase):
         self.assertEqual(len(self.linkerrors), 0)
 
     def ProcessContent(self, content):
-        for match in re.findall(self.link_re,content):
+        tree = html.fromstring(content)
+        links = tree.xpath('//a[@href]')
+        for alink in links:
             anchor = ''
-            keymatch = match.lower().replace('%24', '$')
-            print match
-            if match.find('#')!=-1 and keymatch not in self.links.keys():
-                anchor = keymatch[keymatch.find('#'):]
-                keymatch = keymatch[:keymatch.find('#')]
-            if keymatch not in self.links and anchor == '' and keymatch != '/help':
-                self.linkerrors.append('- "' + keymatch + '" in ' + self.filename)
+            keymatch = ''
+            if alink.get('href')!=None:
+                match = alink.get('href')
+                keymatch = match.lower().replace('../', '')
+            else:
+                match = '#'
+                keymatch = '#'
+            if not keymatch.startswith('http://') and not keymatch.startswith('https://') and not keymatch.startswith('ftp://') and not keymatch.startswith('irc://') and not keymatch.startswith('news://') and not keymatch.startswith('mailto:'):
+                if match.find('#')!=-1 and keymatch not in self.links.keys():
+                    anchor = keymatch[keymatch.find('#'):]
+                    keymatch = keymatch[:keymatch.find('#')]
+                if keymatch in self.links.keys():
+                    #print '"' + keymatch + '" - "' + match + '" : "' + self.links[keymatch] + '"'
+                    content = content.replace('"' + match + '"', '"' + self.links[keymatch] + anchor + '"',1)
+                if keymatch not in self.links and anchor == '' and alink.get('class') != 'broken':
+                    hour = time.strftime("%d/%m/%Y %H:%M:%S")
+                    self.linkerrors.append('- "' + keymatch + '" in ' + self.filename)
 
     def CreateLinkCollection(self, entries):
         links = {}

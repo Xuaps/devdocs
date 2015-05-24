@@ -8,7 +8,6 @@ import os.path
 import re
 import time
 import logging
-import pprint
 
 from lxml import html
 
@@ -65,7 +64,7 @@ class DocImporter():
             else:
                 match = '#'
                 keymatch = '#'
-            if not keymatch.startswith('http://') and not keymatch.startswith('https://') and not keymatch.startswith('ftp://')  and not keymatch.startswith('irc://') and not keymatch.startswith('mailto:'):
+            if not keymatch.startswith('http://') and not keymatch.startswith('https://') and not keymatch.startswith('ftp://') and not keymatch.startswith('irc://') and not keymatch.startswith('news://') and not keymatch.startswith('mailto:'):
                 if match.find('#')!=-1 and keymatch not in self.links.keys():
                     anchor = keymatch[keymatch.find('#'):]
                     keymatch = keymatch[:keymatch.find('#')]
