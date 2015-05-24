@@ -2,7 +2,9 @@ module Docs
   class Angular
     class CleanHtmlFilter < Filter
       REPLACED_LINKS = {
-        '' => 'https://code.angularjs.org/1.3.14/docs/guide/'
+        '' => 'https://code.angularjs.org/1.3.14/docs/guide/',
+        'guide/directive' => 'ng/directive',
+        'guide/filter' => 'ng/service/%24filter'
       }
       BROKEN_LINKS = []
 
@@ -23,10 +25,9 @@ module Docs
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
             # puts 'nodeini: ' + node['href']
             if node['href'].start_with? 'guide/'
-              #node['href'] = 'https://code.angularjs.org/1.3.14/docs/guide/' + node['href'].remove('guide/')
+              node['href'] = 'https://code.angularjs.org/1.3.14/docs/guide/' + node['href'].remove('guide/')
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              #node['href'] = context[:domain] + '/help#brokenlink'
             end
             # puts 'nodefin: ' + node['href']
           end

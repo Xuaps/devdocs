@@ -23,6 +23,7 @@ module Docs
       language/history.html
       regex/ecmascript.html
       regex/regex_token_iterator/operator_cmp.html
+
     )
     options[:only_patterns] = [/\.html\z/]
 

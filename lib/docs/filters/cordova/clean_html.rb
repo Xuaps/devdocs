@@ -26,7 +26,6 @@ module Docs
         css('a[href]').each do |node|
           if BROKEN_LINKS.include? node['href']
             node['class'] = 'broken'
-            # node['href'] = context[:domain] + '/help#brokenlink'
           end
         end
 

@@ -17,6 +17,10 @@ module Docs
           '0',
           'bqn0',
           'uwm',
+          '@modifier',
+          '\'field_name\'',
+          '\'path\'',
+          'position()=3',
           'widgetclassname',
           'ary',
           '_territory',
@@ -26,7 +30,8 @@ module Docs
         "www.ruby-lang.org" => "http://www.ruby-lang.org",
         "../drb"            => "libdoc/drb/rdoc/drb",
         "../rexml"          => "libdoc/rexml/rdoc/rexml",
-        "task"              => "libdoc/rdoc/rdoc/rdoc/task"
+        "task"              => "libdoc/rdoc/rdoc/rdoc/task",
+        "RDoc::Markup@Links"=> "mailto:markup@links"
       }
       def call
         css('#actionbar', '#metadata', '.title', '.link-list', 'form', '.info', '.dsq-brlink', '#footer').remove
@@ -56,7 +61,7 @@ module Docs
           node['href'] = CleanWrongCharacters(node['href'])
           if REPLACED_LINKS[node['href'].downcase]
               node['href'] = REPLACED_LINKS[node['href']]
-          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://'
+          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'mailto:'
             if node.content.strip.include? "\u{00B6}" or node['href'] == '#top'
               node.remove
             elsif node['href'].downcase.include? '/doc/syntax'

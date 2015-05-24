@@ -124,9 +124,12 @@ module Docs
             end
             if node['href'] == 'bad_array_new_length/bad_array_new_length'
                 node['href'] = 'memory/new/bad_array_new_length/bad_array_new_length'
-            end
-            if node['href'] == 'index'
+            elsif node['href'] == 'index'
                 node['href'] = 'header/utility'
+            elsif node['href'].end_with? 'operator='
+                node['href'] = node['href'].remove! '/operator='
+            elsif node['href'].end_with? '/operator+='
+                node['href'] = 'string/basic_string/basic_string'
             end
           end
         end

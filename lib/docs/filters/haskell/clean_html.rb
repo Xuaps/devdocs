@@ -15,7 +15,8 @@ module Docs
         'data-generics-instances',
         'control-monad-trans-writer',
         'base-4.7.0.0/foreign-foreignptr',
-        'if'
+        'if',
+        ')\''
       ]
       REPLACED_LINKS = {
         'text-prettyprint-hughespj' => 'pretty-1.1.1.1/text-prettyprint-hughespj'

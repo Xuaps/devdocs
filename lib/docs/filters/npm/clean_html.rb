@@ -28,7 +28,7 @@ module Docs
           node['href'] = CleanWrongCharacters(node['href'])
           if REPLACED_LINKS[node['href'].downcase]
               node['href'] = REPLACED_LINKS[node['href']]
-          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'mailto:'
             # puts 'nodeini: ' + node['href']
             if node.content.strip.include? "\u{00B6}" or node['href'] == '#top'
               node.remove

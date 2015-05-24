@@ -6,7 +6,7 @@ module Docs
       def get_name
 
         return 'IntlException' if slug == 'class.intlexception'
-        name = css('> .sect1 > .title', 'h1', 'h2', 'h4','.section > table > caption > strong').first.content
+        name = css('> .sect1 > .title','.refname', 'h1', 'h2', 'h4','.section > table > caption > strong').first.content
         name.remove! 'The '
         name.sub! ' class', ' (class)'
         name.sub! ' interface', ' (interface)'

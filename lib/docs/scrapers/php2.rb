@@ -22,6 +22,8 @@ module Docs
       ref.apc.php
       ref.apd.php
       ref.array.php
+      function.pdf-add-textflow.php
+      function.pdf-begin-document.php
       eventbufferevent.construct.php
       eventbufferevent.setcallbacks.php
       set.mysqlinfo.php

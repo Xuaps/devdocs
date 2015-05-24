@@ -33,10 +33,10 @@ module Docs
         #Cleaning content
         css('footer','div.article-meta', '.submenu', 'div.wiki-block', 'nav', '.toc', '#nav-access', '#main-header', '.title').remove
         css('a[href]').each do |node|
-          node['href'] = CleanWrongCharacters(node['href']).remove '_(event)'
+          node['href'] = CleanWrongCharacters(node['href']).downcase.remove '_(event)'
           if REPLACED_LINKS[node['href'].downcase.remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove '../']          
-          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://'
+          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'mailto:'
             if node['class'] == 'new'
               node['class'] = 'broken'
               # node['href'] = context[:domain] + '/help#brokenlink'

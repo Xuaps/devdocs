@@ -119,9 +119,7 @@ module Docs
          names.each do |_name|
              _name.prepend 'operator ' if hasoperator
              customname = get_custom_name(_name)
-             puts customname
              customparseduri = get_parsed_uri_by_name(_name)
-             puts customparseduri
              customparenturi = get_parsed_uri
              entries << [customname,nil,get_type,customparseduri,get_parsed_uri, get_docset]
          end

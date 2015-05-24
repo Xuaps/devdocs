@@ -4,7 +4,10 @@ module Docs
       BROKEN_LINKS = [
         'url.imagemagick.usage.color_mods.sigmoidal',
         'url.mongodb.dochub.maxWriteBatchSize',
-        'url.mongodb.dochub.maxbsonobjectsize'
+        'url.mongodb.dochub.maxbsonobjectsize',
+        'javascript:;',
+        'mongo.configure;',
+        'mongo.security;'
       ]
       def call
         root_page? ? root : other
@@ -34,7 +37,7 @@ module Docs
         end
         #fixing links
         css('a[href]').each do |node|
-          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://'
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'news://'
             if BROKEN_LINKS.include? node['href']
               node['class'] = 'broken'
               # node['href'] = context[:domain] + '/help#brokenlink'
