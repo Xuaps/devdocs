@@ -17,7 +17,11 @@
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #905;
+  @if $style == 'dark' {
+    color: #eb8160;
+  } @else {
+    color: #905;
+  }
 }
 
 .token.selector,
@@ -26,7 +30,11 @@
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #5e8e01;
+  @if $style == 'dark' {
+    color: #ddcf88;
+  } @else {
+    color: #5e8e01;
+  }
 }
 
 .token.operator,
@@ -34,23 +42,39 @@
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  color: #a67f59;
+  @if $style == 'dark' {
+    color: #b1c676;
+  } @else {
+    color: #a67f59;
+  }
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: #0070a3;
+  @if $style == 'dark' {
+    color: #91b3ed;
+  } @else {
+    color: #0070a3;
+  }
 }
 
 .token.function {
-  color: #dd4a68;
+  @if $style == 'dark' {
+    color: #c79e6b;
+  } @else {
+    color: #dd4a68;
+  }
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-  color: #e90;
+  @if $style == 'dark' {
+    color: #e9c062;
+  } @else {
+    color: #e90;
+  }
 }
 
 .token.important {
