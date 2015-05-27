@@ -1,6 +1,6 @@
 ._sphinx {
   h2, h3 { @extend %block-heading; }
-  dl:not(.docutils) > dt { @extend %block-label, %label-blue; }
+  dl:not(.docutils) dt { @extend %block-label, %label-blue; }
   dt + dt { margin-top: -.5em; }
 
   .note, .admonition, .versionadded, .versionchanged, .deprecated-removed { @extend %note; }
