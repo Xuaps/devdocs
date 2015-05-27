@@ -17,7 +17,8 @@ module Docs
         css('[name]').each do |node|
           node.remove_attribute 'name'
         end
-
+        WrapPreContentWithCode 'hljs dart'
+        WrapContentWithDivs '_page _maxcdn'
         doc
       end
     end

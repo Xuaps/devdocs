@@ -8,7 +8,8 @@ module Docs
 
         root_page? ? root : other
 
-        doc = WrapContentWithDivs('_page _yard',@doc)
+        WrapPreContentWithCode 'hljs css'
+        WrapContentWithDivs '_page _yard'
         doc
       end
 

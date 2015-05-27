@@ -10,7 +10,8 @@ module Docs
           node.before(node.children).remove
         end
 
-        doc = WrapContentWithDivs('_page _markdown',@doc)
+        WrapPreContentWithCode 'hljs asciidoc'
+        WrapContentWithDivs '_page _markdown'
         doc
       end
     end

@@ -3,7 +3,8 @@ module Docs
     class CleanHtmlFilter < Filter
       def call
         root_page? ? root : other
-        doc = WrapContentWithDivs('_page _php',@doc)
+        WrapPreContentWithCode 'hljs php'
+        WrapContentWithDivs '_page _php'
         doc
       end
 
@@ -22,6 +23,7 @@ module Docs
         # Put code blocks in <pre> tags
         css('.phpcode > code').each do |node|
           node.name = 'pre'
+          node['class'] = ''
         end
       end
     end

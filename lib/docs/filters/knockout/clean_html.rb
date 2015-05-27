@@ -8,7 +8,8 @@ module Docs
           node.before(node.children).remove
         end
 
-        doc = WrapContentWithDivs('_page _knockout',@doc)
+        WrapPreContentWithCode 'hljs actionscript'
+        WrapContentWithDivs '_page _knockout'
         doc
       end
 

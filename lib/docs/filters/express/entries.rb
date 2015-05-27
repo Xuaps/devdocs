@@ -1,6 +1,10 @@
 module Docs
   class Express
     class EntriesFilter < Docs::EntriesFilter
+      def get_name
+        name = css('h2').first.content.strip
+        name
+      end
       def get_docset
         docset = context[:root_title]
         docset
@@ -36,6 +40,7 @@ module Docs
       def get_type
         'others'
       end
+
       def get_type_by_name(name, id)
         if name.include? 'req.' or name.include? 'Request' or id.include? 'req.'
             'request'
@@ -51,8 +56,8 @@ module Docs
       end
 
       def additional_entries
-        
-        doc.children.each_with_object [] do |node, entries|
+        entries = []
+        css('h2', 'h3', 'h4').each do |node|
           if node.name == 'h2'
             name = node.content
             type = name
@@ -73,6 +78,7 @@ module Docs
             entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
+        entries
       end
     end
   end

@@ -54,7 +54,8 @@ module Docs
           node.name = 'code'
         end
 
-        doc = WrapContentWithDivs('_page _coffescript',@doc)
+        WrapPreContentWithCode 'hljs coffeescript'
+        WrapContentWithDivs '_page _coffescript'
         doc
       end
     end

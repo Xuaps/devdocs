@@ -10,11 +10,8 @@ module Docs
           node.before(node.children).remove
         end
 
-        css('.example > pre').each do |node|
-          node.name = 'code'
-        end
-
-        doc = WrapContentWithDivs('_page _redis',@doc)
+        WrapPreContentWithCode 'hljs sql'
+        WrapContentWithDivs '_page _redis'
         doc
       end
     end

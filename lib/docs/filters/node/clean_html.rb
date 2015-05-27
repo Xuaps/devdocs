@@ -27,7 +27,8 @@ module Docs
               node['href'] = REPLACED_ANCHOR[node['href']]
           end
         end
-        doc = WrapContentWithDivs('_page _node',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _node'
         doc
       end
     end

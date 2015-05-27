@@ -18,14 +18,8 @@ module Docs
           node.name = 'pre'
         end
 
-        css('code').each do |node|
-          node.name = 'pre'
-        end
-
-        css('pre').each do |node|
-          node['class'] = 'runnable  language-javascript'
-        end
-        doc = WrapContentWithDivs('_page _underscore',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _underscore'
         doc
       end
     end

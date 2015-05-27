@@ -35,7 +35,8 @@ module Docs
 
         css('.improve-docs').remove
         css('.view-source').remove
-        doc = WrapContentWithDivs('_page _angular',@doc)
+        WrapPreContentWithCode 'lang-js hljs javascript'
+        WrapContentWithDivs '_page _angular'
         doc
       end
 

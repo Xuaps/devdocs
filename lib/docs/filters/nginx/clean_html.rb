@@ -52,7 +52,8 @@ module Docs
           end
         end
 
-        doc = WrapContentWithDivs('_page _nginx',@doc)
+        WrapPreContentWithCode 'hljs nginx'
+        WrapContentWithDivs '_page _nginx'
         doc
       end
       def CleanWrongCharacters(href)

@@ -15,6 +15,7 @@ module Docs
           '2',
           '1',
           '0',
+          '',
           'bqn0',
           'uwm',
           '@modifier',
@@ -27,11 +28,11 @@ module Docs
           'status'
       ]
       REPLACED_LINKS = {
-        "www.ruby-lang.org" => "http://www.ruby-lang.org",
-        "../drb"            => "libdoc/drb/rdoc/drb",
-        "../rexml"          => "libdoc/rexml/rdoc/rexml",
-        "task"              => "libdoc/rdoc/rdoc/rdoc/task",
-        "RDoc::Markup@Links"=> "mailto:markup@links"
+        "www.ruby-lang.org"  => "http://www.ruby-lang.org",
+        "../drb"             => "libdoc/drb/rdoc/drb",
+        "../rexml"           => "libdoc/rexml/rdoc/rexml",
+        "task"               => "libdoc/rdoc/rdoc/rdoc/task",
+        "rdoc::markup@links" => "mailto:markup@links"
       }
       def call
         css('#actionbar', '#metadata', '.title', '.link-list', 'form', '.info', '.dsq-brlink', '#footer').remove
@@ -40,7 +41,8 @@ module Docs
         end
         root_page? ? root : other
 
-        doc = WrapContentWithDivs('_page _rdoc',@doc)
+        WrapPreContentWithCode 'hljs ruby'
+        WrapContentWithDivs '_page _rdoc'
         doc
 
       end
@@ -59,6 +61,7 @@ module Docs
 
         css('a[href]').each do |node|
           node['href'] = CleanWrongCharacters(node['href'])
+          puts 'ini: ' + node['href']
           if REPLACED_LINKS[node['href'].downcase]
               node['href'] = REPLACED_LINKS[node['href']]
           elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'mailto:'
@@ -89,6 +92,7 @@ module Docs
               end
             end
           end
+          puts 'fin: ' + node['href']
         end
 
       end

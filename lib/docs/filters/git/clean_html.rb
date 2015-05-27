@@ -4,7 +4,8 @@ module Docs
 
       def call
         root_page? ? root : other
-        doc = WrapContentWithDivs('_page _git',@doc)
+        WrapPreContentWithCode 'hljs prolog'
+        WrapContentWithDivs '_page _git'
         doc
       end
 

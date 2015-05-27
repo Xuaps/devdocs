@@ -46,7 +46,8 @@ module Docs
 
         root_page? ? root : other
 
-        doc = WrapContentWithDivs('_page _rdoc',@doc)
+        WrapPreContentWithCode 'hljs ruby'
+        WrapContentWithDivs '_page _rdoc'
         doc
 
       end

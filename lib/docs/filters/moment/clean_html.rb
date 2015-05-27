@@ -20,7 +20,8 @@ module Docs
 
         css('.docs-method-edit', '#plugins').remove
 
-        doc = WrapContentWithDivs('_page _moment',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _moment'
         doc
       end
     end

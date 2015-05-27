@@ -71,7 +71,8 @@ module Docs
           end
         end
 
-        doc = WrapContentWithDivs('_page _rethinkdb',@doc)
+        WrapPreContentWithCode 'hljs nimrod'
+        WrapContentWithDivs '_page _rethinkdb'
         doc
       end
     end

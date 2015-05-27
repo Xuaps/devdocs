@@ -16,6 +16,9 @@ module Docs
         'Queue' => 'class',
         'Support' => 'class',
         'Validation' => 'class',
+        'Workbench' => 'utils',
+        'Exception' => 'object',
+        'Html' => 'object',
         'Redis' => 'object',
         'Cache' => 'object',
         'Cookie' => 'object',
@@ -36,6 +39,7 @@ module Docs
         'Pipeline' => 'object',
         'Http' => 'network',
         'IlluminateQueueClosure' => 'class',
+        'Illuminate' => 'class',
         'index' => 'others',
         'Hashing' => 'class',
       }

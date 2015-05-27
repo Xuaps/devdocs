@@ -29,7 +29,8 @@ module Docs
           node.before(node.children).remove
         end
 
-        doc = WrapContentWithDivs('_page _mongoose',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _mongoose'
         doc
       end
     end

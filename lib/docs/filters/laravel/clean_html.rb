@@ -43,7 +43,8 @@ module Docs
           end
         end
 
-        doc = WrapContentWithDivs('_page _laravel',@doc)
+        WrapPreContentWithCode 'hljs actionscript'
+        WrapContentWithDivs '_page _laravel'
         doc
       end
 

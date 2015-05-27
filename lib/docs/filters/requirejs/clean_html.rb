@@ -15,7 +15,8 @@ module Docs
           link.before(link.children).remove
         end
 
-        doc = WrapContentWithDivs('_page _requirejs',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _requirejs'
         doc
       end
     end

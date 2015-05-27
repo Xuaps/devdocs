@@ -58,7 +58,9 @@ module Docs
             end
           end
         end
-        doc = WrapContentWithDivs('_page _yii',@doc)
+        
+        WrapPreContentWithCode 'hljs signature'
+        WrapContentWithDivs '_page _yii'
         doc
       end
     end

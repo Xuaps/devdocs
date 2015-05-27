@@ -1,10 +1,31 @@
 module Docs
   class Markdown
     class EntriesFilter < Docs::EntriesFilter
-
+      REPLACE_TYPES = {
+        'Philosophy' => 'guide',
+        'Inline HTML' => 'guide',
+        'Automatic Escaping for Special Characters' => 'guide',
+        'Paragraphs and Line Breaks' => 'element',
+        'Headers' => 'element',
+        'Blockquotes' => 'element',
+        'Lists' => 'element',
+        'Code Blocks' => 'element',
+        'Horizontal Rules' => 'element',
+        'Links' => 'element',
+        'Emphasis' => 'element',
+        'Code' => 'element',
+        'Images' => 'element',
+        'Automatic Links' => 'others',
+        'Backslash Escapes' => 'others'
+      }
       def get_docset
         docset = context[:root_title]
         docset
+      end
+
+      def get_name
+        name = 'Markdown'
+        name
       end
 
       def get_parsed_uri_by_name(name)
@@ -27,17 +48,7 @@ module Docs
       end
 
       def get_type_by_name(typename)
-          if typename == 'Overview'
-              'guide'
-          elsif typename == 'Miscellaneous'
-              'others'
-          elsif typename == 'Block Elements'
-              'element'
-          elsif typename == 'Span Elements'
-              'element'
-          else
-               'others'
-          end
+          REPLACE_TYPES[typename] || get_type
       end
 
       def get_type
@@ -46,7 +57,8 @@ module Docs
 
       def additional_entries
         type = 'others'
-        doc.children.each_with_object [] do |node, entries|
+        entries = []
+        css('h3','h2').each do |node|
           if node.name == 'h2'
             name = node.content.strip
             type = name
@@ -54,10 +66,12 @@ module Docs
             entries << [name, node['id'], 'others', custom_parsed_uri, get_parent_uri, get_docset]
           elsif node.name == 'h3'
             name = node.content.strip
+            type = name
             custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [name, node['id'], get_type_by_name(type), custom_parsed_uri, get_parent_uri, get_docset]
           end
         end
+        entries
       end
     end
   end

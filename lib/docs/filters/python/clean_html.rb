@@ -43,10 +43,9 @@ module Docs
           node.name = 'code'
           node.remove_attribute 'class'
         end
-
         root_page? ? root : other
-
-        doc = WrapContentWithDivs('_page _sphinx',@doc)
+        WrapPreContentWithCode 'hljs python'
+        WrapContentWithDivs '_page _sphinx'
         doc
       end
 
@@ -91,6 +90,14 @@ module Docs
         # Remove <table> border attribute
         css('table[border]').each do |node|
           node.remove_attribute 'border'
+        end
+      end
+
+      def HighLightCode
+        css('pre').each do |node|
+            html = CodeRay.scan(remove_html_tags(node.content), :Python, :class).html()
+            node.children = Nokogiri::HTML::fragment(html)
+            node['class'] = 'CodeRay'
         end
       end
     end

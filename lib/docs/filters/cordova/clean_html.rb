@@ -33,8 +33,8 @@ module Docs
         css('pre').each do |node|
           node.content = node.content.remove(/^\ {4,5}/)
         end
-
-        doc = WrapContentWithDivs('_page _cordova',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _cordova'
         doc
       end
     end

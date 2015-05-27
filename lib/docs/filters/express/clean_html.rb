@@ -22,7 +22,8 @@ module Docs
         css('pre').each do |node|
           node.content = node.content
         end
-        doc = WrapContentWithDivs('_page _express',@doc)
+        WrapPreContentWithCode 'hljs actionscript'
+        WrapContentWithDivs '_page _express'
         doc
       end
     end

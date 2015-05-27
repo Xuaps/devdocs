@@ -39,7 +39,8 @@ module Docs
         css('pre').each do |node|
           node.content = node.content
         end
-        doc = WrapContentWithDivs('_page _grunt',@doc)
+        WrapPreContentWithCode 'hljs stylus'
+        WrapContentWithDivs '_page _grunt'
         doc
       end
       def CleanWrongCharacters(href)

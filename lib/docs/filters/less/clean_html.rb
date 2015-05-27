@@ -29,7 +29,8 @@ module Docs
           node.content = node.content
         end
 
-        doc = WrapContentWithDivs('_page _less',@doc)
+        WrapPreContentWithCode 'hljs less'
+        WrapContentWithDivs '_page _less'
         doc
       end
     end

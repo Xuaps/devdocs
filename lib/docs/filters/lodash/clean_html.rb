@@ -13,14 +13,8 @@ module Docs
         css('h2', 'h3').each do |node|
           node.content = node.content
         end
-
-        # Remove code highlighting
-        css('pre').each do |node|
-          node.inner_html = node.inner_html.gsub('<br>', "\n").gsub('&nbsp;', ' ')
-          node.content = node.content
-        end
-
-        doc = WrapContentWithDivs('_page _lodash',@doc)
+        WrapPreContentWithCode 'hljs coffeescript'
+        WrapContentWithDivs '_page _lodash'
         doc
       end
     end

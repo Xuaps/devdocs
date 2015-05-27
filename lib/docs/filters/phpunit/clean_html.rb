@@ -3,7 +3,8 @@ module Docs
     class CleanHtmlFilter < Filter
       def call
         root_page? ? root : other
-        doc = WrapContentWithDivs('_page _phpunit',@doc)
+        WrapPreContentWithCode 'hljs php'
+        WrapContentWithDivs '_page _phpunit'
         doc
       end
 

@@ -69,7 +69,8 @@ module Docs
           end
           node.content = node.at_css('pre').content
         end
-        doc = WrapContentWithDivs('_page _sphinx',@doc)
+        WrapPreContentWithCode 'hljs python'
+        WrapContentWithDivs '_page _sphinx'
         doc
       end
     end

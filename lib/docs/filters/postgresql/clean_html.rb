@@ -3,7 +3,8 @@ module Docs
     class CleanHtmlFilter < Filter
       def call
         root_page? ? root : other
-        doc = WrapContentWithDivs('_page _postgres',@doc)
+        WrapPreContentWithCode 'hljs sql'
+        WrapContentWithDivs '_page _postgres'
         doc
       end
 

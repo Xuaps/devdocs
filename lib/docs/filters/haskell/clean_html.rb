@@ -86,7 +86,8 @@ module Docs
             node['class'] = 'version'
           end
         end
-        doc = WrapContentWithDivs('_page _haskell',@doc)
+        WrapPreContentWithCode 'hljs haskell'
+        WrapContentWithDivs '_page _haskell'
         doc
       end
     end

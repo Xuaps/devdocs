@@ -14,7 +14,8 @@ module Docs
           node.name = node.name.sub(/\d/) { |i| i.to_i - 1 }
         end
 
-        doc = WrapContentWithDivs('_page _modernizr',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _modernizr'
         doc
       end
     end

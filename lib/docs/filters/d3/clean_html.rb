@@ -40,8 +40,8 @@ module Docs
         css('.highlight > pre').each do |node|
           node.content = node.content
         end
-
-        doc = WrapContentWithDivs('_page _d3',@doc)
+        WrapPreContentWithCode 'hljs less'
+        WrapContentWithDivs '_page _d3'
         doc
       end
     end

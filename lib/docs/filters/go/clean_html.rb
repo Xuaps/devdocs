@@ -67,7 +67,8 @@ module Docs
           node.children = node.at_css('.code').children
           node.name = 'pre'
         end
-        doc = WrapContentWithDivs('_page _go',@doc)
+        WrapPreContentWithCode 'hljs go'
+        WrapContentWithDivs '_page _go'
         doc
       end
       def CleanWrongCharacters(href)

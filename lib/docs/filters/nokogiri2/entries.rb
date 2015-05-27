@@ -1,9 +1,14 @@
 module Docs
   class Nokogiri2
     class EntriesFilter < Docs::EntriesFilter
+      REPLACED_NAMES = {
+        'README.rdoc' => 'README'
+      }
       EXCLUDED_PATH = ['Libraries']
       def get_name
-        if at_css('h1')
+        if REPLACED_NAMES.include? slug
+          name = REPLACED_NAMES[slug]
+        elsif at_css('h1')
           name = at_css('h1').content.strip
           if name.index('::')
             name = name.split('::').last

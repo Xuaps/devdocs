@@ -18,7 +18,8 @@ module Docs
           node.content = node.content
         end
 
-        doc = WrapContentWithDivs('_page _socketio',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _socketio'
         doc
       end
     end

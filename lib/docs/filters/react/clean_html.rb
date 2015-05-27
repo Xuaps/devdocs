@@ -64,7 +64,8 @@ module Docs
             # puts 'nodefin: ' + node['href']
           end
         end
-        doc = WrapContentWithDivs('_page _react',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _react'
         doc
       end
     end

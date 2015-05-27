@@ -59,7 +59,8 @@ module Docs
             # puts 'nodefin: ' + node['href']
           end
         end
-        doc = WrapContentWithDivs('_page _nom',@doc)
+        WrapPreContentWithCode 'hljs bash'
+        WrapContentWithDivs '_page _nom'
         doc
       end
     end

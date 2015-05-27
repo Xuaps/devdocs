@@ -53,8 +53,8 @@ module Docs
         css('dd > dl').each do |node|
           node.parent.replace(node)
         end
-
-        doc = WrapContentWithDivs('_page _jquery',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _jquery'
         doc
       end
     end

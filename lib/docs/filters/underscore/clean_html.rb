@@ -28,7 +28,8 @@ module Docs
           node << code
         end
 
-        doc = WrapContentWithDivs('_page _underscore',@doc)
+        WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _underscore'
         doc
       end
     end

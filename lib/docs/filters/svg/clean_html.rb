@@ -8,6 +8,7 @@ module Docs
       }
       def call
         root_page? ? root : other
+        WrapPreContentWithCode 'hljs javascript'
         doc
       end
 

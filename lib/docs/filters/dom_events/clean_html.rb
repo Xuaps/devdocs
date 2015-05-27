@@ -39,6 +39,7 @@ module Docs
         end
 
         root_page? ? root : other
+        WrapPreContentWithCode 'hljs javascript'
         doc
       end
 

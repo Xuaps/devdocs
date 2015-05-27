@@ -12,11 +12,6 @@ module Docs
           node.before(node.children).remove
         end
 
-        # Remove code highlighting
-        css('pre').each do |node|
-          node.content = node.content
-        end
-
         # Fix confictive links
         css('a[href]').each do |node|
           node['href'] = node['href'].remove('../../').remove('../')
@@ -36,7 +31,8 @@ module Docs
               node['href'] = 'api/plugins/index'
           end
         end
-        doc = WrapContentWithDivs('_page _chai',@doc)
+        WrapPreContentWithCode 'hljs lasso'
+        WrapContentWithDivs '_page _chai'
         doc
       end
     end
