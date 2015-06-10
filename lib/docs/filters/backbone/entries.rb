@@ -44,6 +44,10 @@ module Docs
           end
       end
 
+      def include_default_entry?
+        return false
+      end
+
       def additional_entries
         entries = []
         type = nil

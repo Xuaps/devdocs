@@ -9,6 +9,9 @@ module Docs
       EXCLUDED_PATH = ['MDN','Web technology for developers', 'JavaScript']
      def get_name
         name = css('h1').first.content
+        if name == ''
+          name = slug
+        end
         name
       end
 

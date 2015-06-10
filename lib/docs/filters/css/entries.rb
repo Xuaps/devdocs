@@ -65,6 +65,8 @@ module Docs
         else
           if slug == 'Reference'
             'CSS Reference'
+          elsif slug == ''
+            'Index'
           else
             super
           end
@@ -114,6 +116,10 @@ module Docs
         else
           'property'
         end
+      end
+
+      def include_default_entry?
+        return slug != ''
       end
 
       def additional_entries

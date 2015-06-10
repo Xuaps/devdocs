@@ -13,11 +13,13 @@ module Docs
       whyamd)
 
       def get_name
+        puts 'slug: ' + slug
         if at_css('h1')
-            at_css('h1').content
+            name = at_css('h1').content
         else
-            'RequireJS'
+            name = 'Index'
         end
+        name
       end
 
       def get_docset
@@ -65,6 +67,11 @@ module Docs
               'others'
           end
       end
+      
+      def include_default_entry?
+        return false if slug == ''
+        return true
+      end
 
       def additional_entries
         return [] unless SLUG_ENTRIES.include? slug
@@ -79,7 +86,7 @@ module Docs
             custom_parsed_uri = get_parsed_uri_by_name(name)
             id = node['id']
             entries << [name, id, 'guide', custom_parsed_uri, get_parent_uri, get_docset]
-          elsif node.name == 'h3' || node.name == 'h4'
+          elsif (node.name == 'h3' || node.name == 'h4') && node.content.strip !=''
             name = node.content
             custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]
