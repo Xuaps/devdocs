@@ -117,11 +117,13 @@ module Docs
          end
          names = mainname.split(',')[1..-1]
          names.each do |_name|
-             _name.prepend 'operator ' if hasoperator
-             customname = get_custom_name(_name)
-             customparseduri = get_parsed_uri_by_name(_name)
-             customparenturi = get_parsed_uri
-             entries << [customname,nil,get_type,customparseduri,get_parsed_uri, get_docset]
+            if _name.strip != '...'
+               _name.prepend 'operator ' if hasoperator
+               customname = get_custom_name(_name)
+               customparseduri = get_parsed_uri_by_name(_name)
+               customparenturi = get_parsed_uri
+               entries << [customname, nil,get_type,customparseduri,get_parsed_uri, get_docset]
+            end
          end
          entries
       end

@@ -14,6 +14,7 @@ module Docs
         'Cluster'                => 'others',
         'Modules'                => 'others',
         'Others'                 => 'others',
+        'About this Documentation'=> 'others',
         'util'                   => 'others',
         'console'                   => 'core',
         'Path'                   => 'core',
