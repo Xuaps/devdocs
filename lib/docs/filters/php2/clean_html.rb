@@ -21,6 +21,7 @@ module Docs
       end
 
       def other
+        css('#toTop').remove
         css('.manualnavbar', 'hr').remove
         css('.navbar.navbar-fixed-top').remove
         css('.head').remove
@@ -32,6 +33,7 @@ module Docs
         css('#trick').remove
         css('form').remove
         css('footer').remove
+
         # Remove top-level <div>
         if doc.elements.length == 1
           @doc = doc.first_element_child
@@ -45,7 +47,11 @@ module Docs
             end
           end
         end
-
+        
+        #replace all the classes function for phpfunction to avoid conflict with highlighterjs
+        css('.function').each do |node|
+          node['class'] = 'phpfunction'
+        end
         # Put code blocks in <pre> tags
         css('.phpcode > code').each do |node|
           node.name = 'pre'
