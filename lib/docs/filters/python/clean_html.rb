@@ -58,7 +58,10 @@ module Docs
         css('.headerlink', 'hr').remove
 
         # Clean headings
-
+        #replace all the classes function for pythonfunction to avoid conflict with highlighterjs
+        css('.function').each do |node|
+          node['class'] = 'pythonfunction'
+        end
         at_css('h1').tap do |node|
           node.content = node.content.sub!(/\A[\d\.]+/) { |str| @levelRegexp = /\A#{str}/; '' }
         end

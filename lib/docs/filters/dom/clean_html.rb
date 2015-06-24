@@ -22,7 +22,7 @@ module Docs
         'en/html/element/a' => '#{context[:domain]}/html/html_element_reference/<a>',
         'en/css/background-color' => '#{context[:domain]}/css/background-color',
         'en-us/docs/javascript/reference/global_objects/function/call' => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/function/function.prototype.call',
-        '/en-us/docs/web/http/headers' => '#{context[:domain]}/http/accept',
+        'en-us/docs/web/http/headers' => '#{context[:domain]}/http/accept',
         'en/dom/range.compareboundarypoints' => 'range/compareboundarypoints',
         'en/dom/window.screen.top' => 'screen/top',
         'en/dom/window.top' => 'window/top',
