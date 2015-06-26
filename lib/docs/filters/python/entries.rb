@@ -3,23 +3,39 @@ module Docs
     class EntriesFilter < Docs::EntriesFilter
 
       REPLACE_TYPES = {
-        'Runtime'                                 => 'core',
         'Cryptographic'                           => 'function',
         'Custom Interpreters'                     => 'function',
         'Structured Markup Processing Tools'      => 'function',
+        'Numeric & Mathematical'                  => 'function',
+        'Text Processing'                         => 'function',
+        'Multimedia'                              => 'function',
         'Data Compression & Archiving'            => 'data',
         'Internet Data'                           => 'data',
         'Generic Operating System'                => 'core',
         'Program Frameworks'                      => 'core',
+        'Concurrent Execution'                    => 'core',
+        'MS Windows'                              => 'core',
+        'Unix'                                    => 'core',
+        'Runtime'                                 => 'core',
         'Graphical User Interfaces with Tk'       => 'view',
         'Internet Data Handling'                  => 'network',
         'Internet Protocols & Support'            => 'network',
         'Interprocess Communication & Networking' => 'network',
         'Binary Data'                             => 'data',
+        'Data Persistence'                        => 'data',
         'array'                                   => 'type',
         'Built-in Types'                          => 'type',
         'Software Packaging & Distribution'       => 'others',
         'File & Directory Access'                 => 'others',
+        'Miscellaneous'                           => 'others',
+        ''                                        => 'others',
+        'File Formats'                            => 'io',
+        'Debugging & Profiling'                   => 'debugging',
+        'Superseded'                              => 'deprecated',
+        'Importing'                               => 'module',
+        'Functional Programming'                  => 'module',
+        'Development Tools'                       => 'module',
+        'Internationalization'                    => 'language',
         'Data Types'                              => 'type'}
 
       def get_name
@@ -53,7 +69,7 @@ module Docs
 
       def get_type
         return 'others' if slug.start_with? 'library/logging'
-        type = ''
+        type = 'others'
         type = at_css('.related a[accesskey="U"]').content if at_css('.related a[accesskey="U"]')
 
         if type == 'The Python Standard Library'

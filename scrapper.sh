@@ -13,8 +13,6 @@ do
         mkdir -p ./file_scraper_docs/${NAME[$i]} && tar -zxvf ./file_scraper_docs/${NAME[$i]}.tar.gz -C ./file_scraper_docs/${NAME[$i]}
     fi
 done
-mkdir -p ./file_scraper_docs/python2/docs
-mkdir -p ./file_scraper_docs/python3/docs
 mv ./file_scraper_docs/python2/* ./file_scraper_docs/python2/docs
 mv ./file_scraper_docs/python3/* ./file_scraper_docs/python3/docs
 

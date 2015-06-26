@@ -119,7 +119,7 @@ module Docs
       end
 
       def include_default_entry?
-        return slug != ''
+        return (slug != '' and !slug.start_with? '%')
       end
 
       def additional_entries
