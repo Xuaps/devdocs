@@ -13,8 +13,8 @@ do
         mkdir -p ./file_scraper_docs/${NAME[$i]} && tar -zxvf ./file_scraper_docs/${NAME[$i]}.tar.gz -C ./file_scraper_docs/${NAME[$i]}
     fi
 done
-mv ./file_scraper_docs/python2/* ./file_scraper_docs/python2/docs
-mv ./file_scraper_docs/python3/* ./file_scraper_docs/python3/docs
+mv ./file_scraper_docs/python2/python-2.7.10rc0-docs-html ./file_scraper_docs/python2/docs
+mv ./file_scraper_docs/python3/python-3.4.3-docs-html ./file_scraper_docs/python3/docs
 
 date=`/bin/date "+%d/%m/%Y -%H:%M:%S"`
 echo "scrapping started at $date"
