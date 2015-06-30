@@ -95,18 +95,9 @@
 //
 
 %external-link {
-  &:after {
-    display: inline-block;
-    width: .5rem;
-    height: .4375rem;
-    margin: .125rem 0 0 .0625rem;
-    vertical-align: top;
-    @if $style == 'dark' {
-      @extend %icon, %icon-link-white;
-    } @else {
-      @extend %icon, %icon-link;
-    }
-  }
+  background: url(../img/Icon_external_link.png)center right no-repeat;
+  padding-right: 13px;
+  padding-top: 10px;
 }
 
 %internal-link:after { content: none !important; }
