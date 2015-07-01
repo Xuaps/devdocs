@@ -9,7 +9,7 @@ module Docs
 
     options[:container] = ->(filter) { filter.root_page? ? '.toc' : nil }
     options[:title] = false
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'npm'
     options[:docset_uri] = '/npm'
     options[:skip] = %w(all)

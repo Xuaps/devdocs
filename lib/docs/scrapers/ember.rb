@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'ember/clean_html', 'ember/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:title] = false
     options[:root_title] = 'EmberJS'
     options[:docset_uri] = '/ember'

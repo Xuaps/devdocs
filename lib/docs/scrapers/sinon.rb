@@ -6,7 +6,7 @@ module Docs
     self.base_url = 'http://sinonjs.org/docs/'
     html_filters.push 'sinon/clean_html', 'sinon/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:title] = 'Sinon.JS'
     options[:container] = '.docs'
     options[:root_title] = 'SinonJS'

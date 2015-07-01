@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'rails/entries', 'rails/clean_html'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Rails'
     options[:docset_uri] = '/rails'
     options[:container] = '#content'

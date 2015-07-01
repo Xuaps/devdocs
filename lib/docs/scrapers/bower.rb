@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'bower/clean_html', 'bower/entries'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Bower'
     options[:docset_uri] = '/bower'
     options[:trailing_slash] = false

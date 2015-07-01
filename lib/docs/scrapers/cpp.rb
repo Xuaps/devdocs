@@ -13,7 +13,7 @@ module Docs
     html_filters.push 'cpp/entries', 'c/clean_html', 'title'
     text_filters.push 'cpp/fix_urls'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Cpp'
     options[:docset_uri] = '/cpp'
     options[:container] = '#content'

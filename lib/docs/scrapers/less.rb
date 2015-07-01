@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'less/clean_html', 'less/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:title] = 'Less'
     options[:root_title] = 'Less'
     options[:docset_uri] = '/less'

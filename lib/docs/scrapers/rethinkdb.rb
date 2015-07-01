@@ -7,7 +7,7 @@ module Docs
 
     html_filters.push 'rethinkdb/entries', 'rethinkdb/clean_html'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'RethinkDB'
     options[:docset_uri] = '/rethinkdb'
     options[:trailing_slash] = false

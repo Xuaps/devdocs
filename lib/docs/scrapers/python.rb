@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'python/entries', 'python/clean_html'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Python3'
     options[:docset_uri] = '/python3'
 

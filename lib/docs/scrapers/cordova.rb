@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'cordova/clean_html', 'cordova/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:container] = ->(filter) { filter.root_page? ? '#home' : '#content' }
     options[:title] = false
     options[:root_title] = 'Apache Cordova'

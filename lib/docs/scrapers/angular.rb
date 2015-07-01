@@ -11,7 +11,7 @@ module Docs
     text_filters.push 'angular/clean_urls'
 
     options[:title] = false
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'AngularJS'
     options[:docset_uri] = '/angularjs'
     options[:skip_patterns] = [

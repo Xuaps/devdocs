@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'socketio/clean_html', 'socketio/entries'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:container] = '#content'
     options[:root_title] = 'SocketIO'
     options[:docset_uri] = '/socketio'

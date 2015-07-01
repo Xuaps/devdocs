@@ -35,6 +35,7 @@ module Docs
             # puts 'nodeini: ' + node['href']
             if node['class'] == 'new'
               node['class'] = 'broken'
+              node['title'] = ''
               # node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'

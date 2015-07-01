@@ -6,7 +6,7 @@ module Docs
 
     html_filters.push 'redis/entries', 'redis/clean_html', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:container] = ->(filter) { filter.root_page? ? '#commands' : '.text' }
     options[:title] = false
     options[:root_title] = 'Redis'

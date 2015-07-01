@@ -9,7 +9,7 @@ module Docs
 
     html_filters.push 'd3/clean_html', 'd3/entries'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:container] = '#wiki-wrapper'
     options[:root_title] = 'D3'
     options[:docset_uri] = '/d3'

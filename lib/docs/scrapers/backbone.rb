@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'backbone/clean_html', 'backbone/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:title] = 'BackboneJS'
     options[:root_title] = 'BackboneJS'
     options[:docset_uri] = '/backbonejs'

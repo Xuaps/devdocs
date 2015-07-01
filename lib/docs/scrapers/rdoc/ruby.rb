@@ -7,7 +7,7 @@ module Docs
     self.root_path = 'toc.html'
 
     html_filters.push 'ruby/clean_html', 'ruby/entries'
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Ruby'
     options[:docset_uri] = '/ruby'
 

@@ -23,7 +23,7 @@ module Docs
     )
 
     html_filters.push 'git/clean_html', 'git/entries'
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Git'
     options[:title] = false
     options[:docset_uri] = '/git'

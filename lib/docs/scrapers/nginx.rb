@@ -13,7 +13,7 @@ module Docs
 
     html_filters.push 'nginx/clean_html', 'nginx/entries'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:container] = '#content'
     options[:root_title] = 'Nginx'
     options[:docset_uri] = '/nginx'

@@ -10,7 +10,7 @@ module Docs
     html_filters.insert_before 'normalize_urls', 'postgresql/extract_metadata'
     html_filters.push 'postgresql/clean_html', 'postgresql/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:title] = false
     options[:root_title] = 'PostgreSQL'
     options[:docset_uri] = '/postgresql'

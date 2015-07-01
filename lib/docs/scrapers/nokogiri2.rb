@@ -10,7 +10,7 @@ module Docs
     )
     html_filters.push 'nokogiri2/entries', 'nokogiri2/clean_html'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Nokogiri'
     options[:docset_uri] = '/nokogiri'
     options[:container] = '#content'

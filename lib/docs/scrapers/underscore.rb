@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'underscore/clean_html', 'underscore/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:title] = 'UnderscoreJS'
     options[:root_title] = 'UnderscoreJS'
     options[:docset_uri] = '/underscorejs'

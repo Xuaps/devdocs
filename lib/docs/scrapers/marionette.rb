@@ -9,7 +9,7 @@ module Docs
 
     html_filters.push 'marionette/clean_html', 'marionette/entries'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Marionette'
     options[:docset_uri] = '/marionette'
     options[:container] = '.docs__content'

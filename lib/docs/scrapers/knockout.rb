@@ -9,7 +9,7 @@ module Docs
 
     html_filters.push 'knockout/clean_html', 'knockout/entries'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'KnockOut'
     options[:docset_uri] = '/knockout'
     options[:follow_links] = ->(filter) { filter.root_page? }

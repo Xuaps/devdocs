@@ -16,7 +16,7 @@ module Docs
 
     options[:root_title] = 'Laravel'
     options[:docset_uri] = '/laravel'
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:only_patterns] = [
       /\A\/api\/5\.0\//,
       /\A\/docs\/5\.0\//]

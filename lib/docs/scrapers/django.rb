@@ -10,7 +10,7 @@ module Docs
     html_filters.push 'django/entries', 'django/clean_html'
     text_filters.push 'django/fix_urls'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:title] = false
     options[:root_title] = 'Django'
     options[:docset_uri] = '/django'

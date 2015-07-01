@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'node/clean_html', 'node/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:title] = false
     options[:root_title] = 'NodeJS'
     options[:docset_uri] = '/nodejs'

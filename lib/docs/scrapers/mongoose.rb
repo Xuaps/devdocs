@@ -9,7 +9,7 @@ module Docs
 
     html_filters.push 'mongoose/clean_html', 'mongoose/entries'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:container] = '#content'
     options[:root_title] = 'MongooseJS'
     options[:docset_uri] = '/mongoosejs'

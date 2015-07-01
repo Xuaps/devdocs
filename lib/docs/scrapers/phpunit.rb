@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'phpunit/clean_html', 'phpunit/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'PHPUnit'
     options[:docset_uri] = '/phpunit'
     options[:title] = false

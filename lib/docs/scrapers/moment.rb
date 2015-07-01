@@ -8,7 +8,7 @@ module Docs
 
     html_filters.push 'moment/clean_html', 'moment/entries', 'title'
 
-    options[:domain] = 'http://www.refly.co'
+    options[:domain] = 'http://www.refly.xyz'
     options[:title] = 'Moment.js'
     options[:container] = '.docs-content'
     options[:skip_links] = true
