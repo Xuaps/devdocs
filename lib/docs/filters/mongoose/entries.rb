@@ -3,7 +3,7 @@ module Docs
     class EntriesFilter < Docs::EntriesFilter
       def get_name
         if slug == 'api'
-          'Mongoose'
+          'Index'
         else
           at_css('h1').content
         end
@@ -67,10 +67,9 @@ module Docs
 
         css('h3[id]').each do |node|
           next if node['id'] == 'index_'
-
           name = node.content.strip
           name.sub! %r{\(.+\)}, '()'
-          next if name.include?(' ')
+          next if name.include?(' ') or name == '()'
 
           name = name.tr('#','.')
           type = name.split(/[#\.\(]/).first
