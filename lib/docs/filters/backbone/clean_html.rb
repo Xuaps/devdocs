@@ -2,6 +2,8 @@ module Docs
   class Backbone
     class CleanHtmlFilter < Filter
       def call
+        #change the classname to avoid conflicts with css classes
+        doc['class'] = 'cnt'
         # Remove Introduction, Upgrading, etc.
         while doc.child['id'] != 'Events'
           doc.child.remove
