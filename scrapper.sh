@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $1 = "scrap" ] || [ $1 = "fullprocess" ]
+if [ $1 == "scrap" ] || [ $1 == "fullprocess" ]
 then
 	NAME=(c python2 python3 django)
 	URLS=(http://upload.cppreference.com/mwiki/images/6/6c/html_book_20141118.tar.gz https://docs.python.org/2.7/archives/python-2.7.10rc0-docs-html.zip https://docs.python.org/3/archives/python-3.4.3-docs-html.zip https://docs.djangoproject.com/m/docs/django-docs-1.8-en.zip)
@@ -36,13 +36,13 @@ then
 	echo "scrapping finished at $date"
 fi
 
-if [ $1 = "import" ] || [ $1 = "fullprocess" ]
+if [ $1 == "import" ] || [ $1 == "fullprocess" ]
 then
 
 	export DYLD_FALLBACK_LIBRARY _PATH=/Library/PostgreSQL/9.4/lib/
 	cd lib/docs/db_storage/
 	docset=`cat lastimport.log`
-	if [[ -n "$docset" ]];
+	if [ -n "$docset" ] && [ $1 == "import" ];
 	then
 	    read -n1 -p "continue from $docset? [y,n]" input 
 	    if [[ $input == "Y" || $input == "y" ]]; then
@@ -50,6 +50,8 @@ then
 	    else
 	    	python import_docset.py -mall -cs$2
 	    fi
+	else
+		python import_docset.py -mall -cs$2
     fi
 	echo "import started at $date"
 	date=`/bin/date "+%d/%m/%Y -%H:%M:%S"`
