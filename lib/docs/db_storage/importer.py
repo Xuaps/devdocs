@@ -25,18 +25,24 @@ class DocImporter():
     links = {}
 
     #load config file
-    def __init__(self, docset):
+    def __init__(self, _docset, _mode, _connectionstring):
         self.config = ConfigParser.ConfigParser()
         self.config.read('importer.cfg')
-        User = self.config.get('Connection', 'User', 0)
-        Password = self.config.get('Connection', 'Password', 0)
-        Host = self.config.get('Connection', 'Host', 0)
-        DBname = self.config.get('Connection', 'DBname', 0)
-        self.connection_string = "host='"+ Host + "' dbname='" + DBname + "' user='" + User + "' password='" + Password + "'"
+        print _connectionstring
+        if(_connectionstring==''):
+            User = self.config.get('Connection', 'User', 0)
+            Password = self.config.get('Connection', 'Password', 0)
+            Host = self.config.get('Connection', 'Host', 0)
+            DBname = self.config.get('Connection', 'DBname', 0)
+            self.connection_string = "host='"+ Host + "' dbname='" + DBname + "' user='" + User + "' password='" + Password + "'"
+        else:
+            self.connection_string = _connectionstring
         self.debugMode = bool(self.config.get('Config', 'debugMode', 0))
         self.content_path = self.config.get('Path', 'base_path', 0)
-        if docset == 'all':
+        if _mode == 'all' or _mode == 'continue':
             sections = self.config.sections()
+            if _mode == 'continue':
+                sections = sections[sections.index(_docset):]
             for sect in sections:
                 if sect not in ['Connection', 'Config', 'Path']:
                     self.docset = sect
@@ -44,13 +50,17 @@ class DocImporter():
                     self.default_uri = self.config.get(sect, 'default_uri', 0)
                     self.index_path = self.content_path + sect +  '/index.json'
                     print '########################################   ' + sect + '   ########################################'
+                    lastimportfile = open('lastimport.log', 'w')
+                    lastimportfile.truncate()
+                    lastimportfile.write(sect)
+                    lastimportfile.close();
                     self.importToDB()
         else:
-            self.docset = docset
+            self.docset = _docset
             self.docset_name = self.config.get(self.docset, 'name', 0)
             self.default_uri = self.config.get(self.docset, 'default_uri', 0)
             self.index_path = self.content_path + self.docset +  '/index.json'
-
+            self.importToDB()
 
     def ProcessContent(self, content):
         tree = html.fromstring(content)
