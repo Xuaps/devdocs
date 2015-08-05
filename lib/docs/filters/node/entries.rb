@@ -99,15 +99,17 @@ module Docs
       def additional_entries
         klass = nil
         entries = []
-
-        css('> [id]').each do |node|
-          next if node.name == 'h1'
+        css('[id]').each do |node|
+          next if node.name == 'h1' || node.name == 'div'
 
           klass = nil if node.name == 'h2'
           name = node.content.strip
 
 
-
+          # Skip constructors
+          if name.start_with? 'new '
+            next
+          end
           # Ignore most global objects (found elsewhere)
           if type == 'object'
             custom_parsed_uri = get_parsed_uri_by_name(name)
