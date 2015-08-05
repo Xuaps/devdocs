@@ -10,11 +10,10 @@ module Docs
         @doc = at_css('.yui-g')
 
         css('a[href]').each do |node|
-          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://'
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? '#'
             node['href'] = CleanWrongCharacters(node['href'])
             if BROKEN_LINKS.include?node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              # node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].downcase.remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].downcase.remove! '../']
             elsif  !node['href'].start_with? 'mailto:'
