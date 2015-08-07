@@ -41,6 +41,22 @@ module Docs
         end
         root_page? ? root : other
 
+        #remove css title
+        css('title').each do |node|
+          node.remove
+        end
+        #remove css links
+        css('link').each do |node|
+          node.remove
+        end
+        #remove css links
+        css('.method-source-code').each do |node|
+          node['class'] = ''
+        end
+        #remove meta
+        css('meta').each do |node|
+          node.remove
+        end
         WrapPreContentWithCode 'hljs ruby'
         WrapContentWithDivs '_page _rdoc'
         doc
@@ -61,7 +77,6 @@ module Docs
 
         css('a[href]').each do |node|
           node['href'] = CleanWrongCharacters(node['href'])
-          puts 'ini: ' + node['href']
           if REPLACED_LINKS[node['href'].downcase]
               node['href'] = REPLACED_LINKS[node['href']]
           elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'mailto:'
@@ -92,9 +107,7 @@ module Docs
               end
             end
           end
-          puts 'fin: ' + node['href']
         end
-
       end
     end
   end

@@ -2,7 +2,6 @@ module Docs
   class Rdoc
     class CleanHtmlFilter < Filter
       def call
-        puts doc
         root_page? ? root : other
         doc
       end
@@ -13,6 +12,20 @@ module Docs
         # Remove skipped items
         css('li > span').each do |node|
           node.parent.remove
+        end
+
+        #remove css title
+        css('title').each do |node|
+          node.remove
+        end
+        #remove css links
+        css('link').each do |node|
+          node.remove
+        end
+
+        #remove meta
+        css('meta').each do |node|
+          node.remove
         end
       end
 
