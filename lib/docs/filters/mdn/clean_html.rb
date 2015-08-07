@@ -7,6 +7,7 @@ module Docs
         '.breadcrumbs',      # (e.g. CSS/animation)
         '.Quick_links',      # (e.g. CSS/animation)
         '.todo',
+        '.contributor-avatars',
         '.draftHeader']
 
       def call
@@ -16,6 +17,15 @@ module Docs
           node.name = 'th'
         end
 
+        #remove css links
+        css('link').each do |node|
+          node.remove
+        end
+
+        #remove meta
+        css('meta').each do |node|
+          node.remove
+        end
         css('nobr').each do |node|
           node.before(node.children).remove
         end

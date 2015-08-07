@@ -34,7 +34,15 @@ module Docs
         css('.detail-table th').each do |node|
           node.name = 'td'
         end
+        #remove css links
+        css('link').each do |node|
+          node.remove
+        end
 
+        #remove meta
+        css('meta').each do |node|
+          node.remove
+        end
         css('.detail-table td.signature').each do |node|
           node.name = 'th'
         end
