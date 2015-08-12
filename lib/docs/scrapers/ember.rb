@@ -11,7 +11,7 @@ module Docs
     options[:domain] = 'http://www.refly.xyz'
     options[:title] = false
     options[:root_title] = 'EmberJS'
-    options[:docset_uri] = '/ember'
+    options[:docset_uri] = '/emberjs'
 
     options[:container] = ->(filter) do
       filter.root_page? ? '#toc-list' : '#content'

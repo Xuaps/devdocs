@@ -3,13 +3,13 @@ module Docs
     class EntriesFilter < Docs::EntriesFilter
       ADDITIONAL_ENTRIES = {
         'modules/ember' => [
-          %w(Modules nil others /ember/modules null EmberJS)],
+          %w(Modules nil others /emberjs/modules null EmberJS)],
         'data/classes/DS.Store' => [
-          %w(Data/Classes nil others /ember/data/classes null EmberJS)],
+          %w(Data/Classes nil others /emberjs/data/classes null EmberJS)],
         'classes/Libraries' => [
-          %w(Classes nil others /ember/classes null EmberJS)],
+          %w(Classes nil others /emberjs/classes null EmberJS)],
         'data/modules/ember-data' => [
-          %w(Data/Modules nil others /ember/data/modules null EmberJS)]}
+          %w(Data/Modules nil others /emberjs/data/modules null EmberJS)]}
 
       def get_name
         if at_css('.api-header')
