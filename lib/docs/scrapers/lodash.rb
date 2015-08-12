@@ -9,7 +9,7 @@ module Docs
     html_filters.push 'lodash/clean_html', 'lodash/entries', 'title'
     options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Lo-Dash'
-    options[:docset_uri] = '/lodash'
+    options[:docset_uri] = '/lo-dash'
     options[:title] = 'Lo-Dash'
     options[:container] = 'h1+div+div'
     options[:skip_links] = true
