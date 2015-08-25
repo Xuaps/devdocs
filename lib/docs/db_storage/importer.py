@@ -19,6 +19,7 @@ class DocImporter():
     docset = ''
     filename = ''
     docset_name = ''
+    docset_parsed_name = ''
     index_path = ''
     default_uri = ''
     total_entries = 0
@@ -47,6 +48,7 @@ class DocImporter():
                 if sect not in ['Connection', 'Config', 'Path']:
                     self.docset = sect
                     self.docset_name = self.config.get(sect, 'name', 0)
+                    self.docset_parsed_name = self.config.get(sect, 'parsed_name', 0)
                     self.default_uri = self.config.get(sect, 'default_uri', 0)
                     self.index_path = self.content_path + sect +  '/index.json'
                     print '########################################   ' + sect + '   ########################################'
@@ -58,6 +60,7 @@ class DocImporter():
         else:
             self.docset = _docset
             self.docset_name = self.config.get(self.docset, 'name', 0)
+            self.docset_parsed_name = self.config.get(self.docset, 'parsed_name', 0)
             self.default_uri = self.config.get(self.docset, 'default_uri', 0)
             self.index_path = self.content_path + self.docset +  '/index.json'
             self.importToDB()
@@ -126,7 +129,7 @@ class DocImporter():
 
             self.emptyTable(conn,self.docset_name)
             self.moveToData(conn)
-            self.updateDocsets(conn,self.docset_name, self.default_uri)
+            self.updateDocsets(conn,self.docset_name, self.default_uri, self.docset_parsed_name)
             self.Commit(conn)
         except Exception, e:
             hour = time.strftime("%d/%m/%Y %H:%M:%S")
@@ -232,17 +235,17 @@ class DocImporter():
         pgcursor.execute(sqlinittable)
         conn.commit()
 
-    def updateDocsets(self, conn, docset, default_uri):
+    def updateDocsets(self, conn, docset, default_uri, parsed_name):
         sqldocsetselect = "SELECT docset FROM docsets WHERE docset = %s;"
-        sqldocsetinsert = "INSERT INTO docsets (docset, default_uri, pub_date, update_date, active) VALUES (%s,%s,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,%s);"
-        sqldocsetupdate = "UPDATE docsets SET default_uri = %s, update_date = CURRENT_TIMESTAMP WHERE docset = %s"
+        sqldocsetinsert = "INSERT INTO docsets (docset, default_uri, pub_date, update_date, active, parsed_name) VALUES (%s,%s,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,%s,%s);"
+        sqldocsetupdate = "UPDATE docsets SET default_uri = %s, update_date = CURRENT_TIMESTAMP, parsed_name = %s WHERE docset = %s"
         pgcursor = conn.cursor()
         pgcursor.execute(sqldocsetselect, [docset])
         docsetsrow = pgcursor.fetchone()
         if docsetsrow:
-            pgcursor.execute(sqldocsetupdate, [default_uri, docset])
+            pgcursor.execute(sqldocsetupdate, [default_uri, docset, parsed_name])
         else:
-            pgcursor.execute(sqldocsetinsert,[docset, default_uri, True])
+            pgcursor.execute(sqldocsetinsert,[docset, default_uri, True, parsed_name])
 
     def Finish(self,conn):
         self.initTable(conn)
