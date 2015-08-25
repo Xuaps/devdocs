@@ -9,7 +9,7 @@ module Docs
     html_filters.insert_before 'jquery/clean_html', 'jquery_mobile/entries'
 
     options[:root_title] = 'JQuery Mobile'
-    options[:docset_uri] = '/jquery-mobile'
+    options[:docset_uri] = '/jquery_mobile'
     #options[:skip] = %w(/tabs /theme)
     options[:skip_patterns].concat [/\A\/icons/]
     options[:skip] = %w(/cdn-cgi/l/email-protection)

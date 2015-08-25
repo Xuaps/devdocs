@@ -10,7 +10,7 @@ module Docs
       /Events)
     options[:skip_patterns] = [/\w*\$\w+/i]
     options[:root_title] = 'DOM Events'
-    options[:docset_uri] = '/dom-events'
+    options[:docset_uri] = '/dom_events'
     options[:fix_urls] = ->(url) do
       url.sub! 'https://developer.mozilla.org/en-US/Mozilla_event_reference',      DomEvents.base_url
       url.sub! 'https://developer.mozilla.org/en-US/docs/Mozilla_event_reference', DomEvents.base_url
