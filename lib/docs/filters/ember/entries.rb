@@ -87,7 +87,6 @@ module Docs
       end
 
       def additional_entries
-        puts 'slug: ' + slug
         if ADDITIONAL_ENTRIES.include? slug
             return ADDITIONAL_ENTRIES[slug]
         end
