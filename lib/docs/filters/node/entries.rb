@@ -90,6 +90,9 @@ module Docs
       def get_type
         if at_css('h1')
           type = at_css('h1').content.strip
+          if type == 'Synopsis'
+            type = 'others'
+          end
         else
           type = 'others'
         end
