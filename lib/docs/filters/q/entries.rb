@@ -48,7 +48,7 @@ module Docs
             type.remove! ' Methods'
             type.remove! ' API'
             custom_parsed_uri = get_parsed_uri_by_name(type)
-            entries << [type, node['id'], REPLACE_TYPES[type.strip] || type, custom_parsed_uri, get_parent_uri, get_docset] if type == 'Q.defer()'
+            entries << [type, node['id'], REPLACE_TYPES[type] || type, custom_parsed_uri, get_parent_uri, get_docset] if type == 'Q.defer()'
           when 'h4'
             name = node.content.strip
             name.sub! %r{\(.*?\).*}, '()'
