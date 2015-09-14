@@ -30,17 +30,7 @@ module Docs
       end
 
       def get_parent_uri
-        parent_uri = context[:docset_uri]
-        xpath('//nav[@class="crumbs"]//a/text()').each do |node|
-           link = node.content.strip
-           if not EXCLUDED_PATH.include? link
-              parent_uri += '/' + self.urilized(link)
-           end
-        end
-        if parent_uri == context[:docset_uri]
-            parent_uri = 'null'
-        end
-        parent_uri
+        'null'
       end
 
       def get_type
