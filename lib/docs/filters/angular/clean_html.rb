@@ -4,7 +4,10 @@ module Docs
       REPLACED_LINKS = {
         '' => 'https://code.angularjs.org/1.3.14/docs/guide/',
         'guide/directive' => 'ng/directive',
-        'guide/filter' => 'ng/service/%24filter'
+        'guide/filter' => 'ng/service/%24filter',
+        'error/ngmodel/numfmt' => 'https://code.angularjs.org/1.4.5/docs/partials/error/ngModel/numfmt.html',
+        'error/$compile/ctreq' => 'https://code.angularjs.org/1.4.5/docs/partials/error/%24compile/ctreq.html',
+        'error/$http/legacy' => 'https://code.angularjs.org/1.4.5/docs/partials/error/%24http/legacy.html'
       }
       BROKEN_LINKS = []
 
@@ -17,6 +20,23 @@ module Docs
             node.remove_attribute(attribute) if attribute.start_with? 'ng-'
           end
         end
+        #removed classes that are being used by bootstrap
+        css('.alert.alert-warning').each do |node|
+          node['class'] = node['class'].gsub(/alert-warning/,'')
+        end
+        css('.label').each do |node|
+          node['class'] = node['class'].gsub(/label/,'')
+        end
+
+        css('.improve-docs').remove
+        css('.view-source').remove
+        fixLinks
+        WrapPreContentWithCode 'lang-js hljs javascript'
+        WrapContentWithDivs '_page _angular'
+        doc
+      end
+
+      def fixLinks
         css('a[href]').each do |node|
           if REPLACED_LINKS[node['href'].downcase.remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove '../']
@@ -32,14 +52,8 @@ module Docs
             # puts 'nodefin: ' + node['href']
           end
         end
-
-        css('.improve-docs').remove
-        css('.view-source').remove
-        WrapPreContentWithCode 'lang-js hljs javascript'
-        WrapContentWithDivs '_page _angular'
-        doc
+        
       end
-
       def root
         css('.nav-index-group').each do |node|
           if heading = node.at_css('.nav-index-group-heading')

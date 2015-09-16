@@ -81,7 +81,7 @@ module Docs
       def additional_entries
         entries = []
 
-        css('ul.defs').each do |list|
+        css('ul.methods').each do |list|
           list.css('> li[id]').each do |node|
             next unless heading = node.at_css('h3')
             name = heading.content.strip
