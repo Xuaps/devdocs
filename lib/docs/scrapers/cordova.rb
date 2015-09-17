@@ -2,7 +2,7 @@ module Docs
   class Cordova < UrlScraper
     self.name = 'Cordova'
     self.type = 'cordova'
-    self.version = '4.0.0'
+    self.version = '5.1.1'
     self.base_url = 'http://cordova.apache.org/docs/en/4.0.0/'
     self.root_path = 'index.html'
 

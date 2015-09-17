@@ -2,7 +2,7 @@ module Docs
   class Rethinkdb < UrlScraper
     self.name = 'RethinkDB'
     self.type = 'rethinkdb'
-    self.version = '2.0.1'
+    self.version = '2.1.2'
     self.base_url = 'http://rethinkdb.com/api/javascript/'
 
     html_filters.push 'rethinkdb/entries', 'rethinkdb/clean_html'

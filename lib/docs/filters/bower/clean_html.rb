@@ -4,7 +4,6 @@ module Docs
       def call
         title = at_css('.page-title')
         @doc = at_css('.main')
-        doc.child.before(title)
 
         css('.site-footer').remove
 

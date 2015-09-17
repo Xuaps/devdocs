@@ -1,10 +1,14 @@
 module Docs
   class Bower
     class EntriesFilter < Docs::EntriesFilter
-      ENTRIES_SLUG = %w(api config creating-packages)
+      ENTRIES_SLUG = %w(api/ config creating-packages .bowerrc Commands)
 
       def get_name
-        at_css('h1').content
+        if slug == 'api/'
+          'Index'
+        else
+          at_css('h1').content
+        end
       end
 
       def get_docset
@@ -47,6 +51,10 @@ module Docs
         else
             'guide'
         end
+      end
+
+      def include_default_entry?
+        return false if slug == 'api/' or slug == 'creating-packages'
       end
 
       def additional_entries

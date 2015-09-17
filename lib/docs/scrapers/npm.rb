@@ -2,7 +2,7 @@ module Docs
   class Npm < UrlScraper
     self.name = 'npm'
     self.type = 'npm'
-    self.version = '2.9.0'
+    self.version = '2.13.0'
     self.base_url = 'https://docs.npmjs.com/'
 
     html_filters.push 'npm/entries', 'npm/clean_html', 'title'

@@ -3,7 +3,7 @@ module Docs
     self.name = 'Laravel'
     self.slug = 'laravel'
     self.type = 'laravel'
-    self.version = '5.0.0'
+    self.version = '5.1.1'
     self.base_url = 'http://laravel.com'
     self.root_path = '/api/5.0/index.html'
     self.initial_paths = %w(/api/5.0/classes.html api/5.0/Illuminate.html)

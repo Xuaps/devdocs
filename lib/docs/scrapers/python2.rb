@@ -2,7 +2,7 @@ module Docs
   class Python2 < FileScraper
     self.name = 'Python 2'
     self.slug = 'python2'
-    self.version = '2.7.8'
+    self.version = '2.7.10'
     self.type = 'sphinx'
     self.dir = './file_scraper_docs/python2/docs' # downloaded from docs.python.org/2.7/download.html
     self.base_url = 'http://docs.python.org/2.7/'

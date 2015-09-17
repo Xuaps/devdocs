@@ -3,7 +3,7 @@ module Docs
     self.name = 'Lo-Dash'
     self.slug = 'lodash'
     self.type = 'lodash'
-    self.version = '2.4.1'
+    self.version = '3.10.0'
     self.base_url = 'https://lodash.com/docs'
 
     html_filters.push 'lodash/clean_html', 'lodash/entries', 'title'

@@ -2,7 +2,7 @@ module Docs
   class Django < FileScraper
     self.name = 'Django'
     self.type = 'sphinx'
-    self.version = '1.8'
+    self.version = '1.8.4'
     self.dir = './file_scraper_docs/django'
     self.base_url = 'https://docs.djangoproject.com/en/1.8/'
     self.root_path = 'index.html'

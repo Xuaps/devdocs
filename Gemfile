@@ -33,15 +33,12 @@ group :docs do
   gem 'html-pipeline'
   gem 'progress_bar', require: false
   gem 'unix_utils', require: false
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 group :test do
   gem 'minitest'
   gem 'rr', require: false
   gem 'rack-test', require: false
-end
-
-if ENV['SELENIUM'] == '1'
-  gem 'capybara'
-  gem 'selenium-webdriver'
 end
