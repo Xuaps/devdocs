@@ -21,7 +21,7 @@ then
 	date=`/bin/date "+%d/%m/%Y -%H:%M:%S"`
 	echo "scrapping started at $date"
 	OUTPUTLOG='errors.log'
-	for docset in angular backbone bower c chai coffeescript cordova cpp css d3 django dom dom_events ember express git go grunt html http haskell jquery_core jquery_ui jquery_mobile javascript knockout laravel less lodash marionette markdown modernizr moment mongoose nginx node nokogiri2 npm php2 phpunit postgresql python2 python rails react redis requirejs rethinkdb ruby sass sinon socketio svg underscore xpath yii
+	for docset in angular apache backbone bower c chai clojure coffeescript cordova cpp css d3 django dom dom_events drupal ember express git go grunt html http haskell jquery_core jquery_ui jquery_mobile javascript knockout laravel less lodash lua marionette markdown mocha modernizr moment mongoose nginx node nokogiri2 npm opentsdb phalcon phaser php2 phpunit postgresql python2 python q rails react redis requirejs rethinkdb ruby rust sass sinon socketio svg symfony underscore vue webpack xpath yii yii1
 	do
 		if thor docs:generate $docset --force
 		then
