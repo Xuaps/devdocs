@@ -4,7 +4,7 @@ module Docs
     self.name = 'AngularJS'
     self.slug = 'angular'
     self.type = 'angular'
-    self.version = '1.3.14'
+    self.version = '1.4.5'
     self.base_url = "https://code.angularjs.org/#{version}/docs/partials/api/"
 
     html_filters.push 'angular/entries', 'angular/clean_html', 'title'
