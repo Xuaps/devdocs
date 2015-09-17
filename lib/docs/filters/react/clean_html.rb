@@ -2,9 +2,12 @@ module Docs
   class React
     class CleanHtmlFilter < Filter
       BROKEN_LINKS = [
+        'nativemodulesandroid.md'
       ]
       REPLACED_LINKS = {
-        'react/docs/advanced-performance' => 'advanced-performance'
+        'react/docs/advanced-performance' => 'advanced-performance',
+        'docs/docs/jsx-in-depth' => 'docs/jsx-in-depth',
+        'docs/docs/tutorial' => 'docs/tutorial'
       }
       def call
         @doc = at_css('.inner-content')
@@ -29,44 +32,45 @@ module Docs
           node.remove if node.content.strip == 'Note:'
         end
 
-        css('a[href]').each do |node|
-          node['href'] = CleanWrongCharacters(node['href'])
-          if REPLACED_LINKS[node['href'].downcase]
-              node['href'] = REPLACED_LINKS[node['href']]
-          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
-            # puts 'nodeini: ' + node['href']
-            if node.content.strip.include? "\u{00B6}" or node['href'] == '#top'
-              node.remove
-            elsif node['href'].downcase.include? '/doc/syntax'
-              node['class'] = 'broken'
-              # node['href'] = context[:domain] + '/help#brokenlink'
-            elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
-              node['class'] = 'broken'
-              # node['href'] = context[:domain] + '/help#brokenlink'
-            else
-              sluglist = slug.split('/')
-              nodelist = node['href'].split('/')
-              newhref = []
-              nodelist.each do |item|
-                if item == '..'
-                  sluglist.pop
-                else
-                  newhref << item
-                end
-              end
-              sluglist.pop
-              if sluglist.size>0
-                node['href'] = sluglist.join('/') + '/' + newhref.join('/')
-              else
-                node['href'] = newhref.join('/')
-              end
-            end
-            # puts 'nodefin: ' + node['href']
-          end
-        end
+        fixLinks
         WrapPreContentWithCode 'hljs javascript'
         WrapContentWithDivs '_page _react'
         doc
+      end
+      def fixLinks
+        css('a[href]').each do |node|
+          puts 'ini: ' + node['href']
+          node['href'] = CleanWrongCharacters(node['href']).downcase
+          if REPLACED_LINKS[node['href'].downcase.remove! '../']
+              node['href'] = REPLACED_LINKS[node['href'].remove '../']          
+          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? '#' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'news://' and !node['href'].start_with? 'mailto:'
+            if node['class'] == 'new'
+              node['class'] = 'broken'
+              node['title'] = ''
+            else
+              sluglist = slug.split('/')
+              if context[:url].to_s.include? '.html'
+                sluglist.pop
+              end
+              puts 'sluglist: '  + sluglist.to_s
+              nodelist = sluglist + node['href'].split('/')
+              newhref = []
+              nodelist.each do |item|
+                if item == '..'
+                  newhref.pop
+                elsif item != ''
+                  newhref << item
+                end
+              end
+              node['href'] = newhref.join('/')
+            end
+          end
+          if BROKEN_LINKS.include? node['href'].downcase.remove! '../'
+            node['class'] = 'broken'
+          end
+          node['href'] = REPLACED_LINKS[node['href']] || node['href']
+        end
+        
       end
     end
   end

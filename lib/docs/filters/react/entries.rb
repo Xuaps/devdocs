@@ -2,10 +2,9 @@ module Docs
   class React
     class EntriesFilter < Docs::EntriesFilter
       API_SLUGS = %w(
-        top-level-api
-        component-api
-        component-specs
-        glossary
+        docs/top-level-api
+        docs/component-api
+        docs/component-specs
       )
 
       def get_name
@@ -32,12 +31,7 @@ module Docs
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+        'null'
       end
 
       def get_type
@@ -57,17 +51,41 @@ module Docs
 
       end
 
+      # def additional_entries
+      #   return [] unless API_SLUGS.include?(slug)
+
+      #   css('.inner-content h3, .inner-content h4, .inner-content h2').map do |node|
+
+      #     name = node.content
+      #     name.remove! %r{[#\(\)]}
+      #     name.remove! %r{\w+\:}
+      #     id = node.at_css('.anchor')['name']
+      #     custom_parsed_uri = get_parsed_uri_by_name(name)
+      #     [name, id, get_type, custom_parsed_uri, get_parent_uri, get_docset]
+      #   end
+      # end
       def additional_entries
-        return [] unless API_SLUGS.include?(slug)
+        if API_SLUGS.include?(slug)
+          css('.inner-content h3, .inner-content h4').map do |node|
+            name = node.content
+            name.remove! %r{[#\(\)]}
+            name.remove! %r{\w+\:}
+            id = node.at_css('.anchor')['name']
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            [name, id, get_type, custom_parsed_uri, get_parent_uri, get_docset]
 
-        css('.inner-content h3, .inner-content h4, .inner-content h2').map do |node|
-
-          name = node.content
-          name.remove! %r{[#\(\)]}
-          name.remove! %r{\w+\:}
-          id = node.at_css('.anchor')['name']
-          custom_parsed_uri = get_parsed_uri_by_name(name)
-          [name, id, get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          end
+        else
+          css('.props > .prop > .propTitle').each_with_object([]) do |node, entries|
+            name = node.children.find(&:text?).try(:content)
+            next if name.blank?
+            sep = node.content.include?('static') ? '.' : '#'
+            name.prepend(self.name + sep)
+            name << '()' if node.css('.propType').last.content.start_with?('(')
+            id = node.at_css('.anchor')['name']
+            custom_parsed_uri = get_parsed_uri_by_name(name)
+            entries << [name, id, get_type, custom_parsed_uri, get_parent_uri, get_docset]
+          end
         end
       end
     end
