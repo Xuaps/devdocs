@@ -36,8 +36,7 @@ module Docs
       end
 
       def get_parsed_uri_by_name(name)
-        parsed_uri = context[:docset_uri]
-        parsed_uri
+          context[:docset_uri] + '/' + self.urilized(name.strip)
       end
       def get_parsed_uri
         if get_parent_uri == 'null'
