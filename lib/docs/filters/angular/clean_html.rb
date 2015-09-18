@@ -21,8 +21,8 @@ module Docs
           end
         end
         #removed classes that are being used by bootstrap
-        css('.alert.alert-warning').each do |node|
-          node['class'] = node['class'].gsub(/alert-warning/,'')
+        css('.alert').each do |node|
+          node['class'] = node['class'].gsub(/alert-warning/,'').gsub(/alert-info/,'')
         end
         css('.label').each do |node|
           node['class'] = node['class'].gsub(/label/,'')
