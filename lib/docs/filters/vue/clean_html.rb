@@ -38,7 +38,12 @@ module Docs
               if context[:url].to_s.include? '.html'
                 sluglist.pop
               end
-              nodelist = sluglist + node['href'].split('/')
+              # only for this docset
+              if node['href'].start_with? 'guide'
+                nodelist = node['href'].split('/')
+              else
+                nodelist = sluglist + node['href'].split('/')
+              end
               newhref = []
               nodelist.each do |item|
                 if item == '..'
