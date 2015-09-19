@@ -8,11 +8,9 @@ module Docs
       def get_name
         if REPLACED_NAMES.include? slug
           name = REPLACED_NAMES[slug]
-        elsif at_css('h1')
-          name = at_css('h1').content.strip
-          if name.index('::')
-            name = name.split('::').last
-          end
+        elsif xpath('//div[@id="menu"]//span/text()')
+          namelist = xpath('//div[@id="menu"]//span/text()')
+          name = namelist[-1].content
         else
           name = slug
         end

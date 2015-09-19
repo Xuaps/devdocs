@@ -39,7 +39,7 @@ then
 		done
 		date=`/bin/date "+%d/%m/%Y -%H:%M:%S"`
 		echo "scrapping finished at $date"
-   fi
+    fi
 fi
 
 if [ $1 == "import" ] || [ $1 == "fullprocess" ]

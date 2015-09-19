@@ -10,9 +10,14 @@ module Docs
           'en/chrome',
           'en/firefox_3',
           'en/dom/element',
-          'en/dom/element.addeventlistener'
+          'en/dom/element.addeventlistener',
+          'en/xpinstall_api_reference/installtrigger_object',
+          'en/xpinstall_api_reference/install_object',
+          'en/xpinstall_api_reference/file_object',
+          'en-us/docs/server-sent_events/using_server-sent_events'
       ]
       REPLACED_LINKS = {
+        'eventhandler' => 'https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Event_handlers',
         'float32array' => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/float32array',
         'uint8array'   => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/uint8array',
         'int32array'   => '#{context[:domain]}/javascript/javascript_reference/standard_built-in_objects/int32array',
@@ -32,12 +37,13 @@ module Docs
         # fix links
         css('a[href]').each do |node|
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
-            # puts 'nodeini: ' + node['href']
+            puts 'nodeini: ' + node['href']
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['title'] = ''
               # node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
+              puts 'broken: ' + node['href']
               node['class'] = 'broken'
               # node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].downcase.remove! '../']
@@ -61,7 +67,7 @@ module Docs
               end
             end
           end
-          # puts 'nodefin: ' + node['href']
+          puts 'nodefin: ' + node['href']
         end
 
         root_page? ? root : other

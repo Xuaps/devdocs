@@ -50,7 +50,7 @@ module Docs
           custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], 'function', custom_parsed_uri, 'null', get_docset]
         end
-
+        puts entries.to_s
         css('section[id]').each do |node|
           next unless heading = node.at_css('h3')
           next unless name = heading.content.strip[/\A(Modernizr\.)?\w+\(\)/]

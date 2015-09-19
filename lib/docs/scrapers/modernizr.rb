@@ -3,7 +3,7 @@ module Docs
     self.name = 'Modernizr'
     self.type = 'modernizr'
     self.version = '2.8.3'
-    self.base_url = 'http://modernizr.com/docs/'
+    self.base_url = 'https://modernizr.com/docs/'
 
     html_filters.push 'modernizr/entries', 'modernizr/clean_html', 'title'
 
@@ -11,7 +11,7 @@ module Docs
     options[:root_title] = 'Modernizr'
     options[:docset_uri] = '/modernizr'
     options[:title] = 'Modernizr'
-    options[:container] = '#documentation'
+    options[:container] = '#main'
     options[:skip_links] = true
 
     options[:attribution] = <<-HTML

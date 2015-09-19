@@ -3,7 +3,8 @@ module Docs
     class CleanHtmlFilter < Filter
       
       BROKEN_LINKS = [
-          'en-us/docs/web/guide/prefixes'
+          'en-us/docs/web/guide/prefixes',
+          'global_objects/simd/clamp'
       ]
       REPLACED_LINKS = {
           'functions/strict_mode' => 'strict_mode',

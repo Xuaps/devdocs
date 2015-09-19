@@ -2,11 +2,13 @@ module Docs
   class Nokogiri2 < UrlScraper
     self.name = 'Nokogiri'
     self.slug = 'nokogiri'
-    self.version = '1.6.4'
-    self.base_url =  'http://www.rubydoc.info/gems/nokogiri/1.6.4/'
+    self.version = '1.6.6.2'
+    self.base_url =  'http://www.rubydoc.info/gems/nokogiri/1.6.6.2/'
     self.root_path = 'index'
     self.initial_paths = %w(
       toplevel
+      Nokogiri/XML
+      Nokogiri/XSLT
     )
     html_filters.push 'nokogiri2/entries', 'nokogiri2/clean_html'
 

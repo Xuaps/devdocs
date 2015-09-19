@@ -29,6 +29,10 @@ module Docs
       REPLACED_LINKS = {
         'collections/binary_heap/struct.binaryheap/struct.binaryheap' => 'collections/binary_heap/struct.binaryheap',
         'collections/binary_heap/vec/struct.vec' => 'collections/vec/struct.vec',
+        'macro.try!' => 'std/macro.try!',
+        'std/std/macro.write!' => 'std/macro.write!',
+        'std/std/fs/struct.file' => 'std/fs/struct.file',
+        'std/std/macro.format_args!' => 'std/macro.format_args!'
       }
       def call
 

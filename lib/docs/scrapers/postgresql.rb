@@ -5,7 +5,7 @@ module Docs
     self.version = '9.4'
     self.base_url = "http://www.postgresql.org/docs/#{version}/static/"
     self.root_path = 'reference.html'
-    self.initial_paths = %w(sql.html admin.html)
+    self.initial_paths = %w(sql.html admin.html sql-keywords-appendix.html)
 
     html_filters.insert_before 'normalize_urls', 'postgresql/extract_metadata'
     html_filters.push 'postgresql/clean_html', 'postgresql/entries', 'title'
@@ -35,6 +35,7 @@ module Docs
       non-durability.html
       logfile-maintenance.html
       continuous-archiving.html
+      sql-keywords-appendix.html
       dynamic-trace.html)
 
     options[:only_patterns] = [

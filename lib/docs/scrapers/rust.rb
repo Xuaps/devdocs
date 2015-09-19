@@ -20,7 +20,7 @@ module Docs
     options[:root_title] = 'Rust'
     options[:docset_uri] = '/rust'
     options[:skip] = %w(book/README.html)
-    options[:skip_patterns] = [/(?<!\.html)\z/]
+    # options[:skip_patterns] = [/(?<!\.html)\z/]
 
     options[:fix_urls] = ->(url) do
       url.sub! %r{(#{Rust.base_url}.+/)\z}, '\1index.html'
