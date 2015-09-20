@@ -18,6 +18,7 @@ module Docs
     options[:only_patterns] = [
       /\/class\/[^\/]+/,
       /\/group\/[^\/]+/,
+      /\/modules\/[^\/]+/,
       /\/function\/[^\/]+/]
 
     options[:skip_link] = ->(link) { link['href'] =~ /[\?&]order/ }
