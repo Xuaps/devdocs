@@ -38,20 +38,20 @@ class DocsCLI < Thor
       puts 'Done'
     else
       puts "Failed!#{' (try running with --debug for more information)' unless options[:debug]}"
-      exit 1
     end
   rescue Docs::DocNotFound
     invalid_doc(name)
   end
 
-  desc 'generate <doc> [--verbose] [--debug] [--force]', 'Generate a documentation'
+  desc 'generate <doc> [--verbose] [--debug] [--force] [--package]', 'Generate a documentation'
   option :verbose, type: :boolean
   option :debug, type: :boolean
   option :force, type: :boolean
+  option :package, type: :boolean
   def generate(name)
     Docs.install_report :store if options[:verbose]
     Docs.install_report :scraper if options[:debug]
-    Docs.install_report :progress_bar if $stdout.tty?
+    Docs.install_report :progress_bar, :doc if $stdout.tty?
 
     unless options[:force]
       puts <<-TEXT.strip_heredoc
@@ -68,10 +68,13 @@ class DocsCLI < Thor
 
     if Docs.generate(name)
       generate_manifest
+      if options[:package]
+        require 'unix_utils'
+        package_doc(Docs.find(name))
+      end
       puts 'Done'
     else
       puts "Failed!#{' (try running with --debug for more information)' unless options[:debug]}"
-      exit 1
     end
   rescue Docs::DocNotFound
     invalid_doc(name)
@@ -126,7 +129,7 @@ class DocsCLI < Thor
     if docs.empty?
       puts 'ERROR: called with no arguments.'
       puts 'Run "thor docs:list" for usage patterns.'
-      exit 1
+      exit
     end
   end
 
