@@ -29,11 +29,8 @@ module Docs
               node['class'] = 'broken'
               node['title'] = ''
             else
-              sluglist = slug.remove('struct.binaryheap/').split('/')
+              sluglist = slug.split('/')
               if context[:url].to_s.include? '.html'
-                sluglist.pop
-              end
-              if slug == 'book/index'
                 sluglist.pop
               end
               nodelist = sluglist + node['href'].split('/')

@@ -31,7 +31,7 @@ module Docs
               node['class'] = 'broken'
               node['title'] = ''
             else
-              sluglist = slug.remove('struct.binaryheap/').split('/')
+              sluglist = slug.split('/')
               if context[:url].to_s.include? '.html'
                 sluglist.pop
               end

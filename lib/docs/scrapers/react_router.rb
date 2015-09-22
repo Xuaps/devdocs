@@ -2,7 +2,7 @@ module Docs
   class ReactRouter < UrlScraper
     self.name = 'React_Router'
     self.type = 'React_Router'
-    self.version = '0.2.12'
+    self.version = '1.0.0-rc1'
     self.base_url = 'https://github.com/rackt/react-router/blob/master/'
     self.root_path = 'docs/README.md'
 
