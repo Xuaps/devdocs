@@ -8,10 +8,6 @@ module Docs
         'docs/upgrade_guide.md/index' => 'upgrade_guide.md/index'
       }
       def call
-        css('.anchor').each do |node|
-          node.parent['id'] = node['href'].remove('#')
-          node.remove
-        end
         css('p a img').remove
         css('.highlight > pre').each do |node|
           node.content = node.content.gsub('    ', '  ')
