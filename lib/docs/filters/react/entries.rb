@@ -51,19 +51,6 @@ module Docs
 
       end
 
-      # def additional_entries
-      #   return [] unless API_SLUGS.include?(slug)
-
-      #   css('.inner-content h3, .inner-content h4, .inner-content h2').map do |node|
-
-      #     name = node.content
-      #     name.remove! %r{[#\(\)]}
-      #     name.remove! %r{\w+\:}
-      #     id = node.at_css('.anchor')['name']
-      #     custom_parsed_uri = get_parsed_uri_by_name(name)
-      #     [name, id, get_type, custom_parsed_uri, get_parent_uri, get_docset]
-      #   end
-      # end
       def additional_entries
         if API_SLUGS.include?(slug)
           css('.inner-content h3, .inner-content h4').map do |node|
