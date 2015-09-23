@@ -3,11 +3,10 @@ module Docs
     class CleanHtmlFilter < Filter
       def call
         root_page? ? root : other
-
+        @doc['class'] = ''
         css('pre > code').each do |node|
           node.before(node.children).remove
         end
-
         WrapPreContentWithCode 'hljs actionscript'
         WrapContentWithDivs '_page _knockout'
         doc

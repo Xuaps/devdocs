@@ -5,8 +5,6 @@ module Docs
         name = at_css('h1').content.strip
         name.remove! 'Symfony\\'
         name = name.split("\\").last
-        # name << " (#{namespace})" if name.gsub! "#{namespace}\\", ''
-        puts name
         name
       end
 

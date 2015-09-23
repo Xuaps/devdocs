@@ -37,13 +37,11 @@ module Docs
         # fix links
         css('a[href]').each do |node|
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
-            puts 'nodeini: ' + node['href']
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['title'] = ''
               # node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
-              puts 'broken: ' + node['href']
               node['class'] = 'broken'
               # node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].downcase.remove! '../']
@@ -67,7 +65,6 @@ module Docs
               end
             end
           end
-          puts 'nodefin: ' + node['href']
         end
 
         root_page? ? root : other
