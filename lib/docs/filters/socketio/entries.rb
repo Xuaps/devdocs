@@ -11,13 +11,11 @@ module Docs
 
       def get_parsed_uri_by_name(name)
         parsed_uri = get_parsed_uri + '/' + self.urilized(name)
-        puts 'parsed_uri 2: ' + parsed_uri
         parsed_uri
       end
 
       def get_parsed_uri
         parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
-        puts 'parsed_uri 1: ' + parsed_uri
         parsed_uri
       end
 

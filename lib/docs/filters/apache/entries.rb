@@ -37,7 +37,6 @@ module Docs
         else
             parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
         end
-        puts 'parsed_uri: ' + parsed_uri
         parsed_uri
       end
 
@@ -47,7 +46,6 @@ module Docs
       end
 
       def get_custom_parent_uri
-        # puts 'slug: ' + slug
         if slug.start_with?('howto')
           parent_uri = 'null'
         elsif slug.start_with?('platform/') and !slug.end_with? 'platform/' and !slug.end_with? 'index'
@@ -67,7 +65,6 @@ module Docs
         else
           parent_uri = 'null'
         end
-        # puts parent_uri
         parent_uri
       end
       def get_type

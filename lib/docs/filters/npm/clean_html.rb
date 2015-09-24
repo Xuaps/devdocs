@@ -29,15 +29,12 @@ module Docs
           if REPLACED_LINKS[node['href'].downcase]
               node['href'] = REPLACED_LINKS[node['href']]
           elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'mailto:'
-            # puts 'nodeini: ' + node['href']
             if node.content.strip.include? "\u{00B6}" or node['href'] == '#top'
               node.remove
             elsif node['href'].downcase.include? '/doc/syntax'
               node['class'] = 'broken'
-              # node['href'] = context[:domain] + '/help#brokenlink'
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              # node['href'] = context[:domain] + '/help#brokenlink'
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')
@@ -56,7 +53,6 @@ module Docs
                 node['href'] = newhref.join('/')
               end
             end
-            # puts 'nodefin: ' + node['href']
           end
         end
         WrapPreContentWithCode 'hljs bash'

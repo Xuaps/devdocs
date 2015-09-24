@@ -13,7 +13,6 @@ module Docs
       whyamd)
 
       def get_name
-        puts 'slug: ' + slug
         if at_css('h1')
             name = at_css('h1').content
         else

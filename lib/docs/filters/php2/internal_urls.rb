@@ -11,7 +11,6 @@ module Docs
       def internal_urls
         css('.book a', '.chunklist a', '.set a', '.chapter a', '.article a', '.refentry a', '.sect1 a', '.reference a', 'ul li a').inject [] do |urls, link|
           urls << link['href'] if link.next.try(:text?) && link['href'].exclude?('ref.pdo-')
-          #puts 'link: ' + link['href']
           urls
         end
       end

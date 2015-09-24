@@ -43,7 +43,6 @@ module Docs
         css('a[href]').each do |node|
           node['href'] = CleanWrongCharacters(node['href']).remove '_(event)'
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://'
-            # puts 'nodeini: ' + node['href']
             if REPLACED_LINKS[node['href'].remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove! '../']
             elsif BROKEN_LINKS.include?node['href'].downcase.remove! '../'
@@ -67,7 +66,6 @@ module Docs
                 node['href'] = newhref.join('/')
               end
             end
-            # puts 'nodefin: ' + node['href']
           end
         end
 

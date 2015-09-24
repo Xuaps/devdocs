@@ -34,16 +34,13 @@ module Docs
         css('a[href]').each do |node|
           node['href'] = CleanWrongCharacters(node['href']).remove '_(event)'
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'mailto:'
-            # puts 'nodeini: ' + node['href']
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['title'] = ''
-              # node['href'] = context[:domain] + '/help#brokenlink'
             elsif REPLACED_LINKS[node['href'].remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove! '../']
             elsif BROKEN_LINKS.include?node['href'].downcase.remove! '../'
               node['class'] = 'broken'
-              # node['href'] = context[:domain] + '/help#brokenlink'
             else
               sluglist = slug.split('/')
               nodelist = node['href'].split('/')
@@ -62,7 +59,6 @@ module Docs
                 node['href'] = newhref.join('/')
               end
             end
-            # puts 'nodefin: ' + node['href']
           end
         end
 

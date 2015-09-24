@@ -39,7 +39,6 @@ module Docs
       end
       def fixLinks
         css('a[href]').each do |node|
-          puts 'ini: ' + node['href']
           node['href'] = CleanWrongCharacters(node['href']).downcase
           if REPLACED_LINKS[node['href'].downcase.remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove '../']          
@@ -52,7 +51,6 @@ module Docs
               if context[:url].to_s.include? '.html'
                 sluglist.pop
               end
-              puts 'sluglist: '  + sluglist.to_s
               nodelist = sluglist + node['href'].split('/')
               newhref = []
               nodelist.each do |item|

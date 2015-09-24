@@ -19,7 +19,6 @@ module Docs
           end
         end
         css('a[href]').each do |node|
-          # puts 'nodeini: ' + node['href']
           if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
             node['href'] = CleanWrongCharacters(node['href'])
             if BROKEN_LINKS.include? node['href'].downcase.remove! '../'
@@ -41,7 +40,6 @@ module Docs
                 node['href'] = newhref.join('/')
               end
             end
-            # puts 'nodefin: ' + node['href']
           end
         end
         css('#plusone', '#nav', '.pkgGopher', '#footer', '.collapsed').remove

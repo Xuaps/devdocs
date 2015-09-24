@@ -18,9 +18,7 @@ module Docs
         css('a[href]').each do |node|
             node['href'] = node['href'].sub('../../','')
             if node['href'].include? 'file.sass_reference'
-                puts 'href: ' + node['href']
                 node['href'] = node['href'].sub('file.sass_reference', 'index')
-                puts 'href: ' + node['href']
             end
         end
       end
@@ -57,7 +55,6 @@ module Docs
                 node['href'] = node['href'].sub('../../','')
             end
             if node['href'].include? 'file.sass_reference'
-                puts 'href: ' + node['href']
                 node['href'] = node['href'].sub('file.sass_reference', 'index')
             end
         end

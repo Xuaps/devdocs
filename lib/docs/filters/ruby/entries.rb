@@ -57,16 +57,6 @@ module Docs
           custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], 'method', custom_parsed_uri, get_parsed_uri, get_docset]
         end
-        # css('dt').map do |node|
-        #   name = node['id'] = get_name + '::' + node.content.strip.tr('“', '').tr('”', '')
-        #   puts get_name + '::' + name
-        #   if name.length == 1 and name.downcase == name
-        #     custom_parsed_uri = get_parsed_uri_by_name('__' + name)
-        #   else
-        #     custom_parsed_uri = get_parsed_uri_by_name(name)
-        #   end
-        #   entries << [name, node['id'], 'constant', custom_parsed_uri, get_parsed_uri, get_docset]
-        # end
         entries
       end
 
