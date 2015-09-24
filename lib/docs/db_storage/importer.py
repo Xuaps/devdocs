@@ -123,8 +123,9 @@ class DocImporter():
                 _docset = entry['docset']
                 _uri = entry['parsed_uri']
                 _anchor = entry['anchor']
+                _source_url = entry['source_url']
                 if previous_uri != _uri:
-                    self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri,_anchor)
+                    self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri, _anchor, _source_url)
                     previous_uri = _uri
 
             self.emptyTable(conn,self.docset_name)
@@ -205,20 +206,21 @@ class DocImporter():
     def Rollback(self, conn):
         conn.rollback()
 
-    def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri, _anchor):
+    def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri, _anchor, _source_url):
         pgcursor = conn.cursor()
-        sqlinsertitem = "INSERT INTO temp_refs (reference, content, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+        sqlinsertitem = "INSERT INTO temp_refs (reference, content, parent, type, docset, uri, content_anchor, source_url) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
         pgcursor.execute(sqlinsertitem,[_name,
                                         _content,
                                         _parent,
                                         _type,
                                         _docset,
                                         _uri,
-                                        _anchor])
+                                        _anchor,
+                                        _source_url])
 
 
     def moveToData(self, conn):
-        sqlmovedata = 'INSERT INTO refs (reference, content,uri,content_anchor,parent_uri,type,docset) SELECT reference,content,uri,content_anchor,parent,type, docset FROM temp_refs;'
+        sqlmovedata = 'INSERT INTO refs (reference, content,uri,content_anchor,parent_uri,type,docset, source_url) SELECT reference,content,uri,content_anchor,parent,type, docset, source_url FROM temp_refs;'
         pgcursor = conn.cursor()
         pgcursor.execute(sqlmovedata)
 

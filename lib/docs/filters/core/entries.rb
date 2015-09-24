@@ -73,6 +73,10 @@ module Docs
       'null'
     end
 
+    def get_source_url
+      context[:url].to_s
+    end
+
     def type
       return @type if defined? @type
       @type = root_page? ? nil : get_type
@@ -99,7 +103,8 @@ module Docs
       docset ||= self.docset
       parsed_uri ||= self.parsed_uri
       parent_uri ||= self.parent_uri
-      Entry.new name, path, type, parsed_uri, anchor, parent_uri, docset
+      source_url = self.get_source_url
+      Entry.new name, path, type, parsed_uri, anchor, parent_uri, docset, source_url
     end
   end
 end

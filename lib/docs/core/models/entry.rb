@@ -1,8 +1,8 @@
 module Docs
   class Entry
-    attr_accessor :name, :type, :path, :parsed_uri,:anchor, :parent_uri, :docset
+    attr_accessor :name, :type, :path, :parsed_uri,:anchor, :parent_uri, :docset, :source_url
 
-    def initialize(name = nil, path = nil, type = nil, parsed_uri = nil, anchor = nil, parent_uri = nil, docset = nil)
+    def initialize(name = nil, path = nil, type = nil, parsed_uri = nil, anchor = nil, parent_uri = nil, docset = nil, source_url = nil)
       self.name = name
       self.path = path
       self.type = type
@@ -10,6 +10,7 @@ module Docs
       self.anchor = anchor
       self.parent_uri = parent_uri
       self.docset = docset
+      self.source_url = source_url
     end
 
     def ==(other)
@@ -53,7 +54,7 @@ module Docs
     end
 
     def as_json
-      { name: name, path: path, type: type, parsed_uri: parsed_uri, anchor: anchor, parent_uri: parent_uri, docset: docset }
+      { name: name, path: path, source_url: source_url, type: type, parsed_uri: parsed_uri, anchor: anchor, parent_uri: parent_uri, docset: docset }
     end
   end
 end
