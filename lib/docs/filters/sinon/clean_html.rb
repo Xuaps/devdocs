@@ -1,6 +1,6 @@
 module Docs
   class Sinon
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
 
         css('.section', 'h2 code', 'h3 code').each do |node|

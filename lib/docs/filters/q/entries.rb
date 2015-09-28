@@ -1,6 +1,6 @@
 module Docs
   class Q
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'Custom Messaging' => 'function',
         'Q.defer()' => 'function'

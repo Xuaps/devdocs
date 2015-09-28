@@ -1,6 +1,6 @@
 module Docs
   class Node
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_NAMES = {
         'debugger' => 'Debugger',
         'addons'   => 'C/C++ Addons',

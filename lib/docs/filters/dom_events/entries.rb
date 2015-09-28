@@ -1,6 +1,6 @@
 module Docs
   class DomEvents
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       TYPE_BY_INFO = {
         'applicationCache' => 'Application Cache',
         'Clipboard'        => 'Clipboard',

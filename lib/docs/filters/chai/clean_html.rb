@@ -1,6 +1,6 @@
 module Docs
   class Chai
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         @doc = at_css('.documentation .rendered')
 

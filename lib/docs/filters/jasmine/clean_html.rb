@@ -1,6 +1,6 @@
 module Docs
   class Jasmine
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = []
       REPLACED_LINKS = {}
       def call

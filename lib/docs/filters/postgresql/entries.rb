@@ -1,6 +1,6 @@
 module Docs
   class Postgresql
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       ADDITIONAL_ENTRIES = {
         'functions-geometry' => [

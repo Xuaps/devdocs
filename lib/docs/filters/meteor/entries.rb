@@ -1,6 +1,6 @@
 module Docs
   class Meteor
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'Check' => 'function',
         'Command line' => 'core',

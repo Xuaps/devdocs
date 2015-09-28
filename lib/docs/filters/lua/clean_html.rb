@@ -1,6 +1,6 @@
 module Docs
   class Lua
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('hr', 'h1 img', '.footer').remove
 

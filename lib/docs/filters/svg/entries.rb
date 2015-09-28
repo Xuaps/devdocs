@@ -1,6 +1,6 @@
 module Docs
   class Svg
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         name = super
         name.remove!('Element.').try(:downcase!)

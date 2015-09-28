@@ -1,6 +1,6 @@
 module Docs
   class Ruby
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
           'i',
           '*rows',

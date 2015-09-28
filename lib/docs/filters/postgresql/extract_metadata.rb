@@ -1,6 +1,6 @@
 module Docs
   class Postgresql
-    class ExtractMetadataFilter < Filter
+    class ExtractMetadataFilter < Docs::ReflyFilter
       def call
         extract_up_path
         extract_chapter

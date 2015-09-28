@@ -1,6 +1,6 @@
 module Docs
   class Drupal
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       def get_name
         name = at_css('#page-subtitle').content

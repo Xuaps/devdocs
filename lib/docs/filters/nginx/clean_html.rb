@@ -1,6 +1,6 @@
 module Docs
   class Nginx
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
 
       ]

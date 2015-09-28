@@ -1,6 +1,6 @@
 module Docs
   class Yii
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
         'input-file-upload',
         'license.md',

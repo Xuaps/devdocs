@@ -2,13 +2,18 @@ module Docs
   class Go < UrlScraper
     self.type = 'go'
     self.version = '1.5.0'
-    self.base_url = 'http://golang.org/pkg/'
-    html_filters.push 'go/clean_html', 'go/entries'
+    self.base_url = 'https://golang.org/pkg/'
+    self.links = {
+      home: 'https://golang.org/',
+      code: 'https://go.googlesource.com/go'
+    }
 
+    html_filters.push 'go/clean_html', 'go/entries'
     options[:domain] = 'http://www.refly.xyz'
     options[:container] = '#page .container'
     options[:root_title] = 'Go'
     options[:docset_uri] = '/go'
+    options[:container] = '#page .container'
 
     options[:attribution] = <<-HTML
       &copy; Google, Inc.<br>

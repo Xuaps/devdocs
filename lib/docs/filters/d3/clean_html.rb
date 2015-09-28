@@ -1,6 +1,6 @@
 module Docs
   class D3
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         # Remove links inside <h2> and add "id" attributes
         css('h2 > a').each do |node|

@@ -1,6 +1,6 @@
 module Docs
   class Dom
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       CLEANUP_NAMES = %w(
         CSS\ Object\ Model.
         Web\ Audio\ API.

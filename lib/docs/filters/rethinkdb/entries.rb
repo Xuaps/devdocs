@@ -1,6 +1,6 @@
 module Docs
   class Rethinkdb
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         at_css('.title').content.remove('ReQL command:').split(', ').first
       end

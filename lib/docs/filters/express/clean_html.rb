@@ -1,6 +1,6 @@
 module Docs
   class Express
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         at_css('h1').remove
 

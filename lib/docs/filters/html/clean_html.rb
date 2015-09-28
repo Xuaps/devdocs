@@ -1,6 +1,6 @@
 module Docs
   class Html
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
 
       BROKEN_LINKS = [
           'en-us/docs/web/guide/prefixes',

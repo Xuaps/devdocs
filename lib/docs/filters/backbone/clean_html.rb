@@ -1,6 +1,6 @@
 module Docs
   class Backbone
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         #change the classname to avoid conflicts with css classes
         doc['class'] = 'cnt'

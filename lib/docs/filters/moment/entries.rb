@@ -1,6 +1,6 @@
 module Docs
   class Moment
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       IGNORE_IDS = %w(
         i18n-loading-into-nodejs
         i18n-loading-into-browser

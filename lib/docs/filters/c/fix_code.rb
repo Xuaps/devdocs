@@ -1,6 +1,6 @@
 module Docs
   class C
-    class FixCodeFilter < Filter
+    class FixCodeFilter < Docs::ReflyFilter
       def call
         css('div > span.source-c').each do |node|
           node.inner_html = node.inner_html.gsub(/<br>\n?/, "\n").gsub("\n</p>\n", "</p>\n")

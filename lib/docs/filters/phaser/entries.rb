@@ -1,6 +1,6 @@
 module Docs
   class Phaser
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'gameobjects' => 'object',
         'geom'        => 'drawing',

@@ -1,6 +1,6 @@
 module Docs
   class Symfony
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
 
       BROKEN_LINKS = []
       REPLACED_LINKS = {}

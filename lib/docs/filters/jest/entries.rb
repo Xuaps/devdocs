@@ -1,6 +1,6 @@
 module Docs
   class Jest
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       API_SLUGS = %w(
         docs/getting-started
         docs/tutorial

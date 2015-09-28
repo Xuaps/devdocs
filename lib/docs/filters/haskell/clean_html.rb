@@ -1,6 +1,6 @@
 module Docs
   class Haskell
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
         '$',
         'control-exception-exception',

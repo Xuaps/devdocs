@@ -1,6 +1,6 @@
 module Docs
   class Redis
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         at_css('ul')['class'] = 'commands' if root_page?
 

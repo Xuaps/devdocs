@@ -1,6 +1,6 @@
 module Docs
   class Opentsdb
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
 
       BROKEN_LINKS = [
         '_images/aggregation_average.png'

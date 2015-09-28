@@ -1,6 +1,6 @@
 module Docs
   class Php2
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       EXCLUDED_PATH = ['PHP Manual', 'Language Reference', 'Function Reference','Other Basic Extensions', 'Table of Contents']
 
       def get_name

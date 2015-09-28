@@ -1,6 +1,6 @@
 module Docs
   class Jquery
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
         'content-grids'
       ]

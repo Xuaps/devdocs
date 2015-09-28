@@ -1,6 +1,6 @@
 module Docs
   class JqueryUi
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       # Ordered by precedence
       TYPES = ['Widgets', 'Selectors', 'Effects', 'Interactions', 'Methods']
       REPLACE_TYPES = {

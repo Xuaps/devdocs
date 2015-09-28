@@ -1,6 +1,6 @@
 module Docs
   class Phpunit
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         if at_css('h1')
           at_css('h1').content

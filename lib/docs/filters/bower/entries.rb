@@ -1,6 +1,6 @@
 module Docs
   class Bower
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       ENTRIES_SLUG = %w(api/ config creating-packages .bowerrc Commands)
 
       def get_name

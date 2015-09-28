@@ -1,6 +1,6 @@
 module Docs
   class Marionette
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACED_TYPE = {
         'marionette.application' => 'core',
         'marionette.object' => 'object',

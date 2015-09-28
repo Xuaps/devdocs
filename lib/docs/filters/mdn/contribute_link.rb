@@ -1,6 +1,6 @@
 module Docs
   class Mdn
-    class ContributeLinkFilter < Filter
+    class ContributeLinkFilter < Docs::ReflyFilter
       def call
         html << <<-HTML.strip_heredoc
           <div class="_attribution">

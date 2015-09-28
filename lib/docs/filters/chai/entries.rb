@@ -1,6 +1,6 @@
 module Docs
   class Chai
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       def get_name
         at_css('h1').content

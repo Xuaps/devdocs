@@ -1,6 +1,6 @@
 module Docs
   class Modernizr
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       def get_name
         'Index'
@@ -44,15 +44,14 @@ module Docs
       end
       def additional_entries
         entries = []
-
         css('h3[id]').each do |node|
-          next unless name = node.content.strip[/\AModernizr\.\w+\(\)/]
+          name = node.content
           custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], 'function', custom_parsed_uri, 'null', get_docset]
         end
         css('section[id]').each do |node|
           next unless heading = node.at_css('h3')
-          next unless name = heading.content.strip[/\A(Modernizr\.)?\w+\(\)/]
+          name = heading.content
 
           heading['id'] = node['id']
           node.remove_attribute('id')
@@ -72,7 +71,6 @@ module Docs
             entries << [node.content, node['id'], get_type_by_name(type), custom_parsed_uri, 'null', get_docset]
           end
         end
-
         entries
       end
     end

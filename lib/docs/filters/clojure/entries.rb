@@ -1,6 +1,6 @@
 module Docs
   class Clojure
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'clojure.test' => 'test',
         'clojure.pprint' => 'string',

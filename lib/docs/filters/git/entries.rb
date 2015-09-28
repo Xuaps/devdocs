@@ -1,6 +1,6 @@
 module Docs
   class Git
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         name = path
         name

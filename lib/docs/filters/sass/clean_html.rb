@@ -1,6 +1,6 @@
 module Docs
   class Sass
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('tt').each do |node|
           node.name = 'code'

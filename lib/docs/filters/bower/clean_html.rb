@@ -1,6 +1,6 @@
 module Docs
   class Bower
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         title = at_css('.page-title')
         @doc = at_css('.main')

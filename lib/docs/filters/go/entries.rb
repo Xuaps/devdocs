@@ -1,6 +1,6 @@
 module Docs
   class Go
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       FUNCTION_TYPES = %w(math text image crypto time hash archive compress regexp)
       IO_TYPES = %w(io bufio mime encoding path fmt )
       CORE_TYPES = %w(syscall go log builtin os runtime debug unsafe testing)

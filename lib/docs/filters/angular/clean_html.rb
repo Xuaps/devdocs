@@ -1,6 +1,6 @@
 module Docs
   class Angular
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < ReflyFilter
       REPLACED_LINKS = {
         '' => 'https://code.angularjs.org/1.3.14/docs/guide/',
         'guide/directive' => 'ng/directive',

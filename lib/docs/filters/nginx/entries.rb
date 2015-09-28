@@ -1,6 +1,6 @@
 module Docs
   class Nginx
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       ADDITIONAL_ENTRIES = {
         'stream' => [
           %w(Stream nil others /nginx/stream null Nginx)],

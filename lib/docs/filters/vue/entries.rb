@@ -1,6 +1,6 @@
 module Docs
   class Vue
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'Component Options' => 'component',
         'Component System' => 'component',

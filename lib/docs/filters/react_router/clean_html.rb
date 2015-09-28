@@ -1,6 +1,6 @@
 module Docs
   class ReactRouter
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = []
       REPLACED_LINKS = {
         'examples/index' => 'https://github.com/rackt/react-router/tree/master/examples',

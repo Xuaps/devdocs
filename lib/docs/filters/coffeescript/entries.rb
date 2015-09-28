@@ -1,6 +1,6 @@
 module Docs
   class Coffeescript
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       CUSTOMENTRIES = [
         ['coffee command',                  'usage',                    'others'],
         ['Literate mode',                   'literate',                 'others'],

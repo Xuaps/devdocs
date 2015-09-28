@@ -1,6 +1,6 @@
 module Docs
   class Reflux
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
         'blob/master/test/index.js/index'
       ]

@@ -1,6 +1,6 @@
 module Docs
   class Laravel
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPE = {
         'Pagination' => 'class',
         'Cookie\Middleware' => 'network',

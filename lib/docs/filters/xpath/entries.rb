@@ -1,6 +1,6 @@
 module Docs
   class Xpath
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       EXCLUDED_PATH = ['MDN','Web technology for developers', 'XPath']
       def get_name
         name = super

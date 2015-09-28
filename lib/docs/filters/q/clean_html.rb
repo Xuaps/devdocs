@@ -1,6 +1,6 @@
 module Docs
   class Q
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('.anchor').each do |node|
           node.parent['id'] = node['href'].remove('#')

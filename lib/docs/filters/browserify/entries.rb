@@ -1,6 +1,6 @@
 module Docs
   class Browserify
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       AVOIDED_ENTRIES = ['changelog', 'license', 'browserify']
 

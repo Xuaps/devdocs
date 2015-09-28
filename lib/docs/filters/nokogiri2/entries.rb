@@ -1,6 +1,6 @@
 module Docs
   class Nokogiri2
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACED_NAMES = {
         'README.rdoc' => 'README'
       }

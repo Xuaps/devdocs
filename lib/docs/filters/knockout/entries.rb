@@ -1,6 +1,6 @@
 module Docs
   class Knockout
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       NAME_BY_SLUG = {
         'custom-bindings'                                 => 'Custom bindings',
         'custom-bindings-controlling-descendant-bindings' => 'Descendant bindings',

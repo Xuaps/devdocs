@@ -1,6 +1,6 @@
 module Docs
   class Node
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       REPLACED_ANCHOR = {
         '#http_response_end_data_encoding'    => '#http_response_end_data_encoding_callback',
         '#http_response_write_chunk_encoding' => '#http_response_write_chunk_encoding_callback',

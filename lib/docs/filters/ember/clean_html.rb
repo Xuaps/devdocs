@@ -1,6 +1,6 @@
 module Docs
   class Ember
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         root_page? ? root : other
         WrapPreContentWithCode 'hljs javascript'

@@ -1,7 +1,7 @@
 module Docs
   class Jasmine < UrlScraper
-    self.name = 'Jasmine'
-    self.type = 'Jasmine'
+    self.name = 'jasmine'
+    self.type = 'jasmine'
     self.version = 'edge'
     self.base_url = 'http://jasmine.github.io/edge/'
     self.root_path = 'introduction.html'

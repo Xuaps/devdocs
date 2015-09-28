@@ -17,7 +17,7 @@ class App < Sinatra::Application
     set :assets_prefix, 'assets'
     set :assets_path, -> { File.join(public_folder, assets_prefix) }
     set :assets_manifest_path, -> { File.join(assets_path, 'manifest.json') }
-    set :assets_compile, %w(*.png docs.js application.js application.css)
+    set :assets_compile, %w(*.png docs.js docs.json application.js application.css application-dark.css)
 
     require 'yajl/json_gem'
     set :docs_prefix, 'docs'
@@ -25,6 +25,7 @@ class App < Sinatra::Application
     set :docs_path, -> { File.join(public_folder, docs_prefix) }
     set :docs_manifest_path, -> { File.join(docs_path, 'docs.json') }
     set :docs, -> { Hash[JSON.parse(File.read(docs_manifest_path)).map! { |doc| [doc['slug'], doc] }] }
+    set :default_docs, %w(css dom dom_events html http javascript)
 
     set :news_path, -> { File.join(root, assets_prefix, 'javascripts', 'news.json') }
     set :news, -> { JSON.parse(File.read(news_path)) }
@@ -37,6 +38,7 @@ class App < Sinatra::Application
       config.environment = sprockets
       config.prefix = "/#{assets_prefix}"
       config.public_path = public_folder
+      config.protocol = :relative
     end
   end
 
@@ -56,14 +58,14 @@ class App < Sinatra::Application
 
   configure :production do
     set :static, false
-    set :docs_host, 'http://docs.devdocs.io'
+    set :docs_host, '//docs.devdocs.io'
 
     use Rack::ConditionalGet
     use Rack::ETag
     use Rack::Deflater
     use Rack::Static,
       root: 'public',
-      urls: %w(/assets /docs /images /favicon.ico /robots.txt /opensearch.xml /manifest.webapp),
+      urls: %w(/assets /docs/ /images /favicon.ico /robots.txt /opensearch.xml /manifest.webapp),
       header_rules: [
         [:all,           {'Cache-Control' => 'no-cache, max-age=0'}],
         ['/assets',      {'Cache-Control' => 'public, max-age=604800'}],
@@ -75,9 +77,13 @@ class App < Sinatra::Application
 
     Sprockets::Helpers.configure do |config|
       config.digest = true
-      config.asset_host = 'maxcdn.devdocs.io'
+      config.asset_host = 'cdn.devdocs.io'
       config.manifest = Sprockets::Manifest.new(sprockets, assets_manifest_path)
     end
+  end
+
+  configure :test do
+    set :docs_manifest_path, -> { File.join(root, 'test', 'files', 'docs.json') }
   end
 
   helpers do
@@ -92,11 +98,20 @@ class App < Sinatra::Application
       browser.ie? && %w(6 7 8 9).include?(browser.version)
     end
 
-    def doc_index_urls
-      cookie = cookies[:docs]
-      return [] if cookie.nil? || cookie.empty?
+    def docs
+      @docs ||= begin
+        cookie = cookies[:docs]
 
-      cookie.split('/').inject [] do |result, slug|
+        docs = if cookie.nil? || cookie.empty?
+          settings.default_docs
+        else
+          cookie.split('/')
+        end
+      end
+    end
+
+    def doc_index_urls
+      docs.inject [] do |result, slug|
         if doc = settings.docs[slug]
           result << File.join('', settings.docs_prefix, doc['index_path']) + "?#{doc['mtime']}"
         end
@@ -111,6 +126,46 @@ class App < Sinatra::Application
     def query_string_for_redirection
       request.query_string.empty? ? nil : "?#{request.query_string}"
     end
+
+    def main_stylesheet_path
+      stylesheet_paths[dark_theme? ? :dark : :default]
+    end
+
+    def alternate_stylesheet_path
+      stylesheet_paths[dark_theme? ? :default : :dark]
+    end
+
+    def stylesheet_paths
+      @stylesheet_paths ||= {
+        default: stylesheet_path('application'),
+        dark: stylesheet_path('application-dark')
+      }
+    end
+
+    def app_size
+      @app_size ||= cookies[:size].nil? ? '18rem' : "#{cookies[:size]}px"
+    end
+
+    def app_layout
+      cookies[:layout]
+    end
+
+    def app_theme
+      @app_theme ||= cookies[:dark].nil? ? 'default' : 'dark'
+    end
+
+    def dark_theme?
+      app_theme == 'dark'
+    end
+
+    def redirect_via_js(path) # courtesy of HTML5 App Cache
+      response.set_cookie :initial_path, value: path, expires: Time.now + 15, path: '/'
+      redirect '/', 302
+    end
+
+    def supports_js_redirection?
+      browser.modern? && !cookies.empty?
+    end
   end
 
   before do
@@ -124,13 +179,17 @@ class App < Sinatra::Application
   end
 
   get '/' do
-    return redirect '/' unless request.query_string.empty?
+    return redirect '/' unless request.query_string.empty? # courtesy of HTML5 App Cache
     erb :index
   end
 
   %w(offline about news help).each do |page|
     get "/#{page}" do
-      redirect "/#/#{page}", 302
+      if supports_js_redirection?
+        redirect_via_js "/#{page}"
+      else
+        redirect "/#/#{page}", 302
+      end
     end
   end
 
@@ -142,29 +201,37 @@ class App < Sinatra::Application
     200
   end
 
-  get '/s/maxcdn' do
-    redirect 'https://www.maxcdn.com/?utm_source=devdocs&utm_medium=banner&utm_campaign=devdocs'
+  %w(docs.json application.js application.css).each do |asset|
+    class_eval <<-CODE, __FILE__, __LINE__ + 1
+      get '/#{asset}' do
+        redirect asset_path('#{asset}', protocol: 'http')
+      end
+    CODE
   end
 
-  get '/s/shopify' do
-    redirect 'http://www.shopify.com/careers?utm_source=devdocs&utm_medium=banner&utm_campaign=devdocs'
+  {
+    '/s/maxcdn'           => 'https://www.maxcdn.com/?utm_source=devdocs&utm_medium=banner&utm_campaign=devdocs',
+    '/s/shopify'          => 'https://www.shopify.com/careers?utm_source=devdocs&utm_medium=banner&utm_campaign=devdocs',
+    '/s/jetbrains'        => 'https://www.jetbrains.com/?utm_source=devdocs&utm_medium=sponsorship&utm_campaign=devdocs',
+    '/s/jetbrains/ruby'   => 'https://www.jetbrains.com/ruby/?utm_source=devdocs&utm_medium=sponsorship&utm_campaign=devdocs',
+    '/s/jetbrains/python' => 'https://www.jetbrains.com/pycharm/?utm_source=devdocs&utm_medium=sponsorship&utm_campaign=devdocs',
+    '/s/jetbrains/c'      => 'https://www.jetbrains.com/clion/?utm_source=devdocs&utm_medium=sponsorship&utm_campaign=devdocs',
+    '/s/jetbrains/web'    => 'https://www.jetbrains.com/webstorm/?utm_source=devdocs&utm_medium=sponsorship&utm_campaign=devdocs',
+    '/s/code-school'      => 'http://www.codeschool.com/?utm_campaign=devdocs&utm_content=homepage&utm_source=devdocs&utm_medium=sponsorship',
+    '/s/tw'               => 'https://twitter.com/intent/tweet?url=http%3A%2F%2Fdevdocs.io&via=DevDocs&text=All-in-one%2C%20offline%20API%20documentation%20browser%3A',
+    '/s/fb'               => 'https://twitter.com/intent/tweet?url=http%3A%2F%2Fdevdocs.io&via=DevDocs&text=All-in-one%2C%20offline%20API%20documentation%20browser%3A',
+    '/s/re'               => 'http://www.reddit.com/submit?url=http%3A%2F%2Fdevdocs.io&title=All-in-one%2C%20offline%20API%20documentation%20browser&resubmit=true'
+  }.each do |path, url|
+    class_eval <<-CODE, __FILE__, __LINE__ + 1
+      get '#{path}' do
+        redirect '#{url}'
+      end
+    CODE
   end
 
   get %r{\A/feed(?:\.atom)?\z} do
     content_type 'application/atom+xml'
     settings.news_feed
-  end
-
-  get '/s/tw' do
-    redirect 'https://twitter.com/intent/tweet?url=http%3A%2F%2Fdevdocs.io&via=DevDocs&text=All-in-one%2C%20quickly%20searchable%20API%20docs%3A'
-  end
-
-  get '/s/fb' do
-    redirect 'https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdevdocs.io'
-  end
-
-  get '/s/re' do
-    redirect 'http://www.reddit.com/submit?url=http%3A%2F%2Fdevdocs.io&title=All-in-one%2C%20quickly%20searchable%20API%20docs&resubmit=true'
   end
 
   get %r{\A/(\w+)(\-[\w\-]+)?(/.*)?\z} do |doc, type, rest|
@@ -174,6 +241,8 @@ class App < Sinatra::Application
       redirect "/#{doc}#{type}/#{query_string_for_redirection}"
     elsif rest.length > 1 && rest.end_with?('/')
       redirect "/#{doc}#{type}#{rest[0...-1]}#{query_string_for_redirection}"
+    elsif docs.include?(doc) && supports_js_redirection?
+      redirect_via_js(request.path)
     else
       erb :other
     end

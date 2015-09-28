@@ -1,6 +1,6 @@
 module Docs
   class Javascript
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       
       BROKEN_LINKS = [
           'en-us/docs/web/guide/prefixes',
@@ -14,6 +14,7 @@ module Docs
       def call
         root_page? ? root : other
         WrapPreContentWithCode 'hljs javascript'
+        WrapContentWithDivs '_page _javascript'
         doc
       end
 
@@ -71,9 +72,6 @@ module Docs
         css('div > .overheadIndicator:first-child:last-child').each do |node|
           node.parent.replace(node)
         end
-      end
-      def CleanWrongCharacters(href)
-          href.gsub('%23', '#').gsub('%28', '(').gsub('%29', ')').gsub('%21', '!').gsub('%7b', '{').gsub('%7e', '~').gsub('%2a', '*').gsub('%2b', '+').gsub('%3d', '=')
       end
     end
   end

@@ -1,6 +1,6 @@
 module Docs
   class Markdown
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'Philosophy' => 'guide',
         'Inline HTML' => 'guide',

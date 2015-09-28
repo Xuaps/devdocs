@@ -1,6 +1,6 @@
 module Docs
   class Yii1
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'system.web.auth' => 'authentication',
         'system.web.actions' => 'web',

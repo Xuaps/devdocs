@@ -1,6 +1,6 @@
 module Docs
   class Rust
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
 
       BROKEN_LINKS = [
         'collections/vec/struct.partialveczerosized',

@@ -1,6 +1,6 @@
 module Docs
   class Express
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         name = css('h2').first.content.strip
         name

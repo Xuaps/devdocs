@@ -1,6 +1,6 @@
 module Docs
   class DomEvents
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
           'en-us/docs/web/guide/prefixes',
           'en-us/dom/touch_events'

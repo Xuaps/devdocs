@@ -1,6 +1,6 @@
 module Docs
   class Apache
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         if slug == 'mod/'
           'Modules'

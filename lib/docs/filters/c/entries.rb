@@ -1,6 +1,6 @@
 module Docs
   class C
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       EXCLUDED_PATH = ['C']
 
       REPLACE_PARENTS = {

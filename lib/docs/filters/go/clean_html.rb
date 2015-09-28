@@ -1,6 +1,6 @@
 module Docs
   class Go
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < ReflyFilter
       REPLACED_LINKS = {
         '..' => 'index'
       }

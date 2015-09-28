@@ -1,6 +1,6 @@
 module Docs
   class Rails
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       EXCLUDED_PATH = ['Libraries']
       def get_name
         if at_css('h1')

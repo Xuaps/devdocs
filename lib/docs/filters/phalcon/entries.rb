@@ -1,6 +1,6 @@
 module Docs
   class Phalcon
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         (at_css('h1 > strong') || at_css('h1')).content.strip.remove('Phalcon\\')
       end

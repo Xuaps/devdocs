@@ -1,6 +1,6 @@
 module Docs
   class Ember
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       ADDITIONAL_ENTRIES = {
         'modules/ember' => [
           %w(Modules nil others /emberjs/modules null EmberJS)],

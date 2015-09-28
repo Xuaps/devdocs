@@ -1,6 +1,6 @@
 module Docs
   class Django
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'django.contrib.admin'        => 'core',
         'django.contrib.auth'         => 'others',

@@ -1,6 +1,6 @@
 module Docs
   class Sinon
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       def get_docset
         docset = context[:root_title]

@@ -1,6 +1,6 @@
 module Docs
   class Lodash
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('h3 + p', 'hr').remove
 

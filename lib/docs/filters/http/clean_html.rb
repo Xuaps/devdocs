@@ -1,6 +1,6 @@
 module Docs
   class Http
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         WrapContentWithDivs '_page _rfc'
         if root_page?

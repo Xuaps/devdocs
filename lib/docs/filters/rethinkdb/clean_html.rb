@@ -1,6 +1,6 @@
 module Docs
   class Rethinkdb
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
 
       BROKEN_LINKS = [
         'table_status'

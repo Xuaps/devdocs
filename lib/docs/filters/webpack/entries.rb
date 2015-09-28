@@ -1,6 +1,6 @@
 module Docs
   class Webpack
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       REPLACE_TYPES = {
         'guides' => 'guide',

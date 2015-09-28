@@ -1,6 +1,6 @@
 module Docs
   class React
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       API_SLUGS = %w(
         docs/top-level-api
         docs/component-api

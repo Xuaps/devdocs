@@ -41,6 +41,7 @@ module Docs
       url.sub! 'https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference', Javascript.base_url
       url.sub! '/Operators/Special/', '/Operators/'
       url.sub! '/Operators/Special/', '/Operators/'
+      url.sub! '%40%40', '@@'
 
       url.sub! 'Functions_and_function_scope', 'Functions'
       url.sub! 'Array.prototype.values()', 'values'

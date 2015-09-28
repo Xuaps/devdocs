@@ -1,6 +1,6 @@
 module Docs
   class Underscore
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         # Remove Links, Changelog
         css('#links ~ *', '#links').remove

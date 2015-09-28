@@ -1,6 +1,6 @@
 module Docs
   class Requirejs
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('.sectionMark', '.hbox > .sect').remove
         css('h1 + .note').remove if root_page?

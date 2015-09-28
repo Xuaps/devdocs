@@ -1,6 +1,6 @@
 module Docs
   class Maxcdn
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       REPLACE_TYPES = {
         'SSL Certificate' => 'security',

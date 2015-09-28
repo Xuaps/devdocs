@@ -1,6 +1,6 @@
 module Docs
   class Mdn
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       REMOVE_NODES = [
         '#Summary',          # "Summary" heading
         '.htab',             # "Browser compatibility" tabs

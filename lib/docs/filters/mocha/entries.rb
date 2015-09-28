@@ -1,6 +1,6 @@
 module Docs
   class Mocha
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       ENTRIES = {
         'asynchronous-code' => ['done()'],
         'hooks' => ['before()', 'after()', 'beforeEach()', 'afterEach()', 'suiteSetup()', 'suiteTeardown()', 'setup()', 'teardown()'],

@@ -1,6 +1,6 @@
 module Docs
   class Apache
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < ReflyFilter
 
       BROKEN_LINKS = []
       REPLACED_LINKS = {}

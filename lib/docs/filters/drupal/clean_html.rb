@@ -1,12 +1,15 @@
 module Docs
   class Drupal
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
 
       BROKEN_LINKS = []
       REPLACED_LINKS = {}
 
       def call
         root_page? ? root : other
+        fixLinks
+        WrapPreContentWithCode 'hljs php'
+        WrapContentWithDivs '_page _drupal'
         doc
       end
 
@@ -34,13 +37,11 @@ module Docs
           signature = table.css('.signature').first.at_css('code').inner_html
           table.replace '<pre class="signature">' + signature + '</pre>'
         end
-        fixLinks
-        WrapPreContentWithCode 'hljs php'
-        WrapContentWithDivs '_page _drupal'
       end
 
       def fixLinks
         css('a[href]').each do |node|
+          # puts 'ini: ' + node['href']
           if REPLACED_LINKS[node['href'].downcase.remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove '../']     
           elsif !node['href'].start_with? 'http://' and !node['href'].start_with? '#' and !node['href'].start_with? '#' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'news://' and !node['href'].start_with? 'mailto:'
@@ -50,7 +51,8 @@ module Docs
             elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
               node['class'] = 'broken'
             else
-              sluglist = slug.split('/')
+              # puts slug
+              sluglist = slug.gsub(/%21/, '-').split('/')
               if sluglist.size>1
                 sluglist.pop
               end
@@ -66,6 +68,7 @@ module Docs
               node['href'] = newhref.join('/')
             end
           end
+          # puts 'fin: ' + node['href']
         end
       end
     end

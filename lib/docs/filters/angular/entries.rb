@@ -1,6 +1,6 @@
 module Docs
   class Angular
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'ng directives' => 'directive',
         'ng services' => 'object',

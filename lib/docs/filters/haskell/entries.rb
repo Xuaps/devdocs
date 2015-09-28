@@ -1,6 +1,6 @@
 module Docs
   class Haskell
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       #NULL_PARENT_URIs = %w(haskell98-2.0.0.3)
       IGNORE_ENTRIES_PATHS = %w(
         bytestring-0.10.4.0/Data-ByteString-Lazy.html

@@ -1,6 +1,6 @@
 module Docs
   class Moment
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         # Set id attributes on headings
         css('a.docs-section-target', 'a.docs-method-target').each do |node|

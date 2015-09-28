@@ -1,6 +1,6 @@
 module Docs
   class Mongoose
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('hr', '.showcode', '.sourcecode').remove
 

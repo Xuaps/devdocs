@@ -1,6 +1,6 @@
 module Docs
   class Postgresql
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         root_page? ? root : other
         WrapPreContentWithCode 'hljs sql'

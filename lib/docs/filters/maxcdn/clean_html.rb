@@ -1,6 +1,6 @@
 module Docs
   class Maxcdn
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('hr', 'td:last-child:empty').remove
 

@@ -1,6 +1,6 @@
 module Docs
   class Opentsdb
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'User Guide' => 'guide',
         'Development' => 'guide'

@@ -1,6 +1,6 @@
 module Docs
   class Php
-    class InternalUrlsFilter < Filter
+    class InternalUrlsFilter < Docs::ReflyFilter
       def call
         if subpath.start_with?('book.') || subpath.start_with?('class.')
           result[:internal_urls] = internal_urls

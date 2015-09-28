@@ -1,6 +1,6 @@
 module Docs
   class Python
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       REPLACE_TYPES = {
         'Cryptographic'                           => 'function',

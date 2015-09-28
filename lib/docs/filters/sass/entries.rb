@@ -1,6 +1,6 @@
 module Docs
   class Sass
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       TYPES = ['CSS Extensions', 'SassScript', '@-Rules and Directives',
         'Output Styles', 'Selector']
 

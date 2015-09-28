@@ -1,6 +1,6 @@
 module Docs
   class Modernizr
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('pre').each do |node|
           node.content = node.content

@@ -1,6 +1,6 @@
 module Docs
   class Symfony
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         name = at_css('h1').content.strip
         name.remove! 'Symfony\\'

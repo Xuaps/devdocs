@@ -1,6 +1,6 @@
 module Docs
   class Css
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       DATA_TYPE_SLUGS = %w(angle basic-shape color_value counter frequency
         gradient image integer length number percentage position_value ratio
         resolution shape string time timing-function uri user-ident)

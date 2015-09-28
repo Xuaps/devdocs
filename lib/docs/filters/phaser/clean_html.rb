@@ -1,6 +1,6 @@
 module Docs
   class Phaser
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         title = at_css('h1')
 

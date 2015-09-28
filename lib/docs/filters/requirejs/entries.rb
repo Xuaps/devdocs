@@ -1,6 +1,6 @@
 module Docs
   class Requirejs
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       SLUG_ENTRIES = %w(
       api
       optimization

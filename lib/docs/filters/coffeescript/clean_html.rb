@@ -1,6 +1,6 @@
 module Docs
   class Coffeescript
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('#top', '.minibutton', '.clear').remove
 

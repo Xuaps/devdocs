@@ -1,6 +1,6 @@
 module Docs
   class Grunt
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       def get_name
         if at_css('h1')

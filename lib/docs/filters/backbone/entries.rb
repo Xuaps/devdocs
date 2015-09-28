@@ -1,6 +1,6 @@
 module Docs
   class Backbone
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
 
       def get_docset

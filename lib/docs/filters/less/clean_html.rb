@@ -1,6 +1,6 @@
 module Docs
   class Less
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         css('.anchor-target').each do |node|
           node.parent['id'] = node['id']

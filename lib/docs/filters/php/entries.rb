@@ -1,6 +1,6 @@
 module Docs
   class Php
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       TYPE_BY_NAME_STARTS_WITH = {
         'ArrayObject'     => 'SPL',
         'Collectable'     => 'pthreads',

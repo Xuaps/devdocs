@@ -1,6 +1,6 @@
 module Docs
   class Socketio
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         @doc = at_css('.entry-content')
 

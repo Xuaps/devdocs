@@ -1,6 +1,6 @@
 module Docs
   class Rdoc
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         name = at_css('h1, h2').content.strip
         name.remove! "\u{00B6}" # remove pilcrow sign

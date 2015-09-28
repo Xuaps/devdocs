@@ -1,6 +1,6 @@
 module Docs
   class Javascript
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       TYPES = %w(Array ArrayBuffer Boolean DataView Date Function Intl JSON Map
         Math Number Object Promise RegExp Set String Symbol TypedArray WeakMap
         WeakSet)

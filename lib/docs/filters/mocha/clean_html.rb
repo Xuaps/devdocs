@@ -1,6 +1,6 @@
 module Docs
   class Mocha
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         doc.child.remove until doc.child['id'] == 'installation'
 

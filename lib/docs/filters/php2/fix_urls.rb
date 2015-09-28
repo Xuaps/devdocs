@@ -1,6 +1,6 @@
 module Docs
   class Php2
-    class FixUrlsFilter < Filter
+    class FixUrlsFilter < Docs::ReflyFilter
       def call
         html.gsub! File.join(Php.base_url, Php.root_path), Php.base_url
         html.gsub! %r{http://www\.php\.net/manual/en/([^"']+?)\.html}, 'http://php.net/manual/en/\1.php'

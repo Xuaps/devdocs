@@ -1,6 +1,6 @@
 module Docs
   class Laravel
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
 
       BROKEN_LINKS = [
       ]

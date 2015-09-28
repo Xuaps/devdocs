@@ -1,6 +1,6 @@
 module Docs
   class Rust
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         if slug == 'book/index'
           'Index'

@@ -1,7 +1,7 @@
 require 'yajl/json_gem'
 
 module Docs
-  class EntryIndex
+  class EntryIndex < ReflyEntryIndex
     attr_reader :entries, :types
 
     def initialize
@@ -10,14 +10,13 @@ module Docs
       @types = Hash.new { |hash, key| hash[key] = Type.new key }
     end
 
-    def add(entry)
-      if entry.is_a? Array
-        entry.each(&method(:add))
-      else
-        # I have no idea about what this is good for.
-        add_entry(entry) #unless entry.root?
-      end
-    end
+    # def add(entry)
+    #   if entry.is_a? Array
+    #     entry.each(&method(:add))
+    #   else
+    #     add_entry(entry) unless entry.root?
+    #   end
+    # end
 
     def empty?
       @entries.empty?

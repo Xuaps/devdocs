@@ -1,6 +1,6 @@
 module Docs
   class Cordova
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = ['cordova_camera_camera.md', 'cordova_media_capture_capture.md','cordova_contacts_contacts.md','cordova_geolocation_geolocation.md']
       def call
         if root_page? || slug == 'cordova_events_events.md'

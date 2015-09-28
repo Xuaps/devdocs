@@ -1,6 +1,6 @@
 module Docs
   class Knockout
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         root_page? ? root : other
         @doc['class'] = ''

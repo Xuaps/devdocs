@@ -1,6 +1,6 @@
 module Docs
   class Cpp
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       EXCLUDED_PATH = ['C++', 'Standard Library header files', 'std::vector<bool>']
 
       REPLACE_NAMES = {

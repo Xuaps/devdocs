@@ -1,6 +1,6 @@
 module Docs
   class Meteor
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         @doc = at_css('#introduction').parent
 

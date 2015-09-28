@@ -1,6 +1,6 @@
 module Docs
   class Rdoc
-    class ContainerFilter < Filter
+    class ContainerFilter < Docs::ReflyFilter
       def call
         if root_page?
           at_css 'main'

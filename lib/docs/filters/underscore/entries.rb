@@ -1,6 +1,6 @@
 module Docs
   class Underscore
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
 
       REPLACE_TYPE = {
         'Function' => 'function',

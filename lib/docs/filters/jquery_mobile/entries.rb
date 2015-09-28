@@ -1,6 +1,6 @@
 module Docs
   class JqueryMobile
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       # Ordered by precedence
       TYPES = %w(Widgets Events Properties Methods)
       REPLACE_TYPES = {

@@ -1,6 +1,6 @@
 module Docs
   class Npm
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACED_TYPES = {
         'Getting Started' => 'guide',
         'Using npm' => 'guide',

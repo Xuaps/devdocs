@@ -1,6 +1,6 @@
 module Docs
   class Less
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
         at_css('h2').content
       end

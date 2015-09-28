@@ -1,6 +1,6 @@
 module Docs
   class Lua
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'Language' => 'language',
         'Standard Libraries' => 'function',

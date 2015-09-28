@@ -1,6 +1,6 @@
 module Docs
   class C
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       NUMERIC_RANDOM = [
         'bernoulli_distribution',
         'binomial_distribution',

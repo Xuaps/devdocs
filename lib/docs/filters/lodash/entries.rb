@@ -1,6 +1,6 @@
 module Docs
   class Lodash
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       TYPENAMES = {
          'Methods'    => 'method',
          'Chain'      => 'method',

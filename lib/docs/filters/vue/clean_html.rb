@@ -1,6 +1,6 @@
 module Docs
   class Vue
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = []
       REPLACED_LINKS = {
         'guide/api/index' => 'api/index',

@@ -1,6 +1,6 @@
 module Docs
   class JqueryCore
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       # Ordered by precedence
       ENTRIES_SLUG = %w(api config creating-packages)
       TYPES = ['Ajax', 'Selectors', 'Callbacks Object', 'Deferred Object',

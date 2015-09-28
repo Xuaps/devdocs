@@ -1,6 +1,6 @@
 module Docs
   class React
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
         'nativemodulesandroid.md'
       ]

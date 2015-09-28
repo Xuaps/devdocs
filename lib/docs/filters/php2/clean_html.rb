@@ -1,6 +1,6 @@
 module Docs
   class Php2
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
         'url.imagemagick.usage.color_mods.sigmoidal',
         'url.mongodb.dochub.maxWriteBatchSize',

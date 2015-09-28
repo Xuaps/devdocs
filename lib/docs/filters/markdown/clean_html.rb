@@ -1,6 +1,6 @@
 module Docs
   class Markdown
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       def call
         at_css('h1').content = 'Markdown'
 

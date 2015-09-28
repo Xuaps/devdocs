@@ -1,6 +1,6 @@
 module Docs
   class Browserify
-    class CleanHtmlFilter < Filter
+    class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = []
       REPLACED_LINKS = {
         'readme.markdown/changelog.markdown/index' => 'https://github.com/substack/node-browserify/blob/master/changelog.markdown'

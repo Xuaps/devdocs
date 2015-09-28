@@ -1,6 +1,6 @@
 module Docs
   class ReactRouter
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'Index' => 'others',
         'API' => 'api',

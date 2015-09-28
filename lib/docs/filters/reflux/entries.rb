@@ -1,6 +1,6 @@
 module Docs
   class Reflux
-    class EntriesFilter < Docs::EntriesFilter
+    class EntriesFilter < Docs::ReflyEntriesFilter
       REPLACE_TYPES = {
         'Content' => 'others',
         'Comparing RefluxJS with Facebook Flux' => 'guide',
