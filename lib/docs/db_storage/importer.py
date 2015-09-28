@@ -237,7 +237,8 @@ class DocImporter():
 
 
     def moveToData(self, conn):
-        sqlmovedata = 'INSERT INTO refs (reference, content,uri,content_anchor,parent_uri,type,docset, source_url) SELECT reference,content,uri,content_anchor,parent,type, docset, source_url FROM temp_refs;'
+        #sqlmovedata = 'INSERT INTO refs (reference, content,uri,content_anchor,parent_uri,type,docset, source_url) SELECT reference,content,uri,content_anchor,parent,type, docset, source_url FROM temp_refs;'
+        sqlmovedata = 'INSERT INTO refs (reference, content,uri,content_anchor,parent_uri,type,docset) SELECT reference,content,uri,content_anchor,parent,type, docset FROM temp_refs;'
         pgcursor = conn.cursor()
         pgcursor.execute(sqlmovedata)
 
