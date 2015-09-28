@@ -208,15 +208,32 @@ class DocImporter():
 
     def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri, _anchor, _source_url):
         pgcursor = conn.cursor()
-        sqlinsertitem = "INSERT INTO temp_refs (reference, content, parent, type, docset, uri, content_anchor, source_url) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
+        sqlinsertitem = "INSERT INTO temp_refs (reference, content, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s);"
         pgcursor.execute(sqlinsertitem,[_name,
                                         _content,
                                         _parent,
                                         _type,
                                         _docset,
                                         _uri,
-                                        _anchor,
-                                        _source_url])
+                                        _anchor])
+        # sqlinsertitem = "INSERT INTO temp_refs (reference, parent, type, docset, uri, content_anchor, source_url) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+        # pgcursor.execute(sqlinsertitem,[_name,
+        #                                 _parent,
+        #                                 _type,
+        #                                 _docset,
+        #                                 _uri,
+        #                                 _anchor,
+        #                                 _source_url])
+
+        # self.removedContent(conn, _source_url)
+        # self.insertContent(conn, _content, _source_url)
+
+    # def insertContent(self, conn, _content, _source_url):
+    #     pgcursor = conn.cursor()
+    #     sqlinsertcontent = "INSERT INTO refs_content (source_url, content) VALUES(%s, %s);"
+
+    #     pgcursor.execute(sqlinsertcontent,[_source_url,
+    #                                     _content])
 
 
     def moveToData(self, conn):
@@ -229,6 +246,12 @@ class DocImporter():
         sqlemptytables = 'DELETE FROM refs WHERE docset=%s;'
         pgcursor = conn.cursor()
         pgcursor.execute(sqlemptytables, [docset])
+        conn.commit()
+
+    def removedContent(self, conn, _source_url):
+        sqlemptycontent = 'DELETE FROM refs_content WHERE source_url=%s;'
+        pgcursor = conn.cursor()
+        pgcursor.execute(sqlemptycontent, [_source_url])
         conn.commit()
 
     def initTable(self, conn):
