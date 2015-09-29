@@ -2,7 +2,7 @@ module Docs
   class Apache
     class CleanHtmlFilter < ReflyFilter
 
-      BROKEN_LINKS = []
+      BROKEN_LINKS = ['mod_h2']
       REPLACED_LINKS = {}
       def call
 
