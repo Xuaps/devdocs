@@ -29,7 +29,6 @@ class DocImporter():
     def __init__(self, _docset, _mode, _connectionstring):
         self.config = ConfigParser.ConfigParser()
         self.config.read('importer.cfg')
-        print _connectionstring
         if(_connectionstring==''):
             User = self.config.get('Connection', 'User', 0)
             Password = self.config.get('Connection', 'Password', 0)
@@ -208,15 +207,15 @@ class DocImporter():
 
     def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri, _anchor, _source_url):
         pgcursor = conn.cursor()
-        sqlinsertitem = "INSERT INTO temp_refs (reference, content, parent, type, docset, uri, content_anchor, source_url) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
+        sqlinsertitem = "INSERT INTO temp_refs (reference, content, source_url, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
         pgcursor.execute(sqlinsertitem,[_name,
                                         _content,
+                                        _source_url,
                                         _parent,
                                         _type,
                                         _docset,
                                         _uri,
-                                        _anchor,
-                                        _source_url])
+                                        _anchor])
 
         # self.removedContent(conn, _source_url)
         # self.insertContent(conn, _content, _source_url)
@@ -230,7 +229,7 @@ class DocImporter():
 
 
     def moveToData(self, conn):
-        sqlmovedata = 'INSERT INTO refs (reference, content,uri,content_anchor,parent_uri,type,docset, source_url) SELECT reference,content,uri,content_anchor,parent,type, docset, source_url FROM temp_refs;'
+        sqlmovedata = 'INSERT INTO refs (reference, content, source_url, uri, content_anchor, parent_uri, type, docset) SELECT reference,content, source_url,uri,content_anchor,parent,type, docset FROM temp_refs;'
         pgcursor = conn.cursor()
         pgcursor.execute(sqlmovedata)
 
