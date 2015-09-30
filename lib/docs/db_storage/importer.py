@@ -45,24 +45,26 @@ class DocImporter():
                 sections = sections[sections.index(_docset):]
             for sect in sections:
                 if sect not in ['Connection', 'Config', 'Path']:
-                    self.docset = sect
-                    self.docset_name = self.config.get(sect, 'name', 0)
-                    self.docset_parsed_name = self.config.get(sect, 'parsed_name', 0)
-                    self.default_uri = self.config.get(sect, 'default_uri', 0)
-                    self.index_path = self.content_path + sect +  '/index.json'
-                    print '########################################   ' + sect + '   ########################################'
-                    lastimportfile = open('lastimport.log', 'w')
-                    lastimportfile.truncate()
-                    lastimportfile.write(sect)
-                    lastimportfile.close();
-                    self.importToDB()
+                    if self.config.get(sect, 'active', 0) == 'true':
+                        self.docset = sect
+                        self.docset_name = self.config.get(sect, 'name', 0)
+                        self.docset_parsed_name = self.config.get(sect, 'parsed_name', 0)
+                        self.default_uri = self.config.get(sect, 'default_uri', 0)
+                        self.index_path = self.content_path + sect +  '/index.json'
+                        print '########################################   ' + sect + '   ########################################'
+                        lastimportfile = open('lastimport.log', 'w')
+                        lastimportfile.truncate()
+                        lastimportfile.write(sect)
+                        lastimportfile.close();
+                        self.importToDB()
         else:
             self.docset = _docset
-            self.docset_name = self.config.get(self.docset, 'name', 0)
-            self.docset_parsed_name = self.config.get(self.docset, 'parsed_name', 0)
-            self.default_uri = self.config.get(self.docset, 'default_uri', 0)
-            self.index_path = self.content_path + self.docset +  '/index.json'
-            self.importToDB()
+            if self.config.get(self.docset, 'active', 0) == 'true':
+                self.docset_name = self.config.get(self.docset, 'name', 0)
+                self.docset_parsed_name = self.config.get(self.docset, 'parsed_name', 0)
+                self.default_uri = self.config.get(self.docset, 'default_uri', 0)
+                self.index_path = self.content_path + self.docset +  '/index.json'
+                self.importToDB()
 
     def ProcessContent(self, content):
         tree = html.fromstring(content)
