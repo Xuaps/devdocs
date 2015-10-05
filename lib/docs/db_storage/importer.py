@@ -7,6 +7,7 @@ import ConfigParser
 import os.path
 import re
 import time
+import math
 import logging
 
 from lxml import html
@@ -39,34 +40,36 @@ class DocImporter():
             self.connection_string = _connectionstring
         self.debugMode = bool(self.config.get('Config', 'debugMode', 0))
         self.content_path = self.config.get('Path', 'base_path', 0)
-        if _mode == 'all' or _mode == 'continue':
-            sections = self.config.sections()
-            if _mode == 'continue':
-                sections = sections[sections.index(_docset):]
-            for sect in sections:
-                if sect not in ['Connection', 'Config', 'Path']:
-                    if self.config.get(sect, 'active', 0) == 'true':
+        sections = self.config.sections()
+        if _mode == 'continue':
+            sections = sections[sections.index(_docset):]
+        elif _mode == 'single':
+            sections = [_docset]
+        conn = psycopg2.connect(self.connection_string)
+        self.processDocsets(sections)
+
+
+    def processDocsets(self, docsetlist):
+        for sect in docsetlist:
+            if sect not in ['Connection', 'Config', 'Path']:
+                if self.config.get(sect, 'active', 0) == 'true':
+                    try:
                         self.docset = sect
                         self.docset_name = self.config.get(sect, 'name', 0)
                         self.docset_parsed_name = self.config.get(sect, 'parsed_name', 0)
                         self.default_uri = self.config.get(sect, 'default_uri', 0)
                         self.index_path = self.content_path + sect +  '/index.json'
-                        print '########################################   ' + sect + '   ########################################'
+                        print "\rImporting " + sect + "..."
+                        self.importToDB()
+                    except:
                         lastimportfile = open('lastimport.log', 'w')
                         lastimportfile.truncate()
                         lastimportfile.write(sect)
                         lastimportfile.close();
-                        self.importToDB()
-        else:
-            self.docset = _docset
-            if self.config.get(self.docset, 'active', 0) == 'true':
-                self.docset_name = self.config.get(self.docset, 'name', 0)
-                self.docset_parsed_name = self.config.get(self.docset, 'parsed_name', 0)
-                self.default_uri = self.config.get(self.docset, 'default_uri', 0)
-                self.index_path = self.content_path + self.docset +  '/index.json'
-                self.importToDB()
 
-    def ProcessContent(self, content):
+
+
+    def processContent(self, content):
         tree = html.fromstring(content)
         links = tree.xpath('//a[@href]')
         for alink in links:
@@ -94,7 +97,7 @@ class DocImporter():
         conn = psycopg2.connect(self.connection_string)
         try:
             json_data = self.processJSON(self.index_path)
-            self.links = self.CreateLinkCollection(json_data)
+            self.links = self.createLinkCollection(json_data)
             self.initTable(conn)
             previous_uri = ''
             procesed_entries = {}
@@ -102,9 +105,12 @@ class DocImporter():
             i = 1
             for entry in json_data:
                 _name = entry['name']
-                if self.debugMode:
-                    print ('Process: ' + entry['path']).ljust(50) + ('[' + str(i)+ '/' + str(total) + ']').rjust(30)
-                    i+=1
+                loading_value = int(math.ceil(float(50)/total*i))
+                gap_value = 50 - loading_value
+                loading_bar = ("#" * loading_value) + (" " * gap_value)
+                sys.stdout.write('\r[' + loading_bar + '](' + str(i)+ '/' + str(total) + ')')
+                sys.stdout.flush()                    
+                i+=1
                 if entry['path'].find('#')!= -1:
                      entry['path'] = entry['path'].split('#')[0]
                 filename = self.getFileName(self.content_path,self.docset, entry['path'])
@@ -113,7 +119,7 @@ class DocImporter():
                     _content = procesed_entries[entry['path']]
                 else:
                     self.filename = filename
-                    _content = self.ProcessContent(self.getContent(filename))
+                    _content = self.processContent(self.getContent(filename))
                     procesed_entries[entry['path']] = _content
 
                 if entry['parent_uri'] == 'null':
@@ -132,12 +138,12 @@ class DocImporter():
             self.emptyTable(conn,self.docset_name)
             self.moveToData(conn)
             self.updateDocsets(conn,self.docset_name, self.default_uri, self.docset_parsed_name)
-            self.Commit(conn)
+            self.commit(conn)
         except Exception, e:
             hour = time.strftime("%d/%m/%Y %H:%M:%S")
-            self.ferrors = open('errors_' + hour.replace('/','_').replace(' ','_').replace(':','-') + '.log', 'a')
+            self.ferrors = open('import_errors.log', 'a')
             self.ferrors.write('\n\n\n########################################   ' + self.docset_name + '   ########################################\n\n\n')
-            self.Rollback(conn)
+            self.rollback(conn)
             self.initTable(conn)
             self.linkerrors = []
             self.ferrors.write('- ' + hour + ' error in ' + self.docset_name + ':  %s\n' % e)
@@ -152,9 +158,9 @@ class DocImporter():
                 brokenlinksfile.write(error + '\n')
             self.linkerrors = []
             brokenlinksfile.close()
-        self.Finish(conn)
+        self.finish(conn)
 
-    def CreateLinkCollection(self, entries):
+    def createLinkCollection(self, entries):
         links = {}
         for entry in entries:
             if entry['path'].lower() not in links.keys() or entry['anchor']=='':
@@ -197,21 +203,20 @@ class DocImporter():
         else:
             raise Exception("'index.json not found in docset " + self.docset_name)
 
-    def Connect():
+    def connect():
         return psycopg2.connect(self.connection_string)
 
-    def Commit(self, conn):
+    def commit(self, conn):
         conn.commit()
-        print self.docset_name + ' import succeed! \n ' + str(self.total_entries) + ' imported'
+        print '\n' + self.docset_name + ' imports ' + str(self.total_entries) + '\n'
 
-    def Rollback(self, conn):
+    def rollback(self, conn):
         conn.rollback()
 
     def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri, _anchor, _source_url):
         pgcursor = conn.cursor()
-        sqlinsertitem = "INSERT INTO temp_refs (reference, content, source_url, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
+        sqlinsertitem = "INSERT INTO temp_refs (reference, source_url, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s);"
         pgcursor.execute(sqlinsertitem,[_name,
-                                        _content,
                                         _source_url,
                                         _parent,
                                         _type,
@@ -219,8 +224,8 @@ class DocImporter():
                                         _uri,
                                         _anchor])
 
-        # self.removedContent(conn, _source_url)
-        # self.insertContent(conn, _content, _source_url)
+        self.removedContent(conn, _source_url)
+        self.insertContent(conn, _content, _source_url)
 
     def insertContent(self, conn, _content, _source_url):
         pgcursor = conn.cursor()
@@ -228,7 +233,6 @@ class DocImporter():
 
         pgcursor.execute(sqlinsertcontent,[_source_url,
                                         _content])
-
 
     def moveToData(self, conn):
         sqlmovedata = 'INSERT INTO refs (reference, content, source_url, uri, content_anchor, parent_uri, type, docset) SELECT reference,content, source_url,uri,content_anchor,parent,type, docset FROM temp_refs;'
@@ -266,6 +270,6 @@ class DocImporter():
         else:
             pgcursor.execute(sqldocsetinsert,[docset, default_uri, True, parsed_name])
 
-    def Finish(self,conn):
+    def finish(self,conn):
         self.initTable(conn)
         conn.close()
