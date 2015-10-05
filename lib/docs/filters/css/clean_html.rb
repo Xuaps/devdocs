@@ -3,7 +3,8 @@ module Docs
     class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
           'en-us/docs/web/guide/prefixes',
-          'counter'
+          'counter',
+          'en-us/docs/css/inheritance'
       ]
 
       def call
