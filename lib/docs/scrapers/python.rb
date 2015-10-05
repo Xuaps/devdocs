@@ -2,7 +2,7 @@ module Docs
   class Python < FileScraper
     self.version = '3.5.0'
     self.type = 'sphinx'
-    self.dir = './file_scraper_docs/python3/docs' # downloaded from docs.python.org/3/download.html
+    self.dir = './file_scraper_docs/python/python-3.5.0-docs-html' # downloaded from docs.python.org/3/download.html
     self.base_url = 'http://docs.python.org/3/'
     self.root_path = 'library/index.html'
 
