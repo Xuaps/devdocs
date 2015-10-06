@@ -215,8 +215,9 @@ class DocImporter():
 
     def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri, _anchor, _source_url):
         pgcursor = conn.cursor()
-        sqlinsertitem = "INSERT INTO temp_refs (reference, source_url, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+        sqlinsertitem = "INSERT INTO temp_refs (reference, content, source_url, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
         pgcursor.execute(sqlinsertitem,[_name,
+                                        _content,
                                         _source_url,
                                         _parent,
                                         _type,
@@ -224,8 +225,8 @@ class DocImporter():
                                         _uri,
                                         _anchor])
 
-        self.removedContent(conn, _source_url)
-        self.insertContent(conn, _content, _source_url)
+        # self.removedContent(conn, _source_url)
+        # self.insertContent(conn, _content, _source_url)
 
     def insertContent(self, conn, _content, _source_url):
         pgcursor = conn.cursor()

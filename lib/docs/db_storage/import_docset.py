@@ -16,9 +16,9 @@ def main(argv):
         elif arg[:3]== '-cs':
             connstring = arg[3:]
 
+    if mode=='' and docset!='':
+        mode = 'single'
     if action == 'import':
-      if mode=='' and docset!='':
-          mode = 'single'
       importer = DocImporter(docset, mode, connstring)
     elif action == 'scrap':
       scraper = Scraper(docset, 'importer.cfg')
