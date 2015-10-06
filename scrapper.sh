@@ -24,8 +24,9 @@ then
     fi
     if [ $1 == "fullprocess" ] || [ $1 == "scrap" ]
     then
-		for docset in angular apache backbone bower browserify c chai clojure coffeescript cordova cpp css d3 django dom drupal ember express git go grunt html http haskell iojs jasmine jest dom_events jquery_core jquery_ui jquery_mobile java7se javascript knockout laravel less lodash lua marionette markdown mocha modernizr moment mongoose mysql nginx node nokogiri2 npm opentsdb phalcon phaser php2 phpunit postgresql python2 python q rails react react_native react_router redis reflux requirejs rethinkdb ruby rust sass sinon socketio svg symfony twig underscore vue webpack xpath yii yii1
+		for docset in angular  apache backbone bower browserify
 		do
+			echo "scrapping $docset" 
 			if thor docs generate $docset --force
 			then
 			  echo "docset $docset scrapped!"
