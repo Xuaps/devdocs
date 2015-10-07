@@ -11,7 +11,7 @@ module Docs
 
     html_filters.push 'cordova/clean_html', 'cordova/entries', 'title'
 
-    options[:container] = ->(filter) { filter.root_page? ? '#home' : '#content' }
+    options[:container] = '#page-toc-source'
     options[:title] = false
     options[:root_title] = 'Apache Cordova'
     options[:docset_uri] = '/apache_cordova'
