@@ -12,7 +12,7 @@ module Docs
 
     options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'Java 7 SE'
-    options[:docset_uri] = '/java7se'
+    options[:docset_uri] = '/java_7_se'
     options[:skip] = %w()
     options[:skip_patterns] = [
       /index\.html\.*/i,
