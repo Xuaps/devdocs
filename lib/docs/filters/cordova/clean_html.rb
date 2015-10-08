@@ -42,7 +42,6 @@ module Docs
 
       def fixLinks
         css('a[href]').each do |node|
-          puts 'ini: ' + node['href']
           node['href'] = CleanWrongCharacters(node['href']).downcase
           if REPLACED_LINKS[node['href'].downcase.remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove '../']          
@@ -71,7 +70,6 @@ module Docs
             node['class'] = 'broken'
           end
           node['href'] = REPLACED_LINKS[node['href']] || node['href']
-          puts 'fin: ' + node['href']
         end
       end
     end

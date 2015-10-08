@@ -2,7 +2,9 @@ module Docs
   class Swift
     class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = []
-      REPLACED_LINKS = {}
+      REPLACED_LINKS = {
+        'thebasics' => 'index'
+      }
       def call
         css('.copyright').remove
         css('h3.section-name').each do |node|
