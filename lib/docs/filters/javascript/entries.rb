@@ -8,9 +8,9 @@ module Docs
 
       EXCLUDED_PATH = ['MDN','Web technology for developers', 'JavaScript']
      def get_name
-        name = css('h1').first.content.remove '%'
+        name = css('h1').first.content
         if name == ''
-          name = slug.remove '%'
+          name = slug
         end
         name
       end
@@ -22,9 +22,9 @@ module Docs
 
       def get_parsed_uri
         if get_parent_uri == 'null'
-            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
+            parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name.remove '%')
         else
-            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name.remove '%')
         end
         parsed_uri
       end
