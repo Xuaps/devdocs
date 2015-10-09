@@ -46,13 +46,13 @@ class Scraper():
                         extension = zip_url.split('.')[-1]
                     try:
                         print "Downloading " + zip_url + "..."
-                        subprocess.check_output("wget " + zip_url + " -O ./file_scraper_docs/" + scraper_name + "." + extension, shell=True, stderr=subprocess.STDOUT, cwd=working_directory)
+                        subprocess.check_output("wget " + zip_url + " -O ./file_scraper_docs/" + scraper_name + "." + extension, shell=True, cwd=working_directory)
                         if extension == 'zip':
                             print "Extracting " + scraper_name + "." + extension + "..."
-                            subprocess.check_output("unzip -o ./file_scraper_docs/" + scraper_name + ".zip -d ./file_scraper_docs/"+ scraper_name + "/", shell=True, stderr=subprocess.STDOUT, cwd=working_directory)
+                            subprocess.check_output("unzip -o ./file_scraper_docs/" + scraper_name + ".zip -d ./file_scraper_docs/"+ scraper_name + "/", shell=True, cwd=working_directory)
                         else:
                             print "Extracting " + scraper_name + "." + extension + "..."
-                            subprocess.check_output("mkdir -p ./file_scraper_docs/" + scraper_name + " && tar -zxvf ./file_scraper_docs/" + scraper_name + ".tar.gz -C ./file_scraper_docs/" + scraper_name, shell=True, stderr=subprocess.STDOUT, cwd=working_directory)
+                            subprocess.check_output("mkdir -p ./file_scraper_docs/" + scraper_name + " && tar -zxvf ./file_scraper_docs/" + scraper_name + ".tar.gz -C ./file_scraper_docs/" + scraper_name, shell=True, cwd=working_directory)
                         print 'done'
                     except subprocess.CalledProcessError, e:
                         hour = time.strftime("%d/%m/%Y %H:%M:%S")
@@ -70,7 +70,7 @@ class Scraper():
                 try:
                     thorcommand = "thor docs generate " + scraper_name + " --force"
                     args = shlex.split(thorcommand)
-                    subprocess.check_output(args, stderr=subprocess.STDOUT, cwd=working_directory)
+                    subprocess.check_output(args, cwd=working_directory)
                     print 'done'
                 except subprocess.CalledProcessError, e:
                     hour = time.strftime("%d/%m/%Y %H:%M:%S")
