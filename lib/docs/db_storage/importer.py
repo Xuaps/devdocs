@@ -17,6 +17,7 @@ class DocImporter():
     content_path = ''
     debugMode = False
     linkerrors = []
+    additional = False
     docset = ''
     filename = ''
     docset_name = ''
@@ -58,6 +59,7 @@ class DocImporter():
                         self.docset_name = self.config.get(sect, 'name', 0)
                         self.docset_parsed_name = self.config.get(sect, 'parsed_name', 0)
                         self.default_uri = self.config.get(sect, 'default_uri', 0)
+                        self.additional =  self.config.get(sect, 'additional', 0)
                         self.index_path = self.content_path + sect +  '/index.json'
                         print "\rImporting " + sect + "..."
                         self.importToDB()
@@ -134,8 +136,8 @@ class DocImporter():
                 if previous_uri != _uri:
                     self.insertRow(conn, _name, _content, _parent_uri, _type, _docset, _uri, _anchor, _source_url)
                     previous_uri = _uri
-
-            self.emptyTable(conn,self.docset_name)
+            if self.additional == 'false':
+              self.emptyTable(conn,self.docset_name)
             self.moveToData(conn)
             self.updateDocsets(conn,self.docset_name, self.default_uri, self.docset_parsed_name)
             self.commit(conn)
@@ -215,9 +217,8 @@ class DocImporter():
 
     def insertRow(self, conn, _name, _content, _parent, _type, _docset, _uri, _anchor, _source_url):
         pgcursor = conn.cursor()
-        sqlinsertitem = "INSERT INTO temp_refs (reference, content, source_url, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
+        sqlinsertitem = "INSERT INTO temp_refs (reference, source_url, parent, type, docset, uri, content_anchor) VALUES (%s, %s, %s, %s, %s, %s, %s);"
         pgcursor.execute(sqlinsertitem,[_name,
-                                        _content,
                                         _source_url,
                                         _parent,
                                         _type,
@@ -225,8 +226,8 @@ class DocImporter():
                                         _uri,
                                         _anchor])
 
-        # self.removedContent(conn, _source_url)
-        # self.insertContent(conn, _content, _source_url)
+        self.removedContent(conn, _source_url)
+        self.insertContent(conn, _content, _source_url)
 
     def insertContent(self, conn, _content, _source_url):
         pgcursor = conn.cursor()
@@ -236,7 +237,7 @@ class DocImporter():
                                         _content])
 
     def moveToData(self, conn):
-        sqlmovedata = 'INSERT INTO refs (reference, content, source_url, uri, content_anchor, parent_uri, type, docset) SELECT reference,content, source_url,uri,content_anchor,parent,type, docset FROM temp_refs;'
+        sqlmovedata = 'INSERT INTO refs (reference, source_url, uri, content_anchor, parent_uri, type, docset) SELECT reference, source_url,uri,content_anchor,parent,type, docset FROM temp_refs;'
         pgcursor = conn.cursor()
         pgcursor.execute(sqlmovedata)
 
