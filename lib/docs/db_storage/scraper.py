@@ -68,9 +68,7 @@ class Scraper():
                 scraper_name = self.config.get(sect['name'], 'scraper_name')
                 print "Processing " + scraper_name + "..."
                 try:
-                    thorcommand = "thor docs generate " + scraper_name + " --force"
-                    args = shlex.split(thorcommand)
-                    subprocess.check_output(args, cwd=working_directory)
+                    subprocess.check_output("thor docs generate " + scraper_name + " --force",shell=True, cwd=working_directory)
                     print 'done'
                 except subprocess.CalledProcessError, e:
                     hour = time.strftime("%d/%m/%Y %H:%M:%S")
