@@ -1,7 +1,9 @@
 from importer import DocImporter
 from scraper import Scraper
 import sys
+import time
 def main(argv):
+    print 'process started at ' + time.strftime("%d/%m/%Y %H:%M:%S")
     docset = ''
     mode = ''
     action = ''
@@ -25,6 +27,7 @@ def main(argv):
     else:
       scraper = Scraper(docset,'importer.cfg')
       importer = DocImporter(docset, mode, connstring)
+    print 'process finished at ' + time.strftime("%d/%m/%Y %H:%M:%S")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
