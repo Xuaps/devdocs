@@ -45,14 +45,15 @@ class Scraper():
                     else:
                         extension = zip_url.split('.')[-1]
                     try:
+                        sys.stdout.flush()
                         print "Downloading " + zip_url + "..."
-                        subprocess.check_output("wget " + zip_url + " -O ./file_scraper_docs/" + scraper_name + "." + extension, shell=True, cwd=working_directory)
+                        subprocess.check_call("wget " + zip_url + " -O ./file_scraper_docs/" + scraper_name + "." + extension, shell=True, cwd=working_directory)
                         if extension == 'zip':
                             print "Extracting " + scraper_name + "." + extension + "..."
-                            subprocess.check_output("unzip -o ./file_scraper_docs/" + scraper_name + ".zip -d ./file_scraper_docs/"+ scraper_name + "/", shell=True, cwd=working_directory)
+                            subprocess.check_call("unzip -o ./file_scraper_docs/" + scraper_name + ".zip -d ./file_scraper_docs/"+ scraper_name + "/", shell=True, cwd=working_directory)
                         else:
                             print "Extracting " + scraper_name + "." + extension + "..."
-                            subprocess.check_output("mkdir -p ./file_scraper_docs/" + scraper_name + " && tar -zxvf ./file_scraper_docs/" + scraper_name + ".tar.gz -C ./file_scraper_docs/" + scraper_name, shell=True, cwd=working_directory)
+                            subprocess.check_call("mkdir -p ./file_scraper_docs/" + scraper_name + " && tar -zxvf ./file_scraper_docs/" + scraper_name + ".tar.gz -C ./file_scraper_docs/" + scraper_name, shell=True, cwd=working_directory)
                         print 'done'
                     except subprocess.CalledProcessError, e:
                         hour = time.strftime("%d/%m/%Y %H:%M:%S")
@@ -68,12 +69,12 @@ class Scraper():
                 scraper_name = self.config.get(sect['name'], 'scraper_name')
                 print "Processing " + scraper_name + "..."
                 try:
-                    subprocess.check_output("thor docs generate " + scraper_name + " --force",shell=True, cwd=working_directory)
+                    subprocess.check_call("thor docs generate " + scraper_name + " --force",shell=True, cwd=working_directory)
                     print 'done'
                 except subprocess.CalledProcessError, e:
                     hour = time.strftime("%d/%m/%Y %H:%M:%S")
                     scraper_errors_file = open('scraper_errors.log', 'a')
-                    message = "error scrapping " + scraper_name + " at" + hour + "\n\n" + e.output + "###########################################\n\n\n"
+                    message = "error scrapping " + scraper_name + " at" + hour + "\n\n" + str(e) + "###########################################\n\n\n"
                     scraper_errors_file.write(message)
                     scraper_errors_file.close()
                 except Exception, e:

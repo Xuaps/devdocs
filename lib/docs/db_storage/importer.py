@@ -79,7 +79,7 @@ class DocImporter():
             keymatch = ''
             if alink.get('href')!=None:
                 match = alink.get('href')
-                keymatch = match.lower().replace('../', '')
+                keymatch = match.lower().replace('../', '').replace('%24', '$')
             else:
                 match = '#'
                 keymatch = '#'
@@ -171,14 +171,7 @@ class DocImporter():
                 links[entry['path'][entry['path'].find('/'):].lower()] = entry['parsed_uri']
                 links[(entry['path'] + '#' + entry['anchor']).lower()] = entry['parsed_uri']
                 links['#' + entry['anchor'].lower()] = entry['parsed_uri']
-            # EXCEPTION FOR Haskell
-            if entry['docset'].lower() == 'haskell':
-               links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
-            # EXCEPTION FOR Python
-            if entry['docset'].lower() == 'python3' or entry['docset'].lower() == 'python2':
-               links[entry['path'][entry['path'].find('/')+1:].lower() + '.html'] = entry['parsed_uri']
-               links[entry['path'] + '.html'] = entry['parsed_uri']
-            # EXCEPTION FOR C++
+            # EXCEPTION FOR C++ this because the limitations of the documentation into the zip
             if entry['docset'].lower() == 'cpp' or entry['docset'].lower() == 'c':
                 links[entry['path'][entry['path'].find('/')+1:].lower()] = entry['parsed_uri']
                 links[entry['path'].replace('fs/', '').replace('io/', '').replace('experimental/', '')] = entry['parsed_uri']
