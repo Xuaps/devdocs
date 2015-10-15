@@ -17,7 +17,11 @@ module Docs
     options[:skip_patterns] = [
       /\/misc\/misc\/.*/,
     ]
-
+    options[:fix_urls] = ->(url) do
+      url.sub! '%24%24', '$$'
+      url.sub! '%24', '$'
+      url
+    end
     options[:attribution] = <<-HTML
       &copy; 2010&ndash;2015 Google, Inc.<br>
       Licensed under the Creative Commons Attribution License 3.0.

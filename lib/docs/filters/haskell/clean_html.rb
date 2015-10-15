@@ -2,27 +2,30 @@ module Docs
   class Haskell
     class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
-        '$',
-        'control-exception-exception',
-        'control-parallel',
-        'fallthrough',
-        'system-filepath',
-        'data-bytestring-builder-ascii',
-        'hello',
+        'containers-0.5.5.1/$',
+        'bytestring-0.10.4.0/$',
+        'haskell98-2.0.0.3/control-exception-exception',
+        'base-4.7.0.0/control-exception-exception',
+        'deepseq-1.3.0.2/control-parallel',
+        'hoopl-3.10.0.1/fallthrough',
+        'bytestring-0.10.4.0/data-bytestring-builder-ascii',
+        'template-haskell-2.9.0.0/hello',
         'control-monad-trans-state',
-        'foreign-foreignptr',
-        'data-generics-basics',
-        'data-generics-instances',
-        'control-monad-trans-writer',
+        'base-4.7.0.0/data-generics-basics',
+        'base-4.7.0.0/data-generics-instances',
+        'base-4.7.0.0/data-array-st',
         'base-4.7.0.0/foreign-foreignptr',
-        'if',
-        ')\''
+        'base-4.7.0.0/if',
+        'bytestring-0.10.4.0/)\''
       ]
       REPLACED_LINKS = {
         'text-prettyprint-hughespj' => 'pretty-1.1.1.1/text-prettyprint-hughespj'
       }
       def call
         root_page? ? root : other
+        fixLinks
+        WrapPreContentWithCode 'hljs haskell'
+        WrapContentWithDivs '_page _haskell'
         doc
       end
 
@@ -33,19 +36,6 @@ module Docs
       end
 
       def other
-        css('a[href]').each do |node|
-          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
-            node['href'] = CleanWrongCharacters(node['href']).remove '../'
-            if REPLACED_LINKS[node['href'].downcase.remove! '../']
-                node['href'] = REPLACED_LINKS[node['href'].remove '../']
-            elsif node['href'].include? '/grunt.log#grunt.log.error'
-                node['href'] = '#grunt.log.error-grunt.verbose.error'
-            elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
-               node['class'] = 'broken'
-               # node['href'] = context[:domain] + '/help#brokenlink'
-            end
-          end
-        end
         css('h1').each do |node|
           node.remove if node.content == 'Documentation'
         end
@@ -86,9 +76,42 @@ module Docs
             node['class'] = 'version'
           end
         end
-        WrapPreContentWithCode 'hljs haskell'
-        WrapContentWithDivs '_page _haskell'
         doc
+      end
+      def fixLinks
+        css('a[href]').each do |node|
+          node['href'] = CleanWrongCharacters(node['href']).downcase
+          if REPLACED_LINKS[node['href'].downcase.remove! '../']
+              node['href'] = REPLACED_LINKS[node['href'].remove '../']          
+          elsif !node['href'].start_with? 'http://' and !node['href'].start_with? '#' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'news://' and !node['href'].start_with? 'mailto:'
+            if node['class'] == 'new'
+              node['class'] = 'broken'
+              node['title'] = ''
+            else
+              # puts 'ini: ' + node['href']
+              sluglist = slug.split('/')
+              if context[:url].to_s.include? '.html'
+                sluglist.pop
+              end
+              nodelist = sluglist + node['href'].split('/')
+              newhref = []
+              nodelist.each do |item|
+                if item == '..'
+                  newhref.pop
+                elsif item != ''
+                  newhref << item
+                end
+              end
+              node['href'] = newhref.join('/')
+            end
+            # puts 'fin: ' + node['href']
+          end
+          if BROKEN_LINKS.include? node['href'].downcase.remove! '../'
+            node['class'] = 'broken'
+          end
+          node['href'] = REPLACED_LINKS[node['href']] || node['href']
+        end
+        
       end
     end
   end

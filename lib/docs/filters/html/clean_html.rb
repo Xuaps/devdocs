@@ -38,7 +38,7 @@ module Docs
           if REPLACED_LINKS[node['href'].downcase.remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove '../']          
           elsif !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'mailto:'
-            if node['class'] == 'new'
+            if node['class'] == 'new' or node['title'] == 'The documentation about this has not yet been written; please consider contributing!'
               node['class'] = 'broken'
               node['title'] = ''
               # node['href'] = context[:domain] + '/help#brokenlink'
