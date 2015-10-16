@@ -58,7 +58,7 @@ class Scraper():
                     except subprocess.CalledProcessError, e:
                         hour = time.strftime("%d/%m/%Y %H:%M:%S")
                         scraper_errors_file = open('scraper_errors.log', 'a')
-                        message = "error downloading " + zip_url + " at" + hour + "\n\n" + e.output + "###########################################\n\n\n"
+                        message = "error downloading " + zip_url + " at" + hour + "\n\n" + str(e) + "###########################################\n\n\n"
                         scraper_errors_file.write(message)
                         scraper_errors_file.close()
 
