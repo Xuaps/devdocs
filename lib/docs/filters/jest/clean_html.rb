@@ -9,7 +9,10 @@ module Docs
         if root_page?
           at_css('h1').content = 'React Documentation'
         end
-
+        css('div.prism.language-javascript').each do |node|
+          node.name = 'pre'
+          node['class'] = ''
+        end
         css('.docs-prevnext', '.hash-link', '.edit-page-link').remove
 
         css('.highlight').each do |node|
