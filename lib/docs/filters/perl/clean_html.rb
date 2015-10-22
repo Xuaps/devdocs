@@ -1,7 +1,18 @@
 module Docs
   class Perl
     class CleanHtmlFilter < Docs::ReflyFilter
-      BROKEN_LINKS = []
+      BROKEN_LINKS = ['perlgit', 'deprecate', 'io/socket/ip',
+        'io/compress/faq', 'tap/parser/sourcehandler', 'version',
+        'cpan/meta/spec', 'cpan/meta', 'tap/parser/sourcehandler',
+        'tap/parser/sourcehandler/executable', 'tap/parser/sourcehandler/perl', 'tap/parser/sourcehandler/file',
+        'tap/parser/sourcehandler/rawtap', 'tap/parser/sourcehandler/handle', 'encode/supported',
+        'pod/simple/subclassing', 'test/tutorial', 'arybase',
+        'autodie/exception', 'encode/supported', 'encode/perlio',
+        'zipdetails', 'ptargrep', 'unicode/collate/locale',
+        'file:line', 'pl2pm', 'encoding/warnings',
+        'autodie/hints', 'perlandroid', 'perlsynology',
+        'perldoc.tar.gz', 'perldoc-html.tar.gz', 'cpan/meta/yaml'
+      ]
       REPLACED_LINKS = {}
       def call
         css('ul').each do |node|
@@ -23,7 +34,7 @@ module Docs
           node['href'] = node['href'].gsub /#\/\/.*/, ''
           if REPLACED_LINKS[node['href'].downcase.remove! '../']
               node['href'] = REPLACED_LINKS[node['href'].remove '../']          
-          elsif !node['href'].start_with? '#' and !node['href'].start_with? 'http://' and !node['href'].start_with? '#' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'news://' and !node['href'].start_with? 'mailto:'
+          elsif !node['href'].start_with? '#' and !node['href'].start_with? 'git://' and !node['href'].start_with? 'http://' and !node['href'].start_with? '#' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'news://' and !node['href'].start_with? 'mailto:'
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['title'] = ''
