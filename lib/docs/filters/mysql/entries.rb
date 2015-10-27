@@ -5,7 +5,9 @@ module Docs
       EXCLUDED_PATH = ['MySQL 5.7 Reference Manual']
 
       def get_name
-        name = css('.title').first.content.gsub(/[\d\.]/, "").remove('Chapter', 'Appendix').strip
+        # puts css('.title').first.content
+        name = css('.title').first.content.remove('Chapter ', 'Appendix B', 'Appendix A', 'Appendix E', 'Appendix D','Appendix', ' E ', 'D.', 'A.', 'E.', 'B.').gsub(/\A[\d*\.]*/, "").strip
+        # puts name
         name
       end
 
@@ -25,8 +27,13 @@ module Docs
 
       def get_parent_uri
         parent_uri = context[:docset_uri]
-        xpath('//div[@id="docheader"]//a/text()').each do |node|
-           link = node.content.gsub(/[\d\.]/, "").remove('::').strip
+        if css('#hidden-breadcrumbs').to_s != ''
+          xpathsearch = '//span[@id="hidden-breadcrumbs"]//a/text()'
+        else
+          xpathsearch = '//div[@id="docs-breadcrumbs"]//a/text()'
+        end
+        xpath(xpathsearch).each do |node|
+           link = node.content.gsub(/\A[\d*\.]*/, "").remove('::').strip
            if not EXCLUDED_PATH.include? link
               parent_uri += '/' + self.urilized(link)
            end

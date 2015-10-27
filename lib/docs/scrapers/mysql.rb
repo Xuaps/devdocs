@@ -11,8 +11,9 @@ module Docs
     options[:container] = '#page'
     options[:root_title] = 'Mysql'
     options[:docset_uri] = '/mysql'
-    # options[:skip] = %w(
-    # preface.html)
+    options[:skip] = %w(
+    manual-info.html
+    )
     options[:attribution] = <<-HTML
       &copy; 2015 Oracle Corporation<br>
       Licensed under the GPL License.
