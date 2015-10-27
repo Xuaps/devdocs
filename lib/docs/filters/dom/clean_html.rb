@@ -14,7 +14,11 @@ module Docs
           'en/xpinstall_api_reference/installtrigger_object',
           'en/xpinstall_api_reference/install_object',
           'en/xpinstall_api_reference/file_object',
-          'en-us/docs/server-sent_events/using_server-sent_events'
+          'en-us/docs/Web/API/ServiceWorkerContainer',
+          'en-us/docs/server-sent_events/using_server-sent_events',
+          'video.blendertestbuilds.de/download.blender.org/peach/trailer_1080p.mov',
+          'serviceworker_api/en-us/docs/web/api/serviceworkercontainer',
+          'service_worker_api/en-us/docs/web/api/serviceworkercontainer'
       ]
       REPLACED_LINKS = {
         'eventhandler' => 'https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Event_handlers',
@@ -63,6 +67,9 @@ module Docs
               else
                 node['href'] = newhref.join('/')
               end
+            end
+            if BROKEN_LINKS.include? node['href'].downcase.remove! '../'
+              node['class'] = 'broken'
             end
           end
         end
