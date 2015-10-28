@@ -9,7 +9,7 @@ module Docs
         fixLinks
         WrapPreContentWithCode 'hljs sql'
         WrapContentWithDivs '_page _mysql'
-        css('#docs-sidebar-search-box', '.right', '#docs-in-page-nav', '.docs-comment-disclaimer', '.docs-comments-header').remove
+        css('#docs-sidebar-search-box', '.right', '#docs-in-page-nav', '.docs-comment-disclaimer', '.docs-comments-header', '#docs-breadcrumbs', '.docs-sidebar-nav', '.text', '.docs-sidebar-accordian', '.docs-sidebar-header-text').remove
         doc
       end
       def fixLinks

@@ -6,7 +6,7 @@ module Docs
 
       def get_name
         # puts css('.title').first.content
-        name = css('.title').first.content.remove('Chapter ', 'Appendix B', 'Appendix A', 'Appendix E', 'Appendix D','Appendix', ' E ', 'D.', 'A.', 'E.', 'B.').gsub(/\A[\d*\.]*/, "").strip
+        name = css('.title').first.content.remove('Chapter ', 'Appendix B', 'Appendix C', 'Appendix A', 'Appendix E', 'Appendix D','Appendix', ' E ', 'D.', 'C.', 'A.', 'E.', 'B.').gsub(/\A[\d*\.]*/, "").strip
         # puts name
         name
       end
@@ -46,7 +46,12 @@ module Docs
 
       def get_type
         type = 'others'
-        xpath('//div[@id="docheader"]//a/text()').each do |node|
+        if css('#hidden-breadcrumbs').to_s != ''
+          xpathsearch = '//span[@id="hidden-breadcrumbs"]//a/text()'
+        else
+          xpathsearch = '//div[@id="docs-breadcrumbs"]//a/text()'
+        end
+        xpath(xpathsearch).each do |node|
            link = node.content.remove('::').strip
            if not EXCLUDED_PATH.include? link
               type = link
@@ -72,6 +77,8 @@ module Docs
           type = 'utils'
         elsif type.include? 'MySQL' or type.include? 'Server' or type.include? 'Storage' or type.include? 'Replication'
           type = 'guide'
+        else
+          type = 'others'
         end
         type
       end
