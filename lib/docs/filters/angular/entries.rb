@@ -84,8 +84,7 @@ module Docs
         css('ul.methods').each do |list|
           list.css('> li[id]').each do |node|
             next unless heading = node.at_css('h3')
-            name = heading.content.strip
-            name.sub! %r{\(.*\);}, '()'
+            name = node['id']
             name.prepend "#{self.name.split.first}."
             custom_parsed_uri = get_parsed_uri_by_name(name)
             entries << [name, node['id'], get_type, custom_parsed_uri, get_parent_uri, get_docset]

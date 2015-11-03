@@ -18,7 +18,8 @@ module Docs
           'en-us/docs/server-sent_events/using_server-sent_events',
           'video.blendertestbuilds.de/download.blender.org/peach/trailer_1080p.mov',
           'serviceworker_api/en-us/docs/web/api/serviceworkercontainer',
-          'service_worker_api/en-us/docs/web/api/serviceworkercontainer'
+          'service_worker_api/en-us/docs/web/api/serviceworkercontainer',
+          'touch_events/web/api/touch_events'
       ]
       REPLACED_LINKS = {
         'eventhandler' => 'https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Event_handlers',
@@ -40,7 +41,7 @@ module Docs
       def call
         # fix links
         css('a[href]').each do |node|
-          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://'
+          if !node['href'].start_with? 'http://' and !node['href'].start_with? 'https://' and !node['href'].start_with? 'ftp://' and !node['href'].start_with? 'irc://' and !node['href'].start_with? 'mailto:'
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['title'] = ''

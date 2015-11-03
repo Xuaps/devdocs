@@ -12,11 +12,15 @@ module Docs
     options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'npm'
     options[:docset_uri] = '/npm'
-    options[:skip] = %w(all)
+    options[:skip] = %w(
+      all
+      misc/index
+    )
     options[:skip_patterns] = [
       /\Aenterprise/,
       /\Acompany/,
-      /\Apolicies/
+      /\Apolicies/,
+      /\Aundefined/
     ]
 
     options[:attribution] = <<-HTML
