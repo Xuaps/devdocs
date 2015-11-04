@@ -2,6 +2,8 @@ module Docs
   class Npm
     class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
+        'misc/scopes',
+        'cli/rm'
       ]
       REPLACED_LINKS = {
       }
@@ -54,6 +56,10 @@ module Docs
               end
             end
           end
+          if BROKEN_LINKS.include? node['href'].downcase.remove! '../'
+            node['class'] = 'broken'
+          end
+          node['href'] = REPLACED_LINKS[node['href']] || node['href']
         end
         WrapPreContentWithCode 'hljs bash'
         WrapContentWithDivs '_page _nom'
