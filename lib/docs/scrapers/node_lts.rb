@@ -5,7 +5,7 @@ module Docs
     self.type = 'node'
     self.version = '4.2.1'
     self.base_url = 'https://nodejs.org/dist/v4.2.1/docs/api/'
-
+    options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'NodeJS LTS'
     options[:docset_uri] = '/nodejs_lts'
   end
