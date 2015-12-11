@@ -4,6 +4,7 @@ import json
 import psycopg2
 import sys
 import ConfigParser
+import pprint
 import os.path
 import re
 import time
