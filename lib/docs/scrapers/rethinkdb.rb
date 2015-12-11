@@ -13,10 +13,10 @@ module Docs
     options[:trailing_slash] = false
     options[:container] = '.docs-article'
 
-    options[:fix_urls] = ->(url) do
-      url.sub! %r{rethinkdb.com/api/(?!javascript|ruby|python)}, 'rethinkdb.com/api/javascript/'
-    end
-
+    # options[:fix_urls] = ->(url) do
+    #   url.sub! %r{rethinkdb.com/api/(?!javascript|ruby|python)}, 'rethinkdb.com/api/javascript/'
+    #   url
+    # end
     options[:attribution] = <<-HTML
       &copy; RethinkDB contributors<br>
       Licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License.
