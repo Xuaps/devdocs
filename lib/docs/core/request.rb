@@ -1,5 +1,5 @@
 module Docs
-  class Request < Docs::ReflyRequest
+  class Request < Typhoeus::Request
     include Instrumentable
 
     DEFAULT_OPTIONS = {
