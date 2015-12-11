@@ -1,7 +1,10 @@
 module Docs
   class ReactRouter
     class CleanHtmlFilter < Docs::ReflyFilter
-      BROKEN_LINKS = ['docs/redirect.md/index']
+      BROKEN_LINKS = [
+        'docs/redirect.md/index',
+        'docs/changes.md/index'
+      ]
       REPLACED_LINKS = {
         'examples/index' => 'https://github.com/rackt/react-router/tree/master/examples',
         'docs/index' => 'index',

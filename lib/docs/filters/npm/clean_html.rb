@@ -3,7 +3,9 @@ module Docs
     class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
         'misc/scopes',
-        'cli/rm'
+        'cli/rm',
+        'orgs/cli/team',
+        'cli/npm-access'
       ]
       REPLACED_LINKS = {
       }

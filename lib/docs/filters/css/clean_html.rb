@@ -4,7 +4,8 @@ module Docs
       BROKEN_LINKS = [
           'en-us/docs/web/guide/prefixes',
           'counter',
-          'en-us/docs/css/inheritance'
+          'en-us/docs/css/inheritance',
+          '@page/size'
       ]
 
       def call

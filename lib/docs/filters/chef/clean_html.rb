@@ -1,7 +1,9 @@
 module Docs
   class Chef
     class CleanHtmlFilter < Docs::ReflyFilter
-      BROKEN_LINKS = []
+      BROKEN_LINKS = ['_images/splunk_app_nodes_activity.png',
+                      '_images/splunk_app_server_activity.png'
+      ]
       REPLACED_LINKS = {}
       def call
         css('.headerlink', '.sphinxsidebar', '.nav-docs-items').remove

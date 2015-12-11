@@ -24,7 +24,8 @@ module Docs
         'collections/btree/node/enum.traversalitem',
         'collections/btree/node/struct.elemsandedges',
         'collections/btree/node/trait.traversalimpl',
-        'collections/btree/map/trait.traverse'
+        'collections/btree/map/trait.traverse',
+        'collections/primitive.i32'
       ]
       REPLACED_LINKS = {
         'collections/binary_heap/struct.binaryheap/struct.binaryheap' => 'collections/binary_heap/struct.binaryheap',

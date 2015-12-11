@@ -1,6 +1,10 @@
 module Docs
   class Node
     class CleanHtmlFilter < Docs::ReflyFilter
+      BROKEN_LINKS = [
+        'cluster',
+        'globals'
+      ]
       REPLACED_ANCHOR = {
         '#http_response_end_data_encoding'    => '#http_response_end_data_encoding_callback',
         '#http_response_write_chunk_encoding' => '#http_response_write_chunk_encoding_callback',
@@ -25,6 +29,9 @@ module Docs
         css('a').each do |node|
           if REPLACED_ANCHOR.has_key? node['href']
               node['href'] = REPLACED_ANCHOR[node['href']]
+          elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
+            node['class'] = 'broken'
+          end
           end
         end
         WrapPreContentWithCode 'hljs javascript'
