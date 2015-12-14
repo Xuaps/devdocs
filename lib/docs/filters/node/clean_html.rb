@@ -32,7 +32,6 @@ module Docs
           elsif BROKEN_LINKS.include? node['href'].downcase.remove! '../'
             node['class'] = 'broken'
           end
-          end
         end
         WrapPreContentWithCode 'hljs javascript'
         WrapContentWithDivs '_page _node'
