@@ -2,7 +2,9 @@ module Docs
   class React
     class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
-        'nativemodulesandroid.md'
+        'nativemodulesandroid.md',
+        'upgrading',
+        'linux-windows-support'
       ]
       REPLACED_LINKS = {
         'react/docs/advanced-performance' => 'advanced-performance',
