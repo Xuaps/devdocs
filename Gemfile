@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.2.0'
 
+gem 'rake'
 gem 'thor'
 gem 'pry', '~> 0.10.0'
 gem 'activesupport', '~> 4.0', require: false
@@ -29,12 +30,10 @@ end
 
 group :docs do
   gem 'typhoeus'
-  gem 'nokogiri', '~> 1.6.0'
+  gem 'nokogiri', '1.6.7.rc3'
   gem 'html-pipeline'
   gem 'progress_bar', require: false
   gem 'unix_utils', require: false
-  gem 'capybara'
-  gem 'selenium-webdriver'
 end
 
 group :test do
