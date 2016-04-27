@@ -89,8 +89,8 @@ module Docs
 
       def get_parent_uri
         parent_uri = context[:docset_uri]
-        xpath('//nav[@class="crumbs"]//a/text()').each do |node|
-           link = node.content.strip
+        css('.crumb a').each do |node|
+          link = node.content
            if not EXCLUDED_PATH.include? link
               parent_uri += '/' + self.urilized(link)
            end
@@ -100,6 +100,7 @@ module Docs
         end
         parent_uri
       end
+
       def get_type
         if slug.include? 'selectors'
           'selector'

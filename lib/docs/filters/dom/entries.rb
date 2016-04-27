@@ -8,7 +8,7 @@ module Docs
         MediaRecorder\ API.
         Tutorial.
         XMLHttpRequest.)
-      EXCLUDED_PATH = ['MDN','Web technology for developers', 'Web API Interfaces']
+      EXCLUDED_PATH = ['MDN','Web technology for developers', 'Web API Interfaces', 'Web APIs']
       def get_name
         if css('h1')
             name = css('h1').first.content
@@ -34,8 +34,8 @@ module Docs
 
       def get_parent_uri
         parent_uri = context[:docset_uri]
-        xpath('//nav[@class="crumbs"]//a/text()').each do |node|
-           link = node.content.strip
+        css('.crumb a').each do |node|
+          link = node.content
            if not EXCLUDED_PATH.include? link
               parent_uri += '/' + self.urilized(link)
            end
