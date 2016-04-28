@@ -5,8 +5,13 @@ module Docs
           'en-us/docs/web/guide/prefixes',
           'counter',
           'en-us/docs/css/inheritance',
-          '@page/size'
+          '@page/size',
+          'transform-origin'
       ]
+      REPLACED_LINKS = {
+        '%40charset' => '@charset',
+        '%40import' => '@import'
+      }
 
       def call
         root_page? ? root : other
@@ -29,6 +34,8 @@ module Docs
             if node['class'] == 'new'
               node['class'] = 'broken'
               node['title'] = ''
+            elsif REPLACED_LINKS[node['href'].downcase.remove! '../']
+              node['href'] = REPLACED_LINKS[node['href'].remove '../']
             elsif BROKEN_LINKS.include?node['href'].downcase.remove! '../'
               node['class'] = 'broken'
             else

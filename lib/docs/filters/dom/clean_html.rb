@@ -19,7 +19,16 @@ module Docs
           'video.blendertestbuilds.de/download.blender.org/peach/trailer_1080p.mov',
           'serviceworker_api/en-us/docs/web/api/serviceworkercontainer',
           'service_worker_api/en-us/docs/web/api/serviceworkercontainer',
-          'touch_events/web/api/touch_events'
+          'touch_events/web/api/touch_events',
+          'geolocation/navigator.requestwakelock()',
+          'navigator/removeidleobserver',
+          'audiochannels_api/using_the_audiochannels_api',
+          'term_hit_test',
+          'wake_lock_api',
+          'wake_lock_api/keeping_the_geolocation_on_when_the_application_is_invisible',
+          'browser_api',
+          'permissions_api_(firefox_os)',
+          'simple_push_api'
       ]
       REPLACED_LINKS = {
         'eventhandler' => 'https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Event_handlers',
@@ -36,6 +45,7 @@ module Docs
         'en/dom/range.compareboundarypoints' => 'range/compareboundarypoints',
         'en/dom/window.screen.top' => 'screen/top',
         'en/dom/window.top' => 'window/top',
+        'nfc_api' => 'htmliframeelement',
         'en/dom/document.getelementsbytagname' => 'element/getelementsbytagname'
       }
       def call

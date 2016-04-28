@@ -39,7 +39,6 @@ module Docs
       /Node.nodePrincipal
       /Notation
       /PowerManager
-      /PushManager
       /ProcessingInstruction
       /TCPServerSocket
       /TCPSocket

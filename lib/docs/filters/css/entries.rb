@@ -35,42 +35,15 @@ module Docs
           %w(rgb() rgb() function /css/-lcolor-r/rgb() /css/-lcolor-r CSS),
           %w(hsl() hsl() function /css/-lcolor-r/hsl() /css/-lcolor-r CSS),
           %w(rgba() rgba() function /css/-lcolor-r/rgba() /css/-lcolor-r CSS),
-          %w(hsla() hsla() function /css/-lcolor-r/hsla() /css/-lcolor-r CSS) ],
-        'transform-function' => [
-          %w(matrix() matrix() function /css/transform-function/matrix() /css/transform-function CSS),
-          %w(matrix3d() matrix3d() function /css/transform-function/matrix3d() /css/transform-function CSS),
-          %w(rotate() rotate() function /css/transform-function/rotate() /css/transform-function CSS),
-          %w(rotate3d() rotate3d() function /css/transform-function/rotate3d() /css/transform-function CSS),
-          %w(rotateX() rotateX() function /css/transform-function/rotateX() /css/transform-function CSS),
-          %w(rotateY() rotateY() function /css/transform-function/rotateY() /css/transform-function CSS),
-          %w(rotateZ() rotateZ() function /css/transform-function/rotateZ() /css/transform-function CSS),
-          %w(scale() scale() function /css/transform-function/scale() /css/transform-function CSS),
-          %w(scale3d() scale3d() function /css/transform-function/scale3d() /css/transform-function CSS),
-          %w(scaleX() scaleX() function /css/transform-function/scaleX() /css/transform-function CSS),
-          %w(scaleY() scaleY() function /css/transform-function/scaleY() /css/transform-function CSS),
-          %w(scaleZ() scaleZ() function /css/transform-function/scaleZ() /css/transform-function CSS),
-          %w(skew() skew() function /css/transform-function/skew /css/transform-function CSS),
-          %w(skewX() skewX() function /css/transform-function/skewX() /css/transform-function CSS),
-          %w(skewY() skewY() function /css/transform-function/skewY() /css/transform-function CSS),
-          %w(translate() translate() function /css/transform-function/translate() /css/transform-function CSS),
-          %w(translate3d() translate3d() function /css/transform-function/translate3d() /css/transform-function CSS),
-          %w(translateX() translateX() function /css/transform-function/translateX() /css/transform-function CSS),
-          %w(translateY() translateY() function /css/transform-function/translateY() /css/transform-function CSS),
-          %w(translateZ() translateZ() function /css/transform-function/translateZ() /css/transform-function CSS) ]}
+          %w(hsla() hsla() function /css/-lcolor-r/hsla() /css/-lcolor-r CSS)]}
       EXCLUDED_PATH = ['MDN','Web technology for developers', 'CSS']
       def get_name
-        case type
-        when 'type' then "<#{super.remove ' value'}>"
-        when 'function'  then "#{super}()"
+        if css('h1')
+            name = css('h1').first.content
         else
-          if slug == 'Reference'
-            'CSS Reference'
-          elsif slug == ''
-            'Index'
-          else
-            super
-          end
+            name = 'Index'
         end
+        name
       end
 
        def get_docset

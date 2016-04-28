@@ -12,6 +12,7 @@ module Docs
     options[:skip] = %w(
       /Syntax
       /At-rule
+      /auto
       /Comments
       /Specificity
       /inheritance
