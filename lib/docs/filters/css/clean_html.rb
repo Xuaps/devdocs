@@ -6,7 +6,7 @@ module Docs
           'counter',
           'en-us/docs/css/inheritance',
           '@page/size',
-          'transform-origin'
+          'transform-function/transform-origin'
       ]
       REPLACED_LINKS = {
         '%40charset' => '@charset',
@@ -57,6 +57,8 @@ module Docs
               end
               if node['href'] == 'index'
                 node['href'] = 'reference'
+              elsif REPLACED_LINKS[node['href'].downcase.remove! '../']
+                node['href'] = REPLACED_LINKS[node['href'].remove '../']
               end
             end
           end
