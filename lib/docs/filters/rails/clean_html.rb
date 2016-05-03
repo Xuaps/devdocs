@@ -2,7 +2,8 @@ module Docs
   class Rails
     class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = [
-        'rdoc-ref:httphelpers'
+        'rdoc-ref:httphelpers',
+        'erb_'
       ]
       REPLACED_LINKS = {
       }

@@ -6,7 +6,7 @@ module Docs
           'counter',
           'en-us/docs/css/inheritance',
           '@page/size',
-          'transform-function/transform-origin'
+          'transform-origin'
       ]
       REPLACED_LINKS = {
         '%40charset' => '@charset',
