@@ -65,20 +65,23 @@ module Docs
 
           if node['id'] == 'utilities-invalid' # bug fix
             name = 'moment.invalid()'
+          elsif node['id'] == 'customization-now'
+            name = 'moment.now'
           elsif %w(Display Durations Get\ +\ Set i18n Manipulate Query Utilities).include?(type) ||
-                %w(parsing-is-valid parsing-parse-zone parsing-unix-timestamp parsing-utc customization-relative-time-threshold).include?(node['id'])
+                %w(parsing-is-valid parsing-parse-zone parsing-unix-timestamp parsing-utc parsing-creation-data customization-relative-time-threshold).include?(node['id'])
             name = node.next_element.content[/moment(?:\(.*?\))?\.(?:duration\(\)\.)?\w+/]
-            name.sub! %r{\(.*?\)\.}, '.'
+            name.sub! %r{\(.*?\)\.}, '#'
             name << '()'
           elsif type == 'Customize'
             name = node.next_element.content[/moment.locale\(.+?\{\s+(\w+)/, 1]
-            name.prepend 'Locale.'
+            name.prepend 'Locale#'
           else
             name = node.content.strip
             name.remove! %r{\s[\d\.]+[\s\+]*\z} # remove version number
             name.remove! %r{\s\(.+\)\z}  # remove parenthesis
             name.prepend 'Parse: ' if type == 'Parse'
           end
+
           custom_parsed_uri = get_parsed_uri_by_name(name)
           entries << [name, node['id'], REPLACE_TYPES[type], custom_parsed_uri, get_parent_uri, get_docset]
         end

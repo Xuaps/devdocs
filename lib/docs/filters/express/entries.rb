@@ -2,7 +2,8 @@ module Docs
   class Express
     class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
-        name = css('h2').first.content.strip
+        name = css('h1').first.content
+        # puts name
         name
       end
       def get_docset
@@ -38,10 +39,12 @@ module Docs
       end
       
       def get_type
-        'others'
+        'guide'
       end
 
       def get_type_by_name(name, id)
+      	# name = 'uu'
+      	# id = 'oo'
         if name.include? 'req.' or name.include? 'Request' or id.include? 'req.'
             'request'
         elsif name.include? 'app.' or name.include? 'Application' or id.include? 'app.'

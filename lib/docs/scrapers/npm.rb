@@ -4,7 +4,10 @@ module Docs
     self.type = 'npm'
     self.version = '2.13.0'
     self.base_url = 'https://docs.npmjs.com/'
-
+    self.links = {
+      home: 'https://www.npmjs.com/',
+      code: 'https://github.com/npm/npm'
+    }
     html_filters.push 'npm/entries', 'npm/clean_html', 'title'
 
     options[:container] = ->(filter) { filter.root_page? ? '.toc' : nil }
@@ -12,15 +15,11 @@ module Docs
     options[:domain] = 'http://www.refly.xyz'
     options[:root_title] = 'npm'
     options[:docset_uri] = '/npm'
-    options[:skip] = %w(
-      all
-      misc/index
-    )
+    options[:skip] = %w(all misc/index)
     options[:skip_patterns] = [
       /\Aenterprise/,
       /\Acompany/,
-      /\Apolicies/,
-      /\Aundefined/
+      /\Apolicies/
     ]
 
     options[:attribution] = <<-HTML

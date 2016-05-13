@@ -10,6 +10,7 @@ module Docs
       REPLACED_LINKS = {
       }
       def call
+        puts doc
         if root_page?
           css('#enterprise', '#policies', '#viewAll').remove
         else
