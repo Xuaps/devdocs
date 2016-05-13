@@ -6,10 +6,41 @@ module Docs
     class << self
       include Instrumentable
 
-      attr_accessor :name, :slug, :type, :version, :abstract, :links
+      attr_accessor :name, :slug, :type, :release, :abstract, :links
 
       def inherited(subclass)
         subclass.type = type
+      end
+
+      def version(version = nil, &block)
+        return @version unless block_given?
+
+        klass = Class.new(self)
+        klass.name = name
+        klass.slug = slug
+        klass.version = version
+        klass.release = release
+        klass.links = links
+        klass.class_exec(&block)
+        @versions ||= []
+        @versions << klass
+        klass
+      end
+
+      def version=(value)
+        @version = value.to_s
+      end
+
+      def versions
+        @versions.presence || [self]
+      end
+
+      def version?
+        version.present?
+      end
+
+      def versioned?
+        @versions.presence
       end
 
       def name
@@ -17,7 +48,16 @@ module Docs
       end
 
       def slug
-        @slug || name.try(:downcase)
+        slug = @slug || name.try(:downcase)
+        version? ? "#{slug}~#{version_slug}" : slug
+      end
+
+      def version_slug
+        slug = version.downcase
+        slug.gsub! '+', 'p'
+        slug.gsub! '#', 's'
+        slug.gsub! %r{[^a-z0-9\_\.]}, '_'
+        slug
       end
 
       def path
@@ -33,13 +73,11 @@ module Docs
       end
 
       def as_json
-        { name: name,
-          slug: slug,
-          type: type,
-          version: version,
-          index_path: index_path,
-          db_path: db_path,
-          links: links }
+        json = { name: name, slug: slug, type: type }
+        json[:links] = links if links.present?
+        json[:version] = version if version.present? || defined?(@version)
+        json[:release] = release if release.present?
+        json
       end
 
       def store_page(store, id)

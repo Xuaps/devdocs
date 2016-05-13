@@ -4,7 +4,7 @@ module Docs
 
     DEFAULT_OPTIONS = {
       followlocation: true,
-      headers: { 'User-Agent' => 'refly.xyz' }
+      headers: { 'User-Agent' => 'devdocs.io' }
     }
 
     def self.run(*args, &block)

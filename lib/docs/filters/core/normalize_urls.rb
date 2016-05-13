@@ -18,6 +18,9 @@ module Docs
     end
 
     def normalize_url(str)
+      str.strip!
+      str.gsub!(' ', '%20')
+      str = context[:fix_urls_before_parse].call(str) if context[:fix_urls_before_parse]
       url = to_absolute_url(str)
 
       while new_url = fix_url(url)
