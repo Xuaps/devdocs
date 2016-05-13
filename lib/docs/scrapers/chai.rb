@@ -5,13 +5,11 @@ module Docs
     self.version = '2.3.0'
     self.base_url = 'http://chaijs.com'
     self.root_path = '/api/'
-    self.initial_paths = %w(
-      /guide/installation/
-      /guide/helpers/
-      /guide/plugins
-      /api/bdd/
-    )
-
+    self.initial_paths = %w(/guide/installation/)
+    self.links = {
+      home: 'http://chaijs.com/',
+      code: 'https://github.com/chaijs/chai'
+    }
     html_filters.push 'chai/entries', 'chai/clean_html'
 
     options[:domain] = 'http://www.refly.xyz'

@@ -1,6 +1,5 @@
 module Docs
   class Meteor < UrlScraper
-    include StubRootPage
 
     self.type = 'meteor'
     self.version = '1.1.0'
