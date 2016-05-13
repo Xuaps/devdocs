@@ -1,13 +1,15 @@
 source 'https://rubygems.org'
-ruby '2.2.0'
+ruby '2.3.0'
 
 gem 'rake'
 gem 'thor'
 gem 'pry', '~> 0.10.0'
-gem 'activesupport', '~> 4.0', require: false
+gem 'activesupport', '~> 4.2', require: false
 gem 'yajl-ruby', require: false
 
 group :app do
+  gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'rack'
   gem 'sinatra'
   gem 'sinatra-contrib'
@@ -30,10 +32,11 @@ end
 
 group :docs do
   gem 'typhoeus'
-  gem 'nokogiri', '1.6.7.rc3'
+  gem 'nokogiri'
   gem 'html-pipeline'
   gem 'progress_bar', require: false
   gem 'unix_utils', require: false
+  gem 'tty-pager', require: false
 end
 
 group :test do
