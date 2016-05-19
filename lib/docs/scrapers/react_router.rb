@@ -3,8 +3,8 @@ module Docs
     self.name = 'React_Router'
     self.type = 'React_Router'
     self.version = '1.0.0-rc1'
-    self.base_url = 'https://github.com/rackt/react-router/blob/master/'
-    self.root_path = 'docs/README.md'
+    self.base_url = 'https://github.com/rackt/react-router/blob/master/docs/'
+    self.root_path = 'README.md'
 
     html_filters.push 'react_router/entries', 'react_router/clean_html'
 
