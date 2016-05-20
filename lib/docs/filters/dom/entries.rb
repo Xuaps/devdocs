@@ -27,7 +27,7 @@ module Docs
         if get_parent_uri == 'null'
             parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         else
-            parsed_uri = get_parent_uri + '/' + self.urilized(get_name.tr('(','_').tr(')','_'))
+            parsed_uri = get_parent_uri + '/' + self.urilized(get_name)
         end
         parsed_uri
       end
