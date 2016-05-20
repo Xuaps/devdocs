@@ -18,7 +18,6 @@ module Docs
 
     # Don't want
     options[:skip] = %w(
-      /Touch/Touch
       /App
       /CallEvent
       /CanvasPixelArray
