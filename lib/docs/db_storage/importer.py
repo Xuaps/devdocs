@@ -21,6 +21,7 @@ class DocImporter():
     additional = False
     docset = ''
     filename = ''
+    version = ''
     docset_name = ''
     docset_parsed_name = ''
     index_path = ''
@@ -61,7 +62,8 @@ class DocImporter():
                         self.docset_parsed_name = self.config.get(sect, 'parsed_name', 0)
                         self.default_uri = self.config.get(sect, 'default_uri', 0)
                         self.additional =  self.config.get(sect, 'additional', 0)
-                        self.index_path = self.content_path + sect +  '/index.json'
+                        self.version =  self.config.get(sect, 'version', 0)
+                        self.index_path = self.content_path + sect + '~' + self.version + '/index.json'
                         print "\rImporting " + sect + "..."
                         self.importToDB()
                     except:
@@ -182,7 +184,7 @@ class DocImporter():
     def getFileName(self, content_path, docset, path):
         if not path.endswith('.html'):
             path += '.html'
-        filename = content_path + docset + '/' + path
+        filename = content_path + docset + '~' + self.version + '/' + path
         return filename
 
     def getContent(self, filename):
