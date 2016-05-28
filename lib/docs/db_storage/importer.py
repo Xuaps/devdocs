@@ -63,7 +63,10 @@ class DocImporter():
                         self.default_uri = self.config.get(sect, 'default_uri', 0)
                         self.additional =  self.config.get(sect, 'additional', 0)
                         self.version =  self.config.get(sect, 'version', 0)
-                        self.index_path = self.content_path + sect + '~' + self.version + '/index.json'
+                        if self.version != '':
+                          self.index_path = self.content_path + sect + '~' + self.version + '/index.json'
+                        else:
+                          self.index_path = self.content_path + sect + '/index.json'
                         print "\rImporting " + sect + "..."
                         self.importToDB()
                     except:
@@ -184,7 +187,10 @@ class DocImporter():
     def getFileName(self, content_path, docset, path):
         if not path.endswith('.html'):
             path += '.html'
-        filename = content_path + docset + '~' + self.version + '/' + path
+        if self.version != '':
+            filename = content_path + docset + '~' + self.version + '/' + path
+        else:
+        	filename = content_path + docset + '/' + path
         return filename
 
     def getContent(self, filename):
