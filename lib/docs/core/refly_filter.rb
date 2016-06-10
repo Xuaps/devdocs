@@ -6,7 +6,7 @@ module Docs
     end
 
     def CleanWrongCharacters(href)
-        href.gsub('%23', '#').gsub('%40', '@').gsub('%28', '(').gsub('%29', ')').gsub('%21', '!').gsub('%7b', '{').gsub('%7e', '~').gsub('%2a', '*').gsub('%2b', '+').gsub('%3d', '=').gsub('%3A', ':').gsub('%24', '$')
+        href.gsub('%23', '#').gsub('%40', '@').gsub('%28', '(').gsub('%29', ')').gsub('%21', '!').gsub('%7b', '{').gsub('%7e', '~').gsub('%2a', '*').gsub('%2b', '+').gsub('%3d', '=').gsub('%3A', ':').gsub('%24', '$').gsub('%20', '_')
     end
 
     def remove_html_tags(content)
