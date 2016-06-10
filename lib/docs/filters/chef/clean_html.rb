@@ -2,7 +2,10 @@ module Docs
   class Chef
     class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = ['_images/splunk_app_nodes_activity.png',
-                      '_images/splunk_app_server_activity.png'
+                      '_images/splunk_app_server_activity.png',
+                      '_images/compliance_report.png',
+                      'release/devkit_1-0/provisioning_vagrant',
+                      'release/devkit_1-0/provisioning_fog'
       ]
       REPLACED_LINKS = {}
       def call
