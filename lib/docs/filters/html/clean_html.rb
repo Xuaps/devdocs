@@ -13,7 +13,10 @@ module Docs
       REPLACED_LINKS = {
         'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/element/en-US/docs/Web/API/HTMLTableHeaderCellElement' => '',
         'en-us/docs/web/api/htmltableheadercellelement' => 'https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableHeaderCellElement',
-        'strict_mode' => 'strict_mode'
+        'strict_mode' => 'strict_mode',
+        'www.schema.org' => 'http://www.schema.org',
+        'element/webkit-meter-optimum-value' => 'https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-meter-optimum-value',
+        'element/webkit-meter-even-less-good-value' => 'https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-meter-even-less-good-value',
       }
 
       def call
