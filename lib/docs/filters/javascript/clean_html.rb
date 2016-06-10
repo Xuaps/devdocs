@@ -4,7 +4,8 @@ module Docs
       
       BROKEN_LINKS = [
           'en-us/docs/web/guide/prefixes',
-          'global_objects/simd/clamp'
+          'global_objects/simd/clamp',
+          'webkit_nightly'
       ]
       REPLACED_LINKS = {
           'functions/strict_mode' => 'strict_mode',
