@@ -3,29 +3,29 @@ module Docs
     class CleanHtmlFilter < Docs::ReflyFilter
 
       BROKEN_LINKS = [
-        'collections/vec/struct.partialveczerosized',
-        'collections/vec/struct.partialvecnonzerosized',
-        'collections/binary_heap/struct.hole',
-        'collections/btree/map/stack/struct.idref',
-        'collections/linked_list/struct.rawlink',
-        'collections/bit/struct.blockiter',
-        'collections/btree/node/struct.node',
-        'collections/btree/node/struct.handle',
-        'collections/btree/node/struct.abstraversal',
-        'collections/str/enum.decompositiontype',
-        'collections/str/enum.recompositionstate',
-        'collections/slice/enum.direction',
-        'collections/linked_list/struct.node',
-        'collections/btree/node/struct.movetraversalimpl',
-        'collections/btree/node/struct.rawitems',
-        'collections/slice/struct.sizedirection',
-        'collections/bit/struct.twobitpositions',
-        'collections/btree/map/struct.absiter',
-        'collections/btree/node/enum.traversalitem',
-        'collections/btree/node/struct.elemsandedges',
-        'collections/btree/node/trait.traversalimpl',
-        'collections/btree/map/trait.traverse',
-        'collections/primitive.i32'
+        # 'collections/vec/struct.partialveczerosized',
+        # 'collections/vec/struct.partialvecnonzerosized',
+        # 'collections/binary_heap/struct.hole',
+        # 'collections/btree/map/stack/struct.idref',
+        # 'collections/linked_list/struct.rawlink',
+        # 'collections/bit/struct.blockiter',
+        # 'collections/btree/node/struct.node',
+        # 'collections/btree/node/struct.handle',
+        # 'collections/btree/node/struct.abstraversal',
+        # 'collections/str/enum.decompositiontype',
+        # 'collections/str/enum.recompositionstate',
+        # 'collections/slice/enum.direction',
+        # 'collections/linked_list/struct.node',
+        # 'collections/btree/node/struct.movetraversalimpl',
+        # 'collections/btree/node/struct.rawitems',
+        # 'collections/slice/struct.sizedirection',
+        # 'collections/bit/struct.twobitpositions',
+        # 'collections/btree/map/struct.absiter',
+        # 'collections/btree/node/enum.traversalitem',
+        # 'collections/btree/node/struct.elemsandedges',
+        # 'collections/btree/node/trait.traversalimpl',
+        # 'collections/btree/map/trait.traverse',
+        # 'collections/primitive.i32'
       ]
       REPLACED_LINKS = {
         'collections/binary_heap/struct.binaryheap/struct.binaryheap' => 'collections/binary_heap/struct.binaryheap',
@@ -33,7 +33,17 @@ module Docs
         'macro.try!' => 'std/macro.try!',
         'std/std/macro.write!' => 'std/macro.write!',
         'std/std/fs/struct.file' => 'std/fs/struct.file',
-        'std/std/macro.format_args!' => 'std/macro.format_args!'
+        'std/std/macro.format_args!' => 'std/macro.format_args!',
+        'std/string/primitive.char' => 'std/primitive.char',
+        'std/string/primitive.u8' => 'std/primitive.u8',
+        'std/string/iter/trait.doubleendediterator' => 'std/iter/trait.doubleendediterator',
+        'std/string/string/struct.string' => 'std/string/struct.string',
+        'std/string/str/trait.fromstr' => 'std/str/trait.fromstr',
+        'std/std/cell/struct.refcell' => 'std/cell/struct.refcell',
+        'std/std/cell/struct.cell' => 'std/cell/struct.cell',
+        'std/std/cmp/trait.ord' => 'std/cmp/trait.ord',
+        'collections/btree_set/struct.btreemap' => 'std/collections/struct.btreemap',
+        'std/collections/btree_set/struct.btreemap' => 'std/collections/struct.btreemap'
       }
       def call
 
