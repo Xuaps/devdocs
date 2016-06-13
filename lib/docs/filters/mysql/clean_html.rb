@@ -3,7 +3,8 @@ module Docs
     class CleanHtmlFilter < Docs::ReflyFilter
       BROKEN_LINKS = []
       REPLACED_LINKS = {
-        'http:://bugs.mysql.com/bug.php?id=24733' => 'http://bugs.mysql.com/bug.php?id=24733'
+        'http:://bugs.mysql.com/bug.php?id=24733' => 'http://bugs.mysql.com/bug.php?id=24733',
+        'launchpad.net' => 'http://www.launchpad.net'
       }
       def call
         fixLinks
