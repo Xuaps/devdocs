@@ -4,7 +4,8 @@ module Docs
       BROKEN_LINKS = [
         'nativemodulesandroid.md',
         'upgrading',
-        'linux-windows-support'
+        'linux-windows-support',
+        'javascript:void(0);'
       ]
       REPLACED_LINKS = {
         'react/docs/advanced-performance' => 'advanced-performance',
