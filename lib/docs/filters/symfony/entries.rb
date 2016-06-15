@@ -1,11 +1,11 @@
 module Docs
   class Symfony
     class EntriesFilter < Docs::ReflyEntriesFilter
+      EXCLUDED_PATH = ['Symfony']
       def get_name
-        name = at_css('h1').content.strip
-        name.remove! 'Symfony\\'
-        name = name.split("\\").last
-        name
+        name = at_css('h1').content
+        name = name.split("\\").last.gsub('deprecated', '')
+        name.strip
       end
 
       def get_docset
@@ -28,21 +28,26 @@ module Docs
       end
 
       def get_parent_uri
-        parent = at_css('h1').content.strip.downcase
-        parent.remove! 'symfony\\'
-        parent_list = parent.split("\\")
-        parent_list.pop
-        if parent_list.size>0
-          parent_uri = context[:docset_uri] + '/' + parent_list.join('/')
-        else
-          parent_uri = 'null'
+        parent_uri = context[:docset_uri]
+        xpathnodes = xpath('//ol/li/a')
+        if get_type == 'namespace'
+          xpathnodes.pop
+        end
+        xpathnodes.each do |node|
+           link = node.content
+           if not EXCLUDED_PATH.include? link
+              parent_uri += '/' + self.urilized(link)
+           end
+        end
+        if parent_uri == context[:docset_uri]
+            parent_uri = 'null'
         end
         parent_uri
       end
 
       def get_type
-        if css('.type')
-          type = css('.type').first.content.strip.downcase
+        if css('.label-default').to_s!= ''
+          type = css('.label-default').first.content.strip.downcase
           type = 'others' if type == 'trait'
         else
           type = 'others'

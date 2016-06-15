@@ -3,7 +3,10 @@ module Docs
     class CleanHtmlFilter < Docs::ReflyFilter
 
       BROKEN_LINKS = []
-      REPLACED_LINKS = {}
+      REPLACED_LINKS = {
+        'classes' => 'symfony/component/browserkit',
+        'index' => 'symfony/component/finder/adapter/abstractadapter'
+      }
       def call
         css('.location', '#footer').remove
 
