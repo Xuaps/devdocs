@@ -3,7 +3,7 @@ module Docs
     class EntriesFilter < Docs::ReflyEntriesFilter
       HTML5 = %w(content element video)
       OBSOLETE = %w(frame frameset hgroup noframes)
-      EXCLUDED_PATH = ['MDN','Web technology for developers', 'HTML (HyperText Markup Language)']
+      EXCLUDED_PATH = ['MDN','Web technology for developers', 'HTML']
 
       def get_name
         name = css('h1').first.content
