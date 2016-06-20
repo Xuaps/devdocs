@@ -70,8 +70,14 @@ module Docs
       end
 
       def get_type
-        REPLACE_TYPES[at_css('.sidebar-nav li.current').content] || 'others'
+        type = at_css('.docs-sidenav > li.active > a').content
+        node = at_css('.docs-sidenav > li.active > ul > li.active > a + ul')
+        type << ": #{node.previous_element.content}" if node
+        type
       end
+      # def get_type
+      #   REPLACE_TYPES[at_css('.sidebar-nav li.current').content] || 'others'
+      # end
 
       def additional_entries
         case at_css('h1 + p > strong > code').try(:content)
