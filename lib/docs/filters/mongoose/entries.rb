@@ -2,11 +2,12 @@ module Docs
   class Mongoose
     class EntriesFilter < Docs::ReflyEntriesFilter
       def get_name
-        if slug == 'api'
-          'Index'
+        if slug == 'index'
+          name = 'Getting Started'
         else
-          at_css('h1').content
+          name = at_css('h1').content
         end
+        name
       end
 
       def get_docset
@@ -24,18 +25,14 @@ module Docs
       end
 
       def get_parsed_uri
-        parsed_uri = context[:docset_uri] + '/' + path
+        parsed_uri = context[:docset_uri] + '/' + self.urilized(get_name)
         parsed_uri
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+        parent_uri = 'null'
       end
+
       def get_type
         if slug == 'api'
           'language'
@@ -74,7 +71,7 @@ module Docs
           name = name.tr('#','.')
           type = name.split(/[#\.\(]/).first
           custom_parsed_uri = get_parsed_uri_by_name(name)
-          entries << [name, node['id'], get_type_name(name), custom_parsed_uri, get_parent_uri, get_docset]
+          entries << [name, node['id'], get_type_name(name), custom_parsed_uri, get_parsed_uri, get_docset]
         end
 
         entries
