@@ -5,6 +5,7 @@ module Docs
         'User Guide' => 'guide',
         'Development' => 'guide'
       }
+      EXCLUDED_PATH = ['opentsdb_2.2_documentation']
       def get_name
         at_css('.section > h1').content
       end
@@ -27,7 +28,7 @@ module Docs
           parent_uri = context[:docset_uri]
           if breadcrumbs.length >= 2
             breadcrumbs.each do |node|
-                if self.urilized(node)!= 'opentsdb_2.1_documentation'
+                if not EXCLUDED_PATH.include? self.urilized(node)
                   parent_uri += '/' + self.urilized(node)
                 end
             end
