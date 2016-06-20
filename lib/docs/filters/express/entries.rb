@@ -12,11 +12,7 @@ module Docs
       end
 
       def get_parsed_uri_by_name(name)
-        if get_parent_uri == 'null'
-            parsed_uri = context[:docset_uri] + '/' + self.urilized(name)
-        else
-            parsed_uri = get_parent_uri + '/' + self.urilized(name)
-        end
+        parsed_uri = get_parsed_uri + '/' + self.urilized(name)
         parsed_uri
       end
 
@@ -30,12 +26,7 @@ module Docs
       end
 
       def get_parent_uri
-        subpath = *path.split('/')
-        if subpath.length > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+        'null'
       end
       
       def get_type
@@ -65,20 +56,20 @@ module Docs
             name = node.content
             type = name
             custom_parsed_uri = get_parsed_uri_by_name(name)
-            entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset] if type == 'Middleware'
+            entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parsed_uri, get_docset] if type == 'Middleware'
             next
           elsif node.name == 'h4'
             name = node.content
             type = name
             custom_parsed_uri = get_parsed_uri_by_name(name)
-            entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset]
+            entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parsed_uri, get_docset]
             next
           elsif node.name == 'h3'
             next if type == 'Middleware'
             name = node.content.strip
             name.sub! %r{\(.+\)}, '()'
             custom_parsed_uri = get_parsed_uri_by_name(name)
-            entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parent_uri, get_docset]
+            entries << [name, node['id'], get_type_by_name(name, node['id']), custom_parsed_uri, get_parsed_uri, get_docset]
           end
         end
         entries

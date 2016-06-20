@@ -6,7 +6,7 @@ module Docs
         'license.md',
         'guide-tool-debugger',
         'guide-widget-jui',
-        'guide-widget-bootstrap'
+        'guide-widget-bootstrap',
       ]
       REPLACED_LINKS = {
           'php.net/manual/en/book.pdo.php' => '/php/database_extensions/abstraction_layers/pdo'
