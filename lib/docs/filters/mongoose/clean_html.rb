@@ -31,7 +31,6 @@ module Docs
             if node['href'] == 'index'
                 node.name = 'span'
             end
-            puts node['href']
             node['href'] = CleanWrongCharacters(node['href']).downcase.remove '_(event)'
             if REPLACED_LINKS[node['href'].downcase.remove! '../']
                 node['href'] = REPLACED_LINKS[node['href'].remove '../']          
