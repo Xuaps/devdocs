@@ -33,12 +33,7 @@ module Docs
       end
 
       def get_parent_uri
-        subpath = *path.sub('/index', '').sub('go/', '').split('/')
-        if subpath.size > 1
-            parent_uri = (context[:docset_uri]+ '/' + subpath[0,subpath.size-1].join('/')).downcase
-        else
-            parent_uri = 'null'
-        end
+        parent_uri = 'null'
         parent_uri
       end
 
