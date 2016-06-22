@@ -45,7 +45,7 @@ module Docs
         'en/dom/range.compareboundarypoints' => 'range/compareboundarypoints',
         'en/dom/window.screen.top' => 'screen/top',
         'en/dom/window.top' => 'window/top',
-        'en-us/docs/web/api/node' => 'node'
+        'en-us/docs/web/api/node' => 'node',
         'nfc_api' => 'htmliframeelement',
         'en/dom/document.getelementsbytagname' => 'element/getelementsbytagname'
       }
